@@ -1,8 +1,35 @@
+import React from "react";
+import { Outlet } from "react-router";
+import { Logo } from "../../components";
+import { Link, useLocation } from "react-router-dom";
+
 const AuthPage = () => {
+  const location = useLocation();
+
   return (
-    <>
-      <p>Auth view</p>
-    </>
+    <section class="access log-component">
+      <div className="container">
+        <div className="brand">
+          <Logo theme={"shadow"} />
+        </div>
+        <div className="forms">
+          <div className="nav">
+            <span
+              className={location.pathname === "/auth/signin" ? "active" : ""}
+            >
+              <Link to="/auth/signin">access</Link>
+            </span>
+            <span
+              className={location.pathname === "/auth/signup" ? "active" : ""}
+            >
+              <Link to="/auth/signup">new user</Link>
+            </span>
+          </div>
+
+          <Outlet />
+        </div>
+      </div>
+    </section>
   );
 };
 

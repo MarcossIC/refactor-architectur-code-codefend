@@ -2,8 +2,9 @@
   "name": "codefend-panel",
   "version": "0.0.1",
   "description": "Security Platform Panel",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

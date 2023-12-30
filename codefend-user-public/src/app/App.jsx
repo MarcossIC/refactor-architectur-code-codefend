@@ -1,6 +1,6 @@
 import React from "react";
 import { invoke } from "@tauri-apps/api/tauri";
-import "./app.css";
+import "./app.scss";
 import { Suspense, Routes, Route } from "react-router-dom";
 import { AuthPage } from "./views/pages";
 import { Loader } from "./views/components";

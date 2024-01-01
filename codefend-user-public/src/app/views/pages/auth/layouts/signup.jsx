@@ -67,7 +67,7 @@ const SignUpLayout = () => {
   };
 
   return (
-    <form>
+    <form onClick={handleSubmit}>
       <div className="mt-2">
         <input
           type="text"

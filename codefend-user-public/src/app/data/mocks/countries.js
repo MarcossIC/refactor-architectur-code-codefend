@@ -3942,7 +3942,6 @@ const mapCountry = (country) => ({
 
 /**
  * Se agrega todos los paises en topCountriesOnListSet
- *
  * Se agregan los paises de la lista principal que no esten en topCountriesOnListSet
  */
 const countriesToUse = [

@@ -1,7 +1,11 @@
 import React from "react";
 
 const ModalWrapper = ({ isErrorBox, children }) => {
-  const { setShowModal } = createModal;
+  const {
+    setShowModal,
+  } = (val) => {
+    console.log(val);
+  };
 
   return (
     <div

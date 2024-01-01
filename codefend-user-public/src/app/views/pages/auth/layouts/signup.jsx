@@ -3,13 +3,20 @@ import { Link } from "react-router-dom";
 import { countries, companySizesList } from "../../../../data/";
 import "../../../shared/inputs.scss";
 
+import { useDispatch } from "react-redux";
+import { ButtonLoader } from "../../../components/standalones/ButtonLoader";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const SignUpLayout = () => {
+  const dispatch = useDispatch();
+
   const [signupForm, setSignupForm] = useState({
     name: "",
     surname: "",
     email: "",
     phone: "",
-    referenceNumber: "",
 
     companyName: "",
     companySize: "",
@@ -18,8 +25,46 @@ const SignUpLayout = () => {
     companyCountry: "",
 
     isLoading: false,
-    isCompleteSignUp: false,
   });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSignupForm((current) => ({ ...current, isLoading: true }));
+
+    const requestParams = {
+      lead_fname: signupForm.name,
+      lead_lname: signupForm.surname,
+      lead_role: signupForm.companyRole,
+      lead_email: signupForm.email,
+      lead_phone: signupForm.phone,
+      company_name: signupForm.companyName,
+      company_web: signupForm.companyWeb,
+      company_size: signupForm.companySize,
+      company_area: signupForm.companyCountry,
+      phase: "1",
+    };
+
+    try {
+      dispatch(registerUser(requestParams));
+
+      if (data.error !== 0) {
+        toast.error(data.info);
+        return;
+      }
+
+      toast.success(`signup successful, ${data?.info ?? ""}`);
+      setFormData((prevData) => ({ ...prevData, isCompleteSignUp: true }));
+    } catch (error) {
+      console.error("Error during registration:", error);
+      toast.error("An error occurred during registration.");
+    } finally {
+      setFormData((prevData) => ({ ...prevData, isLoading: false }));
+    }
+  };
+
+  const handleCompleteSignup = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <form>

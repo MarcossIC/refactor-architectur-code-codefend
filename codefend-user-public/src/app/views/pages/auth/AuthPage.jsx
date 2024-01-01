@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { Outlet } from "react-router";
-import { Logo } from "../../components";
 import { Link, useLocation } from "react-router-dom";
 import "./authPage.scss";
+
+const Logo = lazy(() => import("../../components/standalones/Logo"));
 
 const AuthPage = () => {
   const location = useLocation();

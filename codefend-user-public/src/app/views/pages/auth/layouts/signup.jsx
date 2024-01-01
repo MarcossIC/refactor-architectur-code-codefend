@@ -4,7 +4,7 @@ import { countries, companySizesList } from "../../../../data/";
 import "../../../shared/inputs.scss";
 
 import { useDispatch } from "react-redux";
-import { ButtonLoader } from "../../../components/standalones/ButtonLoader";
+import { ButtonLoader } from "../../../components";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -7,7 +7,7 @@ const SignInLayout = () => {
     email: "",
     password: "",
 
-    isLoading: "",
+    isLoading: false,
   });
 
   return (

@@ -1,7 +1,6 @@
-import React, { lazy } from "react";
-import { Outlet } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 const Navbar = lazy(() => import("./views/components/standalones/Navbar"));
 
@@ -12,7 +11,9 @@ export const RouterLayout = () => {
   return isAuth ? (
     <>
       <Navbar />
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </>
   ) : (
     <Navigate to="/auth/signup" />

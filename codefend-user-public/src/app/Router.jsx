@@ -1,3 +1,4 @@
+import React, { lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { RouterLayout } from "./RouterLayout";
 import Home from "./views/pages/dashboard/index";

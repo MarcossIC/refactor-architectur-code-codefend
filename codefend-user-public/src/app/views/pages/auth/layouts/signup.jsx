@@ -168,14 +168,14 @@ const SignUpLayout = () => {
           }
           className="log-inputs text-sm rounded block w-full p-2.5"
           name="company_size"
-          value=""
+          value={signupForm.companySize}
           required
         >
           <option value="" disabled>
             Select Company Size
           </option>
           {companySizesList.map((company) => (
-            <option key={crypto.randomUUID()} value={company.value}>
+            <option key={company.value} value={company.value}>
               {company.label}
             </option>
           ))}
@@ -208,14 +208,14 @@ const SignUpLayout = () => {
             }))
           }
           className="log-inputs text-sm rounded block w-full p-2.5"
-          value=""
+          value={signupForm.companyCountry}
           required
         >
           <option value="" disabled>
             Select your country
           </option>
           {countries.map((country) => (
-            <option key={crypto.randomUUID()} value={country.value}>
+            <option key={country.value} value={country.value}>
               {country.label}
             </option>
           ))}

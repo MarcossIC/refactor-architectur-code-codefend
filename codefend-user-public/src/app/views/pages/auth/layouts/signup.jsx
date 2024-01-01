@@ -139,7 +139,7 @@ export const  SignUpLayout = () => {
                     required
                   />
                 </div>
-                <div class="mt-6 flex items-center justify-end gap-x-4 ">
+                <div className="mt-6 flex items-center justify-end gap-x-4 ">
                   <button
                     onClick={() => { }}
                     disabled={formData.isLoading}
@@ -160,7 +160,7 @@ export const  SignUpLayout = () => {
               </form>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div class="mt-2">
+                <div className="mt-2">
                   <input
                     type="text"
                     onChange={(e) => {
@@ -295,23 +295,23 @@ export const  SignUpLayout = () => {
                     <u>Terms of Use.</u>
                   </span>
                 </div>
-                <div class="mt-6">
+                <div className="mt-6">
                   <button
                     disabled={formData.isLoading}
                     type="submit"
-                    class="btn btn-primary flex items-center gap-x-2"
+                    className="btn btn-primary flex items-center gap-x-2"
                   >
                     {formData.isLoading && <ButtonLoader />}
                     proceed
                   </button>
 
-                  <div class="mt-6 text-center ">
+                  <div className="mt-6 text-center ">
                     <a
                       href="#"
                       onClick={() => {
                         history.push("/auth/signin");
                       }}
-                      class="text-sm codefend-text-red hover:underline"
+                      className="text-sm codefend-text-red hover:underline"
                     >
                       Already have an account? Sign in
                     </a>

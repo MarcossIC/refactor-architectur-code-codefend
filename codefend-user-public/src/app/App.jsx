@@ -4,13 +4,13 @@ import "./app.scss";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 const Loader = lazy(() => import("./views/components/standalones/Loader"));
-/*
+
 const AuthPage = lazy(() => import("./views/pages/auth/AuthPage"));
 const SignInLayout = lazy(() => import("./views/pages/auth/layouts/signin"));
 const SignUpLayout = lazy(() => import("./views/pages/auth/layouts/signup"));
-const FinishSignUpLayout = lazy(() =>
-  import("./views/pages/auth/layouts/finishsignUp")
-);*/
+const ConfirmationSignUp = lazy(() =>
+  import("./views/pages/auth/layouts/confirmationSignUp")
+);
 
 const App = () => {
   const token = "";
@@ -19,32 +19,13 @@ const App = () => {
     <Suspense fallback={<Loader />}>
       <Routes>
         {/* Falta logica para ir al login cuando no este logeado o al dashboard cuando lo este*/}
-        <Route index element={<Navigate to="/auth" />} />
+        <Route index element={<Navigate to="/auth/signin" />} />
 
-        <Route path="/loader" element={<Loader />} />
-        {/*
-                  <Route path="/auth" element={<AuthPage />}>
+        <Route path="/auth" element={<AuthPage />}>
           <Route index element={<Navigate to="signin" replace />} />
           <Route path="signin" element={<SignInLayout />} />
           <Route path="signup" element={<SignUpLayout />} />
-          <Route path="signup/:ref" element={<FinishSignUpLayout />} />
-        </Route>
-          */}
-
-        <Route path="/auth" lazy={() => import("./views/pages/auth/AuthPage")}>
-          <Route index element={<Navigate to="signin" replace />} />
-          <Route
-            path="signin"
-            lazy={() => import("./views/pages/auth/layouts/signin")}
-          />
-          <Route
-            path="signup"
-            lazy={() => import("./views/pages/auth/layouts/signup")}
-          />
-          <Route
-            path="signup/:ref"
-            lazy={() => import("./views/pages/auth/layouts/finishsignUp")}
-          />
+          <Route path="signup/:ref" element={<ConfirmationSignUp />} />
         </Route>
 
         <Route path="/dashboard" element={<Loader />} />
@@ -63,15 +44,6 @@ const App = () => {
         <Route path="/companies" element={<Loader />} />
         <Route path="/support" element={<Loader />} />
         <Route path="/issues/:id" element={<Loader />} />
-
-        {/*
-          Falta logica para mostrar solo cuando el usuario sea Admin
-          <Show when={isAuthUserAdmin}>
-            <Route path="/admin/panel" element={AdminPanelView} />
-            <Route path="/admin/company" element={AdminCompanyView} />
-          </Show>
-          
-          */}
       </Routes>
     </Suspense>
   );

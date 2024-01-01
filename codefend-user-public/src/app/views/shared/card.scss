@@ -1,0 +1,131 @@
+.card {
+  @apply overflow-x-hidden border border-solid;
+  border-color: var(--color-border);
+
+  &.only-info {
+    .content {
+      @apply flex items-center justify-center p-5;
+      p {
+        color: var(--text-color);
+      }
+    }
+  }
+
+  &.risk-chart {
+    .content {
+      @apply flex items-center justify-center p-5 gap-x-[1dvw];
+      .chart {
+        @apply grow-[0.3] max-w-[30%];
+        canvas {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      }
+      .table {
+        @apply grow-[0.7] max-w-[70%];
+      }
+    }
+  }
+
+  &.stats {
+    .content {
+      @apply flex justify-between items-center;
+
+      .stat {
+        @apply cursor-pointer flex items-center flex-col font-[Roboto] uppercase py-5 px-0 grow border-r border-solid;
+        color: var(--text-color-alt3);
+        border-right-color: var(--color-border);
+        .value {
+          @apply font-bold text-[32px] leading-[32px];
+          color: var(--text-color-alt3);
+          span {
+            color: var(--stats-value-color);
+          }
+        }
+        p {
+          font-size: 12px;
+          font-weight: bold;
+          color: var(--text-color-alt3);
+        }
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  &.filtered {
+    .filters {
+      @apply py-0 px-5 flex flex-col;
+      color: var(--font-color);
+
+      .filter {
+        @apply flex items-center justify-between border-b border-solid;
+        border-bottom-color: var(--color-border);
+
+        .value {
+          @apply flex items-center justify-between gap-x-[7px];
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover {
+          color: var(--text-color-alt2);
+        }
+      }
+    }
+  }
+  &.messages {
+    @apply w-full overflow-hidden h-[92dvh];
+    .content {
+      @apply flex justify-around items-center overflow-y-auto h-[60dvh];
+      .messages-wrapper {
+        @apply w-full h-[60dvh];
+        color: var(--text-color);
+        span {
+          color: var(--text-color-alt3);
+        }
+        .tt {
+          border-bottom: 1px solid var(--color-border);
+        }
+      }
+    }
+    .sender {
+      .header {
+        @apply justify-between -mr-5;
+        button {
+          height: 100%;
+        }
+      }
+      textarea {
+        color: var(--text-color);
+      }
+    }
+  }
+
+  & + .card {
+    margin-block-start: 10px;
+  }
+}
+
+.empty-card {
+  width: 35.25rem;
+  height: 6.56rem;
+  margin: 1.8rem 0 1.8rem 0;
+
+  .contents-wrapper {
+    padding: 0 1.75rem;
+
+    .first-text {
+      color: var(--text-color-fend-red);
+      font-weight: 800;
+    }
+
+    .second-text {
+      color: #7e7e7e;
+    }
+  }
+}

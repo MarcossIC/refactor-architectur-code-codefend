@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../../shared/inputs.scss";
 import { useParams } from "react-router-dom";
 
-const FinishSignUpLayout = () => {
+const ConfirmationSignUp = () => {
   const param = useParams();
   const [finishsignup, setFinishSignup] = useState({
     referenceNumber: "",
@@ -70,4 +70,4 @@ const FinishSignUpLayout = () => {
   );
 };
 
-export default FinishSignUpLayout;
+export default ConfirmationSignUp;

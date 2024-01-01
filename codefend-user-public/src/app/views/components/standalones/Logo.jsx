@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Logo = ({ theme }) => {
+const Logo = ({ theme }) => {
   const themeToImage = {
     light: { path: "/codefend/logo-light.svg", styles: "w-[120px] h-[30px]" },
     dark: { path: "/codefend/logo-dark.svg", style: "w-[120px] h-[30px]" },
@@ -15,7 +15,7 @@ export const Logo = ({ theme }) => {
       <div id="brand" className="brand-img">
         <img
           src={selectedLogo.path}
-          class={selectedLogo.styles}
+          className={selectedLogo.styles}
           alt="Codefend Logo"
           loading="lazy"
         />
@@ -23,3 +23,5 @@ export const Logo = ({ theme }) => {
     </>
   );
 };
+
+export default Logo;

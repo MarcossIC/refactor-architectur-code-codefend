@@ -1,13 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Outlet } from "react-router";
 import { Logo } from "../../components";
 import { Link, useLocation } from "react-router-dom";
+import "./authPage.scss";
 
 const AuthPage = () => {
   const location = useLocation();
-
   return (
-    <section class="access log-component">
+    <section className="access log-component">
       <div className="container">
         <div className="brand">
           <Logo theme={"shadow"} />
@@ -20,13 +20,16 @@ const AuthPage = () => {
               <Link to="/auth/signin">access</Link>
             </span>
             <span
-              className={location.pathname === "/auth/signup" ? "active" : ""}
+              className={
+                location.pathname.startsWith("/auth/signup") ? "active" : ""
+              }
             >
               <Link to="/auth/signup">new user</Link>
             </span>
           </div>
-
-          <Outlet />
+          <Suspense>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
     </section>

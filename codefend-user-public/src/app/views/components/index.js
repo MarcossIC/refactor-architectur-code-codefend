@@ -1,2 +1,2 @@
-export { default as Loader } from "./standalones/Loader";
-export { default as Logo } from "./standalones/Logo";
+export { Loader } from "./standalones/Loader";
+export { Logo } from "./standalones/Logo";

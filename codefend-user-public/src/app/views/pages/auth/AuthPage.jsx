@@ -7,7 +7,7 @@ const AuthPage = () => {
   const location = useLocation();
 
   return (
-    <section class="access log-component">
+    <section className="access log-component">
       <div className="container">
         <div className="brand">
           <Logo theme={"shadow"} />

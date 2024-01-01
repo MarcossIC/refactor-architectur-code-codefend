@@ -228,7 +228,7 @@ export const  SignUpLayout = () => {
                   <input
                     type="url"
                     onChange={(e) => {
-                      setCompanyWeb(e.target.value);
+                      setFormData((prevData) => ({ ...prevData, companyWeb: e.target.value }));
                     }}
                     className="full-w"
                     name="company_website"
@@ -240,7 +240,9 @@ export const  SignUpLayout = () => {
                 </div>
                 <div className="mt-2">
                   <select
-                    onChange={(e) => setCompanySize(e.target.value)}
+                    onChange={(e) => {
+                      setFormData((prevData) => ({ ...prevData, companySize: e.target.value }));
+                    }}
                     className="log-inputs text-sm rounded block w-full p-2.5"
                     name="company_size"
                     required
@@ -260,7 +262,7 @@ export const  SignUpLayout = () => {
                   <input
                     type="text"
                     onChange={(e) => {
-                      setCompanyRole(e.target.value);
+                      setFormData((prevData) => ({ ...prevData, companyRole: e.target.value }));
                     }}
                     className="full-w"
                     name="company_role"
@@ -273,7 +275,9 @@ export const  SignUpLayout = () => {
                   <select
                     id="countries"
                     name="country"
-                    onChange={(e) => setCompanyCountry(e.target.value)}
+                    onChange={(e) => {
+                      setFormData((prevData) => ({ ...prevData, companyCountry: e.target.value }));
+                    }}
                     className="log-inputs text-sm rounded block w-full p-2.5"
                     required
                   >
@@ -289,8 +293,8 @@ export const  SignUpLayout = () => {
 
                 </div>
 
-                <div class="mt-6">
-                  <span href="#" class="text-sm text-alt3">
+                <div className="mt-6">
+                  <span href="#" className="text-sm text-alt3">
                     I have read and accept the <u>Privacy Policy</u> and{" "}
                     <u>Terms of Use.</u>
                   </span>

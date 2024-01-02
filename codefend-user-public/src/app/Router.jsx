@@ -31,7 +31,7 @@ export const AppRouter = () => {
       <Routes>
         {/* Rutas privadas */}
         <Route path="/" element={<RouterLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route index element={<Home />} />
         </Route>
 
         {/* Rutas públicas para login y registro */}

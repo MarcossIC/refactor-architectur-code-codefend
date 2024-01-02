@@ -63,6 +63,7 @@ const SignUpLayout = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+
       <div className="mt-2">
         <input
           type="text"
@@ -167,10 +168,10 @@ const SignUpLayout = () => {
           required
         >
           <option value="" disabled>
-            Select Company Size
+  c          Select Company Size
           </option>
           {companySizesList.map((company) => (
-            <option key={company.label} value={company.value}>
+            <option key={company.value} value={company.value}>
               {company.label}
             </option>
           ))}
@@ -210,7 +211,7 @@ const SignUpLayout = () => {
             Select your country
           </option>
           {countries.map((country) => (
-            <option key={country.label} value={country.value}>
+            <option key={country.value} value={country.value}>
               {country.label}
             </option>
           ))}

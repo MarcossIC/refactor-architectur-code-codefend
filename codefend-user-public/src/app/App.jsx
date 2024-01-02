@@ -6,8 +6,7 @@ import "./app.scss";
 import { AppRouter } from "./Router";
 import { store } from "./data/redux/store";
 import { Provider } from "react-redux";
-
-const Loader = lazy(() => import("./views/components/standalones/Loader"));
+import { Loader } from "./views/components";
 
 const App = () => {
   return (

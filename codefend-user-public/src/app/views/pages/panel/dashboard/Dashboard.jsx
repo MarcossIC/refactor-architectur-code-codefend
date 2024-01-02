@@ -5,6 +5,8 @@ import { DashboardVulnerabilities } from "./DashboardVulnerabilities";
 import { DashboardCollaborators } from "./DashboardCollaborators";
 import { DashboardAssets } from "./DashboardAssets";
 
+import "../../../shared/dashboard.scss";
+
 const Dashboard = () => {
   const [showScreen, setShowScreen] = useState(false);
 

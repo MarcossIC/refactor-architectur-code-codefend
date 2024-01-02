@@ -168,7 +168,7 @@ const SignUpLayout = () => {
           required
         >
           <option value="" disabled>
-  c          Select Company Size
+            Select Company Size
           </option>
           {companySizesList.map((company) => (
             <option key={company.value} value={company.value}>

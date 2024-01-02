@@ -3,8 +3,8 @@ import { loginThunk, registerthunk } from "../thunks/auth.thunk"
 
 // initialize userToken from local storage
 const accessToken = localStorage.getItem('userToken')
-  ? localStorage.getItem('userToken')
-  : null
+    ? localStorage.getItem('userToken')
+    : null
 
 const initialState = {
     isAuth: false,
@@ -34,14 +34,24 @@ export const authSlice = createSlice({
         builder.addCase(registerthunk.fulfilled, (state, action) => {
             state.loading = false;
             state.success = true;
-            state.accessToken = action.payload.session;
-            state.isAuth = true;
-            state.userData = action.payload.user;
+            state.isAuth = false;
+            state.userData = {
+                _id: action.payload.data._id,
+                username: action.payload.data.username,
+                email: action.payload.data.email,
+                password: action.payload.data.password,
+                role: action.payload.data.role,
+                name: action.payload.data.name,
+                companySize: action.payload.data.companySize,
+                companyRole: action.payload.data.companyRole,
+                companyWeb: action.payload.data.companyWeb,
+                companyCountry: action.payload.data.companyCountry,
+            }
         });
         builder.addCase(registerthunk.rejected, (state, action) => {
             state.loading = false;
             state.success = false;
-            state.error = action.error.message; 
+            state.error = action.error.message;
         });
     }
 })

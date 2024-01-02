@@ -5,6 +5,7 @@ import "../../../shared/inputs.scss";
 
 import { useDispatch } from "react-redux";
 import { ButtonLoader } from "../../../components";
+import { registerthunk } from "../../../../data/redux/thunks/auth.thunk"; 
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,10 +15,8 @@ const SignUpLayout = () => {
 
   const [signupForm, setSignupForm] = useState({
     name: "",
-    surname: "",
     email: "",
     phone: "",
-
     companyName: "",
     companySize: "",
     companyRole: "",
@@ -32,33 +31,29 @@ const SignUpLayout = () => {
     setSignupForm((current) => ({ ...current, isLoading: true }));
 
     const requestParams = {
-      lead_fname: signupForm.name,
-      lead_lname: signupForm.surname,
-      lead_role: signupForm.companyRole,
-      lead_email: signupForm.email,
-      lead_phone: signupForm.phone,
-      company_name: signupForm.companyName,
-      company_web: signupForm.companyWeb,
-      company_size: signupForm.companySize,
-      company_area: signupForm.companyCountry,
-      phase: "1",
+      name: signupForm.name,
+      username: "maco",
+      companyRole: signupForm.companyRole,
+      email: signupForm.email,
+      phone: signupForm.phone,
+      companyName: signupForm.companyName,
+      companyWeb: signupForm.companyWeb,
+      companySize: "Large",
+      companyCountry: signupForm.companyCountry,
+      role: "ADMIN",
+      password: "secret1234"
     };
 
+    console.log(requestParams)
     try {
-      dispatch(registerUser(requestParams));
-
-      if (data.error !== 0) {
-        toast.error(data.info);
-        return;
-      }
-
-      toast.success(`signup successful, ${data?.info ?? ""}`);
-      setFormData((prevData) => ({ ...prevData, isCompleteSignUp: true }));
+      dispatch(registerthunk(requestParams))
+      /* toast.success(`signup successful, ${response?.info ?? ""}`); */
+      setSignupForm((prevData) => ({ ...prevData, isCompleteSignUp: true }));
     } catch (error) {
       console.error("Error during registration:", error);
       toast.error("An error occurred during registration.");
     } finally {
-      setFormData((prevData) => ({ ...prevData, isLoading: false }));
+      setSignupForm((prevData) => ({ ...prevData, isLoading: false }));
     }
   };
 
@@ -67,7 +62,7 @@ const SignUpLayout = () => {
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="mt-2">
         <input
           type="text"
@@ -168,14 +163,14 @@ const SignUpLayout = () => {
           }
           className="log-inputs text-sm rounded block w-full p-2.5"
           name="company_size"
-          value=""
+          value={signupForm.companySize}
           required
         >
           <option value="" disabled>
             Select Company Size
           </option>
           {companySizesList.map((company) => (
-            <option key={crypto.randomUUID()} value={company.value}>
+            <option key={company.label} value={company.value}>
               {company.label}
             </option>
           ))}
@@ -208,14 +203,14 @@ const SignUpLayout = () => {
             }))
           }
           className="log-inputs text-sm rounded block w-full p-2.5"
-          value=""
+          value={signupForm.companyCountry}
           required
         >
           <option value="" disabled>
             Select your country
           </option>
           {countries.map((country) => (
-            <option key={crypto.randomUUID()} value={country.value}>
+            <option key={country.label} value={country.value}>
               {country.label}
             </option>
           ))}

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import AuthServices from "../../../services/auth.service";
 
 export const loginThunk = createAsyncThunk('auth/login', async (credencialesLogin) => {
 	try {
@@ -12,7 +13,7 @@ export const loginThunk = createAsyncThunk('auth/login', async (credencialesLogi
 		localStorage.setItem('token', token);
 
 		return jwt_decode(token);
-	} catch (error) {	
+	} catch (error) {
 		throw error;
 	}
 });
@@ -20,11 +21,17 @@ export const loginThunk = createAsyncThunk('auth/login', async (credencialesLogi
 
 export const registerthunk = createAsyncThunk('auth/register', async (registroParams) => {
 	try {
-		await axios.post('/v1/auth/signup', registroParams, {
-			headers: { 'Content-Type': 'application/json' },
-		});
-		return true;
+		const response = AuthServices.register(registroParams)
+		const data =  response
+		console.log(data)
+		return data
 	} catch (error) {
-		throw error;
+		const message =
+			(error.response &&
+				error.response.data &&
+				error.response.data.message) ||
+			error.message ||
+			error.toString();
+		return rejectWithValue(error);
 	}
 });

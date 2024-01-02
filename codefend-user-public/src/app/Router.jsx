@@ -35,7 +35,7 @@ export const AppRouter = () => {
         </Route>
 
         {/* Rutas públicas para login y registro */}
-        <Route path="/auth" element={<AuthPage />}>
+        <Route path="/auth/*" element={<AuthPage />}>
           <Route index element={<Navigate to="signin" replace />} />
           <Route path="signin" element={<SignInLayout />} />
           <Route path="signup" element={<SignUpLayout />} />

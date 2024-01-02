@@ -93,7 +93,11 @@ const Table = ({
 
   return (
     <div
-      className={`table-wrapper max-w-full ${maxHeight && "h-full max-h-full"}`}
+      className="table-wrapper max-w-full"
+      style={{
+        height: maxHeight ?? "100%",
+        maxHeight: maxHeight ?? "100%",
+      }}
     >
       <div className="table-title-header">{children}</div>
 

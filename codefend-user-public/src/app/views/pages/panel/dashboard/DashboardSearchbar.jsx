@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DashboardSearchbar = () => {
   const [searchValue, setSearchValue] = createSignal("");
@@ -11,8 +11,8 @@ const DashboardSearchbar = () => {
         className="flex flex-row h-9 mb-4"
         onSubmit={(e) => {
           e.preventDefault();
-          const history = useHistory();
-          history.push("/sns?search=" + searchValue + "&class=" + searchClass);
+          const navigate = useNavigate();
+          navigate("/sns?search=" + searchValue + "&class=" + searchClass);
         }}
       >
         <input

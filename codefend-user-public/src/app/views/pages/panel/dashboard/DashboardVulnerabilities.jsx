@@ -7,11 +7,11 @@ const DashboardVulnerabilities = ({ topVulnerabilities, isLoading }) => {
   const [sortBy, setSortBy] = useState("");
   const [selectedNow, setSelectedNow] = useState(false);
 
-  const getTopVulnerabilities = useCallback(
+  const updateSelectedRow = useCallback(
     (updatedState) => setSelectedNow(updatedState),
     []
   );
-  const updateSelectedRow = useCallback(() => topVulnerabilities, []);
+  const getTopVulnerabilities = useCallback(() => topVulnerabilities, []);
 
   return (
     <div className="card vulnerabilities">

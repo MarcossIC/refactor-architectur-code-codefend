@@ -11,7 +11,6 @@ main.dashboard {
   }
 
   .vulnerabilities {
-    // height: 50vh;
   }
 }
 
@@ -32,11 +31,11 @@ main.webapp {
 }
 
 .text-fend-red {
-  color: var(--text-color-fend-red) !important;
+  color: var(--text-color-fend-red);
 }
 
 .tox-textarea {
-  height: 500px !important;
+  height: 500px;
 }
 
 ///////////////////////////////////////////////////////////////////

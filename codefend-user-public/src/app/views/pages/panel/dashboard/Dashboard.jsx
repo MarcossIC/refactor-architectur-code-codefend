@@ -4,13 +4,20 @@ import { DashboardSearchbar } from "./DashboardSearchbar";
 import { DashboardVulnerabilities } from "./DashboardVulnerabilities";
 import { DashboardCollaborators } from "./DashboardCollaborators";
 import { DashboardAssets } from "./DashboardAssets";
+import { DashboardChart } from "./DashboardChart";
+import { DashboardVulnerabilitiesStatus } from "./DashboardVulnerabilitiesStatus";
 
 import "../../../shared/dashboard.scss";
 
 const Dashboard = () => {
   const [showScreen, setShowScreen] = useState(false);
-
-  useEffect(() => setTimeout(() => setShowScreen(true), 50));
+  const companyInfo = { loading: true };
+  useEffect(() =>
+    setTimeout(() => {
+      setShowScreen(true);
+      companyInfo.isLoading = false;
+    }, 2500)
+  );
 
   return (
     <main className={` dashboard ${showScreen ? "actived" : ""}`}>
@@ -24,7 +31,13 @@ const Dashboard = () => {
         <DashboardCollaborators isLoading={companyInfo.loading} members={[]} />
       </section>
 
-      <section className="right"></section>
+      <section className="right">
+        <DashboardChart
+          vulnerabilityByRisk={{}}
+          isLoading={companyInfo.loading}
+        />
+        <DashboardVulnerabilitiesStatus vulnerabilityByShare={{}} />
+      </section>
     </main>
   );
 };

@@ -408,6 +408,12 @@ main {
   background-color: #942222;
   background-repeat: no-repeat;
   background-image: url("/codefend/access-bkg.webp");
+
+  .brand-img {
+    top: 40%;
+    position: absolute;
+    left: 10%;
+  }
 }
 
 .title-format {
@@ -534,6 +540,7 @@ main {
 }
 
 /* ************************** AUTH PAGE ************************** */
+
 section.access {
   min-width: 100dvw;
   min-height: 100dvh;
@@ -570,9 +577,11 @@ section.access {
     padding-block: 30px;
     padding-inline: 140px;
     flex-grow: 1;
-
     max-width: 740px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
     user-select: none;
+    min-width: 54%;
   }
   .forms {
     min-width: 40%;

@@ -9,12 +9,12 @@ const AuthPage = () => {
 
   return (
     <>
-      <div className="codefend-img-bg"></div>
+      <div className="codefend-img-bg">
+        <Logo theme={"shadow"} />
+      </div>
       <section className="access log-component">
         <div className="container">
-          <div className="brand">
-            <Logo theme={"shadow"} />
-          </div>
+          <div className="brand"></div>
           <div className="forms">
             <div className="nav">
               <span

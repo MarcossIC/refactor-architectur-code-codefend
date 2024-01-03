@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { loginThunk } from "../../../../data/redux/thunks/auth.thunk";
 import "../../../shared/inputs.scss";
 
 const SignInLayout = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [signinForm, setSigninForm] = useState({
     email: "",
     password: "",
@@ -10,8 +15,30 @@ const SignInLayout = () => {
     isLoading: false,
   });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSigninForm((current) => ({ ...current, isLoading: true }))
+
+
+    const requestParams = {
+      email: signinForm.email,
+      password: signinForm.password,
+    }
+
+    try {
+      dispatch(loginThunk(requestParams))
+      toast.success(`login successful`);
+      navigate('/')
+    } catch (error) {
+      console.error("Error during registration:", error);
+      toast.error("An error occurred during registration.");
+    } finally {
+      setSigninForm((current) => ({ ...current, isLoading: false }))
+    }
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <input
           type="email"

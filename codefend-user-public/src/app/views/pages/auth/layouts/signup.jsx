@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { countries, companySizesList } from "../../../../data/";
 import "../../../shared/inputs.scss";
 
 import { useDispatch } from "react-redux";
 import { ButtonLoader } from "../../../components";
-import { registerthunk } from "../../../../data/redux/thunks/auth.thunk"; 
+import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignUpLayout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState({
     name: "",
@@ -22,7 +23,7 @@ const SignUpLayout = () => {
     companyRole: "",
     companyWeb: "",
     companyCountry: "",
-
+    isCompleteSignUp: false,
     isLoading: false,
   });
 
@@ -46,12 +47,13 @@ const SignUpLayout = () => {
 
     console.log(requestParams)
     try {
-      dispatch(registerthunk(requestParams))
-      /* toast.success(`signup successful, ${response?.info ?? ""}`); */
+      dispatch(registerThunk(requestParams))
+      toast.success(`signup successful`);
+      navigate('/auth/signin')
       setSignupForm((prevData) => ({ ...prevData, isCompleteSignUp: true }));
     } catch (error) {
       console.error("Error during registration:", error);
-      toast.error("An error occurred during registration.");
+      toast.error("An error occurred during registration.", error);
     } finally {
       setSignupForm((prevData) => ({ ...prevData, isLoading: false }));
     }

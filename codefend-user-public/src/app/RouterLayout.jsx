@@ -11,11 +11,9 @@ export const RouterLayout = () => {
   return isAuth ? (
     <>
       <Navbar />
-      <Suspense>
-        <Outlet />
-      </Suspense>
+      <Outlet />
     </>
   ) : (
-    <Navigate to="/auth/signup" />
+    <Navigate to="/auth/signin" />
   );
 };

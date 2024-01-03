@@ -2,21 +2,20 @@ import React from "react";
 
 const EmptyCard = () => {
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <div className="flex items-center empty-card">
-        <div className="flex items-center grow contents-wrapper gap-x-5">
+    <div className="empty-card">
+      <div className="container">
+        <div className="content-wrapper">
           <img
             src="/codefend/not-allowed.svg"
             alt="Not allowed icon"
             loading="lazy"
-            className="w-20 h-20"
+            width="5rem"
+            height="5rem"
           />
 
-          <div className="flex flex-col gap-y-2">
-            <span className="flex flex-col gap-y-2">
-              Thre's no data to display here.
-            </span>
-            <span className="second-text">
+          <div className="content">
+            <p class="first-text">There's no data to display here.</p>
+            <p className="second-text">
               If you just placed an order please allow our team to work.
               <br />
               for a few hours before getting the first results.
@@ -29,7 +28,7 @@ const EmptyCard = () => {
                 {" "}
                 Send email.
               </a>
-            </span>
+            </p>
           </div>
         </div>
       </div>

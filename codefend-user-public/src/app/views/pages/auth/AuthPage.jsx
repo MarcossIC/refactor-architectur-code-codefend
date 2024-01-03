@@ -4,14 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 
 const Logo = lazy(() => import("../../components/standalones/Logo"));
 
-const isActivePath = (currentPath) => {
+const AuthPage = () => {
   const location = useLocation();
 
-  if (location.pathname.startsWith("/auth/signup")) return "active";
-  return location.pathname === currentPath ? "active" : "";
-};
-
-const AuthPage = () => {
   return (
     <section className="access log-component">
       <div className="container">
@@ -20,10 +15,16 @@ const AuthPage = () => {
         </div>
         <div className="forms">
           <div className="nav">
-            <span className={isActivePath("/auth/signin")}>
+            <span
+              className={location.pathname === "/auth/signin" ? "active" : ""}
+            >
               <Link to="/auth/signin">access</Link>
             </span>
-            <span className={isActivePath("/auth/signup")}>
+            <span
+              className={
+                location.pathname.startsWith("/auth/signup") ? "active" : ""
+              }
+            >
               <Link to="/auth/signup">new user</Link>
             </span>
           </div>

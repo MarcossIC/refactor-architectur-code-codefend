@@ -199,7 +199,6 @@ export const vulnerabilitiesColumnDef = [
     id: "class",
     header: "class",
     cell: (info) => info.getValue(),
-    // invertSorting: true
   }),
   columnHelper.accessor("risk_level", {
     id: "risk",

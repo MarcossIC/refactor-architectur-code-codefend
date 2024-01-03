@@ -544,7 +544,7 @@ section.access {
     user-select: none;
   }
   .forms {
-    max-width: 45%;
+    min-width: 40%;
     min-height: 100dvh;
 
     display: flex;
@@ -562,16 +562,16 @@ section.access {
       line-height: 1.25rem /* 20px */;
       cursor: pointer;
 
-      .link-color {
+      &.link-color {
         color: var(--text-color-alt3);
       }
     }
 
-    .link-center {
+    > .link-center {
       text-align: center;
     }
 
-    .link-underline {
+    > .link-underline {
       &:hover {
         text-decoration: underline;
       }
@@ -643,7 +643,7 @@ button.btn {
   }
 }
 
-/* ***** Loader  ***** */
+/*  ************************** Loader  **************************  */
 .loader {
   display: flex;
   align-items: center;
@@ -790,7 +790,7 @@ button.btn {
     border-color: var(--input-outline-color);
   }
 
-  .log-text {
+  &.log-text {
     display: block;
     font-size: 0.875rem /* 14px */;
     line-height: 1.25rem /* 20px */;

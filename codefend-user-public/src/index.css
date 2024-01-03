@@ -562,16 +562,16 @@ section.access {
       line-height: 1.25rem /* 20px */;
       cursor: pointer;
 
-      .link-color {
+      &.link-color {
         color: var(--text-color-alt3);
       }
     }
 
-    .link-center {
+    > .link-center {
       text-align: center;
     }
 
-    .link-underline {
+    > .link-underline {
       &:hover {
         text-decoration: underline;
       }

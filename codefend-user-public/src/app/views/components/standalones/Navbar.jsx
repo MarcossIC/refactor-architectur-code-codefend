@@ -10,14 +10,14 @@ const NavbarContainer = ({ chilldren, show }) => {
       onClick={() => {
         console.log("Close Modal");
       }}
-      className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-20 z-20"
+      className="wrapper"
     >
       <div
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
         }}
-        className="max-h-full max-w-xl overflow-y-auto bg-white"
+        className="wrapper-content"
       >
         {chilldren}
       </div>
@@ -29,20 +29,20 @@ const NavbarContainer = ({ chilldren, show }) => {
 
 const NavbarLogoutConfirm = () => {
   return (
-    <div className="w-full mt-4">
-      <div className="w-full px-8 disable-border">
-        <div className="p-3 flex">
-          <p className="text-small text-left font-bold title-format">
+    <div className="logout-confirm-container">
+      <div className="logout-confirm-content disable-border">
+        <div className="title-content">
+          <p className="text-small title-format">
             Are you sure you want to Logout?
           </p>
         </div>
 
-        <div className="mt-6 flex justify-center">
+        <div className="buttons">
           <button
             onClick={() => {
               console.log("close modal");
             }}
-            className="btn btn-secondary mr-2"
+            className="btn btn-secondary"
           >
             cancel
           </button>
@@ -56,22 +56,24 @@ const NavbarLogoutConfirm = () => {
           </button>
         </div>
 
-        <div className="container flex items-center justify-center  mx-auto p-3 text-format"></div>
+        <div className="helper-box text-format"></div>
       </div>
     </div>
   );
 };
 
 const NavbarSelector = () => {
+  const full = { width: "100%" };
+  const flex = { display: "flex" };
+  const p3 = { padding: "0.75rem" };
+
   return (
-    <div className="w-full">
-      <div className="w-full internal-tables">
-        <div className="p-3 internal-tables-active flex">
-          <p className="text-small text-left font-bold title-format">
-            Select a company
-          </p>
+    <div style={styles}>
+      <div className="internal-tables">
+        <div className="internal-tables-active" style={{ ...flex, ...p3 }}>
+          <p className="select title-format">Select a company</p>
         </div>
-        <div className="container flex items-center justify-center  mx-auto p-3 text-format"></div>
+        <div className="helper-box text-format"></div>
       </div>
     </div>
   );
@@ -104,7 +106,7 @@ const Navbar = ({}) => {
           </Link>
         </div>
 
-        <div title="Logout" className="power-off cursor-pointer">
+        <div title="Logout" className="power-off">
           <span
             onClick={(e) => {
               console.log("");

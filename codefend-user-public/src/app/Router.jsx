@@ -32,6 +32,7 @@ export const AppRouter = () => {
         {/* Rutas privadas */}
         <Route path="/" element={<RouterLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
         {/* Rutas públicas para login y registro */}

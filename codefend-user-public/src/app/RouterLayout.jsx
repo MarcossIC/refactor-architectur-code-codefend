@@ -10,7 +10,7 @@ export const RouterLayout = () => {
   const { isAuth } = useSelector((state) => state); //esto viene de redux store
 
   //este componente es el Outlet, envuelve a la applicacion
-  return true ? (
+  return isAuth ? (
     <>
       <Navbar />
       <Sidebar />
@@ -19,6 +19,6 @@ export const RouterLayout = () => {
       </Suspense>
     </>
   ) : (
-    <Navigate to="/auth/signup" />
+    <Navigate to="/auth/signin" />
   );
 };

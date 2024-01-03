@@ -5,6 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 const Logo = lazy(() => import("../../components/standalones/Logo"));
 
 const AuthPage = () => {
+  const location = useLocation();
+
   return (
     <section className="access log-component">
       <div className="container">

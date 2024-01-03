@@ -1,7 +1,6 @@
 import React, { lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { RouterLayout } from "./RouterLayout";
-import Home from "./views/pages/dashboard/index";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +11,7 @@ const SignUpLayout = lazy(() => import("./views/pages/auth/layouts/signup"));
 const ConfirmationSignUp = lazy(() =>
   import("./views/pages/auth/layouts/confirmationSignUp")
 );
+const Dashboard = lazy(() => import("./views/pages/panel/dashboard/Dashboard"));
 
 export const AppRouter = () => {
   return (
@@ -31,11 +31,12 @@ export const AppRouter = () => {
       <Routes>
         {/* Rutas privadas */}
         <Route path="/" element={<RouterLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
         {/* Rutas públicas para login y registro */}
-        <Route path="/auth" element={<AuthPage />}>
+        <Route path="/auth/*" element={<AuthPage />}>
           <Route index element={<Navigate to="signin" replace />} />
           <Route path="signin" element={<SignInLayout />} />
           <Route path="signup" element={<SignUpLayout />} />

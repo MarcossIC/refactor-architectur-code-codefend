@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../../shared/inputs.scss";
 import { useParams } from "react-router-dom";
 
 const FinishSignUpLayout = () => {
@@ -11,25 +10,19 @@ const FinishSignUpLayout = () => {
 
   return (
     <form className="signup-confirmation">
-      <div className="check-mail flex items-center gap-x-4 mt-4 mb-8">
-        <div className="w-40">
-          <img
-            className="w-[5dvw] aspect-square"
-            src="/codefend/check_email.png"
-            alt="mail-image"
-          />
+      <div className="check-mail flex align-center gapx-4 mbs-4 mbe-8">
+        <div className="email-container ">
+          <img src="/codefend/check_email.png" alt="mail-image" />
         </div>
-        <div className="flex flex-col gap-y-2">
-          <span className="font-bold text-lg">
-            we have sent you an email with a code!
-          </span>
+        <div className="text-container">
+          <span>we have sent you an email with a code!</span>
           <p>
             please check your inbox, copy the verification code and paste it in
             the field below to confirm your email
           </p>
         </div>
       </div>
-      <div className="mt-2 flex flex-col">
+      <div className="mbs-2 flex col">
         <label className="otp-label" htmlFor="otp">
           Reference Number
         </label>
@@ -42,25 +35,25 @@ const FinishSignUpLayout = () => {
               referenceNumber: e.target.value,
             }));
           }}
-          className="w-full"
+          className="full-w"
           name="otp"
           placeholder="Enter Reference Number here"
           required
         />
       </div>
-      <div className="mt-6 flex items-center justify-end gap-x-4 ">
+      <div className="mbs-6 flex align-center gapx-4 content-end ">
         <button
           onClick={() => {}}
           disabled={finishsignup.isLoading}
           type="button"
-          className="btn btn-tertiary flex items-center gap-x-2 "
+          className="btn btn-tertiary flex align-center gapx-2 "
         >
           assistance
         </button>
         <button
           disabled={finishsignup.isLoading}
           type="submit"
-          className="btn btn-primary flex items-center gap-x-2"
+          className="btn btn-primary flex align-center gapx-2"
         >
           {finishsignup.isLoading && <p>Button Loading ... </p>}
           proceed

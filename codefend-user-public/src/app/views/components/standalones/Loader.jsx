@@ -1,12 +1,35 @@
 import React from "react";
 
-const Loader = () => {
+const Spinner = ({ icon }) => <div className={`spinner ${icon}`}></div>;
+
+export const Loader = () => {
   return (
-    <>
-      <p>Loading...</p>
-    </>
+    <div className="loader loader-screen">
+      <Spinner icon="icon" />
+    </div>
   );
 };
 
+export const PageLoader = () => {
+  return (
+    <div className="loader loader-full">
+      <Spinner icon="small-icon" />
+    </div>
+  );
+};
 
-export default Loader;
+export const PageLoaderWhite = () => {
+  return (
+    <div className="loader loader-full">
+      <Spinner icon="small-icon" />
+    </div>
+  );
+};
+
+export const PageLoaderOverlay = () => {
+  return (
+    <div className="loader loader-full overlay">
+      <Spinner icon="small-icon" />
+    </div>
+  );
+};

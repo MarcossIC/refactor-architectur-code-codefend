@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginThunk } from "../../../../data/redux/thunks/auth.thunk";
-import "../../../shared/inputs.scss";
 
 const SignInLayout = () => {
   const dispatch = useDispatch();
@@ -17,25 +16,24 @@ const SignInLayout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSigninForm((current) => ({ ...current, isLoading: true }))
-
+    setSigninForm((current) => ({ ...current, isLoading: true }));
 
     const requestParams = {
       email: signinForm.email,
       password: signinForm.password,
-    }
+    };
 
     try {
-      dispatch(loginThunk(requestParams))
+      dispatch(loginThunk(requestParams));
       toast.success(`login successful`);
-      navigate('/')
+      navigate("/");
     } catch (error) {
       console.error("Error during registration:", error);
       toast.error("An error occurred during registration.");
     } finally {
-      setSigninForm((current) => ({ ...current, isLoading: false }))
+      setSigninForm((current) => ({ ...current, isLoading: false }));
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -45,14 +43,14 @@ const SignInLayout = () => {
           onChange={(e) =>
             setSigninForm((current) => ({ ...current, email: e.target.value }))
           }
-          className="w-full"
+          className="full-w"
           placeholder="Email address"
           autoComplete="email"
           required
         />
       </div>
 
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="password"
           onChange={(e) =>
@@ -61,13 +59,13 @@ const SignInLayout = () => {
               password: e.target.value,
             }))
           }
-          className="w-full"
+          className="full-w"
           placeholder="Password"
           required
         />
       </div>
 
-      <div className="mt-6">
+      <div className="mbs-6">
         <button
           type="submit"
           disabled={signinForm.isLoading}
@@ -76,8 +74,8 @@ const SignInLayout = () => {
           proceed
         </button>
 
-        <div className="mt-6 text-center hover:underline">
-          <Link to="/auth/signup" className="text-sm codefend-text-red">
+        <div className="mbs-6 link-center link-underline">
+          <Link to="/auth/signup" className="link codefend-text-red">
             Don’t have an account yet? Sign up
           </Link>
         </div>

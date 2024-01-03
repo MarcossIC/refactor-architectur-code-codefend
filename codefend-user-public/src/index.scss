@@ -4,17 +4,16 @@
 
 /* Color Scheme Light */
 :root {
-  
   --color-main: #222222;
   --bg-black: #1f1f1f;
   --color-black: #fdfdfd;
   --sidebar-bkg: #fafafa;
-  
-  --color-gray:#666;
+
+  --color-gray: #666;
   --color-codefend: #fcfcfc;
   --color-icon: #afafaf;
   --color-border: #e5e5e5;
-  --color-border2:#d0c5c5;
+  --color-border2: #d0c5c5;
   --color-active-border: #ff3939;
   --focus-icon: #4a2f34;
   --color-panel: #b3b3b3;
@@ -34,7 +33,7 @@
   color-scheme: light;
 
   // nuevos estilos
-  
+
   --bkg-main: #ffffff;
   --bkg-alt: #f8f8f8;
   --bkg-codefend: #fe4e4e;
@@ -71,7 +70,6 @@
   --mobile-breakpoint: 768px;
 }
 
-
 .dark:root {
   --bkg-main: #262626;
   --bkg-alt: #2d2d2d;
@@ -85,28 +83,24 @@
   --header-lines-color: #ffffff;
   --sidebar-bkg: #2d2d2d;
   --color-icon: #686868;
-  
-
 }
-
 
 /* scrollbar */
 ::-webkit-scrollbar {
-	width: 10px !important;
+  width: 10px !important;
 }
 
 ::-webkit-scrollbar-track {
-	background: #e5e5e5;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-	background: #ff6c6c;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-	background: #e75e5e;
-  }
+  background: #e5e5e5;
+}
 
+::-webkit-scrollbar-thumb {
+  background: #ff6c6c;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e75e5e;
+}
 
 @font-face {
   font-family: Roboto;
@@ -119,8 +113,7 @@
   font-family: Roboto;
   font-style: bold;
   font-weight: 700;
-  src: local("Roboto-Bold"),
-    url("/fonts/Roboto-Bold.ttf") format("truetype");
+  src: local("Roboto-Bold"), url("/fonts/Roboto-Bold.ttf") format("truetype");
 }
 @font-face {
   font-family: Questrial;
@@ -143,8 +136,6 @@ body {
 
 #root {
   overflow: hidden;
-  // overflow-y: auto;
-  // overflow-x: hidden;
 }
 
 body,
@@ -272,7 +263,6 @@ button {
     color: var(--bg-black);
   }
 
-
   &:hover {
     background-color: #cb2222;
   }
@@ -307,4 +297,3 @@ button {
 .disable-border div {
   border-bottom: 0px solid var(--color-border);
 }
-

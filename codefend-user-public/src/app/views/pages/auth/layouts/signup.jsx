@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { countries, companySizesList } from "../../../../data/";
-import "../../../shared/inputs.scss";
 
 import { useDispatch } from "react-redux";
 import { ButtonLoader } from "../../../components";
@@ -42,14 +41,14 @@ const SignUpLayout = () => {
       companySize: "Large",
       companyCountry: signupForm.companyCountry,
       role: "ADMIN",
-      password: "secret1234"
+      password: "secret1234",
     };
 
-    console.log(requestParams)
+    console.log(requestParams);
     try {
-      dispatch(registerThunk(requestParams))
+      dispatch(registerThunk(requestParams));
       toast.success(`signup successful`);
-      navigate('/auth/signin')
+      navigate("/auth/signin");
       setSignupForm((prevData) => ({ ...prevData, isCompleteSignUp: true }));
     } catch (error) {
       console.error("Error during registration:", error);
@@ -65,14 +64,13 @@ const SignUpLayout = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="text"
           onChange={(e) =>
             setSignupForm((current) => ({ ...current, name: e.target.value }))
           }
-          className="w-full"
+          className="full-w"
           name="first_name"
           placeholder="First name"
           autoComplete="given-name"
@@ -80,7 +78,7 @@ const SignUpLayout = () => {
         />
       </div>
 
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="text"
           onChange={(e) =>
@@ -89,7 +87,7 @@ const SignUpLayout = () => {
               surname: e.target.value,
             }))
           }
-          className="w-full"
+          className="full-w"
           name="last_name"
           autoComplete="family-name"
           placeholder="Last name"
@@ -97,13 +95,13 @@ const SignUpLayout = () => {
         />
       </div>
 
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="email"
           onChange={(e) =>
             setSignupForm((current) => ({ ...current, email: e.target.value }))
           }
-          className="w-full"
+          className="full-w"
           name="email_address"
           autoComplete="email"
           placeholder="Email address"
@@ -111,20 +109,20 @@ const SignUpLayout = () => {
         />
       </div>
 
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="tel"
           onChange={(e) =>
             setSignupForm((current) => ({ ...current, phone: e.target.value }))
           }
-          className="w-full"
+          className="full-w"
           name="phone_number"
           placeholder="Phone number"
           required
         />
       </div>
 
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="text"
           onChange={(e) =>
@@ -133,13 +131,13 @@ const SignUpLayout = () => {
               companyName: e.target.value,
             }))
           }
-          className="w-full"
+          className="full-w"
           name="company_name"
           placeholder="Company Name"
           required
         />
       </div>
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="url"
           onChange={(e) =>
@@ -148,7 +146,7 @@ const SignUpLayout = () => {
               companyWeb: e.target.value,
             }))
           }
-          className="w-full"
+          className="full-w"
           name="company_website"
           placeholder="https://example.com"
           pattern="https://.*"
@@ -156,7 +154,7 @@ const SignUpLayout = () => {
           required
         />
       </div>
-      <div className="mt-2">
+      <div className="mbs-2">
         <select
           onChange={(e) =>
             setSignupForm((current) => ({
@@ -164,7 +162,7 @@ const SignUpLayout = () => {
               companySize: e.target.value,
             }))
           }
-          className="log-inputs text-sm rounded block w-full p-2.5"
+          className="log-inputs full-w log-text"
           name="company_size"
           value={signupForm.companySize}
           required
@@ -179,7 +177,7 @@ const SignUpLayout = () => {
           ))}
         </select>
       </div>
-      <div className="mt-2">
+      <div className="mbs-2">
         <input
           type="text"
           onChange={(e) =>
@@ -188,14 +186,14 @@ const SignUpLayout = () => {
               companyRole: e.target.value,
             }))
           }
-          className="w-full"
+          className="full-w"
           name="company_role"
           placeholder="Company Role"
           required
         />
       </div>
 
-      <div className="mt-2">
+      <div className="mbs-2">
         <select
           id="countries"
           name="country"
@@ -205,7 +203,7 @@ const SignUpLayout = () => {
               companyCountry: e.target.value,
             }))
           }
-          className="log-inputs text-sm rounded block w-full p-2.5"
+          className="log-inputs full-w log-text"
           value={signupForm.companyCountry}
           required
         >
@@ -220,29 +218,26 @@ const SignUpLayout = () => {
         </select>
       </div>
 
-      <div className="mt-6">
-        <span
-          href="#"
-          className="text-sm cursor-pointer text-[var(--text-color-alt3)]"
-        >
+      <div className="mbs-6">
+        <span href="#" className="link link-color">
           I have read and accept the <u>Privacy Policy</u> and{" "}
           <u>Terms of Use.</u>
         </span>
       </div>
-      <div className="mt-6">
+      <div className="mbs-6">
         <button
           disabled={signupForm.isLoading}
           type="submit"
-          className="btn btn-primary flex items-center gap-x-2"
+          className="btn btn-primary flex align-center gapx-2"
         >
           {signupForm.isLoading && <ButtonLoader />}
           proceed
         </button>
 
-        <div className="mt-6 text-center ">
+        <div className="mbs-6 alignT-center ">
           <Link
             to="/auth/signin"
-            className="text-sm codefend-text-red hover:underline"
+            className="link codefend-text-red link-underline"
           >
             Already have an account? Sign in
           </Link>

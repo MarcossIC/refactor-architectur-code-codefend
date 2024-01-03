@@ -1,13 +1,19 @@
 import React from "react";
 
-const Logo = ({ theme }) => {
-  const themeToImage = {
-    light: { path: "/codefend/logo-light.svg", styles: "w-[120px] h-[30px]" },
-    dark: { path: "/codefend/logo-dark.svg", style: "w-[120px] h-[30px]" },
-    shadow: { path: "/codefend/logo-shadow.png", style: "" },
-    aim: { path: "/codefend/aim-light.svg", style: "h-[30px]" },
-  };
+const themeToImage = {
+  light: {
+    path: "/codefend/logo-light.svg",
+    styles: { width: "120px", height: "30px" },
+  },
+  dark: {
+    path: "/codefend/logo-dark.svg",
+    styles: { width: "120px", height: "30px" },
+  },
+  shadow: { path: "/codefend/logo-shadow.png", styles: "" },
+  aim: { path: "/codefend/aim-light.svg", styles: { height: "30px" } },
+};
 
+const Logo = ({ theme }) => {
   const selectedLogo = themeToImage[theme];
 
   return (
@@ -15,7 +21,7 @@ const Logo = ({ theme }) => {
       <div id="brand" className="brand-img">
         <img
           src={selectedLogo.path}
-          className={selectedLogo.styles}
+          style={selectedLogo.styles}
           alt="Codefend Logo"
           loading="lazy"
         />

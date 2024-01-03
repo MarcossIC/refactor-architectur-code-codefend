@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAuth, clearAuth } from '../../app/views/utils/helper'
+import { clearAuth, setToken } from '../../app/views/utils/helper'
 import { logout } from "../data/redux/slices/auth.slice";
 
 
@@ -15,7 +15,7 @@ const login = async (loginParams) => {
 	const response = await axios.post(API_URL + "login", loginParams);
 	const { token, user } = response.data;
 	if (token) {
-		setAuth(token, user);
+		setToken(token);
 	}
 	return response.data;
 };

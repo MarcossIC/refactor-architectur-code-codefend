@@ -4,9 +4,14 @@ import { Link, useLocation } from "react-router-dom";
 
 const Logo = lazy(() => import("../../components/standalones/Logo"));
 
-const AuthPage = () => {
+const isActivePath = (currentPath) => {
   const location = useLocation();
 
+  if (location.pathname.startsWith("/auth/signup")) return "active";
+  return location.pathname === currentPath ? "active" : "";
+};
+
+const AuthPage = () => {
   return (
     <>
       <div className="codefend-img-bg">

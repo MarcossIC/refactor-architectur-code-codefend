@@ -1,10 +1,14 @@
 import React, { lazy } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../../data/redux/slices/auth.slice";
+import { clearAuth } from "../../../data";
 import { LogoutIcon } from "../icons";
 
 const Logo = lazy(() => import("./Logo"));
 
 const NavbarContainer = ({ chilldren, show }) => {
+  
   return show ? (
     <div
       onClick={() => {
@@ -28,6 +32,7 @@ const NavbarContainer = ({ chilldren, show }) => {
 };
 
 const NavbarLogoutConfirm = () => {
+ 
   return (
     <div className="logout-confirm-container">
       <div className="logout-confirm-content disable-border">
@@ -47,10 +52,8 @@ const NavbarLogoutConfirm = () => {
             cancel
           </button>
           <button
-            onClick={(e) => {
-              console.log("Log out");
-            }}
             className="btn btn-primary"
+            aria-label="Log out"
           >
             logout
           </button>
@@ -76,6 +79,17 @@ const NavbarSelector = () => {
 };
 
 const Navbar = ({}) => {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/auth/signin')
+    clearAuth()
+  };
+
+
   const { user, setUser } = { user: "", setUser: () => {} };
   const { showModal, setShowModal, setShowModalStr, showModalStr } = {
     showModal: false,
@@ -104,9 +118,7 @@ const Navbar = ({}) => {
 
         <div title="Logout" className="power-off">
           <span
-            onClick={(e) => {
-              console.log("");
-            }}
+            onClick={handleLogout}
           >
             <LogoutIcon />
           </span>

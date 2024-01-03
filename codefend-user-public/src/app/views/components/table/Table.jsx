@@ -5,7 +5,7 @@ import {
   getCoreRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import "./table.scss";
+import "./table.css";
 
 const controlFields = ({ fieldsToHideOnMobile, table }) => {
   const [hideFields, setHideFields] = useState(false);
@@ -93,7 +93,7 @@ const Table = ({
 
   return (
     <div
-      className="table-wrapper max-w-full"
+      className="table-wrapper"
       style={{
         height: maxHeight ?? "100%",
         maxHeight: maxHeight ?? "100%",
@@ -101,8 +101,8 @@ const Table = ({
     >
       <div className="table-title-header">{children}</div>
 
-      <div className="overflow-auto h-full">
-        <table className="w-full">
+      <div className="table-container">
+        <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <>

@@ -136,8 +136,6 @@ body {
 
 #root {
   overflow: hidden;
-  // overflow-y: auto;
-  // overflow-x: hidden;
 }
 
 body,
@@ -299,4 +297,3 @@ button {
 .disable-border div {
   border-bottom: 0px solid var(--color-border);
 }
-

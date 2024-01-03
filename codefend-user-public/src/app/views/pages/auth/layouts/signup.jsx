@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { countries, companySizesList } from "../../../../data/";
-import "../../../shared/inputs.scss";
 
 import { useDispatch } from "react-redux";
 import { ButtonLoader } from "../../../components";

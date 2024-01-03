@@ -1,12 +1,11 @@
 import React from "react";
-import "../../shared/loader.scss";
 
-const Spinner = () => <div className="spinner"></div>;
+const Spinner = ({ icon }) => <div className={`spinner ${icon}`}></div>;
 
 export const Loader = () => {
   return (
     <div className="loader loader-screen">
-      <Spinner className="icon" />
+      <Spinner icon="icon" />
     </div>
   );
 };
@@ -14,7 +13,7 @@ export const Loader = () => {
 export const PageLoader = () => {
   return (
     <div className="loader loader-full">
-      <Spinner className="small-icon" />
+      <Spinner icon="small-icon" />
     </div>
   );
 };
@@ -22,7 +21,7 @@ export const PageLoader = () => {
 export const PageLoaderWhite = () => {
   return (
     <div className="loader loader-full">
-      <Spinner className="small-icon" />
+      <Spinner icon="small-icon" />
     </div>
   );
 };
@@ -30,7 +29,7 @@ export const PageLoaderWhite = () => {
 export const PageLoaderOverlay = () => {
   return (
     <div className="loader loader-full overlay">
-      <Spinner className="small-icon" />
+      <Spinner icon="small-icon" />
     </div>
   );
 };

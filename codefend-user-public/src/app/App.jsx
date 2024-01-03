@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { BrowserRouter } from "react-router-dom";
-import "./app.scss";
 
 import { AppRouter } from "./Router";
 import { store } from "./data/redux/store";

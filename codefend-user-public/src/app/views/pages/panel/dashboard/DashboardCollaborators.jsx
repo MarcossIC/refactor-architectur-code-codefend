@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import { Table, EmptyCard, PageLoader } from "../../../components";
+import { Table, PageLoader, CollaboratorsIcon } from "../../../components";
 import {
   CollaboratorsColumnDef,
   defaultCollaboratorsColumnsData,
@@ -17,8 +17,8 @@ const DashboardCollaborators = ({ members, isLoading }) => {
   );
 
   return (
-    <div className="card h-full">
-      <div className="h-full overflow-hidden">
+    <div className="card colaborators">
+      <div className="colaborators-container">
         <div>
           {!isLoading ? (
             <>
@@ -33,7 +33,9 @@ const DashboardCollaborators = ({ members, isLoading }) => {
               >
                 <div className="header">
                   <div className="title">
-                    <div className="icon">* User icon *</div>
+                    <div className="icon">
+                      <CollaboratorsIcon />
+                    </div>
                     <span>Collaborators and team members</span>
                   </div>
                   <select

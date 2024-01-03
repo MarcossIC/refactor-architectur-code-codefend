@@ -1,13 +1,26 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import "../../shared/sidebar.scss";
+import {
+  ChartIcon,
+  GlobeWebIcon,
+  MobileIcon,
+  CLoudIcon,
+  LanIcon,
+  EnpIcon,
+  SourceCodeIcon,
+  PeopleGroup,
+  BugIcon,
+  MessageIcon,
+  PreferenceIcon,
+  InxIcon,
+  DataIcon,
+} from "../icons";
 
 const isActivePath = (verifyPath) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  if (pathName === "/" && path === "/dashboard") return "active";
+  if (currentPath === "/" && verifyPath === "/dashboard") return "active";
   return currentPath === verifyPath ? "active" : "";
 };
 
@@ -19,11 +32,11 @@ const AdminSidebar = () => {
         to="/admin/panel"
         className={isActivePath("/admin/panel")}
       >
-        * Square Plus *
+        <ChartIcon />
       </Link>
 
       <Link to="/admin/company" className={isActivePath("/admin/panel")}>
-        * Regular Building *
+        <ChartIcon />
       </Link>
     </>
   );
@@ -37,23 +50,35 @@ const Sidebar = ({}) => {
         to="/dashboard"
         className={isActivePath("/dashboard")}
       >
-        * Char Icon *
+        <ChartIcon />
       </Link>
 
       <Link title="Web" to="/web" className={isActivePath("/web")}>
-        * Globe Icon *
+        <GlobeWebIcon />
       </Link>
 
       <Link title="Mobile" to="/mobile" className={isActivePath("/mobile")}>
-        * Mobile Screen *
+        <MobileIcon />
       </Link>
 
       <Link title="Cloud" to="/cloud" className={isActivePath("/cloud")}>
-        * Cloud Icon *
+        <CLoudIcon />
+      </Link>
+
+      <Link title="Lan" to="/lan" className={isActivePath("/lan")}>
+        <LanIcon />
       </Link>
 
       <Link title="Enp" to="/enp" className={isActivePath("/enp")}>
-        * Card *
+        <EnpIcon />
+      </Link>
+
+      <Link
+        title="Source Code"
+        to="/source"
+        className={isActivePath("/source")}
+      >
+        <SourceCodeIcon />
       </Link>
 
       <Link
@@ -61,11 +86,11 @@ const Sidebar = ({}) => {
         to="/social"
         className={isActivePath("/social")}
       >
-        * PeopleGroup *
+        <PeopleGroup />
       </Link>
 
       <Link title="Issues" to="/issues" className={isActivePath("/issues")}>
-        * Bug *
+        <BugIcon />
       </Link>
 
       <Link
@@ -73,25 +98,25 @@ const Sidebar = ({}) => {
         to="/support"
         className={isActivePath("/support")}
       >
-        * Message *
+        <MessageIcon />
       </Link>
 
       {false && true && <AdminSidebar />}
 
       <Link to="/preferences" className={isActivePath("/preferences")}>
-        * Gear *
+        <PreferenceIcon />
       </Link>
 
       <Link title="Inx" to="/inx" className={isActivePath("/inx")}>
-        * Si power routemate *
+        <InxIcon />
       </Link>
 
       <Link title="Sns" to="/sns" className={isActivePath("/sns")}>
-        * Database *
+        <DataIcon />
       </Link>
 
       <Link title="Vdb" to="/vdb" className={isActivePath("/vdb")}>
-        * Database *
+        <DataIcon />
       </Link>
     </aside>
   );

@@ -1,7 +1,3 @@
-import createUser from "../Store/user";
-
-const { user } = createUser;
-
 /** Gets token in localStorage */
 export const getToken = () => localStorage.getItem("token") ?? "";
 

@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 
-import { DashboardSearchbar } from "./DashboardSearchbar";
-import { DashboardVulnerabilities } from "./DashboardVulnerabilities";
-import { DashboardCollaborators } from "./DashboardCollaborators";
-import { DashboardAssets } from "./DashboardAssets";
-import { DashboardChart } from "./DashboardChart";
-import { DashboardVulnerabilitiesStatus } from "./DashboardVulnerabilitiesStatus";
-
-import "../../../shared/dashboard.scss";
+import DashboardSearchbar from "./DashboardSearchbar";
+import DashboardVulnerabilities from "./DashboardVulnerabilities";
+import DashboardCollaborators from "./DashboardCollaborators";
+import DashboardAssets from "./DashboardAssets";
+import DashboardChart from "./DashboardChart";
+import DashboardVulnerabilitiesStatus from "./DashboardVulnerabilitiesStatus";
 
 const Dashboard = () => {
   const [showScreen, setShowScreen] = useState(false);
   const companyInfo = { loading: true };
-  useEffect(() =>
+
+  useEffect(() => {
     setTimeout(() => {
       setShowScreen(true);
-      companyInfo.isLoading = false;
-    }, 2500)
-  );
+      companyInfo.loading = false;
+    }, 2500);
+  }, []);
 
   return (
     <main className={` dashboard ${showScreen ? "actived" : ""}`}>

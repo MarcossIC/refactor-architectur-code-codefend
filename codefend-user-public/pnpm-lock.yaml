@@ -32,6 +32,9 @@ dependencies:
   jwt-decode:
     specifier: ^4.0.0
     version: 4.0.0
+  normalize-css:
+    specifier: ^2.3.1
+    version: 2.3.1
   postcss:
     specifier: ^8.4.32
     version: 8.4.32
@@ -1604,6 +1607,10 @@ packages:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
     dev: false
 
+  /insert-css@0.0.0:
+    resolution: {integrity: sha512-PwixL1rVtKkM1gz43tEHwZ2sUOYmWB5zk/9YiEmOxERqjfIkkMY4jwrl3v3e9NLzblEdkBuMLiTLm/0sHMx4qA==}
+    dev: false
+
   /is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
     engines: {node: '>=8'}
@@ -1818,6 +1825,12 @@ packages:
 
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
+
+  /normalize-css@2.3.1:
+    resolution: {integrity: sha512-70Lnkke3P+8ehu56S0M0yoUTgTve/rCrEncjdgPmKER/TLZMRa30rFLW7Yv3iGZldmGV4bGevGW47VOfZJbGyw==}
+    dependencies:
+      insert-css: 0.0.0
+    dev: false
 
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}

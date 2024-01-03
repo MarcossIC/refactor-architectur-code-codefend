@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { checkUpdate, installUpdate } from "@tauri-apps/api/updater";
 import { listen } from "@tauri-apps/api/event";
 import App from "./app/App";
-import "./index.scss";
+import "./index.css";
 
 // Tauri
 const RUNNING_IN_TAURI = window.__TAURI__ !== undefined;

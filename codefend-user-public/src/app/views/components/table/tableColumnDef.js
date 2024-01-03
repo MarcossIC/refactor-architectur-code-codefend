@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { formatDate } from "../../utils/helper";
+import { formatDate } from "../../../data";
 
 const columnHelper = createColumnHelper();
 

@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { vulnerabilitiesColumnDef } from "../../../components/table";
-import { Table, EmptyCard, PageLoader } from "../../../components";
+import { Table, EmptyCard, PageLoader, BugIcon } from "../../../components";
 import { vulnerabilitiesColumnDef } from "../../../components/table/tableColumnDef";
 
 const DashboardVulnerabilities = ({ topVulnerabilities, isLoading }) => {
@@ -28,7 +27,7 @@ const DashboardVulnerabilities = ({ topVulnerabilities, isLoading }) => {
             >
               <div className="header">
                 <div className="title">
-                  <div className="icon">* Bug icon *</div>
+                  <div className="icon"><BugIcon/></div>
                   <span>Top priority vulnerabilities</span>
                 </div>
                 <select

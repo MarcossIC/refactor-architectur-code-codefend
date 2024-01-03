@@ -1,5 +1,4 @@
 import React from "react";
-import "../../shared/card.scss";
 
 const EmptyCard = () => {
   return (

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../../../shared/inputs.scss";
 
 const SignInLayout = () => {
   const [signinForm, setSigninForm] = useState({

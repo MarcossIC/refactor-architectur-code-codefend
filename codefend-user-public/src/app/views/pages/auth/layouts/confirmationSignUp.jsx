@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../../../shared/inputs.scss";
 import { useParams } from "react-router-dom";
 
 const ConfirmationSignUp = () => {

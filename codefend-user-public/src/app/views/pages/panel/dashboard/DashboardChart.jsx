@@ -3,7 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, Colors } from "chart.js";
 
 import { isEmptyData, renderPercentage } from "../../../../data/utils/helper";
-import { EmptyCard, PageLoader } from "../../../components";
+import { EmptyCard, PageLoader, BugIcon } from "../../../components";
 
 const useChart = ({ vulnerabilityByRisk }) => {
   const { total, ...otherMetrics } = vulnerabilityByRisk;
@@ -12,10 +12,6 @@ const useChart = ({ vulnerabilityByRisk }) => {
     datasets: [
       {
         data: Object.values(otherMetrics),
-        /*Note: this colors are commented according to the pie chart
-        that is generated for the vulnerabilities and findings,
-        it may or could be different
-        */
         backgroundColor: [
           "#e85050", //critical
           "#e25365", //elevated
@@ -56,7 +52,9 @@ const DashboardChart = ({ vulnerabilityByRisk, isLoading }) => {
         <>
           <div class="header">
             <div class="title">
-              <div class="icon">* Bug Icon *</div>
+              <div class="icon">
+                <BugIcon />
+              </div>
               <span>Vulnerabilities by risk</span>
             </div>
           </div>

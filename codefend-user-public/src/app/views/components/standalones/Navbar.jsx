@@ -1,28 +1,29 @@
 import React, { lazy } from "react";
 import { Link } from "react-router-dom";
+import { LogoutIcon } from "../icons";
 
 const Logo = lazy(() => import("./Logo"));
 
 const NavbarContainer = ({ chilldren, show }) => {
-  return (
-    <div className={show ? "block" : "hidden"}>
+  return show ? (
+    <div
+      onClick={() => {
+        console.log("Close Modal");
+      }}
+      className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-20 z-20"
+    >
       <div
-        onClick={() => {
-          console.log("Close Modal");
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
         }}
-        className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-20 z-20"
+        className="max-h-full max-w-xl overflow-y-auto bg-white"
       >
-        <div
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-          className="max-h-full max-w-xl overflow-y-auto bg-white"
-        >
-          {chilldren}
-        </div>
+        {chilldren}
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 
@@ -77,23 +78,27 @@ const NavbarSelector = () => {
 };
 
 const Navbar = ({}) => {
-  const { user, setUser } = createUser;
-  const { showModal, setShowModal, setShowModalStr, showModalStr } =
-    createModal;
+  const { user, setUser } = { user: "", setUser: () => {} };
+  const { showModal, setShowModal, setShowModalStr, showModalStr } = {
+    showModal: false,
+    setShowModal: () => {},
+    setShowModalStr: () => "",
+    showModalStr: "",
+  };
 
   return (
-    <header>
+    <>
       <nav>
-        <NavbarContainer show={showModal()}>
-          {showModalStr() === "logout_confirmation" ? (
+        <NavbarContainer show={showModal}>
+          {showModalStr === "logout_confirmation" ? (
             <NavbarLogoutConfirm />
           ) : (
             <NavbarSelector />
           )}
         </NavbarContainer>
-        <div className="flex items-center cursor-pointer">
-          <Link to="/" className="flex items-center">
-            <span className="self-center text-2xl font-semibold whitespace-nowrap">
+        <div className="container">
+          <Link to="/">
+            <span className="brand-container">
               <Logo theme="aim" />
             </span>
           </Link>
@@ -105,11 +110,11 @@ const Navbar = ({}) => {
               console.log("");
             }}
           >
-            *Logout Icon*
+            <LogoutIcon />
           </span>
         </div>
       </nav>
-    </header>
+    </>
   );
 };
 

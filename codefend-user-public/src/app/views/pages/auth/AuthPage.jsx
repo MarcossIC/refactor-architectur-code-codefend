@@ -7,7 +7,7 @@ const Logo = lazy(() => import("../../components/standalones/Logo"));
 const isActivePath = (currentPath) => {
   const location = useLocation();
 
-  if (location.pathname.startsWith("/auth/signin")) return "active";
+  if (location.pathname.startsWith("/auth/signup")) return "active";
   return location.pathname === currentPath ? "active" : "";
 };
 

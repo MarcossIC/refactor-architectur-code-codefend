@@ -63,14 +63,10 @@ const NavbarLogoutConfirm = () => {
 };
 
 const NavbarSelector = () => {
-  const full = { width: "100%" };
-  const flex = { display: "flex" };
-  const p3 = { padding: "0.75rem" };
-
   return (
     <div style={styles}>
       <div className="internal-tables">
-        <div className="internal-tables-active" style={{ ...flex, ...p3 }}>
+        <div className="internal-tables-active full-w flex pad-3">
           <p className="select title-format">Select a company</p>
         </div>
         <div className="helper-box text-format"></div>

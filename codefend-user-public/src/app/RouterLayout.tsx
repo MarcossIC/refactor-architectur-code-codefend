@@ -7,17 +7,16 @@ const Navbar = lazy(() => import("./views/components/standalones/Navbar"));
 const Sidebar = lazy(() => import("./views/components/standalones/Sidebar"));
 
 export const RouterLayout: React.FC = () => {
-  const { isAuth } = useAppSelector((state) => state.authReducer); //esto viene de redux store
+  const state = useAppSelector((state) => state.authReducer.isAuth); //esto viene de redux store
+  console.log(state)
 
-  return isAuth ? (
+  return state ?
     <>
       <Navbar />
       <Sidebar />
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
-    </>
-  ) : (
-    <Navigate to="/auth/signin" />
-  );
+    </> : <Navigate to="/auth/signin" />
+    ;
 };

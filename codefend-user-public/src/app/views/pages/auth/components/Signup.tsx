@@ -19,7 +19,8 @@ import {
 
 const SignUpLayout: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { loading, success } = useAppSelector((state) => state.authReducer);
+  const { loading } = useAppSelector((state) => state.authReducer);
+
   const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState<User>({

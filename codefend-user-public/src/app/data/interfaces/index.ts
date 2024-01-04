@@ -13,9 +13,11 @@ export interface User {
   companyWeb: string;
   companyCountry: string;
 }
+/* 
+
+*/
 
 export type UserStore = Omit<User, "id" | "phone" | "companyName">;
-export type UserRegister = Omit<User, "id">;
 export type UserLogin = Omit<
   User,
   | "id"

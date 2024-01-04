@@ -10,15 +10,17 @@ interface LoginParams {
 interface RegisterParams {
   username: string;
   email: string;
-  password: string;
-  role: string;
-  name: string;
-  phone: number;
+
+  phone?: string;
+
   companyName: string;
   companySize: string | number;
   companyRole: string;
   companyWeb: string;
   companyCountry: string;
+
+  password?: string;
+  role?: string;
 }
 
 // Tipo de retorno de la función de inicio de sesión

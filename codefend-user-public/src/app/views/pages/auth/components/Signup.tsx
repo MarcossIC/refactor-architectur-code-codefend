@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { companySizesList, countries } from "../../../../data/mocks";
+
 
 import { ButtonLoader } from "../../../components";
 import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
@@ -9,16 +11,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "../../../shared/buttons.scss";
 import "../../../shared/inputs.scss";
-import { User, useAppDispatch } from "../../../../data";
+import { User, useAppDispatch, useAppSelector } from "../../../../data";
 
 const SignUpLayout: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { loading , success } = useAppSelector((state) => state.authReducer)
   const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState<User>({
     name: "",
     email: "",
-    phone:  "",
+    phone: "",
     companyName: "",
     companySize: "",
     companyRole: "",
@@ -61,10 +64,10 @@ const SignUpLayout: React.FC = () => {
     }
   };
 
- /*  const handleCompleteSignup = (e: any) => {
+  /* const handleCompleteSignup = (e) => {
     e.preventDefault();
-  }; */
-
+  };
+ */
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-group">
@@ -147,7 +150,7 @@ const SignUpLayout: React.FC = () => {
           name="company_website"
           placeholder="https://example.com"
           pattern="https://.*"
-          size="30"
+          size="30" 
           required
         />
       </div>
@@ -215,18 +218,18 @@ const SignUpLayout: React.FC = () => {
       </div>
 
       <div className="extra-group">
-        <span href="#" className="link link-color">
+        <span  className="link link-color">
           I have read and accept the <u>Privacy Policy</u> and{" "}
           <u>Terms of Use.</u>
         </span>
       </div>
       <div className="extra-group">
         <button
-          disabled={signupForm.isLoading}
+          disabled={loading}
           type="submit"
           className="btn btn-primary signup-button"
         >
-          {signupForm.isLoading && <ButtonLoader />}
+          {loading && <ButtonLoader />}
           proceed
         </button>
 

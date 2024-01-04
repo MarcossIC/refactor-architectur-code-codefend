@@ -13,7 +13,7 @@ interface AuthState {
   error: string | null | undefined;
   loading: boolean;
   isExpired: null;
-  userData: UserStore | null;
+  userData: UserStore | null | undefined;
   accessToken: string | null;
 }
 
@@ -78,11 +78,21 @@ export const authSlice = createSlice({
       state.success = false;
     });
     /* state = success */
-    builder.addCase(loginThunk.fulfilled, ({ userData }, action) => {
+    builder.addCase(loginThunk.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
       state.isAuth = true;
-      state.userData = action.payload.user;
+      state.userData = {
+        username: action.payload.user.username,
+        email: action.payload.user.email,
+        role: action.payload.user.role,
+        name: "",
+        companySize: "",
+        companyRole: "",
+        companyWeb: "",
+        companyCountry: "",
+        password: "",
+      };
       state.accessToken = action.payload.token;
     });
     /* state =  with errors*/

@@ -1,23 +1,17 @@
 // Interface para la propiedad 'user'
 export interface User {
-	id: string;
-	company_id: string;
-	fname: string;
-	access_role: string;
-	creacion: string;
-	eliminado: string;
-	email: string;
-	lname: string;
-	mfa_llave: string;
-	pais: string;
-	pais_ciudad: string;
-	pais_code: string;
-	pais_provincia: string;
-	password: string;
-	phone: string;
-	profile_media: string;
-	role: string;
-	username: string;
+	id?: string;
+	username?: string
+	email: string,
+	password?: string,
+	role?: string
+	name: string,
+	phone?: number,
+	companySize: string | number,
+	companyName?: string,
+	companyRole: string,
+	companyWeb: string
+	companyCountry: string
 }
 
 // Interface para 'RegistrationData'

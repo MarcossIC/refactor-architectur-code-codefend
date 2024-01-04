@@ -4,6 +4,9 @@ import { setAuth, clearAuth } from "../utils/helper";
 
 const API_URL = "http://localhost:8000/users/";
 
+
+
+
 const register = (registroParams: any) => { //no dejar esto asi!
   return axios.post(API_URL + "register", registroParams, {
     headers: { "Content-Type": "application/json" },

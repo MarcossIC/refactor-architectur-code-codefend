@@ -1,15 +1,10 @@
-<<<<<<< HEAD:codefend-user-public/src/app/views/components/standalones/Navbar.jsx
-import React, { lazy } from "react";
-import { useDispatch, useSelector } from "react-redux";
-=======
 import React, { ReactNode, lazy } from "react";
 import { useDispatch } from "react-redux";
->>>>>>> fd091e34024790712286adf6882852f79b2de3c6:codefend-user-public/src/app/views/components/standalones/Navbar.tsx
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../data/redux/slices/auth.slice";
-import { clearAuth } from "../../../data";
-import { LogoutIcon } from "../icons";
 import "../../shared/navbar.scss";
+import { clearAuth, useAppSelector } from "../../../data";
+import { LogoutIcon } from "..";
 
 const Logo = lazy(() => import("./Logo"));
 
@@ -41,7 +36,7 @@ const NavbarContainer: React.FC<NavbarContainer> = ({ children, show }) => {
   );
 };
 
-const NavbarLogoutConfirm = () => {
+/* const NavbarLogoutConfirm = () => {
   return (
     <div className="logout-confirm-container">
       <div className="logout-confirm-content disable-border">
@@ -70,7 +65,7 @@ const NavbarLogoutConfirm = () => {
     </div>
   );
 };
-
+ */
 const NavbarSelector: React.FC = () => {
   return (
     <div>
@@ -84,14 +79,10 @@ const NavbarSelector: React.FC = () => {
   );
 };
 
-<<<<<<< HEAD:codefend-user-public/src/app/views/components/standalones/Navbar.jsx
-const Navbar = ({}) => {
-=======
 const Navbar: React.FC = () => {
->>>>>>> fd091e34024790712286adf6882852f79b2de3c6:codefend-user-public/src/app/views/components/standalones/Navbar.tsx
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state)
+  const userData = useAppSelector((state) => state)
 
   const handleLogout = () => {
     dispatch(logout());
@@ -99,24 +90,13 @@ const Navbar: React.FC = () => {
     clearAuth();
   };
 
-  const { user, setUser } = { user: "", setUser: () => {} };
-  const { showModal, setShowModal, setShowModalStr, showModalStr } = {
-    showModal: false,
-    setShowModal: () => {},
-    setShowModalStr: () => "",
-    showModalStr: "",
-  };
 
   return (
     <>
       <nav>
-        <NavbarContainer show={showModal}>
-          {showModalStr === "logout_confirmation" ? (
-            <NavbarLogoutConfirm />
-          ) : (
+       
             <NavbarSelector />
-          )}
-        </NavbarContainer>
+        
         <div className="container">
           <Link to="/">
             <span className="brand-container">
@@ -126,7 +106,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div>
-          <span>{userData.email}</span>
+          <span>{userData.authReducer.userData?.email}</span>
         </div>
 
         <div title="Logout" className="power-off">

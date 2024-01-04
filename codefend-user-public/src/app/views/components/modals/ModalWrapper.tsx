@@ -7,17 +7,11 @@ interface ModalWrapper {
 }
 
 const ModalWrapper: React.FC<ModalWrapper> = ({ isErrorBox, children }) => {
-  const {
-    setShowModal,
-  } = (val: boolean) => {
-    console.log(val);
-  };
+ 
 
   return (
     <div
-      onClick={(e) => {
-        if (!isErrorBox && e.currentTarget === e.target) setShowModal(false);
-      }}
+      onClick={(e) => {e}}
       className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-20 z-20 py-10"
     >
       <div className={`wrapper-content   ${!isErrorBox ? "max-w" : ""}`}>

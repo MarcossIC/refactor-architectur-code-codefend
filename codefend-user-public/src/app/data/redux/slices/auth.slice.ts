@@ -61,15 +61,15 @@ export const authSlice = createSlice({
 			state.success = true;
 			state.isAuth = false;
 			state.userData = {
-				username: action.payload.data.username,
-				email: action.payload.data.email,
-				password: action.payload.data.password,
-				role: action.payload.data.role,
-				name: action.payload.data.name,
-				companySize: action.payload.data.companySize,
-				companyRole: action.payload.data.companyRole,
-				companyWeb: action.payload.data.companyWeb,
-				companyCountry: action.payload.data.companyCountry,
+				username: action.payload.username,
+				email: action.payload.email,
+				password: action.payload.password,
+				role: action.payload.role,
+				name: action.payload.name,
+				companySize: action.payload.companySize,
+				companyRole: action.payload.companyRole,
+				companyWeb: action.payload.companyWeb,
+				companyCountry: action.payload.companyCountry,
 			}
 		});
 		/* state =  with errors*/
@@ -87,7 +87,7 @@ export const authSlice = createSlice({
 			state.success = false;
 		});
 		/* state = success */
-		builder.addCase(loginThunk.fulfilled, (state, action) => {
+		builder.addCase(loginThunk.fulfilled, ({ userData }, action) => {
 			state.loading = false;
 			state.success = true;
 			state.isAuth = true

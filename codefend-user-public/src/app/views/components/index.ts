@@ -6,6 +6,4 @@ export { default as EmptyCard } from "./standalones/EmptyCard";
 export * from "./standalones/Loader";
 export * from "./icons";
 
-export { default as Table } from "./table/Table";
-
 export { default as ModalWrapper } from "./modals/ModalWrapper";

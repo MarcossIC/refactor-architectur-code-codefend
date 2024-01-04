@@ -1,12 +1,12 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import { AppRouter } from "./Router";
 import { store } from "./data/redux/store";
 import { Provider } from "react-redux";
 import { Loader } from "./views/components";
+import { AppRouter } from "./Router";
 
-export const App: React.FC<void> = () => {
+export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>

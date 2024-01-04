@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginThunk } from "../../../../data/redux/thunks/auth.thunk";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { loginThunk, useAppDispatch } from "../../../../data";
 
 const SignInLayout: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [signinForm, setSigninForm] = useState({

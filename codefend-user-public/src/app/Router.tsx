@@ -8,12 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 const AuthPage = lazy(() => import("./views/pages/auth/AuthPage"));
 const SignInLayout = lazy(() => import("./views/pages/auth/components/Signin"));
 const SignUpLayout = lazy(() => import("./views/pages/auth/components/Signup"));
-const ConfirmationSignUp = lazy(() =>
-  import("./views/pages/auth/components/ConfirmationSignUp")
+const ConfirmationSignUp = lazy(
+  () => import("./views/pages/auth/components/ConfirmationSignUp")
 );
 const Dashboard = lazy(() => import("./views/pages/panel/dashboard/Dashboard"));
 
-export const AppRouter = () => {
+export const AppRouter: React.FC<void> = () => {
   return (
     <>
       <ToastContainer

@@ -1,10 +1,15 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "../../shared/modal.scss";
 
-const ModalWrapper = ({ isErrorBox, children }) => {
+interface ModalWrapper {
+  children: ReactNode;
+  isErrorBox: boolean;
+}
+
+const ModalWrapper: React.FC<ModalWrapper> = ({ isErrorBox, children }) => {
   const {
     setShowModal,
-  } = (val) => {
+  } = (val: boolean) => {
     console.log(val);
   };
 

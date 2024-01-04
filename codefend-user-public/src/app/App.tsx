@@ -1,5 +1,4 @@
-import React, { lazy, Suspense } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
+import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import { AppRouter } from "./Router";
@@ -7,7 +6,7 @@ import { store } from "./data/redux/store";
 import { Provider } from "react-redux";
 import { Loader } from "./views/components";
 
-const App = () => {
+export const App: React.FC<void> = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -19,4 +18,3 @@ const App = () => {
   );
 };
 
-export default App;

@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { ReactNode, lazy } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../data/redux/slices/auth.slice";
@@ -8,7 +8,12 @@ import "../../shared/navbar.scss";
 
 const Logo = lazy(() => import("./Logo"));
 
-const NavbarContainer = ({ chilldren, show }) => {
+interface NavbarContainer {
+  children?: ReactNode;
+  show: boolean;
+}
+
+const NavbarContainer: React.FC<NavbarContainer> = ({ children, show }) => {
   return show ? (
     <div
       onClick={() => {
@@ -23,7 +28,7 @@ const NavbarContainer = ({ chilldren, show }) => {
         }}
         className="wrapper-content"
       >
-        {chilldren}
+        {children}
       </div>
     </div>
   ) : (
@@ -61,9 +66,9 @@ const NavbarLogoutConfirm = () => {
   );
 };
 
-const NavbarSelector = () => {
+const NavbarSelector: React.FC = () => {
   return (
-    <div style={styles}>
+    <div>
       <div className="internal-tables navbar-selector">
         <div className="internal-tables-active navbar-selector_content">
           <p className="select title-format">Select a company</p>
@@ -74,7 +79,7 @@ const NavbarSelector = () => {
   );
 };
 
-const Navbar = ({}) => {
+const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

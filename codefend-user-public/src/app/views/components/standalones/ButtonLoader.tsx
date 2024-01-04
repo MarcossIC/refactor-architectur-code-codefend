@@ -1,12 +1,11 @@
 import React from "react";
 import "../../shared/loaders.scss";
 
-const ButtonLoader = () => {
+const ButtonLoader: React.FC = () => {
   return (
     <>
-      <button type="button" class="button-loader">
+      <button type="button" className="button-loader">
         <svg
-          class="w-5 h-5"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -20,7 +19,7 @@ const ButtonLoader = () => {
             d="M1 5h12m0 0L9 1m4 4L9 9"
           />
         </svg>
-        <span class="sr-only">Icon description</span>
+        <span className="sr-only">Icon description</span>
       </button>
     </>
   );

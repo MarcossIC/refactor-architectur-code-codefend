@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactNode } from "react";
 import {
   useReactTable,
   flexRender,
@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import "./table.scss";
 
-const controlFields = ({ fieldsToHideOnMobile, table }) => {
+const controlFields = ({ fieldsToHideOnMobile, table }): void => {
   const [hideFields, setHideFields] = useState(false);
 
   const triggerFieldsVisibility = (fieldsHide) => {
@@ -17,14 +17,12 @@ const controlFields = ({ fieldsToHideOnMobile, table }) => {
     const fieldsToHide = fields.filter((field) =>
       fieldsToHideOnMobile.includes(field.id)
     );
-    if (fieldsHide) {
-      fieldsToHide.forEach((field) => field.toggleVisibility());
-    }
-    if (!fieldsHide) {
-      fieldsToHide.forEach(
-        (field) => field.getIsVisible() === false && field.toggleVisibility()
-      );
-    }
+
+    fieldsToHide.forEach((field) => {
+        if (fieldsHide) field.toggleVisibility(hideFields);
+        else if ( !field.getIsVisible() ) field.toggleVisibility(hideFields);
+      });
+    };
   };
 
   const onHideFields = (event) => {
@@ -48,7 +46,18 @@ const controlFields = ({ fieldsToHideOnMobile, table }) => {
   }, []);
 };
 
-const Table = ({
+interface TableWrapper {
+  data: any;
+  columns: any;
+  fieldsToHideOnMobile: any;
+  sortBy: any;
+  setSelectedNow: any;
+  selectedNow: any;
+  maxHeight: any;
+  children: ReactNode;
+}
+
+const Table: React.FC<TableWrapper> = ({
   data,
   columns,
   fieldsToHideOnMobile,
@@ -56,6 +65,7 @@ const Table = ({
   setSelectedNow,
   selectedNow,
   maxHeight,
+  children,
 }) => {
   const [sorting, setSorting] = useState([]);
 
@@ -85,11 +95,11 @@ const Table = ({
       const headers = headerGroups.map((headerGroup) => headerGroup.headers);
       const selectedSortField = headers[0].find(
         (header) => header.id === sortBy
-      );
+      )!;
       setSelectedNow(false);
       selectedSortField.column.toggleSorting();
     }
-  }, []);
+  }, [sortBy, selectedNow, table]);
 
   return (
     <div

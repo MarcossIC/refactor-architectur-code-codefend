@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ChartIcon = () => (
+export const ChartIcon: React.FC<{}> = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -20,7 +20,7 @@ export const ChartIcon = () => (
   </svg>
 );
 
-export const GlobeWebIcon = () => (
+export const GlobeWebIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -35,7 +35,7 @@ export const GlobeWebIcon = () => (
   </svg>
 );
 
-export const MobileIcon = () => (
+export const MobileIcon: React.FC<{}> = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -55,7 +55,7 @@ export const MobileIcon = () => (
   </svg>
 );
 
-export const CLoudIcon = () => (
+export const CLoudIcon: React.FC<{}> = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -75,7 +75,7 @@ export const CLoudIcon = () => (
   </svg>
 );
 
-export const LanIcon = () => (
+export const LanIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -89,7 +89,7 @@ export const LanIcon = () => (
     <path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1-48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-64c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1-48 0z"></path>
   </svg>
 );
-export const EnpIcon = () => (
+export const EnpIcon: React.FC<{}> = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     strokeWidth={0}
@@ -104,7 +104,7 @@ export const EnpIcon = () => (
   </svg>
 );
 
-export const SourceCodeIcon = () => (
+export const SourceCodeIcon: React.FC<{}> = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     strokeWidth={0}
@@ -119,7 +119,7 @@ export const SourceCodeIcon = () => (
   </svg>
 );
 
-export const PeopleGroup = () => (
+export const PeopleGroup: React.FC<{}> = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     strokeWidth={0}
@@ -134,7 +134,7 @@ export const PeopleGroup = () => (
   </svg>
 );
 
-export const BugIcon = () => (
+export const BugIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -149,7 +149,7 @@ export const BugIcon = () => (
   </svg>
 );
 
-export const MessageIcon = () => (
+export const MessageIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -163,7 +163,7 @@ export const MessageIcon = () => (
     <path d="M64 0C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"></path>
   </svg>
 );
-export const PreferenceIcon = () => (
+export const PreferenceIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -177,7 +177,7 @@ export const PreferenceIcon = () => (
     <path d="M495.9 166.6c3.2 8.7.5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4l-55.6 17.8c-8.8 2.8-18.6.3-24.5-6.8-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4c-1.1-8.4-1.7-16.9-1.7-25.5s.6-17.1 1.7-25.4l-43.3-39.4c-6.9-6.2-9.6-15.9-6.4-24.6 4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2 5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8 8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"></path>
   </svg>
 );
-export const InxIcon = () => (
+export const InxIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -192,7 +192,7 @@ export const InxIcon = () => (
   </svg>
 );
 
-export const DataIcon = () => (
+export const DataIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -207,7 +207,7 @@ export const DataIcon = () => (
   </svg>
 );
 
-export const SearchIcon = () => (
+export const SearchIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -222,7 +222,7 @@ export const SearchIcon = () => (
   </svg>
 );
 
-export const LogoutIcon = () => (
+export const LogoutIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -237,7 +237,7 @@ export const LogoutIcon = () => (
   </svg>
 );
 
-export const CircleIcon = () => (
+export const CircleIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"
@@ -252,7 +252,7 @@ export const CircleIcon = () => (
   </svg>
 );
 
-export const CollaboratorsIcon = () => (
+export const CollaboratorsIcon: React.FC<{}> = () => (
   <svg
     strokeWidth={0}
     height="1em"

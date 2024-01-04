@@ -18,7 +18,7 @@ import {
 
 import "../../shared/sidebar.scss";
 
-const isActivePath = (verifyPath) => {
+const isActivePath = (verifyPath: string) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -26,7 +26,7 @@ const isActivePath = (verifyPath) => {
   return currentPath === verifyPath ? "active" : "";
 };
 
-const AdminSidebar = () => {
+const AdminSidebar: React.FC = () => {
   return (
     <>
       <Link
@@ -44,7 +44,7 @@ const AdminSidebar = () => {
   );
 };
 
-const Sidebar = ({}) => {
+const Sidebar: React.FC = () => {
   return (
     <aside className="sidebar">
       <Link

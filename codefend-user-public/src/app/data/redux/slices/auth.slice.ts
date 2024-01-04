@@ -85,6 +85,7 @@ export const authSlice = createSlice({
 		builder.addCase(loginThunk.pending, (state) => {
 			state.loading = true;
 			state.success = false;
+			state.isAuth = true
 		});
 		/* state = success */
 		builder.addCase(loginThunk.fulfilled, (state, action) => {

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
 const ConfirmationSignUp: React.FC = () => {
-  const param = useParams();
+  
   const [finishsignup, setFinishSignup] = useState({
     referenceNumber: "",
     isLoading: false,

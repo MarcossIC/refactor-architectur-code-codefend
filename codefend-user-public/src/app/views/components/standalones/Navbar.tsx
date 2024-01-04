@@ -1,15 +1,10 @@
-<<<<<<< HEAD:codefend-user-public/src/app/views/components/standalones/Navbar.jsx
-import React, { lazy } from "react";
-import { useDispatch, useSelector } from "react-redux";
-=======
 import React, { ReactNode, lazy } from "react";
 import { useDispatch } from "react-redux";
->>>>>>> fd091e34024790712286adf6882852f79b2de3c6:codefend-user-public/src/app/views/components/standalones/Navbar.tsx
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../data/redux/slices/auth.slice";
-import { clearAuth } from "../../../data";
-import { LogoutIcon } from "../icons";
 import "../../shared/navbar.scss";
+import { clearAuth, useAppSelector } from "../../../data";
+import { LogoutIcon } from "..";
 
 const Logo = lazy(() => import("./Logo"));
 
@@ -41,36 +36,6 @@ const NavbarContainer: React.FC<NavbarContainer> = ({ children, show }) => {
   );
 };
 
-const NavbarLogoutConfirm = () => {
-  return (
-    <div className="logout-confirm-container">
-      <div className="logout-confirm-content disable-border">
-        <div className="title-content">
-          <p className="text-small title-format">
-            Are you sure you want to Logout?
-          </p>
-        </div>
-
-        <div className="buttons">
-          <button
-            onClick={() => {
-              console.log("close modal");
-            }}
-            className="btn btn-secondary"
-          >
-            cancel
-          </button>
-          <button className="btn btn-primary" aria-label="Log out">
-            logout
-          </button>
-        </div>
-
-        <div className="helper-box text-format"></div>
-      </div>
-    </div>
-  );
-};
-
 const NavbarSelector: React.FC = () => {
   return (
     <div>
@@ -85,10 +50,9 @@ const NavbarSelector: React.FC = () => {
 };
 
 const Navbar: React.FC = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state)
+  const userData = useAppSelector((state) => state);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -96,25 +60,11 @@ const Navbar: React.FC = () => {
     clearAuth();
   };
 
-  const { user, setUser } = { user: "", setUser: () => {} };
-  
-  const { showModal, setShowModal, setShowModalStr, showModalStr } = {
-    showModal: false,
-    setShowModal: () => {},
-    setShowModalStr: () => "",
-    showModalStr: "",
-  };
-
   return (
     <>
       <nav>
-        <NavbarContainer show={showModal}>
-          {showModalStr === "logout_confirmation" ? (
-            <NavbarLogoutConfirm />
-          ) : (
-            <NavbarSelector />
-          )}
-        </NavbarContainer>
+        <NavbarSelector />
+
         <div className="container">
           <Link to="/">
             <span className="brand-container">
@@ -124,7 +74,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div>
-          <span>{userData.email}</span>
+          <span>{userData.authReducer.userData?.email}</span>
         </div>
 
         <div title="Logout" className="power-off">

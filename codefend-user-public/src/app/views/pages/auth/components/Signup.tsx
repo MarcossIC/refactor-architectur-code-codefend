@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { countries, companySizesList } from "../../../../data";
 
-import { useDispatch } from "react-redux";
 import { ButtonLoader } from "../../../components";
 import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
 
@@ -11,22 +9,24 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "../../../shared/buttons.scss";
 import "../../../shared/inputs.scss";
+import { User, useAppDispatch } from "../../../../data";
 
 const SignUpLayout: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [signupForm, setSignupForm] = useState({
+  const [signupForm, setSignupForm] = useState<User>({
     name: "",
     email: "",
-    phone: "",
+    phone:  "",
     companyName: "",
     companySize: "",
     companyRole: "",
     companyWeb: "",
     companyCountry: "",
-    isCompleteSignUp: false,
-    isLoading: false,
+    password: "",
+    role: "",
+    username: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,8 +38,8 @@ const SignUpLayout: React.FC = () => {
       username: "maco",
       companyRole: signupForm.companyRole,
       email: signupForm.email,
-      phone: signupForm.phone,
-      companyName: signupForm.companyName,
+      phone: signupForm.phone || "",
+      companyName: signupForm.companyName || "",
       companyWeb: signupForm.companyWeb,
       companySize: "Large",
       companyCountry: signupForm.companyCountry,
@@ -55,15 +55,15 @@ const SignUpLayout: React.FC = () => {
       setSignupForm((prevData) => ({ ...prevData, isCompleteSignUp: true }));
     } catch (error) {
       console.error("Error during registration:", error);
-      toast.error("An error occurred during registration.", error);
+      toast.error("An error occurred during registration.");
     } finally {
       setSignupForm((prevData) => ({ ...prevData, isLoading: false }));
     }
   };
 
-  const handleCompleteSignup = (e) => {
+ /*  const handleCompleteSignup = (e: any) => {
     e.preventDefault();
-  };
+  }; */
 
   return (
     <form onSubmit={handleSubmit}>

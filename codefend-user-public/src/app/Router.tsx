@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import { lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { RouterLayout } from "./RouterLayout";
 
@@ -13,7 +13,7 @@ const ConfirmationSignUp = lazy(
 );
 const Dashboard = lazy(() => import("./views/pages/panel/dashboard/Dashboard"));
 
-export const AppRouter: React.FC<void> = () => {
+export const AppRouter = () => {
   return (
     <>
       <ToastContainer

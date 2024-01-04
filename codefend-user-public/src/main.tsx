@@ -4,14 +4,14 @@ import { relaunch } from "@tauri-apps/api/process";
 import { checkUpdate, installUpdate } from "@tauri-apps/api/updater";
 import { listen } from "@tauri-apps/api/event";
 import { invoke } from "@tauri-apps/api/tauri";
-import App from "./app/App";
 import "./index.scss";
+import { App } from "./app/App";
 
 // Tauri
-//const RUNNING_IN_TAURI = window.__TAURI__ !== undefined;
+/* const RUNNING_IN_TAURI = window.__TAURI__ !== undefined;
 const startInstall = () => {
-  //installUpdate().then(relaunch);
-};
+  installUpdate().then(relaunch);
+}; */
 
 const checkTauriUpdates = async (): Promise<void> => {
   if (invoke !== undefined) {

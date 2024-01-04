@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 import { GlobeWebIcon, ButtonLoader } from "../";
 import { toast } from "react-toastify";
+import "../../shared/modal.scss";
 
 interface Props {
   onDone: () => void;
 }
 
-export const AddDomainModal: React.FC<Props> = (props) => {
+const AddDomainModal: React.FC<Props> = (props) => {
   const [domainName, setDomainName] = useState("");
   const [subdomainDetection, setSubdomainDetection] = useState(false);
   const [isAddingDomain, setIsAddingDomain] = useState(false);
@@ -41,7 +42,7 @@ export const AddDomainModal: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className="admin-modal text-format">
+    <div className="modal admin-modal text-format">
       <form onSubmit={handleSubmit}>
         <div className="form-input-text">
           <span className="form-icon">
@@ -92,3 +93,5 @@ export const AddDomainModal: React.FC<Props> = (props) => {
     </div>
   );
 };
+
+export default AddDomainModal;

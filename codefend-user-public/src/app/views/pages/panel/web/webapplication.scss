@@ -1,6 +1,26 @@
 main.webapp {
-  .add-domain-modal {
+  .web-modal-wrapper {
     width: 24rem;
+
+    .modal-helper-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline: auto;
+      padding: 0.75rem;
+
+      @media only screen and (min-width: 640px) {
+        & {
+          max-width: 640px;
+        }
+      }
+      @media only screen and (min-width: 768px) {
+        & {
+          max-width: 768px;
+        }
+      }
+    }
 
     .modal-header {
       .icon {

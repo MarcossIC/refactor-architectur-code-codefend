@@ -27,13 +27,15 @@
   }
 }
 
-.admin-modal {
+.modal {
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-inline: auto;
-  width: 100%;
 
+  margin-inline: auto;
+  padding: 0.75rem;
   form {
     padding: 1.5rem;
 
@@ -42,6 +44,16 @@
       display: flex;
       align-items: center;
       width: 24rem;
+
+      .form-icon {
+        position: absolute;
+
+        div {
+          width: 0.75rem;
+          height: 0.75rem;
+          margin-inline: 1rem;
+        }
+      }
 
       input {
         display: block;
@@ -62,6 +74,31 @@
           }
         }
       }
+    }
+  }
+
+  @media only screen and (min-width: 640px) {
+    & {
+      max-width: 640px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    & {
+      max-width: 768px;
+    }
+  }
+}
+
+.admin-modal {
+  form {
+    padding: 1.5rem;
+
+    .form-input-text {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 24rem;
 
       .form-icon {
         position: absolute;
@@ -70,6 +107,26 @@
           width: 0.75rem;
           height: 0.75rem;
           margin-inline: 1rem;
+        }
+      }
+
+      input {
+        display: block;
+        width: 100%;
+
+        background-color: #fff;
+        border: 1px solid;
+        padding-block: 0.75rem;
+        padding-inline: 2.75rem;
+
+        &:focus {
+          outline: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          & {
+            color: rgba(209, 213, 219, 1);
+          }
         }
       }
     }
@@ -134,16 +191,27 @@
       }
     }
   }
+}
 
-  @media only screen and (min-width: 640px) {
-    & {
-      max-width: 640px;
-    }
-  }
+.subdomain-modal {
+  form {
+    padding: 1.5rem;
 
-  @media only screen and (min-width: 768px) {
-    & {
-      max-width: 768px;
+    .form-input-text {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 24rem;
+
+      span {
+        position: absolute;
+
+        div {
+          width: 0.75rem;
+          height: 0.75rem;
+          margin-inline: 1rem;
+        }
+      }
     }
   }
 }

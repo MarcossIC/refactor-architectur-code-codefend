@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-import DashboardSearchbar from "./DashboardSearchbar";
-import DashboardVulnerabilities from "./DashboardVulnerabilities";
-import DashboardCollaborators from "./DashboardCollaborators";
-import DashboardAssets from "./DashboardAssets";
-import DashboardChart from "./DashboardChart";
-import DashboardVulnerabilitiesStatus from "./DashboardVulnerabilitiesStatus";
+import DashboardSearchbar from "./components/DashboardSearchbar";
+import DashboardVulnerabilities from "./components/DashboardVulnerabilities";
+import DashboardCollaborators from "./components/DashboardCollaborators";
+import DashboardAssets from "./components/DashboardAssets";
+import DashboardChart from "./components/DashboardChart";
+import DashboardVulnerabilitiesStatus from "./components/DashboardVulnerabilitiesStatus";
+
+import "./dashboard.scss";
+import "../../../shared/card.scss";
 
 const Dashboard = () => {
   const [showScreen, setShowScreen] = useState(false);

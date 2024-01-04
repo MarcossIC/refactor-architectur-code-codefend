@@ -16,6 +16,8 @@ import {
   DataIcon,
 } from "../icons";
 
+import "../../shared/sidebar.scss";
+
 const isActivePath = (verifyPath) => {
   const location = useLocation();
   const currentPath = location.pathname;

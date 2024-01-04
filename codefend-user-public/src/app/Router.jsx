@@ -6,10 +6,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AuthPage = lazy(() => import("./views/pages/auth/AuthPage"));
-const SignInLayout = lazy(() => import("./views/pages/auth/layouts/signin"));
-const SignUpLayout = lazy(() => import("./views/pages/auth/layouts/signup"));
+const SignInLayout = lazy(() => import("./views/pages/auth/components/Signin"));
+const SignUpLayout = lazy(() => import("./views/pages/auth/components/Signup"));
 const ConfirmationSignUp = lazy(() =>
-  import("./views/pages/auth/layouts/confirmationSignUp")
+  import("./views/pages/auth/components/ConfirmationSignUp")
 );
 const Dashboard = lazy(() => import("./views/pages/panel/dashboard/Dashboard"));
 

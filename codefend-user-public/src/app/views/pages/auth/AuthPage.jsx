@@ -2,6 +2,10 @@ import React, { Suspense, lazy } from "react";
 import { Outlet } from "react-router";
 import { Link, useLocation } from "react-router-dom";
 
+import "./auth.scss";
+import "../../shared/buttons.scss";
+import "../../shared/forms.scss";
+
 const Logo = lazy(() => import("../../components/standalones/Logo"));
 
 const isActivePath = (currentPath) => {
@@ -17,7 +21,7 @@ const AuthPage = () => {
       <div className="codefend-img-bg">
         <Logo theme={"shadow"} />
       </div>
-      <section className="access log-component">
+      <section className="access">
         <div className="container">
           <div className="brand"></div>
           <div className="forms">

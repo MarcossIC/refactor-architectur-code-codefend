@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, Colors } from "chart.js";
 
-import { isEmptyData, renderPercentage } from "../../../../data/utils/helper";
-import { EmptyCard, PageLoader, BugIcon } from "../../../components";
+import {
+  isEmptyData,
+  renderPercentage,
+} from "../../../../../data/utils/helper";
+import { EmptyCard, PageLoader, BugIcon } from "../../../../components";
 
 const useChart = ({ vulnerabilityByRisk }) => {
   const { total, ...otherMetrics } = vulnerabilityByRisk;

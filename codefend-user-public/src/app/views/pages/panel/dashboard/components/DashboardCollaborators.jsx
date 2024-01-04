@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
 
-import { Table, PageLoader, CollaboratorsIcon } from "../../../components";
+import { Table, PageLoader, CollaboratorsIcon } from "../../../../components";
 import {
   CollaboratorsColumnDef,
   defaultCollaboratorsColumnsData,
-} from "../../../components/table/tableColumnDef";
+} from "../../../../components/table/tableColumnDef";
 
 const DashboardCollaborators = ({ members, isLoading }) => {
   const [sortBy, setSortBy] = useState("");

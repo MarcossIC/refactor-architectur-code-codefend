@@ -1,0 +1,28 @@
+.modal-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 20;
+  padding-block: 2.5rem;
+
+  .wrapper-content {
+    max-height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+
+    &.max-w {
+      max-width: 36rem;
+    }
+    > div {
+      width: 100%;
+    }
+  }
+}

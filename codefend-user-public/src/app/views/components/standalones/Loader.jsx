@@ -1,4 +1,5 @@
 import React from "react";
+import "../../shared/loaders.scss";
 
 const Spinner = ({ icon }) => <div className={`spinner ${icon}`}></div>;
 

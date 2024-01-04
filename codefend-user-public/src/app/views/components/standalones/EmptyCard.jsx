@@ -1,10 +1,11 @@
 import React from "react";
+import "../../shared/card.scss";
 
 const EmptyCard = () => {
   return (
     <div className="empty-card">
-      <div className="container">
-        <div className="content-wrapper">
+      <div className="empty-container">
+        <div className="empty-wrapper">
           <img
             src="/codefend/not-allowed.svg"
             alt="Not allowed icon"
@@ -13,7 +14,7 @@ const EmptyCard = () => {
             height="5rem"
           />
 
-          <div className="content">
+          <div className="empty-content">
             <p class="first-text">There's no data to display here.</p>
             <p className="second-text">
               If you just placed an order please allow our team to work.

@@ -5,7 +5,7 @@ import {
   getCoreRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import "./table.css";
+import "./table.scss";
 
 const controlFields = ({ fieldsToHideOnMobile, table }) => {
   const [hideFields, setHideFields] = useState(false);

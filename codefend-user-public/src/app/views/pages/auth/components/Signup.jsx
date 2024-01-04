@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { countries, companySizesList } from "../../../../data/";
+import { countries, companySizesList } from "../../../../data";
 
 import { useDispatch } from "react-redux";
 import { ButtonLoader } from "../../../components";
@@ -8,6 +8,9 @@ import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import "../../../shared/buttons.scss";
+import "../../../shared/inputs.scss";
 
 const SignUpLayout = () => {
   const dispatch = useDispatch();
@@ -64,13 +67,12 @@ const SignUpLayout = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="text"
           onChange={(e) =>
             setSignupForm((current) => ({ ...current, name: e.target.value }))
           }
-          className="full-w"
           name="first_name"
           placeholder="First name"
           autoComplete="given-name"
@@ -78,7 +80,7 @@ const SignUpLayout = () => {
         />
       </div>
 
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="text"
           onChange={(e) =>
@@ -87,7 +89,6 @@ const SignUpLayout = () => {
               surname: e.target.value,
             }))
           }
-          className="full-w"
           name="last_name"
           autoComplete="family-name"
           placeholder="Last name"
@@ -95,13 +96,12 @@ const SignUpLayout = () => {
         />
       </div>
 
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="email"
           onChange={(e) =>
             setSignupForm((current) => ({ ...current, email: e.target.value }))
           }
-          className="full-w"
           name="email_address"
           autoComplete="email"
           placeholder="Email address"
@@ -109,20 +109,19 @@ const SignUpLayout = () => {
         />
       </div>
 
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="tel"
           onChange={(e) =>
             setSignupForm((current) => ({ ...current, phone: e.target.value }))
           }
-          className="full-w"
           name="phone_number"
           placeholder="Phone number"
           required
         />
       </div>
 
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="text"
           onChange={(e) =>
@@ -131,13 +130,12 @@ const SignUpLayout = () => {
               companyName: e.target.value,
             }))
           }
-          className="full-w"
           name="company_name"
           placeholder="Company Name"
           required
         />
       </div>
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="url"
           onChange={(e) =>
@@ -146,7 +144,6 @@ const SignUpLayout = () => {
               companyWeb: e.target.value,
             }))
           }
-          className="full-w"
           name="company_website"
           placeholder="https://example.com"
           pattern="https://.*"
@@ -154,7 +151,7 @@ const SignUpLayout = () => {
           required
         />
       </div>
-      <div className="mbs-2">
+      <div className="input-group">
         <select
           onChange={(e) =>
             setSignupForm((current) => ({
@@ -162,7 +159,7 @@ const SignUpLayout = () => {
               companySize: e.target.value,
             }))
           }
-          className="log-inputs full-w log-text"
+          className="log-inputs log-text"
           name="company_size"
           value={signupForm.companySize}
           required
@@ -177,7 +174,7 @@ const SignUpLayout = () => {
           ))}
         </select>
       </div>
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="text"
           onChange={(e) =>
@@ -186,14 +183,13 @@ const SignUpLayout = () => {
               companyRole: e.target.value,
             }))
           }
-          className="full-w"
           name="company_role"
           placeholder="Company Role"
           required
         />
       </div>
 
-      <div className="mbs-2">
+      <div className="input-group">
         <select
           id="countries"
           name="country"
@@ -203,7 +199,7 @@ const SignUpLayout = () => {
               companyCountry: e.target.value,
             }))
           }
-          className="log-inputs full-w log-text"
+          className="log-inputs log-text"
           value={signupForm.companyCountry}
           required
         >
@@ -218,23 +214,23 @@ const SignUpLayout = () => {
         </select>
       </div>
 
-      <div className="mbs-6">
+      <div className="extra-group">
         <span href="#" className="link link-color">
           I have read and accept the <u>Privacy Policy</u> and{" "}
           <u>Terms of Use.</u>
         </span>
       </div>
-      <div className="mbs-6">
+      <div className="extra-group">
         <button
           disabled={signupForm.isLoading}
           type="submit"
-          className="btn btn-primary flex align-center gapx-2"
+          className="btn btn-primary signup-button"
         >
           {signupForm.isLoading && <ButtonLoader />}
           proceed
         </button>
 
-        <div className="mbs-6 alignT-center ">
+        <div className="extra-group text-center">
           <Link
             to="/auth/signin"
             className="link codefend-text-red link-underline"

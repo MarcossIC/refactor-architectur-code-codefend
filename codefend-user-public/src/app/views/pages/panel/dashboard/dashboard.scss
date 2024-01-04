@@ -3,14 +3,53 @@
 //////////////////////////////////////////////////////////////////
 main.dashboard {
   overflow: hidden;
-  .left {
-    width: 70%;
-  }
-  .right {
-    width: 30%;
-  }
 
-  .vulnerabilities {
+  .searchs-bar {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 25px;
+    height: 32px;
+    margin-bottom: 10px;
+
+    .search-items {
+      &:first-child {
+        flex: 0.4;
+      }
+      &:last-child {
+        flex: 1;
+      }
+
+      form {
+        display: flex;
+        flex-direction: row;
+        height: 2.25rem /* 36px */;
+        margin-block-end: 1rem /*16px*/;
+
+        input {
+          padding-inline: 1.5rem /* 24px */;
+          width: 100%;
+          height: 100%;
+        }
+
+        select {
+          margin-right: 10px;
+          border: 1px solid var(--color-border);
+
+          display: block;
+          font-size: 0.875rem /* 14px */;
+          line-height: 1.25rem /* 20px */;
+          padding: 0.625rem /* 10px */;
+        }
+
+        .search-button {
+          width: 3.5rem /* 56px */;
+
+          align-items: center;
+          justify-content: center;
+          border: none;
+        }
+      }
+    }
   }
 }
 
@@ -18,16 +57,6 @@ main.dashboard {
 // webapp
 //////////////////////////////////////////////////////////////////
 main.webapp {
-  .left {
-    width: 70%;
-  }
-  .right {
-    width: 30%;
-  }
-
-  .vulnerabilities {
-    // height: 50vh;
-  }
 }
 
 .text-fend-red {
@@ -51,7 +80,6 @@ main.mobile {
     padding-top: 10px;
     padding-right: 13px;
 
-    width: 30%;
     display: flex;
     flex-direction: column;
     // justify-content: flex-end;
@@ -65,9 +93,6 @@ main.mobile {
       // padding-right: 10px;
       // width: 420px;
     }
-  }
-  .right {
-    width: 70%;
   }
 }
 
@@ -84,7 +109,6 @@ main.cloud {
     padding-top: 10px;
     padding-right: 13px;
 
-    width: 30%;
     display: flex;
     flex-direction: column;
     // justify-content: flex-end;
@@ -99,45 +123,24 @@ main.cloud {
       // width: 420px;
     }
   }
-  .right {
-    width: 70%;
-  }
 }
 
 ///////////////////////////////////////////////////////////////////
 // lan
 //////////////////////////////////////////////////////////////////
 main.lan {
-  .left {
-    width: 70%;
-  }
-  .right {
-    width: 30%;
-  }
 }
 
 ///////////////////////////////////////////////////////////////////
 // social
 //////////////////////////////////////////////////////////////////
 main.social {
-  .left {
-    width: 70%;
-  }
-  .right {
-    width: 30%;
-  }
 }
 
 ///////////////////////////////////////////////////////////////////
 // issues-list
 //////////////////////////////////////////////////////////////////
 main.issues-list {
-  .left {
-    width: 70%;
-  }
-  .right {
-    width: 30%;
-  }
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -157,12 +160,6 @@ main.support {
 // source code
 //////////////////////////////////////////////////////////////////
 main.source-code {
-  .left {
-    width: 70%;
-  }
-  .right {
-    width: 30%;
-  }
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -170,16 +167,12 @@ main.source-code {
 //////////////////////////////////////////////////////////////////
 main.preferences {
   .left {
-    width: 70%;
     .table {
       .rows {
         max-height: 36vh;
         overflow-y: auto;
       }
     }
-  }
-  .right {
-    width: 30%;
   }
 }
 
@@ -188,7 +181,6 @@ main.preferences {
 //////////////////////////////////////////////////////////////////
 main.sb {
   .left {
-    width: 70%;
     border: 1px solid var(--color-border);
     // border-right: 1px solid var(--color-border);
     margin-bottom: -10px;
@@ -268,8 +260,5 @@ main.sb {
         }
       }
     }
-  }
-  .right {
-    width: 30%;
   }
 }

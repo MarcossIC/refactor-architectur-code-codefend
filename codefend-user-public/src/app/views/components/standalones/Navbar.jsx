@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../data/redux/slices/auth.slice";
 import { clearAuth } from "../../../data";
 import { LogoutIcon } from "../icons";
+import "../../shared/navbar.scss";
 
 const Logo = lazy(() => import("./Logo"));
 
 const NavbarContainer = ({ chilldren, show }) => {
-  
   return show ? (
     <div
       onClick={() => {
@@ -32,7 +32,6 @@ const NavbarContainer = ({ chilldren, show }) => {
 };
 
 const NavbarLogoutConfirm = () => {
- 
   return (
     <div className="logout-confirm-container">
       <div className="logout-confirm-content disable-border">
@@ -51,10 +50,7 @@ const NavbarLogoutConfirm = () => {
           >
             cancel
           </button>
-          <button
-            className="btn btn-primary"
-            aria-label="Log out"
-          >
+          <button className="btn btn-primary" aria-label="Log out">
             logout
           </button>
         </div>
@@ -68,8 +64,8 @@ const NavbarLogoutConfirm = () => {
 const NavbarSelector = () => {
   return (
     <div style={styles}>
-      <div className="internal-tables">
-        <div className="internal-tables-active full-w flex pad-3">
+      <div className="internal-tables navbar-selector">
+        <div className="internal-tables-active navbar-selector_content">
           <p className="select title-format">Select a company</p>
         </div>
         <div className="helper-box text-format"></div>
@@ -79,16 +75,14 @@ const NavbarSelector = () => {
 };
 
 const Navbar = ({}) => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/auth/signin')
-    clearAuth()
+    navigate("/auth/signin");
+    clearAuth();
   };
-
 
   const { user, setUser } = { user: "", setUser: () => {} };
   const { showModal, setShowModal, setShowModalStr, showModalStr } = {
@@ -117,9 +111,7 @@ const Navbar = ({}) => {
         </div>
 
         <div title="Logout" className="power-off">
-          <span
-            onClick={handleLogout}
-          >
+          <span onClick={handleLogout}>
             <LogoutIcon />
           </span>
         </div>

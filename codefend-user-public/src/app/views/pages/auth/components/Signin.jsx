@@ -39,20 +39,19 @@ const SignInLayout = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="input-group">
         <input
           type="email"
           onChange={(e) =>
             setSigninForm((current) => ({ ...current, email: e.target.value }))
           }
-          className="full-w"
           placeholder="Email address"
           autoComplete="email"
           required
         />
       </div>
 
-      <div className="mbs-2">
+      <div className="input-group">
         <input
           type="password"
           onChange={(e) =>
@@ -61,13 +60,12 @@ const SignInLayout = () => {
               password: e.target.value,
             }))
           }
-          className="full-w"
           placeholder="Password"
           required
         />
       </div>
 
-      <div className="mbs-6">
+      <div className="extra-group ">
         <button
           type="submit"
           disabled={signinForm.isLoading}
@@ -76,7 +74,7 @@ const SignInLayout = () => {
           proceed
         </button>
 
-        <div className="mbs-6 link-center link-underline">
+        <div className="extra-group link-center link-underline">
           <Link to="/auth/signup" className="link codefend-text-red">
             Don’t have an account yet? Sign up
           </Link>

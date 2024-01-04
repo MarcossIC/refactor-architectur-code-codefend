@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchIcon } from "../../../components";
+import { SearchIcon } from "../../../../components";
 
 const DashboardSearchbar = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -30,7 +30,6 @@ const DashboardSearchbar = () => {
           <select
             id="states"
             name="states"
-            className="text-sm block w-2xl p-2.5"
             onChange={(e) => {
               setSearchClass(e.target.value);
             }}

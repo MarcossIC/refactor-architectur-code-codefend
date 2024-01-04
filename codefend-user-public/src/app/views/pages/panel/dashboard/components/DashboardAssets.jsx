@@ -1,12 +1,14 @@
 import React from "react";
-import {CircleIcon} from "../../../components";
+import { CircleIcon } from "../../../../components";
 
 const DashboardAssets = ({ resources }) => {
   return (
     <div className="card stats">
       <div className="header">
         <div className="title">
-          <div className="icon"><CircleIcon/></div>
+          <div className="icon">
+            <CircleIcon />
+          </div>
           <span>Supervised assets</span>
         </div>
         <div className="actions"></div>

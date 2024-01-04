@@ -6,6 +6,15 @@
   &.text-area:focus {
     border-color: var(--input-outline-color);
   }
+
+  &.log-text {
+    display: block;
+    font-size: 0.875rem /* 14px */;
+    line-height: 1.25rem /* 20px */;
+
+    border-radius: 0.25rem;
+    padding: 0.625rem /* 10px */;
+  }
 }
 
 .checkbox-color {
@@ -13,10 +22,13 @@
 }
 
 input {
-  @apply h-[45px] border border-solid py-0 px-[15px];
-  height: 45px;
+  height: 43px;
+  padding-block: 0;
+  padding-inline: 15px;
   background-color: var(--input-background);
   color: var(--input-font-color);
+  border-width: 1px;
+  border-style: solid;
   border-color: var(--color-border);
 
   &:focus {
@@ -33,23 +45,10 @@ select {
 }
 
 .check {
-  @apply flex items-center gap-x-2;
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem /* 8px */;
 }
 input[type="checkbox"] {
   accent-color: var(--bkg-codefend);
-}
-
-form.signup-confirmation {
-  .check-mail {
-    p {
-      color: var(--font-color);
-    }
-  }
-
-  .otp-label {
-    color: var(--color-active-border);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-  }
 }

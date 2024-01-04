@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChartIcon } from "../../../components";
+import { ChartIcon } from "../../../../components";
 
-import "../../../shared/flag.scss";
+import "../../../../shared/flag.scss";
 
 const DashboardVulnerabilitiesStatus = ({ vulnerabilityByShare }) => {
   const navigate = useNavigate();

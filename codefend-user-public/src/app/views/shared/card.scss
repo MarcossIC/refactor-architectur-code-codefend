@@ -1,10 +1,15 @@
 .card {
-  @apply overflow-x-hidden border border-solid;
+  overflow-x: hidden;
+  border-width: 1px;
+  border-style: solid;
   border-color: var(--color-border);
 
   &.only-info {
     .content {
-      @apply flex items-center justify-center p-5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem /* 20px */;
       p {
         color: var(--text-color);
       }
@@ -13,30 +18,53 @@
 
   &.risk-chart {
     .content {
-      @apply flex items-center justify-center p-5 gap-x-[1dvw];
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem /* 20px */;
+      column-gap: 1dvw;
+
       .chart {
-        @apply grow-[0.3] max-w-[30%];
+        flex-grow: 0.3;
+        max-width: 30%;
+
         canvas {
           width: 100% !important;
           height: 100% !important;
         }
       }
       .table {
-        @apply grow-[0.7] max-w-[70%];
+        flex-grow: 0.7;
+        max-width: 70%;
       }
     }
   }
 
   &.stats {
     .content {
-      @apply flex justify-between items-center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       .stat {
-        @apply cursor-pointer flex items-center flex-col font-[Roboto] uppercase py-5 px-0 grow border-r border-solid;
+        font-family: "Roboto", sans-serif;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-transform: uppercase;
+        padding-block: 1.25rem /* 20px */;
+        padding-inline: 0;
+        flex-grow: 1;
+
         color: var(--text-color-alt3);
+        border-right-width: 1px;
+        border-right-style: solid;
         border-right-color: var(--color-border);
         .value {
-          @apply font-bold text-[32px] leading-[32px];
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 32px;
           color: var(--text-color-alt3);
           span {
             color: var(--stats-value-color);
@@ -57,15 +85,25 @@
 
   &.filtered {
     .filters {
-      @apply py-0 px-5 flex flex-col;
+      display: flex;
+      flex-direction: column;
+      padding-block: 0;
+      padding-inline: 1.25rem /* 20px */;
       color: var(--font-color);
 
       .filter {
-        @apply flex items-center justify-between border-b border-solid;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
         border-bottom-color: var(--color-border);
 
         .value {
-          @apply flex items-center justify-between gap-x-[7px];
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          column-gap: 7px;
         }
 
         &:last-child {
@@ -78,12 +116,30 @@
       }
     }
   }
+
+  &.colaborators {
+    height: 100%;
+
+    > .colaborators-container {
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
   &.messages {
-    @apply w-full overflow-hidden h-[92dvh];
+    width: 100%;
+    overflow: hidden;
+    height: 92dvh;
+
     .content {
-      @apply flex justify-around items-center overflow-y-auto h-[60dvh];
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      overflow-y: auto;
+      height: 60dvh;
       .messages-wrapper {
-        @apply w-full h-[60dvh];
+        width: 100%;
+        height: 60dvh;
         color: var(--text-color);
         span {
           color: var(--text-color-alt3);
@@ -95,7 +151,8 @@
     }
     .sender {
       .header {
-        @apply justify-between -mr-5;
+        justify-content: space-between;
+        margin-inline-end: -1.25rem /* -20px */;
         button {
           height: 100%;
         }
@@ -112,20 +169,39 @@
 }
 
 .empty-card {
-  width: 35.25rem;
-  height: 6.56rem;
-  margin: 1.8rem 0 1.8rem 0;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 
-  .contents-wrapper {
+  .empty-container {
+    display: flex;
+    align-items: center;
+    width: 35.25rem;
+    height: 6.56rem;
+    margin: 1.8rem 0 1.8rem 0;
+  }
+  .empty-wrapper {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    column-gap: 20px;
     padding: 0 1.75rem;
 
-    .first-text {
-      color: var(--text-color-fend-red);
-      font-weight: 800;
-    }
+    .empty-content {
+      display: flex;
+      flex-direction: column;
+      column-gap: 8px;
 
-    .second-text {
-      color: #7e7e7e;
+      .first-text {
+        color: var(--text-color-fend-red);
+        font-weight: 800;
+      }
+
+      .second-text {
+        color: #7e7e7e;
+      }
     }
   }
 }

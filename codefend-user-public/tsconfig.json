@@ -1,11 +1,13 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "importHelpers": true,
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": "./",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -15,6 +17,8 @@
     "noEmit": true,
     "esModuleInterop": true,
     "noImplicitReturns": true,
+    "sourceMap": true,
+    "declaration": false,
     "jsx": "react-jsx",
 
     /* Linting */

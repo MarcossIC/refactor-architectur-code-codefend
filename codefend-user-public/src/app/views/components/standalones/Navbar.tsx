@@ -84,11 +84,8 @@ const NavbarSelector: React.FC = () => {
   );
 };
 
-<<<<<<< HEAD:codefend-user-public/src/app/views/components/standalones/Navbar.jsx
-const Navbar = ({}) => {
-=======
 const Navbar: React.FC = () => {
->>>>>>> fd091e34024790712286adf6882852f79b2de3c6:codefend-user-public/src/app/views/components/standalones/Navbar.tsx
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state)
@@ -100,6 +97,7 @@ const Navbar: React.FC = () => {
   };
 
   const { user, setUser } = { user: "", setUser: () => {} };
+  
   const { showModal, setShowModal, setShowModalStr, showModalStr } = {
     showModal: false,
     setShowModal: () => {},

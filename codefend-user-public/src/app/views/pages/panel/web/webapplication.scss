@@ -1,0 +1,32 @@
+main.webapp {
+  .add-domain-modal {
+    width: 24rem;
+
+    .modal-header {
+      .icon {
+        font-size: 1.125rem /* 18px */;
+        line-height: 1.75rem /* 28px */;
+        margin-inline-end: 0.5rem;
+      }
+      span {
+        font-size: 0.875rem /* 14px */;
+        line-height: 1.25rem /* 20px */;
+      }
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    background-color: var(--header-title-bkg) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    color: var(--font-color) !important;
+    font-family: Roboto;
+    font-size: 13px;
+    line-height: 13px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}

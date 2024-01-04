@@ -6,7 +6,27 @@ const accessToken = localStorage.getItem('userToken')
 	? localStorage.getItem('userToken')
 	: null
 
-const initialState = {
+interface AuthState {
+	isAuth: boolean,
+	success: boolean,
+	error: string | null | undefined,
+	loading: boolean,
+	isExpired: null,
+	userData: {
+		username: string
+		email: string,
+		password: string,
+		role: string
+		name: string,
+		companySize: string | number,
+		companyRole: string,
+		companyWeb: string
+		companyCountry: string
+	} | null,
+	accessToken: string | null
+}
+
+const initialState: AuthState = {
 	isAuth: false,
 	success: false,
 	error: null,
@@ -41,7 +61,6 @@ export const authSlice = createSlice({
 			state.success = true;
 			state.isAuth = false;
 			state.userData = {
-				_id: action.payload.data._id,
 				username: action.payload.data.username,
 				email: action.payload.data.email,
 				password: action.payload.data.password,

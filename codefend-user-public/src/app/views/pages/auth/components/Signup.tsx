@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../../shared/buttons.scss";
 import "../../../shared/inputs.scss";
 
-const SignUpLayout = () => {
+const SignUpLayout: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const SignUpLayout = () => {
     isLoading: false,
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSignupForm((current) => ({ ...current, isLoading: true }));
 

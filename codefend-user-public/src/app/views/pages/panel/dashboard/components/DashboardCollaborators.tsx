@@ -6,7 +6,10 @@ import {
   defaultCollaboratorsColumnsData,
 } from "../../../../components/table/tableColumnDef";
 
-const DashboardCollaborators = ({ members, isLoading }) => {
+const DashboardCollaborators: React.FC<{
+  members: any;
+  isLoading: boolean;
+}> = ({ members, isLoading }) => {
   const [sortBy, setSortBy] = useState("");
   const [selectedNow, setSelectedNow] = useState(false);
   const getMembers = () => members;

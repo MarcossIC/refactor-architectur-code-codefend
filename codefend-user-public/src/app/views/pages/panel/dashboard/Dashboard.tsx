@@ -10,7 +10,7 @@ import DashboardVulnerabilitiesStatus from "./components/DashboardVulnerabilitie
 import "./dashboard.scss";
 import "../../../shared/card.scss";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const [showScreen, setShowScreen] = useState(false);
   const companyInfo = { loading: true };
 

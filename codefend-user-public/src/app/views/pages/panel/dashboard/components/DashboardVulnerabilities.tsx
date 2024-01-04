@@ -2,7 +2,10 @@ import React, { useCallback, useState } from "react";
 import { Table, EmptyCard, PageLoader, BugIcon } from "../../../../components";
 import { vulnerabilitiesColumnDef } from "../../../../components/table/tableColumnDef";
 
-const DashboardVulnerabilities = ({ topVulnerabilities, isLoading }) => {
+const DashboardVulnerabilities: React.FC<{
+  topVulnerabilities: any;
+  isLoading: boolean;
+}> = ({ topVulnerabilities, isLoading }) => {
   const [sortBy, setSortBy] = useState("");
   const [selectedNow, setSelectedNow] = useState(false);
 

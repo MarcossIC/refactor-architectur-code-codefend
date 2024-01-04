@@ -8,14 +8,14 @@ import "../../shared/forms.scss";
 
 const Logo = lazy(() => import("../../components/standalones/Logo"));
 
-const isActivePath = (currentPath) => {
+const isActivePath: () => string = (currentPath: string) => {
   const location = useLocation();
 
   if (location.pathname.startsWith("/auth/signup")) return "active";
   return location.pathname === currentPath ? "active" : "";
 };
 
-const AuthPage = () => {
+const AuthPage: React.FC = () => {
   return (
     <>
       <div className="codefend-img-bg">

@@ -5,7 +5,7 @@ import { loginThunk } from "../../../../data/redux/thunks/auth.thunk";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SignInLayout = () => {
+const SignInLayout: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const SignInLayout = () => {
     isLoading: false,
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSigninForm((current) => ({ ...current, isLoading: true }));
 

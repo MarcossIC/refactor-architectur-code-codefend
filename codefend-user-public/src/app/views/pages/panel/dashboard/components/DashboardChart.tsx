@@ -6,6 +6,7 @@ import {
   isEmptyData,
   renderPercentage,
 } from "../../../../../data/utils/helper";
+
 import { EmptyCard, PageLoader, BugIcon } from "../../../../components";
 
 const useChart = ({ vulnerabilityByRisk }) => {
@@ -31,7 +32,10 @@ const useChart = ({ vulnerabilityByRisk }) => {
   return { chartData, otherMetrics };
 };
 
-const DashboardChart = ({ vulnerabilityByRisk, isLoading }) => {
+const DashboardChart: React.FC<{
+  vulnerabilityByRisk: any;
+  isLoading: boolean;
+}> = ({ vulnerabilityByRisk, isLoading }) => {
   useEffect(() => ChartJS.register(Title, Tooltip, Legend, Colors), []);
 
   const { chartData, otherMetrics } = useChart({ vulnerabilityByRisk });
@@ -53,9 +57,9 @@ const DashboardChart = ({ vulnerabilityByRisk, isLoading }) => {
     <div className="card risk-chart">
       {!isLoading ? (
         <>
-          <div class="header">
-            <div class="title">
-              <div class="icon">
+          <div className="header">
+            <div className="title">
+              <div className="icon">
                 <BugIcon />
               </div>
               <span>Vulnerabilities by risk</span>
@@ -71,18 +75,18 @@ const DashboardChart = ({ vulnerabilityByRisk, isLoading }) => {
                 <div className="chart">
                   <Doughnut data={chartData} options={chartOptions} />
                 </div>
-                <div class="table small">
-                  <div class="columns-name">
-                    <div class="risk">risk</div>
-                    <div class="count">count</div>
-                    <div class="percent">percent</div>
+                <div className="table small">
+                  <div className="columns-name">
+                    <div className="risk">risk</div>
+                    <div className="count">count</div>
+                    <div className="percent">percent</div>
                   </div>
                   <div className="rows">
                     {Object.keys(otherMetrics).map((metric) => (
                       <div className="items">
-                        <div class="risk">{metric}</div>
-                        <div class="count">{otherMetrics[metric]}</div>
-                        <div class="percent">
+                        <div className="risk">{metric}</div>
+                        <div className="count">{otherMetrics[metric]}</div>
+                        <div className="percent">
                           {renderPercentage(
                             otherMetrics[metric],
                             vulnerabilityByRisk.total

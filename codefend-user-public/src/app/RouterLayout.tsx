@@ -6,10 +6,9 @@ import { Loader } from "./views/components";
 const Navbar = lazy(() => import("./views/components/standalones/Navbar"));
 const Sidebar = lazy(() => import("./views/components/standalones/Sidebar"));
 
-export const RouterLayout: React.FC<void> = () => {
+export const RouterLayout: React.FC = () => {
   const isAuth = useSelector((state) => state); //esto viene de redux store
 
-  //este componente es el Outlet, envuelve a la applicacion
   return isAuth ? (
     <>
       <Navbar />

@@ -4,7 +4,9 @@ import { ChartIcon } from "../../../../components";
 
 import "../../../../shared/flag.scss";
 
-const DashboardVulnerabilitiesStatus = ({ vulnerabilityByShare }) => {
+const DashboardVulnerabilitiesStatus: React.FC<{
+  vulnerabilityByShare: any;
+}> = ({ vulnerabilityByShare }) => {
   const navigate = useNavigate();
 
   const renderMetrics = () => {

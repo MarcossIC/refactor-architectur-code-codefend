@@ -15,7 +15,7 @@ import { User, useAppDispatch, useAppSelector } from "../../../../data";
 
 const SignUpLayout: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { loading , success } = useAppSelector((state) => state.authReducer)
+  const { loading } = useAppSelector((state) => state.authReducer)
   const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState<User>({
@@ -150,7 +150,7 @@ const SignUpLayout: React.FC = () => {
           name="company_website"
           placeholder="https://example.com"
           pattern="https://.*"
-          size="30" 
+          
           required
         />
       </div>

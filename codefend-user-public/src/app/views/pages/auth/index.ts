@@ -1,4 +1,4 @@
 export { default as AuthPage } from "./AuthPage";
-export { default as SignUpLayout } from "./layouts/signup";
-export { default as SignInLayout } from "./layouts/signin";
-export { default as FinishSignUpLayout } from "./layouts/finishsignUp";
+export { default as SignUpLayout } from "./components/Signup";
+export { default as SignInLayout } from "./components/Signin";
+export { default as FinishSignUpLayout } from "./components/FinishsignUp";

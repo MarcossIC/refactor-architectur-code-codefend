@@ -1,10 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import { Table, PageLoader, CollaboratorsIcon } from "../../../../components";
-import {
-  CollaboratorsColumnDef,
-  defaultCollaboratorsColumnsData,
-} from "../../../../components/table/tableColumnDef";
+import { PageLoader } from "../../../../components";
 
 const DashboardCollaborators: React.FC<{
   members: any;
@@ -15,7 +11,7 @@ const DashboardCollaborators: React.FC<{
   const getMembers = () => members;
 
   const updateSelectedRow = useCallback(
-    (updatedState) => setSelectedNow(updatedState),
+    (updatedState: boolean) => setSelectedNow(updatedState),
     []
   );
 
@@ -24,41 +20,7 @@ const DashboardCollaborators: React.FC<{
       <div className="colaborators-container">
         <div>
           {!isLoading ? (
-            <>
-              <Table
-                sortBy={sortBy}
-                selectedNow={selectedNow}
-                setSelectedNow={updateSelectedRow}
-                data={getMembers}
-                columns={CollaboratorsColumnDef}
-                fieldsToHideOnMobile={["role", "id"]}
-                maxHeight="42%"
-              >
-                <div className="header">
-                  <div className="title">
-                    <div className="icon">
-                      <CollaboratorsIcon />
-                    </div>
-                    <span>Collaborators and team members</span>
-                  </div>
-                  <select
-                    onChange={(e) => {
-                      console.log({ e });
-                      setSortBy(e.target.value);
-                      setSelectedNow(true);
-                    }}
-                    className="hidden md:inline bg-transparent ml-10"
-                  >
-                    <option value="" selected disabled>
-                      Sort by
-                    </option>
-                    <option value="id">id</option>
-                    <option value="role">role</option>
-                  </select>
-                  <div className="actions"></div>
-                </div>
-              </Table>
-            </>
+            <>{/* AQUI VA UNA TABLA */}</>
           ) : (
             <>
               <PageLoader />

@@ -6,7 +6,7 @@ export interface User {
   password?: string;
   role?: string;
   name: string;
-  phone?: number;
+  phone?: number | string;
   companySize: string | number;
   companyName?: string;
   companyRole: string;

@@ -40,16 +40,16 @@ interface WebResourcesProps {
 }
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
-  const [selectedId, setSelectedId] = useState(0);
+  //const [selectedId, setSelectedId] = useState(0);
   const { showModal, showModalStr } = { showModal: false, showModalStr: "" };
-
+  /*
   const getResources = () => {
     const resources = props.webResources.loading
       ? []
       : props.webResources().resources;
 
     return resources ?? [];
-  };
+  };*/
 
   return (
     <>

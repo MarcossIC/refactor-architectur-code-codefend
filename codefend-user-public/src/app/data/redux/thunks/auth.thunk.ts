@@ -7,9 +7,10 @@ interface LoginParams {
   password: string;
 }
 
-interface RegisterParams {
+export interface RegisterParams {
   username: string;
   email: string;
+  name: string;
 
   phone?: string;
 

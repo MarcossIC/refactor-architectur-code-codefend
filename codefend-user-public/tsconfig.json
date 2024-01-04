@@ -1,5 +1,4 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
@@ -24,8 +23,8 @@
     /* Linting */
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true

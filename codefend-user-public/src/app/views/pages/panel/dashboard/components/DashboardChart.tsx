@@ -1,6 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, Title, Tooltip, Legend, Colors } from "chart.js";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  Colors,
+  DoughnutController,
+  ChartOptions,
+} from "chart.js";
 
 import {
   isEmptyData,
@@ -9,38 +17,51 @@ import {
 
 import { EmptyCard, PageLoader, BugIcon } from "../../../../components";
 
-const useChart = ({ vulnerabilityByRisk }) => {
+const useChart = ({
+  vulnerabilityByRisk,
+}: {
+  vulnerabilityByRisk: Record<string, number>;
+}) => {
   const { total, ...otherMetrics } = vulnerabilityByRisk;
 
-  const chartData = {
-    datasets: [
-      {
-        data: Object.values(otherMetrics),
-        backgroundColor: [
-          "#e85050", //critical
-          "#e25365", //elevated
-          "#e97e8b", //medium
-          "#f1a7b1", //low
-          "#f8d7db", //intel
-        ],
+  const chartData = useMemo(() => {
+    return {
+      labels: Object.keys(otherMetrics),
+      datasets: [
+        {
+          data: Object.values(otherMetrics),
+          backgroundColor: [
+            "#e85050", //critical
+            "#e25365", //elevated
+            "#e97e8b", //medium
+            "#f1a7b1", //low
+            "#f8d7db", //intel
+          ],
+          borderWidth: 0,
+        },
+      ],
+    };
+  }, [otherMetrics]);
 
-        borderWidth: 0,
-      },
-    ],
-    labels: Object.keys(otherMetrics),
-  };
   return { chartData, otherMetrics };
 };
 
-const DashboardChart: React.FC<{
-  vulnerabilityByRisk: any;
+interface DashboardChartProps {
+  vulnerabilityByRisk: Record<string, number>;
   isLoading: boolean;
-}> = ({ vulnerabilityByRisk, isLoading }) => {
-  useEffect(() => ChartJS.register(Title, Tooltip, Legend, Colors), []);
+}
+
+const DashboardChart: React.FC<DashboardChartProps> = ({
+  vulnerabilityByRisk,
+  isLoading,
+}) => {
+  useEffect(() => {
+    ChartJS.register(Title, Tooltip, Legend, Colors, DoughnutController);
+  }, []);
 
   const { chartData, otherMetrics } = useChart({ vulnerabilityByRisk });
 
-  const chartOptions = {
+  const chartOptions: ChartOptions<"doughnut"> = {
     plugins: {
       legend: {
         display: false,
@@ -82,14 +103,14 @@ const DashboardChart: React.FC<{
                     <div className="percent">percent</div>
                   </div>
                   <div className="rows">
-                    {Object.keys(otherMetrics).map((metric) => (
-                      <div className="items">
+                    {Object.keys(otherMetrics).map((metric: any) => (
+                      <div key={metric} className="items">
                         <div className="risk">{metric}</div>
                         <div className="count">{otherMetrics[metric]}</div>
                         <div className="percent">
                           {renderPercentage(
-                            otherMetrics[metric],
-                            vulnerabilityByRisk.total
+                            otherMetrics[metric].toString(),
+                            (vulnerabilityByRisk as any).total.toString()
                           )}
                         </div>
                       </div>

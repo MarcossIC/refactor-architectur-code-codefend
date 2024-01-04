@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { companySizesList, countries } from "../../../../data/mocks";
 
-
 import { ButtonLoader } from "../../../components";
 import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
 
@@ -11,17 +10,22 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "../../../shared/buttons.scss";
 import "../../../shared/inputs.scss";
-import { User, useAppDispatch, useAppSelector } from "../../../../data";
+import {
+  RegisterParams,
+  User,
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../data";
 
 const SignUpLayout: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { loading , success } = useAppSelector((state) => state.authReducer)
+  const { loading, success } = useAppSelector((state) => state.authReducer);
   const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState<User>({
     name: "",
     email: "",
-    phone: "",
+    phone: 0,
     companyName: "",
     companySize: "",
     companyRole: "",
@@ -36,12 +40,12 @@ const SignUpLayout: React.FC = () => {
     e.preventDefault();
     setSignupForm((current) => ({ ...current, isLoading: true }));
 
-    const requestParams = {
+    const requestParams: RegisterParams = {
       name: signupForm.name,
       username: "maco",
       companyRole: signupForm.companyRole,
       email: signupForm.email,
-      phone: signupForm.phone || "",
+      phone: signupForm.phone?.toString(),
       companyName: signupForm.companyName || "",
       companyWeb: signupForm.companyWeb,
       companySize: "Large",
@@ -150,7 +154,7 @@ const SignUpLayout: React.FC = () => {
           name="company_website"
           placeholder="https://example.com"
           pattern="https://.*"
-          size="30" 
+          size={30}
           required
         />
       </div>
@@ -218,7 +222,7 @@ const SignUpLayout: React.FC = () => {
       </div>
 
       <div className="extra-group">
-        <span  className="link link-color">
+        <span className="link link-color">
           I have read and accept the <u>Privacy Policy</u> and{" "}
           <u>Terms of Use.</u>
         </span>

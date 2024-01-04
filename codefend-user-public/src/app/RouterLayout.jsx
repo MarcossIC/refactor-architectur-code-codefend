@@ -9,6 +9,7 @@ const Sidebar = lazy(() => import("./views/components/standalones/Sidebar"));
 export const RouterLayout = () => {
   const isAuth = useSelector((state) => state); //esto viene de redux store
 
+  console.log(isAuth.authReducer.isAuth)
   //este componente es el Outlet, envuelve a la applicacion
   return isAuth ? (
     <>

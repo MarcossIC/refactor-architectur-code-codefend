@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../data/redux/slices/auth.slice";
 import { clearAuth } from "../../../data";
@@ -79,9 +79,9 @@ const NavbarSelector = () => {
 };
 
 const Navbar = ({}) => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state)
 
   const handleLogout = () => {
     dispatch(logout());
@@ -114,6 +114,10 @@ const Navbar = ({}) => {
               <Logo theme="aim" />
             </span>
           </Link>
+        </div>
+
+        <div>
+          <span>{userData.email}</span>
         </div>
 
         <div title="Logout" className="power-off">

@@ -117,6 +117,8 @@ export const authSlice = createSlice({
 
         isDisabled: action.payload.user.eliminado,
         createdAt: action.payload.user.creacion,
+
+        exp: action.payload.user.exp,
       };
 
       state.accessToken = action.payload.session;

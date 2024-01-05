@@ -25,6 +25,7 @@ export interface User {
 
   isDisabled: boolean;
   createdAt: string;
+  exp?: number;
 }
 
 export interface UserAPI {
@@ -46,9 +47,10 @@ export interface UserAPI {
   pais_ciudad: string;
   eliminado: boolean;
   creacion: string;
+  exp?: number;
 }
 
-export type UserStore = Omit<User, "id" | "phone" | "companyName">;
+export type UserStore = Omit<User, "id" | "phone" | "companyName" | "exp">;
 
 export type UserRegister = Omit<
   User,
@@ -61,6 +63,7 @@ export type UserRegister = Omit<
   | "profile_media"
   | "countryCode"
   | "country"
+  | "exp"
 > & { phase: string };
 
 export type UserLogin = Omit<
@@ -74,6 +77,7 @@ export type UserLogin = Omit<
   | "companyRole"
   | "companyWeb"
   | "companyCountry"
+  | "exp"
 >;
 
 // Interface para 'RegistrationData'

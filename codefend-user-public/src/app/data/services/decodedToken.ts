@@ -1,10 +1,18 @@
 function base64UrlDecode(base64Url: string): string {
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-  return Buffer.from(base64, "base64").toString("utf-8");
+  return decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map((c) => {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
 }
 
 export const decodePayload: (token: string) => any = (token: string) => {
-  const [, payloadBase64] = token.split(".");
+  const payloadBase64 = token.split(".")[1];
 
   if (!payloadBase64) {
     console.error("Token inválido");
@@ -14,7 +22,6 @@ export const decodePayload: (token: string) => any = (token: string) => {
   try {
     const decodedPayload = JSON.parse(base64UrlDecode(payloadBase64));
 
-    console.log("decoded:", { decodedPayload });
     return decodedPayload;
   } catch (error) {
     console.error("Error al decodificar el payload:", error);

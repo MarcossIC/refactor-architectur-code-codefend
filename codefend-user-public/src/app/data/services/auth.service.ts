@@ -3,7 +3,7 @@ import { decodePayload } from "./decodedToken";
 import { logout } from "../redux/slices/auth.slice";
 import { setAuth, clearAuth } from "../utils/helper";
 import { fetchPOST } from "./fetchAPI";
-import { RegisterParams, UserAPI } from "..";
+import { RegisterParams, UserAPI, useAppSelector } from "..";
 const API_URL = "http://localhost:8000/users/";
 
 const register = async (registerParams: RegisterParams) => {
@@ -54,10 +54,19 @@ const logout2 = async () => {
   logout();
 };
 
+const verifyAuth: () => boolean = () => {
+  const state = useAppSelector((state) => state.authReducer);
+  let currentTimestamp = Math.floor(Date.now() / 1000);
+  return (
+    !state.userData || currentTimestamp >= state.userData.exp! || !state.isAuth
+  );
+};
+
 const AuthServices = {
   register,
   login,
   logout2,
+  verifyAuth,
 };
 
 export default AuthServices;

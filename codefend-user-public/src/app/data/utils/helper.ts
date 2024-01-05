@@ -8,7 +8,7 @@ export const setToken = (token: string) =>
   window.localStorage.setItem("token", token);
 
 /** persist user data in localStorage */
-export const persistUser = (userData: any) =>
+export const persistUser = (userData: User) =>
   window.localStorage.setItem("user", JSON.stringify(userData));
 
 /** persist user data in localStorage */
@@ -22,6 +22,7 @@ export const getUser = () => {
 export const setAuth = (token: string, user: User) => {
   if (!(token && user)) return;
   setToken(token);
+  persistUser(user);
 };
 
 /** clear token and user data for Auth */

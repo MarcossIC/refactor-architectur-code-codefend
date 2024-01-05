@@ -85,7 +85,6 @@ export const authSlice = createSlice({
 		builder.addCase(loginThunk.pending, (state) => {
 			state.loading = true;
 			state.success = false;
-			state.isAuth = true
 		});
 		/* state = success */
 		builder.addCase(loginThunk.fulfilled, (state, action) => {
@@ -109,6 +108,7 @@ export const authSlice = createSlice({
 		builder.addCase(loginThunk.rejected, (state, action) => {
 			state.loading = false;
 			state.success = false;
+			state.isAuth = false
 			state.error = action.error.message;
 		});
 	}

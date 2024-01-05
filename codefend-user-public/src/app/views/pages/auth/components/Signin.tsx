@@ -6,6 +6,7 @@ import { loginThunk, useAppDispatch } from "../../../../data";
 
 const SignInLayout: React.FC = () => {
   const dispatch = useAppDispatch();
+  //const success = useAppSelector((state) => state.authReducer.success)
   const navigate = useNavigate();
 
   const [signinForm, setSigninForm] = useState({
@@ -27,11 +28,11 @@ const SignInLayout: React.FC = () => {
     try {
       dispatch(loginThunk(requestParams));
       toast.success(`login successful`);
-      navigate("/");
     } catch (error) {
       console.error("Error during registration:", error);
       toast.error("An error occurred during registration.");
     } finally {
+      navigate("/dashboard");
       setSigninForm((current) => ({ ...current, isLoading: false }));
     }
   };

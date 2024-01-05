@@ -7,10 +7,10 @@ const Navbar = lazy(() => import("./views/components/standalones/Navbar"));
 const Sidebar = lazy(() => import("./views/components/standalones/Sidebar"));
 
 export const RouterLayout: React.FC = () => {
-  const state = useAppSelector((state) => state.authReducer.isAuth); //esto viene de redux store
-  console.log(state)
+  const {isAuth} = useAppSelector((state) => state.authReducer); //esto viene de redux store
+  //console.log(state)
 
-  return state ?
+  return isAuth  ?
     <>
       <Navbar />
       <Sidebar />

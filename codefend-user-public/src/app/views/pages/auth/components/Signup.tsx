@@ -2,21 +2,20 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { companySizesList, countries } from "../../../../data/mocks";
 
-import { ButtonLoader } from "../../../components";
 import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
+import { ButtonLoader } from "../../../components";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import "../../../shared/forms.scss";
-import "../../../shared/buttons.scss";
 import {
-  RegisterParams,
-  User,
+  
   UserRegister,
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from "../../../../data";
+import "../../../shared/buttons.scss";
+import "../../../shared/forms.scss";
 
 const SignUpLayout: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -42,7 +41,7 @@ const SignUpLayout: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSignupForm((current) => ({ ...current, isLoading: true }));
-
+k
     const requestParams: RegisterParams = {
       name: signupForm.name,
       lastName: signupForm.lastName as string,

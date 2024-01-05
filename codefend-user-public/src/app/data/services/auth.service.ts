@@ -26,6 +26,8 @@ const register = async (registerParams: RegisterParams) => {
   return data;
 };
 
+
+
 const login = async (loginParams: any) => {
   const { data } = await fetchPOST({
     params: {

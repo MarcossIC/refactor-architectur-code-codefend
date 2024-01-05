@@ -28,7 +28,7 @@ export interface User {
   exp?: number;
 }
 
-export interface UserAPI {
+export interface UserApi {
   id: string;
   company_id: string;
   fname: string;

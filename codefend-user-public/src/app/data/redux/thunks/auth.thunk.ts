@@ -1,11 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import AuthServices from "../../services/auth.service";
+import { UserApi } from "../..";
 
 interface LoginParams {
   email: string;
   password: string;
 }
 
+
+//paso 1
 interface RegisterParams {
   name: string;
   username: string;
@@ -22,12 +25,8 @@ interface RegisterParams {
 
 // Tipo de retorno de la función de inicio de sesión
 export interface LoginResponse {
-  user: {
-    email: string;
-    username: string;
-    role: string;
-  };
-  token: string;
+  user: UserApi,
+  session: string
 }
 
 // Tipo de retorno de la función de registro

@@ -1,68 +1,73 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { countries, companySizesList } from "../../../../data";
+import { companySizesList, countries } from "../../../../data/mocks";
 
-import { useDispatch } from "react-redux";
 import { ButtonLoader } from "../../../components";
 import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import "../../../shared/forms.scss";
 import "../../../shared/buttons.scss";
-import "../../../shared/inputs.scss";
+import {
+  RegisterParams,
+  User,
+  UserRegister,
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../data";
 
 const SignUpLayout: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.authReducer);
+
   const navigate = useNavigate();
 
-  const [signupForm, setSignupForm] = useState({
+  const [signupForm, setSignupForm] = useState<UserRegister>({
     name: "",
+    lastName: "",
+    companyRole: "",
     email: "",
     phone: "",
     companyName: "",
     companySize: "",
-    companyRole: "",
     companyWeb: "",
     companyCountry: "",
-    isCompleteSignUp: false,
-    isLoading: false,
+    phase: "1",
   });
+
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSignupForm((current) => ({ ...current, isLoading: true }));
 
-    const requestParams = {
+    const requestParams: RegisterParams = {
       name: signupForm.name,
-      username: "maco",
+      lastName: signupForm.lastName as string,
       companyRole: signupForm.companyRole,
       email: signupForm.email,
-      phone: signupForm.phone,
-      companyName: signupForm.companyName,
-      companyWeb: signupForm.companyWeb,
-      companySize: "Large",
-      companyCountry: signupForm.companyCountry,
-      role: "ADMIN",
-      password: "secret1234",
+      phone: signupForm.phone as string,
+      companyName: signupForm.companyName as string,
+      companyWeb: signupForm.companyWeb as string,
+      companySize: signupForm.companySize as string,
+      companyCountry: signupForm.companyCountry as string,
+      phase: signupForm.phase,
     };
 
-    console.log(requestParams);
     try {
       dispatch(registerThunk(requestParams));
       toast.success(`signup successful`);
-      navigate("/auth/signin");
       setSignupForm((prevData) => ({ ...prevData, isCompleteSignUp: true }));
+
+      navigate("/auth/confirmation");
     } catch (error) {
       console.error("Error during registration:", error);
-      toast.error("An error occurred during registration.", error);
+      toast.error("An error occurred during registration.");
     } finally {
       setSignupForm((prevData) => ({ ...prevData, isLoading: false }));
     }
-  };
-
-  const handleCompleteSignup = (e) => {
-    e.preventDefault();
   };
 
   return (
@@ -86,7 +91,7 @@ const SignUpLayout: React.FC = () => {
           onChange={(e) =>
             setSignupForm((current) => ({
               ...current,
-              surname: e.target.value,
+              lastName: e.target.value,
             }))
           }
           name="last_name"
@@ -147,7 +152,7 @@ const SignUpLayout: React.FC = () => {
           name="company_website"
           placeholder="https://example.com"
           pattern="https://.*"
-          size="30"
+          size={30}
           required
         />
       </div>
@@ -215,18 +220,18 @@ const SignUpLayout: React.FC = () => {
       </div>
 
       <div className="extra-group">
-        <span href="#" className="link link-color">
+        <span className="link link-color">
           I have read and accept the <u>Privacy Policy</u> and{" "}
           <u>Terms of Use.</u>
         </span>
       </div>
       <div className="extra-group">
         <button
-          disabled={signupForm.isLoading}
+          disabled={isLoading}
           type="submit"
           className="btn btn-primary signup-button"
         >
-          {signupForm.isLoading && <ButtonLoader />}
+          {isLoading && <ButtonLoader />}
           proceed
         </button>
 

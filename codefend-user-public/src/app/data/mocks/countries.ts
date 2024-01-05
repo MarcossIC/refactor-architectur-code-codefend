@@ -3935,7 +3935,7 @@ const topCountriesOnListSet = new Set([
 ]);
 
 //Callback para mapear los paises
-const mapCountry = (country) => ({
+const mapCountry = (country: any) => ({
   label: typeof country === "string" ? country : country.name,
   value: typeof country === "string" ? country : country.name,
 });

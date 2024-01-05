@@ -1,22 +1,19 @@
 import React, { Suspense, lazy } from "react";
-import { Outlet } from "react-router";
-import { Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, Navigate } from "react-router-dom";
 
 import "./auth.scss";
 import "../../shared/buttons.scss";
 import "../../shared/forms.scss";
+import { AuthServices } from "../../../data";
 
 const Logo = lazy(() => import("../../components/standalones/Logo"));
 
-const isActivePath: () => string = (currentPath: string) => {
-  const location = useLocation();
-
-  if (location.pathname.startsWith("/auth/signup")) return "active";
-  return location.pathname === currentPath ? "active" : "";
-};
-
 const AuthPage: React.FC = () => {
-  return (
+  const location = useLocation();
+  const isNotAuthenticated = AuthServices.verifyAuth();
+  if (isNotAuthenticated) AuthServices.logout2();
+
+  return isNotAuthenticated ? (
     <>
       <div className="codefend-img-bg">
         <Logo theme={"shadow"} />
@@ -39,13 +36,15 @@ const AuthPage: React.FC = () => {
                 <Link to="/auth/signup">new user</Link>
               </span>
             </div>
-            <Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
               <Outlet />
             </Suspense>
           </div>
         </div>
       </section>
     </>
+  ) : (
+    <Navigate to="/" />
   );
 };
 

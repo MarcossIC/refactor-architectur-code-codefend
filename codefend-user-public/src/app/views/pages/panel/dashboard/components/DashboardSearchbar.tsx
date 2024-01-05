@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchIcon } from "../../../../components";
 
 const DashboardSearchbar: React.FC = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchClass, setSearchClass] = useState("");
+  const navigate = useNavigate();
+
+  const navigateSns = useCallback(
+    (e: React.FormEvent) => {
+      navigate("/sns?search=" + searchValue + "&class=" + searchClass);
+    },
+    [navigate, searchValue, searchClass]
+  );
 
   return (
     <div className="searchs-bar">
       <div className="search-items">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const navigate = useNavigate();
-            navigate("/sns?search=" + searchValue + "&class=" + searchClass);
-          }}
-        >
+        <form onSubmit={navigateSns}>
           <input
             id="search-bar"
             type="text"
@@ -24,7 +26,7 @@ const DashboardSearchbar: React.FC = () => {
             required
           />
 
-          <label name="states" className="sr-only">
+          <label htmlFor="states" className="sr-only">
             class
           </label>
           <select

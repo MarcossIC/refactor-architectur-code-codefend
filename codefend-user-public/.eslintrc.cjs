@@ -8,11 +8,12 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "prettier", "@typescript-eslint"],
   rules: {
+    "prettier/prettier": "error",
     "react-refresh/only-export-components": [
       "warn",
-      { allowConstantExport: true },
+      { allowConstantExport: true }
     ],
     sourceType: "module",
     "brace-style": [2, "1tbs", {}],

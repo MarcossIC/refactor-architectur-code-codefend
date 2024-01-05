@@ -16,7 +16,7 @@
   background-color: var(--sidebar-bkg) !important;
   color: var(--color-codefend);
 
-  > a {
+  a {
     display: flex;
     align-items: center;
     height: min-content;
@@ -33,11 +33,11 @@
     border-bottom-color: var(--color-border);
     transition: all 0.2s linear;
 
-    > svg {
+    svg {
       pointer-events: none !important;
     }
 
-    > &.disabled {
+    &.disabled {
       cursor: not-allowed;
       color: var(--text-color-alt3);
       background-color: var(--sidebar-bkg);
@@ -58,11 +58,11 @@
     }
   }
 
-  > a:first-child {
+  a:first-child {
     border-top: 1px solid var(--color-border);
   }
 
-  > a:hover {
+  a:hover {
     color: var(--text-color-alt2);
   }
 }

@@ -7,3 +7,4 @@ export * from "./standalones/Loader";
 export * from "./icons";
 
 export { default as ModalWrapper } from "./modals/ModalWrapper";
+export { default as AddDomainModal } from "./modals/AddDomainModal";

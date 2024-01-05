@@ -12,7 +12,6 @@ const SignInLayout: React.FC = () => {
   const [signinForm, setSigninForm] = useState({
     email: "",
     password: "",
-
     isLoading: false,
   });
 

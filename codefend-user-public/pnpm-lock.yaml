@@ -85,12 +85,15 @@ devDependencies:
   normalize-css:
     specifier: ^2.3.1
     version: 2.3.1
+<<<<<<< HEAD
+=======
   postcss:
     specifier: ^8.4.32
     version: 8.4.32
   postcss-import:
     specifier: ^16.0.0
     version: 16.0.0(postcss@8.4.32)
+>>>>>>> 2ef200e20e27028dd597696efcb2955be26f2f73
   sass:
     specifier: ^1.69.6
     version: 1.69.7

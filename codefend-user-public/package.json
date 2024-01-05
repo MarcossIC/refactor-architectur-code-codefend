@@ -2,7 +2,7 @@
   "name": "codefend-panel",
   "version": "0.0.1",
   "description": "Security Platform Panel",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "tsc && vite",
     "dev": "tsc && vite",
@@ -38,7 +38,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "normalize-css": "^2.3.1",
-    "postcss": "^8.4.32",
     "sass": "^1.69.6",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"

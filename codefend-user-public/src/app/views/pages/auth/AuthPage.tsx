@@ -1,21 +1,19 @@
 import React, { Suspense, lazy } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, Navigate } from "react-router-dom";
 
 import "./auth.scss";
 import "../../shared/buttons.scss";
 import "../../shared/forms.scss";
+import { AuthServices } from "../../../data";
 
 const Logo = lazy(() => import("../../components/standalones/Logo"));
 
 const AuthPage: React.FC = () => {
   const location = useLocation();
+  const isNotAuthenticated = AuthServices.verifyAuth();
+  if (isNotAuthenticated) AuthServices.logout2();
 
-  const isActivePath = (currentPath: string) => {
-    if (location.pathname.startsWith("/auth/signup")) return "active";
-    return location.pathname === currentPath ? "active" : "";
-  };
-
-  return (
+  return isNotAuthenticated ? (
     <>
       <div className="codefend-img-bg">
         <Logo theme={"shadow"} />
@@ -25,10 +23,16 @@ const AuthPage: React.FC = () => {
           <div className="brand"></div>
           <div className="forms">
             <div className="nav">
-              <span className={isActivePath("/auth/signin")}>
+              <span
+                className={location.pathname === "/auth/signin" ? "active" : ""}
+              >
                 <Link to="/auth/signin">access</Link>
               </span>
-              <span className={isActivePath("/auth/signup")}>
+              <span
+                className={
+                  location.pathname.startsWith("/auth/signup") ? "active" : ""
+                }
+              >
                 <Link to="/auth/signup">new user</Link>
               </span>
             </div>
@@ -39,6 +43,8 @@ const AuthPage: React.FC = () => {
         </div>
       </section>
     </>
+  ) : (
+    <Navigate to="/" />
   );
 };
 

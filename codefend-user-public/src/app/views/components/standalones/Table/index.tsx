@@ -2,17 +2,44 @@ import React from 'react'
 import styles from './table.module.scss'
 import { defaultData as DATA, TableType } from './tableColumnDef'
 
+/* Esto es para eliminar elementos repetidos
+	 Hay muchas formas de hacer esto!
+*/
+const FILTERED_DATA = Object.values(
+  DATA.reduce<Record<TableType['firstName'], TableType>>((map, row) => {
+    map[row['firstName']] = row;
+    return map;
+  }, {})
+);
+
 export const Table = () => {
 
-  const [dataSort, SetDataSort] = React.useState<keyof TableType>('firstName')
+  const [dataSort, setDataSort] =
+    React.useState<keyof TableType>("firstName");
 
-  const matches = React.useMemo(() => {
-    return [...DATA].sort((a, b) => {
-      if (a[dataSort] < b[dataSort]) return -1
-      if (a[dataSort] > b[dataSort]) return 1
-      return 0
-    })
-  }, [dataSort])
+	/* esto se ocupa del sorting de los elementos de la tablaj */
+  const matches = React.useMemo(
+    () => {
+      const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig') // esto es para limpiar el input
+
+      return [...FILTERED_DATA].sort((a, b) => {
+        /* aqui se castean los datos o normalizan */
+        const aValue = Number(String(a[dataSort]).replace(numberRexeg, ''))
+        const bValue = Number(String(b[dataSort]).replace(numberRexeg, ''))
+
+        /* aca comparamos como number */
+        if(!Number.isNaN(aValue)  && !Number.isNaN(bValue)) {
+          return bValue - aValue
+        }
+        
+        /* aca comparamos como string */
+        return (b[dataSort] as string).localeCompare((a[dataSort] as string)) 
+
+      })
+      
+    },
+    [dataSort]
+  );
 
   return (
     <>
@@ -22,18 +49,18 @@ export const Table = () => {
 
 				<thead>
 					<tr>
-						<th>firstName</th>
-						<th>lastName</th>
-						<th>age</th>
-						<th>visits</th>
-						<th>status</th>
-						<th>progress</th>
+						<th onClick={() => setDataSort("firstName")}>firstName</th>
+						<th onClick={() => setDataSort("lastName")}>lastName</th>
+						<th onClick={() => setDataSort("age")}>age</th>
+						<th onClick={() => setDataSort("visits")}>visits</th>
+						<th onClick={() => setDataSort("status")}>status</th>
+						<th onClick={() => setDataSort("progress")}>progress</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					{
-						DATA.map((row) => (
+						matches.map((row) => (
 							<tr key={row["firstName"]}>
 								<td>{row["firstName"]}</td>
 								<td>{row["lastName"]}</td>

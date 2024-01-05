@@ -545,18 +545,18 @@ section {
         font-size: 13px;
       }
 
-      > span {
+      span {
         color: var(--text-color-alt);
       }
     }
 
-    .actions {
+    .actions > {
       display: flex;
       align-items: center;
       border-left: 1px solid var(--header-lines-color);
       color: var(--text-color-alt2);
 
-      > div {
+      div {
         border-right: 1px solid var(--header-lines-color);
         padding: 0 13px;
         cursor: pointer !important;
@@ -582,7 +582,7 @@ section.issue {
     height: 50px;
     padding: 0px;
 
-    > div {
+    div {
       border-right: 1px solid var(--color-border);
       display: flex;
       align-items: center;
@@ -681,7 +681,7 @@ section.issue {
       height: 30px;
     }
   }
-  .columns-name {
+  .columns-name > {
     display: flex;
     height: 40px;
     align-items: center;
@@ -691,7 +691,7 @@ section.issue {
     padding: 0 20px;
     border-bottom: 1px solid var(--color-border);
 
-    > div {
+    div {
       flex: 1;
     }
   }
@@ -711,7 +711,7 @@ section.issue {
     font-family: Questrial;
     font-size: 14px;
 
-    > div {
+    div {
       flex: 1;
       height: 100%;
       display: flex;
@@ -916,7 +916,6 @@ section.issue {
   }
 }
 
-/* *************** SEARCH BAR ********************** */
 
 ///////////////////////////////////////////////////////////////////
 // DEFAULT SIZE PANEL

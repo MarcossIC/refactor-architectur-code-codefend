@@ -10,11 +10,6 @@ const Logo = lazy(() => import("../../components/standalones/Logo"));
 const AuthPage: React.FC = () => {
   const location = useLocation();
 
-  const isActivePath = (currentPath: string) => {
-    if (location.pathname.startsWith("/auth/signup")) return "active";
-    return location.pathname === currentPath ? "active" : "";
-  };
-
   return (
     <>
       <div className="codefend-img-bg">
@@ -25,10 +20,16 @@ const AuthPage: React.FC = () => {
           <div className="brand"></div>
           <div className="forms">
             <div className="nav">
-              <span className={isActivePath("/auth/signin")}>
+              <span
+                className={location.pathname === "/auth/signin" ? "active" : ""}
+              >
                 <Link to="/auth/signin">access</Link>
               </span>
-              <span className={isActivePath("/auth/signup")}>
+              <span
+                className={
+                  location.pathname.startsWith("/auth/signup") ? "active" : ""
+                }
+              >
                 <Link to="/auth/signup">new user</Link>
               </span>
             </div>

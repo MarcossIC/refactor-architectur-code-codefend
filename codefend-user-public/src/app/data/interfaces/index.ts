@@ -1,23 +1,68 @@
 // Interface para la propiedad 'user'
 export interface User {
-  id?: string;
-  username?: string;
-  email: string;
-  password?: string;
-  role?: string;
+  id: string;
+  companyID: string;
+  accessRole: string;
+  mfaKey: string;
+
   name: string;
-  phone?: number | string;
-  companySize: string | number;
+  lastName: string;
+
+  username?: string;
+  password?: string;
+  email: string;
+  phone: number | string;
+  profile_media: string;
+
+  country?: string;
+  countryCode: string;
+
+  companySize?: string | number;
   companyName?: string;
   companyRole: string;
-  companyWeb: string;
-  companyCountry: string;
-}
-/* 
+  companyWeb?: string;
+  companyCountry?: string;
 
-*/
+  isDisabled: boolean;
+  createdAt: string;
+}
+
+export interface UserAPI {
+  id: string;
+  company_id: string;
+  fname: string;
+  lname: string;
+  username: string;
+  role: string;
+  access_role: string;
+  email: string;
+  phone: string;
+  password: string;
+  mfa_llave: string;
+  profile_media: string;
+  pais: string;
+  pais_code: string;
+  pais_provincia: string;
+  pais_ciudad: string;
+  eliminado: boolean;
+  creacion: string;
+}
 
 export type UserStore = Omit<User, "id" | "phone" | "companyName">;
+
+export type UserRegister = Omit<
+  User,
+  | "id"
+  | "companyID"
+  | "mfaKey"
+  | "accessRole"
+  | "isDisabled"
+  | "createdAt"
+  | "profile_media"
+  | "countryCode"
+  | "country"
+> & { phase: string };
+
 export type UserLogin = Omit<
   User,
   | "id"
@@ -36,5 +81,5 @@ export interface RegistrationData {
   response: "success";
   message: string;
   session: string;
-  user: User;
+  user: UserAPI;
 }

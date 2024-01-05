@@ -8,11 +8,12 @@ import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import "../../../shared/forms.scss";
 import "../../../shared/buttons.scss";
-import "../../../shared/inputs.scss";
 import {
   RegisterParams,
   User,
+  UserRegister,
   useAppDispatch,
   useAppSelector,
 } from "../../../../data";
@@ -23,19 +24,20 @@ const SignUpLayout: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const [signupForm, setSignupForm] = useState<User>({
+  const [signupForm, setSignupForm] = useState<UserRegister>({
     name: "",
+    lastName: "",
+    companyRole: "",
     email: "",
-    phone: 0,
+    phone: "",
     companyName: "",
     companySize: "",
-    companyRole: "",
     companyWeb: "",
     companyCountry: "",
-    password: "",
-    role: "",
-    username: "",
+    phase: "1",
   });
+
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,24 +45,23 @@ const SignUpLayout: React.FC = () => {
 
     const requestParams: RegisterParams = {
       name: signupForm.name,
-      username: "maco",
+      lastName: signupForm.lastName as string,
       companyRole: signupForm.companyRole,
       email: signupForm.email,
-      phone: signupForm.phone?.toString(),
-      companyName: signupForm.companyName || "",
-      companyWeb: signupForm.companyWeb,
-      companySize: "Large",
-      companyCountry: signupForm.companyCountry,
-      role: "ADMIN",
-      password: "secret1234",
+      phone: signupForm.phone as string,
+      companyName: signupForm.companyName as string,
+      companyWeb: signupForm.companyWeb as string,
+      companySize: signupForm.companySize as string,
+      companyCountry: signupForm.companyCountry as string,
+      phase: signupForm.phase,
     };
 
-    console.log(requestParams);
     try {
       dispatch(registerThunk(requestParams));
       toast.success(`signup successful`);
-      navigate("/auth/signin");
       setSignupForm((prevData) => ({ ...prevData, isCompleteSignUp: true }));
+
+      navigate("/auth/confirmation");
     } catch (error) {
       console.error("Error during registration:", error);
       toast.error("An error occurred during registration.");
@@ -69,10 +70,6 @@ const SignUpLayout: React.FC = () => {
     }
   };
 
-  /* const handleCompleteSignup = (e) => {
-    e.preventDefault();
-  };
- */
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-group">
@@ -94,7 +91,7 @@ const SignUpLayout: React.FC = () => {
           onChange={(e) =>
             setSignupForm((current) => ({
               ...current,
-              surname: e.target.value,
+              lastName: e.target.value,
             }))
           }
           name="last_name"
@@ -230,11 +227,11 @@ const SignUpLayout: React.FC = () => {
       </div>
       <div className="extra-group">
         <button
-          disabled={loading}
+          disabled={isLoading}
           type="submit"
           className="btn btn-primary signup-button"
         >
-          {loading && <ButtonLoader />}
+          {isLoading && <ButtonLoader />}
           proceed
         </button>
 

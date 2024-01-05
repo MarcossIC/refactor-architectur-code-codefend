@@ -8,7 +8,7 @@ export const setToken = (token: string) =>
   window.localStorage.setItem("token", token);
 
 /** persist user data in localStorage */
-export const persistUser = (userData = null) =>
+export const persistUser = (userData: any) =>
   window.localStorage.setItem("user", JSON.stringify(userData));
 
 /** persist user data in localStorage */

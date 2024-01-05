@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginThunk, registerThunk } from "../thunks/auth.thunk";
-import { UserStore } from "../..";
+import { User, UserStore } from "../..";
 
 // initialize userToken from local storage
 const accessToken = localStorage.getItem("userToken")
@@ -13,7 +13,7 @@ interface AuthState {
   error: string | null | undefined;
   loading: boolean;
   isExpired: null;
-  userData: UserStore | null | undefined;
+  userData: User | null;
   accessToken: string | null;
 }
 
@@ -51,17 +51,29 @@ export const authSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.isAuth = false;
-      state.userData = {
-        username: action.payload.username,
-        email: action.payload.email,
-        password: action.payload.password,
-        role: action.payload.role,
-        name: action.payload.name,
-        companySize: action.payload.companySize,
-        companyRole: action.payload.companyRole,
-        companyWeb: action.payload.companyWeb,
-        companyCountry: action.payload.companyCountry,
-      };
+      //Buscar cual es la respuesta de la fase 1 del registro
+      state.userData = null /*{
+        id: action.payload.user.id as string,
+        companyID: action.payload.user.company_id as string,
+        accessRole: action.payload.user.access_role as string,
+        mfaKey: action.payload.user.mfa_llave as string,
+
+        name: action.payload.user.fname,
+        lastName: action.payload.user.lname,
+
+        username: action.payload.user.username,
+        password: action.payload.user.password,
+        email: action.payload.user.email,
+        phone: action.payload.user.phone,
+        profile_media: action.payload.user.profile_media,
+
+        country: action.payload.user.pais,
+        countryCode: action.payload.user.pais_code,
+        companyRole: action.payload.user.role,
+
+        isDisabled: action.payload.user.eliminado,
+        createdAt: action.payload.user.creacion,
+      }*/;
     });
     /* state =  with errors*/
     builder.addCase(registerThunk.rejected, (state, action) => {
@@ -83,18 +95,31 @@ export const authSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.isAuth = true;
+
       state.userData = {
+        id: action.payload.user.id as string,
+        companyID: action.payload.user.company_id as string,
+        accessRole: action.payload.user.access_role as string,
+        mfaKey: action.payload.user.mfa_llave as string,
+
+        name: action.payload.user.fname,
+        lastName: action.payload.user.lname,
+
         username: action.payload.user.username,
+        password: action.payload.user.password,
         email: action.payload.user.email,
-        role: action.payload.user.role,
-        name: "",
-        companySize: "",
-        companyRole: "",
-        companyWeb: "",
-        companyCountry: "",
-        password: "",
+        phone: action.payload.user.phone,
+        profile_media: action.payload.user.profile_media,
+
+        country: action.payload.user.pais,
+        countryCode: action.payload.user.pais_code,
+        companyRole: action.payload.user.role,
+
+        isDisabled: action.payload.user.eliminado,
+        createdAt: action.payload.user.creacion,
       };
-      state.accessToken = action.payload.token;
+
+      state.accessToken = action.payload.session;
     });
     /* state =  with errors*/
     builder.addCase(loginThunk.rejected, (state, action) => {

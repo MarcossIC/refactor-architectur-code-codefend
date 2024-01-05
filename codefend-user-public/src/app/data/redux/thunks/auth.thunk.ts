@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import AuthServices from "../../services/auth.service";
-import { UserLogin } from "../..";
+import { UserAPI, UserLogin } from "../..";
 
 interface LoginParams {
   email: string;
@@ -8,26 +8,22 @@ interface LoginParams {
 }
 
 export interface RegisterParams {
-  username: string;
-  email: string;
   name: string;
-
-  phone?: string;
-
-  companyName: string;
-  companySize: string | number;
+  lastName: string;
   companyRole: string;
+  email: string;
+  phone?: string;
+  companyName: string;
   companyWeb: string;
+  companySize: string | number;
   companyCountry: string;
-
-  password?: string;
-  role?: string;
+  phase: string;
 }
 
 // Tipo de retorno de la función de inicio de sesión
 export interface LoginResponse {
-  user: UserLogin;
-  token: string;
+  user: UserAPI;
+  session: string;
 }
 
 // Tipo de retorno de la función de registro
@@ -50,9 +46,8 @@ export const loginThunk = createAsyncThunk<
   { rejectValue: string }
 >("auth/login", async (loginParams: LoginParams, { rejectWithValue }) => {
   try {
-    const { user, token } = await AuthServices.login(loginParams);
-    console.log(user, token);
-    return { user, token } as LoginResponse;
+    const { user, session } = await AuthServices.login(loginParams);
+    return { user, session } as LoginResponse;
   } catch (error) {
     return rejectWithValue(error as string);
   }

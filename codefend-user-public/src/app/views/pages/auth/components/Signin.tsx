@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginThunk, useAppDispatch } from "../../../../data";
+import { loginThunk, useAppDispatch, useAppSelector } from "../../../../data";
 
 const SignInLayout: React.FC = () => {
   const dispatch = useAppDispatch();
-  //const success = useAppSelector((state) => state.authReducer.success)
+  const success = useAppSelector((state) => state.authReducer.success)
   const navigate = useNavigate();
 
   const [signinForm, setSigninForm] = useState({
     email: "",
     password: "",
+
     isLoading: false,
   });
 
@@ -27,11 +28,13 @@ const SignInLayout: React.FC = () => {
     try {
       dispatch(loginThunk(requestParams));
       toast.success(`login successful`);
+      if(success) {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Error during registration:", error);
       toast.error("An error occurred during registration.");
     } finally {
-      navigate("/dashboard");
       setSigninForm((current) => ({ ...current, isLoading: false }));
     }
   };

@@ -5,6 +5,7 @@ export interface User {
   accessRole: string;
   mfaKey: string;
 
+  role: string,
   name: string;
   lastName: string;
 
@@ -27,6 +28,7 @@ export interface User {
   createdAt: string;
   exp?: number;
 }
+
 
 export interface UserApi {
   id: string;

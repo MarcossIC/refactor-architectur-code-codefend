@@ -11,15 +11,27 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 
+interface SignupForm {
+  name: string,
+  surname: string;
+  companyRole: string;
+  email: string;
+  phone: string;
+  companyName: string;
+  companySize: string;
+  companyWeb: string;
+  companyCountry: string;
+}
+
 const SignUpLayout: React.FC = () => {
   const dispatch = useAppDispatch();
   const { loading } = useAppSelector((state) => state.authReducer);
 
   const navigate = useNavigate();
 
-  const [signupForm, setSignupForm] = useState<RegisterParams>({
+  const [signupForm, setSignupForm] = useState<SignupForm>({
+    surname: '',
     name: '',
-    username: '',
     companyRole: '',
     email: '',
     phone: '',
@@ -37,15 +49,14 @@ const SignUpLayout: React.FC = () => {
 
     const requestParams: RegisterParams = {
       lead_fname: signupForm.name,
-      phone: signupForm.phone,
-      companyRole: signupForm.companyRole,
-      email: signupForm.email,
-      companyName: signupForm.companyName,
-      companyWeb: signupForm.companyWeb, 
-      companySize: signupForm.companySize,
-      companyCountry: signupForm.companyCountry,
-      password: "",
-      role: "", 
+      lead_lname: signupForm.surname,
+      lead_role: signupForm.companyRole,
+      lead_email: signupForm.email,
+      lead_phone: signupForm.phone,
+      company_name: signupForm.companyName, 
+      company_web: signupForm.companyWeb,
+      company_size: signupForm.companySize,
+      company_area: signupForm.companyCountry, 
       phase: '1'
     }
 
@@ -84,7 +95,7 @@ const SignUpLayout: React.FC = () => {
           onChange={(e) =>
             setSignupForm((current: any) => ({
               ...current,
-              lastName: e.target.value
+              username: e.target.value
             }))
           }
           name="last_name"

@@ -1,5 +1,13 @@
 import React, { ReactNode, useState } from "react";
-import { ModalWrapper, AddDomainModal } from "../../../../components";
+import {
+  ModalWrapper,
+  AddDomainModal,
+  AddSubDomainModal,
+  DeletewebResource,
+  GlobeWebIcon,
+  EmptyCard,
+} from "../../../../components";
+import { useNavigate } from "react-router";
 
 interface WebResourceModalWrapper {
   children: ReactNode;
@@ -19,10 +27,9 @@ const WebResourceModalWrapper: React.FC<WebResourceModalWrapper> = ({
           <ModalWrapper>
             <div className="web-modal-wrapper internal-tables disable-border">
               <div className="modal-header">
-                <div className="icon text-fend-red">
-                  ** HiOutlineBars3BottomLeft **
+                <div className="icon">
+                  |<span className="text-fend-red"> {headerTitle} </span>|
                 </div>
-                <span>{headerTitle}</span>
               </div>
               {children}
               <div className="modal-helper-box text-format"></div>
@@ -37,11 +44,13 @@ const WebResourceModalWrapper: React.FC<WebResourceModalWrapper> = ({
 interface WebResourcesProps {
   refetchResources: () => any;
   webResources: any;
+  isLoading: boolean;
 }
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
-  //const [selectedId, setSelectedId] = useState(0);
+  const [selectedId, setSelectedId] = useState(0);
   const { showModal, showModalStr } = { showModal: false, showModalStr: "" };
+  const navigate = useNavigate();
   /*
   const getResources = () => {
     const resources = props.webResources.loading
@@ -64,15 +73,137 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
         isActive={showModal && showModalStr === "delete_resource"}
         headerTitle="Delete web resource"
       >
-        <AddDomainModal onDone={() => props.refetchResources()} />
+        <DeletewebResource
+          id={selectedId}
+          onDone={() => {
+            navigate("/");
+          }}
+        />
       </WebResourceModalWrapper>
 
       <WebResourceModalWrapper
         isActive={showModal && showModalStr === "add_subdomain"}
         headerTitle="Add web sub-resource"
       >
-        <AddDomainModal onDone={() => props.refetchResources()} />
+        <AddSubDomainModal onDone={() => props.refetchResources()} />
       </WebResourceModalWrapper>
+
+      <div className="card web-resources">
+        <div className="header">
+          <div className="title">
+            <div className="icon">
+              <GlobeWebIcon />
+            </div>
+            <span>Detected domains and subdomains</span>
+          </div>
+
+          <div className="actions">
+            <div
+              onClick={() => {
+                if (props.isLoading) return;
+              }}
+            >
+              Add domain
+            </div>
+            <div
+              onClick={() => {
+                if (props.isLoading) return;
+              }}
+            >
+              Add subdomain
+            </div>
+          </div>
+        </div>
+
+        <div className="columns-name">
+          <div className="id">id</div>
+          <div className="domain-name">domain</div>
+          <div className="server-ip">main server</div>
+          <div className="location">location</div>
+          <div className="province">province, city</div>
+          <div className="id">actions</div>
+        </div>
+
+        {!props.isLoading ?? (
+          <div className="rows">
+            {props.webResources.resources.reverse().map((mainNetwork: any) => (
+              <>
+                <div key={mainNetwork.id} className="item left-marked">
+                  <div className="id">{mainNetwork.id}</div>
+                  <div className="domain-name">
+                    {mainNetwork.resource_domain}
+                  </div>
+                  <div className="server-ip">{mainNetwork.main_server}</div>
+                  <div className="location">
+                    <span
+                      className={`flag flag-${mainNetwork.server_pais_code.toLowerCase()}`}
+                    ></span>
+                    <p className="">{mainNetwork.server_pais}</p>
+                  </div>
+                  <div className="province">
+                    {mainNetwork.server_pais_provincia},{" "}
+                    {mainNetwork.server_pais_ciudad}
+                  </div>
+
+                  <div
+                    className="trash"
+                    onClick={() => {
+                      setSelectedId(mainNetwork.id);
+                      //modal
+                    }}
+                  >
+                    <GlobeWebIcon />
+                  </div>
+                </div>
+
+                {mainNetwork.childs.map((subNetwork: any) => (
+                  <div key={subNetwork.id} className="item">
+                    <div className="id">{subNetwork?.id}</div>
+                    <div className="domain-name lined">
+                      <span className="sub-domain-icon-v"></span>
+                      <span className="sub-domain-icon-h"></span>
+                      <span className="trucate">
+                        {subNetwork.resource_domain}
+                      </span>
+                      <span className="server-ip">
+                        {subNetwork.main_server}
+                      </span>
+                      <div className="location">
+                        <span
+                          className={`flag flag-${subNetwork.server_pais_code.toLowerCase()}`}
+                        ></span>
+                        <span className="">{subNetwork.server_pais}</span>
+                      </div>
+
+                      <div className="province">
+                        {subNetwork?.server_pais_provincia},{" "}
+                        {subNetwork?.server_pais_ciudad}
+                      </div>
+                      <div
+                        className="trash"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          return false;
+                        }}
+                      >
+                        <GlobeWebIcon />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ))}
+          </div>
+        )}
+
+        {(!props.isLoading && props.webResources.resources.length === 0) ?? (
+          <>
+            {" "}
+            <EmptyCard />{" "}
+          </>
+        )}
+      </div>
     </>
   );
 };

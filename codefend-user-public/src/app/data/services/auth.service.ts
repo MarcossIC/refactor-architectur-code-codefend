@@ -57,6 +57,7 @@ const logout2 = async () => {
 const verifyAuth: () => boolean = () => {
   const state = useAppSelector((state) => state.authReducer);
   let currentTimestamp = Math.floor(Date.now() / 1000);
+
   return (
     !state.userData || currentTimestamp >= state.userData.exp! || !state.isAuth
   );

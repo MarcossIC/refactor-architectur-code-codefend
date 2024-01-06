@@ -12,6 +12,12 @@ const ConfirmationSignUp = lazy(
   () => import("./views/pages/auth/components/ConfirmationSignUp")
 );
 const Dashboard = lazy(() => import("./views/pages/panel/dashboard/Dashboard"));
+const WebApplication = lazy(
+  () => import("./views/pages/panel/web/WebApplication")
+);
+const MobileApplication = lazy(
+  () => import("./views/pages/panel/mobile/MobileApplicationPanel")
+);
 
 export const AppRouter = () => {
   return (
@@ -33,6 +39,8 @@ export const AppRouter = () => {
         <Route path="/" element={<RouterLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/web" element={<WebApplication />} />
+          <Route path="/mobile" element={<MobileApplication />} />
         </Route>
 
         {/* Rutas públicas para login y registro */}

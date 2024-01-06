@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { GlobeWebIcon } from "../";
+import { ButtonLoader, GlobeWebIcon } from "../";
 import { toast } from "react-toastify";
 import "../../shared/modal.scss";
-import { useAppSelector } from "src/app/data";
+import { useAppSelector } from "../../../data";
 
 interface SubdomainModalP {
   onDone: () => void;
-  webResources: any;
+  webResources?: any;
 }
 
-export const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
+const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
   const [mainDomainId, setMainDomainId] = useState("");
   const [domainName, setDomainName] = useState("");
   const [ipAddress, setIpAddress] = useState(false);
   const [isAddingSubDomain, setIsAddingSubDomain] = useState(false);
-  const userData  = useAppSelector((state) => state);
+  const userData = useAppSelector((state) => state);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,11 +50,9 @@ export const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
   return (
     <div className="modal subdomain-modal">
       <form onClick={handleSubmit}>
-        <div className="form-input-text">
+        <div className="form-input">
           <span className="form-icon">
-            <div className="codefend-text-red">
-              <GlobeWebIcon />
-            </div>
+            <GlobeWebIcon />
           </span>
 
           <select
@@ -75,7 +73,44 @@ export const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
             ))}
           </select>
         </div>
+
+        <div className="form-input text">
+          <span className="form-icon codefend-text-red">
+            <GlobeWebIcon />
+          </span>
+          <input
+            type="text"
+            onChange={(e) => setDomainName(e.target.value)}
+            placeholder="domain name"
+            required
+          />
+        </div>
+
+        <div className="form-input text">
+          <span className="form-icon codefend-text-red">
+            <GlobeWebIcon />
+          </span>
+          <input
+            type="text"
+            onChange={(e) => setDomainName(e.target.value)}
+            placeholder="IP address"
+            disabled
+          />
+        </div>
+
+        <div className="form-buttons">
+          <button className="log-inputs btn-cancel codefend_secondary_ac">
+            Cancel
+          </button>
+
+          <button className="log-inputs btn-add codefend_main_ac">
+            {isAddingSubDomain && <ButtonLoader />}
+            Add web resource
+          </button>
+        </div>
       </form>
     </div>
   );
 };
+
+export default AddSubDomainModal;

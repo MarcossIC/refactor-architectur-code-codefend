@@ -49,4 +49,20 @@ main.webapp {
     text-transform: uppercase;
     font-weight: bold;
   }
+
+  .card.table {
+    .item {
+      .location {
+        .flag {
+          margin-inline-end: 0.75rem;
+        }
+      }
+    }
+
+    .trash {
+      display: flex;
+      cursor: pointer;
+      padding-inline-end: 0.75rem;
+    }
+  }
 }

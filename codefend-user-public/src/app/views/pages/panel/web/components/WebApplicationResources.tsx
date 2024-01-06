@@ -8,6 +8,7 @@ import {
   EmptyCard,
 } from "../../../../components";
 import { useNavigate } from "react-router";
+import { WebResources } from "../../../../../data";
 
 interface WebResourceModalWrapper {
   children: ReactNode;
@@ -43,7 +44,7 @@ const WebResourceModalWrapper: React.FC<WebResourceModalWrapper> = ({
 
 interface WebResourcesProps {
   refetchResources: () => any;
-  webResources: any;
+  webResources: WebResources;
   isLoading: boolean;
 }
 
@@ -197,7 +198,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
           </div>
         )}
 
-        {(!props.isLoading && props.webResources.resources.length === 0) ?? (
+        {(!props.isLoading && props.webResources?.resources.length === 0) ?? (
           <>
             {" "}
             <EmptyCard />{" "}

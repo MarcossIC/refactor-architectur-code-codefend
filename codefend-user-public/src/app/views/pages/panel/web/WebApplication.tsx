@@ -3,10 +3,11 @@ import { WebApplicationResources } from "./components/WebApplicationResources";
 import { WebApplicationLocation } from "./components/WebApplicationLocation";
 import { WebApplicationStatics } from "./components/WebApplicationStatics";
 import { WebApplicationCredentials } from "./components/WebApplicationCredentials";
-import "../../../../shared/flag.scss";
-import "../../../../shared/card.scss";
-import "../../../../shared/table.scss";
+import "../../../shared/flag.scss";
+import "../../../shared/card.scss";
+import "../../../shared/table.scss";
 import "./webapplication.scss";
+import { WebResources } from "src/app/data";
 
 const WebApplicationView: React.FC = () => {
   const [showScreen, setShowScreen] = useState(false);
@@ -21,7 +22,7 @@ const WebApplicationView: React.FC = () => {
         <WebApplicationResources
           isLoading={false}
           refetchResources={() => console.log("como va")}
-          webResources={{}}
+          webResources={{} as WebResources}
         />
       </section>
       <section className="right">

@@ -1,58 +1,65 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, registerThunk } from "../thunks/auth.thunk";
-import { User, UserLogin, UserStore } from "../..";
+import { createSlice } from '@reduxjs/toolkit';
+import { loginThunk, registerThunk } from '../thunks/auth.thunk';
+import { User, getToken, getUser } from '../..';
 
 // initialize userToken from local storage
-const accessToken = localStorage.getItem("userToken")
-  ? localStorage.getItem("userToken")
-  : null;
+const accessToken = localStorage.getItem('userToken')
+	? localStorage.getItem('userToken')
+	: null;
 
 interface AuthState {
-  isAuth: boolean;
-  success: boolean;
-  error: string | null | undefined;
-  loading: boolean;
-  isExpired: null;
-  userData: User | null;
-  accessToken: string | null;
+	isAuth: boolean;
+	success: boolean;
+	error: string | null | undefined;
+	loading: boolean;
+	userData: User | null;
+	accessToken: string | null;
 }
 
-const initialState: AuthState = {
-  isAuth: false,
-  success: false,
-  error: null,
-  loading: false,
-  isExpired: null,
-  userData: null,
-  accessToken,
-};
+// IIFE JS para iniciar el estado
+const initialState: AuthState = (() => {
+	const user = getUser();
+	const token = getToken();
+	let currentTimestamp = Math.floor(Date.now() / 1000);
+	const isAuth: boolean =
+		user !== null && token !== null && !(currentTimestamp >= user.exp!);
+
+	return {
+		isAuth: isAuth,
+		success: false,
+		error: null,
+		loading: false,
+		userData: user,
+		accessToken: token,
+	} as AuthState;
+})();
 
 export const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    login: (state) => {
-      state.isAuth = true;
-    },
-    logout: (state) => {
-      state.isAuth = false;
-      state.userData = null;
-    },
-  },
-  extraReducers: (builder) => {
-    /* State manager for register fetch api */
+	name: 'auth',
+	initialState,
+	reducers: {
+		login: (state) => {
+			state.isAuth = true;
+		},
+		logout: (state) => {
+			state.isAuth = false;
+			state.userData = null;
+		},
+	},
+	extraReducers: (builder) => {
+		/* State manager for register fetch api */
 
-    /* state = pending */
-    builder.addCase(registerThunk.pending, (state) => {
-      state.loading = true;
-    });
-    /* state = success */
-    builder.addCase(registerThunk.fulfilled, (state, action) => {
-      state.loading = false;
-      state.success = true;
-      state.isAuth = false;
-      //Buscar cual es la respuesta de la fase 1 del registro
-      state.userData = null /*{
+		/* state = pending */
+		builder.addCase(registerThunk.pending, (state) => {
+			state.loading = true;
+		});
+		/* state = success */
+		builder.addCase(registerThunk.fulfilled, (state, action) => {
+			state.loading = false;
+			state.success = true;
+			state.isAuth = false;
+			//Buscar cual es la respuesta de la fase 1 del registro
+			state.userData = null /*{
         id: action.payload.user.id as string,
         companyID: action.payload.user.company_id as string,
         accessRole: action.payload.user.access_role as string,
@@ -74,36 +81,40 @@ export const authSlice = createSlice({
         isDisabled: action.payload.user.eliminado,
         createdAt: action.payload.user.creacion,
       }*/;
-    });
-    /* state =  with errors*/
-    builder.addCase(registerThunk.rejected, (state, action) => {
-      state.loading = false;
-      state.success = false;
-      state.error = action.error.message;
-    });
+		});
+		/* state =  with errors*/
+		builder.addCase(registerThunk.rejected, (state, action) => {
+			state.loading = false;
+			state.success = false;
+			state.error = action.error.message;
+		});
 
-    /* State manager for login fetch api */
+		/* State manager for login fetch api */
 
 		/* state = pending */
 		builder.addCase(loginThunk.pending, (state) => {
 			state.loading = true;
 			state.success = false;
-			state.isAuth = true
+			state.isAuth = true;
 		});
 		/* state = success */
 		builder.addCase(loginThunk.fulfilled, (state, action) => {
-			state.loading = false;
-			state.success = true;
-			state.isAuth = true
-			
+			if (action.payload.response === 'success') {
+				state.loading = false;
+				state.success = true;
+				state.isAuth = true;
+				state.userData = action.payload.user;
+				state.accessToken = action.payload.token;
+			}
 		});
 		/* state =  with errors*/
 		builder.addCase(loginThunk.rejected, (state, action) => {
+			console.log('Entre ?');
 			state.loading = false;
 			state.success = false;
 			state.error = action.error.message;
 		});
-	}
-})
+	},
+});
 
 export const { login, logout } = authSlice.actions;

@@ -1,30 +1,37 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { authSlice } from './slices'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import {
+	configureStore,
+	Middleware,
+	MiddlewareAPI,
+	Dispatch,
+	Action,
+} from '@reduxjs/toolkit';
+import { authSlice } from './slices';
+import { setAuth } from '..';
 
-const persistAuthConfig = {
-  key: 'auth',
-  storage,
-  whitelist: ['session'] // aca es donde se le pasa los nombres de los token que van al localstorage en modo persistente
-}
+const persistenceMiddleware: any =
+	(store: MiddlewareAPI) =>
+	<A extends Action>(next: Dispatch<A>) =>
+	(action: A): void => {
+		next(action);
+		const { userData, accessToken } = store.getState().authState;
+		setAuth(accessToken, userData);
+	};
+
+//Se definen los nombres de los reducers
+const rootReducer = {
+	authState: authSlice.reducer,
+};
 
 export const store = configureStore({
-  reducer: {
-    authReducer: persistReducer<ReturnType<typeof authSlice.reducer>>(
-      persistAuthConfig,
-      authSlice.reducer
-    )
-  },
-  middleware: (defaultMiddleware) =>
-    defaultMiddleware({
-      serializableCheck: false
-    })
-})
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({ serializableCheck: false }).prepend(
+			persistenceMiddleware,
+		),
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export const persistor = persistStore(store)
-
-export default store
+//export const persistor = persistStore(store);
+export default store;

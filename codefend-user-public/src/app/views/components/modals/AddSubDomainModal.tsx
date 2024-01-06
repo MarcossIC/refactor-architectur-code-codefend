@@ -14,7 +14,7 @@ const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
   const [domainName, setDomainName] = useState("");
   const [ipAddress, setIpAddress] = useState(false);
   const [isAddingSubDomain, setIsAddingSubDomain] = useState(false);
-  const userData = useAppSelector((state) => state);
+  const { userData } = useAppSelector((state) => state.authState);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

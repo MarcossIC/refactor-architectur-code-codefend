@@ -17,7 +17,7 @@ export const Table = () => {
   const [dataSort, setDataSort] =
     React.useState<keyof TableType>("firstName");
 
-	/* esto se ocupa del sorting de los elementos de la tablaj */
+	/* esto se ocupa del sorting de los elementos de la tabla */
   const matches = React.useMemo(
     () => {
       const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig') // esto es para limpiar el input

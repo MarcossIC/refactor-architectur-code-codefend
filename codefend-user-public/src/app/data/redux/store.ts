@@ -6,7 +6,7 @@ import storage from 'redux-persist/lib/storage'
 const persistAuthConfig = {
   key: 'auth',
   storage,
-  whitelist: ['accessToken']
+  whitelist: ['session'] // aca es donde se le pasa los nombres de los token que van al localstorage en modo persistente
 }
 
 export const store = configureStore({

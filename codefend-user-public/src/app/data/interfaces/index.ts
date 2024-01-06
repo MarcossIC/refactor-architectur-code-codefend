@@ -85,5 +85,5 @@ export interface RegistrationData {
   response: "success";
   message: string;
   session: string;
-  user: UserAPI;
+  user: UserApi;
 }

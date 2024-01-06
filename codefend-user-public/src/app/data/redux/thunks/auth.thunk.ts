@@ -9,19 +9,19 @@ interface LoginParams {
 
 
 //paso 1
-interface RegisterParams {
-  name: string;
-  username: string;
-  email: string;
-  phone?: string;
-  companyName: string;
-  companySize: string | number;
-  companyRole: string;
-  companyWeb: string;
-  companyCountry: string;
-  password?: string;
-  role?: string;
+export interface RegisterParams {
+  lead_fname: string;
+  lead_lname?: string; 
+  lead_role: string | number; 
+  lead_email: string;
+  lead_phone?: string; 
+  company_name: string;
+  company_web: string;
+  company_size: string | number;
+  company_area: string;
+  phase: string;
 }
+
 
 // Tipo de retorno de la función de inicio de sesión
 export interface LoginResponse {
@@ -49,7 +49,7 @@ export const loginThunk = createAsyncThunk<LoginResponse, LoginParams, { rejectV
     try {
       const { user, token } = await AuthServices.login(loginParams);
       console.log(user, token);
-      return { user, token } as LoginResponse;
+      return { user, token } as unknown as LoginResponse;
     } catch (error) {
       return rejectWithValue(error as string);
     }

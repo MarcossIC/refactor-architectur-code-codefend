@@ -1,12 +1,11 @@
-import axios from "axios";
 import { decodePayload } from "./decodedToken";
 import { logout } from "../redux/slices/auth.slice";
 import { setAuth, clearAuth } from "../utils/helper";
 import { fetchPOST } from "./fetchAPI";
-import { RegisterParams, UserAPI, useAppSelector } from "..";
+import { useAppSelector } from "..";
 const API_URL = "http://localhost:8000/users/";
 
-const register = async (registerParams: RegisterParams) => {
+const register = async (registerParams: any) => {
   const { data } = await fetchPOST({
     params: {
       model: "users/access",

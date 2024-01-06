@@ -5,6 +5,7 @@ export interface User {
   accessRole: string;
   mfaKey: string;
 
+  role: string,
   name: string;
   lastName: string;
 

@@ -9,9 +9,7 @@ import { authSlice } from './slices';
 import { setAuth } from '..';
 
 const persistenceMiddleware: any =
-	(store: MiddlewareAPI) =>
-	<A extends Action>(next: Dispatch<A>) =>
-	(action: A): void => {
+	(store: any) => (next: any) => (action: any) => {
 		next(action);
 		const { userData, accessToken } = store.getState().authState;
 		setAuth(accessToken, userData);
@@ -25,7 +23,7 @@ const rootReducer = {
 export const store = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({ serializableCheck: false }).prepend(
+		getDefaultMiddleware({ serializableCheck: false }).concat(
 			persistenceMiddleware,
 		),
 });

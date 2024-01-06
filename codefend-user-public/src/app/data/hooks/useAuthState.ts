@@ -17,7 +17,7 @@ export const useAuthState = () => {
 	const isAuth = () => authState.isAuth;
 
 	const signInUser = (params: LoginParams): Promise<boolean> => {
-		return dispatch(loginThunk(params) as any)
+		return dispatch(loginThunk(params))
 			.then((response: any) => {
 				const { meta } = response;
 				if (meta.rejectedWithValue) throw new Error('');

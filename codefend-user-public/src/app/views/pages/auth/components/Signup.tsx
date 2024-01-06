@@ -1,22 +1,15 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { companySizesList, countries } from "../../../../data/mocks";
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import {  RegisterParams, UserRegister, useAppDispatch, useAppSelector } from '../../../../data'
+import { companySizesList, countries } from '../../../../data/mocks'
+import { registerThunk } from '../../../../data/redux/thunks/auth.thunk'
+import { ButtonLoader } from '../../../components'
+import '../../../shared/buttons.scss'
+import '../../../shared/forms.scss'
 
-import { ButtonLoader } from "../../../components";
-import { registerThunk } from "../../../../data/redux/thunks/auth.thunk";
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import "../../../shared/forms.scss";
-import "../../../shared/buttons.scss";
-import {
-  RegisterParams,
-  User,
-  UserRegister,
-  useAppDispatch,
-  useAppSelector,
-} from "../../../../data";
 
 const SignUpLayout: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,51 +17,51 @@ const SignUpLayout: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const [signupForm, setSignupForm] = useState<UserRegister>({
-    name: "",
-    lastName: "",
-    companyRole: "",
-    email: "",
-    phone: "",
-    companyName: "",
-    companySize: "",
-    companyWeb: "",
-    companyCountry: "",
-    phase: "1",
-  });
+  const [signupForm, setSignupForm] = useState<RegisterParams>({
+    name: '',
+    username: '',
+    companyRole: '',
+    email: '',
+    phone: '',
+    companyName: '',
+    companySize: '',
+    companyWeb: '',
+    companyCountry: ''
+  })
 
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSignupForm((current) => ({ ...current, isLoading: true }));
+    e.preventDefault()
+    setSignupForm((current: any) => ({ ...current, isLoading: true }))
 
     const requestParams: RegisterParams = {
-      name: signupForm.name,
-      lastName: signupForm.lastName as string,
+      lead_fname: signupForm.name,
+      phone: signupForm.phone,
       companyRole: signupForm.companyRole,
       email: signupForm.email,
-      phone: signupForm.phone as string,
-      companyName: signupForm.companyName as string,
-      companyWeb: signupForm.companyWeb as string,
-      companySize: signupForm.companySize as string,
-      companyCountry: signupForm.companyCountry as string,
-      phase: signupForm.phase,
-    };
+      companyName: signupForm.companyName,
+      companyWeb: signupForm.companyWeb, 
+      companySize: signupForm.companySize,
+      companyCountry: signupForm.companyCountry,
+      password: "",
+      role: "", 
+      phase: '1'
+    }
 
     try {
-      dispatch(registerThunk(requestParams));
-      toast.success(`signup successful`);
-      setSignupForm((prevData) => ({ ...prevData, isCompleteSignUp: true }));
+      dispatch(registerThunk(requestParams))
+      toast.success(`signup successful`)
+      setSignupForm((prevData: any) => ({ ...prevData, isCompleteSignUp: true }))
 
-      navigate("/auth/confirmation");
+      navigate('/auth/confirmation')
     } catch (error) {
-      console.error("Error during registration:", error);
-      toast.error("An error occurred during registration.");
+      console.error('Error during registration:', error)
+      toast.error('An error occurred during registration.')
     } finally {
-      setSignupForm((prevData) => ({ ...prevData, isLoading: false }));
+      setSignupForm((prevData: any) => ({ ...prevData, isLoading: false }))
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -76,7 +69,7 @@ const SignUpLayout: React.FC = () => {
         <input
           type="text"
           onChange={(e) =>
-            setSignupForm((current) => ({ ...current, name: e.target.value }))
+            setSignupForm((current: any) => ({ ...current, name: e.target.value }))
           }
           name="first_name"
           placeholder="First name"
@@ -89,9 +82,9 @@ const SignUpLayout: React.FC = () => {
         <input
           type="text"
           onChange={(e) =>
-            setSignupForm((current) => ({
+            setSignupForm((current: any) => ({
               ...current,
-              lastName: e.target.value,
+              lastName: e.target.value
             }))
           }
           name="last_name"
@@ -105,7 +98,7 @@ const SignUpLayout: React.FC = () => {
         <input
           type="email"
           onChange={(e) =>
-            setSignupForm((current) => ({ ...current, email: e.target.value }))
+            setSignupForm((current: any) => ({ ...current, email: e.target.value }))
           }
           name="email_address"
           autoComplete="email"
@@ -118,7 +111,7 @@ const SignUpLayout: React.FC = () => {
         <input
           type="tel"
           onChange={(e) =>
-            setSignupForm((current) => ({ ...current, phone: e.target.value }))
+            setSignupForm((current: any) => ({ ...current, phone: e.target.value }))
           }
           name="phone_number"
           placeholder="Phone number"
@@ -130,9 +123,9 @@ const SignUpLayout: React.FC = () => {
         <input
           type="text"
           onChange={(e) =>
-            setSignupForm((current) => ({
+            setSignupForm((current: any) => ({
               ...current,
-              companyName: e.target.value,
+              companyName: e.target.value
             }))
           }
           name="company_name"
@@ -144,9 +137,9 @@ const SignUpLayout: React.FC = () => {
         <input
           type="url"
           onChange={(e) =>
-            setSignupForm((current) => ({
+            setSignupForm((current: any) => ({
               ...current,
-              companyWeb: e.target.value,
+              companyWeb: e.target.value
             }))
           }
           name="company_website"
@@ -159,9 +152,9 @@ const SignUpLayout: React.FC = () => {
       <div className="input-group">
         <select
           onChange={(e) =>
-            setSignupForm((current) => ({
+            setSignupForm((current: any) => ({
               ...current,
-              companySize: e.target.value,
+              companySize: e.target.value
             }))
           }
           className="log-inputs log-text"
@@ -183,9 +176,9 @@ const SignUpLayout: React.FC = () => {
         <input
           type="text"
           onChange={(e) =>
-            setSignupForm((current) => ({
+            setSignupForm((current: any) => ({
               ...current,
-              companyRole: e.target.value,
+              companyRole: e.target.value
             }))
           }
           name="company_role"
@@ -199,9 +192,9 @@ const SignUpLayout: React.FC = () => {
           id="countries"
           name="country"
           onChange={(e) =>
-            setSignupForm((current) => ({
+            setSignupForm((current: any) => ({
               ...current,
-              companyCountry: e.target.value,
+              companyCountry: e.target.value
             }))
           }
           className="log-inputs log-text"
@@ -221,7 +214,7 @@ const SignUpLayout: React.FC = () => {
 
       <div className="extra-group">
         <span className="link link-color">
-          I have read and accept the <u>Privacy Policy</u> and{" "}
+          I have read and accept the <u>Privacy Policy</u> and{' '}
           <u>Terms of Use.</u>
         </span>
       </div>
@@ -245,7 +238,7 @@ const SignUpLayout: React.FC = () => {
         </div>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default SignUpLayout;
+export default SignUpLayout

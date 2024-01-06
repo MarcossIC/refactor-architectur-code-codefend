@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Loader } from "./views/components";
-import { useAppSelector } from "./data";
 import AuthServices from "./data/services/auth.service";
 
 const Navbar = lazy(() => import("./views/components/standalones/Navbar"));

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { EmptyCard, PageLoader } from "../../../../components";
+import { Table } from "src/app/views/components/standalones/Table";
 
 const DashboardVulnerabilities: React.FC<{
   topVulnerabilities: any;
@@ -18,7 +19,10 @@ const DashboardVulnerabilities: React.FC<{
     <div className="card">
       <div>
         {!isLoading ? (
-          <>{/* AQUI VA UNA TABLA */}</>
+          <>
+            {/* AQUI VA UNA TABLA */}
+            <Table />  
+          </>
         ) : (
           <>
             <PageLoader />

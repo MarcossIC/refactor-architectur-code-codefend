@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 
 import { PageLoader } from "../../../../components";
+import { Table } from "src/app/views/components/standalones/Table";
 
 const DashboardCollaborators: React.FC<{
   members: any;
@@ -20,7 +21,7 @@ const DashboardCollaborators: React.FC<{
       <div className="colaborators-container">
         <div>
           {!isLoading ? (
-            <>{/* AQUI VA UNA TABLA */}</>
+            <><Table /></>
           ) : (
             <>
               <PageLoader />

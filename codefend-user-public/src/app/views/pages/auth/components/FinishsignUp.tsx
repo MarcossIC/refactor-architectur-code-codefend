@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import { toast } from 'react-toastify'
@@ -23,7 +23,7 @@ const FinishSignUpLayout = () => {
 
   console.log(ref)
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserState((prevUserState) => ({
       ...prevUserState,
@@ -31,7 +31,7 @@ const FinishSignUpLayout = () => {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (userState.password !== userState.confirmPassword) {

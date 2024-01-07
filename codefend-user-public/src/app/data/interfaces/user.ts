@@ -1,29 +1,24 @@
 // Interface para la propiedad 'user'
 export interface User {
-	id: string;
+	id?: string;
 	companyID: string;
 	accessRole: string;
 	mfaKey: string;
-
-	role: string;
+	role: string ;
 	name: string;
 	lastName: string;
-
 	username?: string;
 	password?: string;
 	email: string;
 	phone: number | string;
-	profileMedia: string;
-
+	profileMedia?: string | null;
 	country?: string;
 	countryCode: string;
-
 	companySize?: string | number;
 	companyName?: string;
 	companyRole: string;
 	companyWeb?: string;
 	companyCountry?: string;
-
 	isDisabled: boolean;
 	createdAt: string;
 	exp?: number;

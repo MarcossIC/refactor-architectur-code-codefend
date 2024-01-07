@@ -1,10 +1,15 @@
-import { decodePayload } from './decodedToken';
-import { logout } from '../redux/slices/auth.slice';
-import { clearAuth } from '../utils/helper';
-import { fetchPOST } from './fetchAPI';
 import { LoginParams, LoginResponse, User, mapLoginResponseToUser } from '..';
 import { useAuthState } from '../hooks/useAuthState';
-const API_URL = 'http://localhost:8000/users/';
+import { logout } from '../redux/slices/auth.slice';
+import { clearAuth } from '../utils/helper';
+import { decodePayload } from './decodedToken';
+import { fetchPOST } from './fetchAPI';
+
+export interface RegisterFinishParams {
+	username: string;
+	password: string;
+	lead_reference_number: string | undefined;
+}
 
 const register = async (registerParams: any) => {
 	const { data } = await fetchPOST({
@@ -24,6 +29,23 @@ const register = async (registerParams: any) => {
 	});
 
 	return data;
+};
+
+const registerFinish = async ({
+	username,
+	password,
+	lead_reference_number,
+}: RegisterFinishParams): Promise<any> => { //falta agregar tipo a la respuesta del back
+	const { data } = await fetchPOST({
+		params: {
+			model: 'users/new',
+			username: username,
+			password: password,
+			lead_reference_number: lead_reference_number
+		},
+	});
+
+	return data
 };
 
 const login = async (loginParams: LoginParams): Promise<LoginResponse> => {
@@ -62,6 +84,7 @@ const verifyAuth: () => boolean = () => {
 
 const AuthServices = {
 	register,
+	registerFinish,
 	login,
 	logout2,
 	verifyAuth,

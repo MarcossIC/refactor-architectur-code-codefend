@@ -45,7 +45,7 @@ export interface RegisterResponse {
 export const loginThunk = createAsyncThunk<
 	LoginResponse,
 	LoginParams,
-	{ rejectValue: string }
+	{ rejectValue: string } 
 >('auth/login', async (loginParams: LoginParams, { rejectWithValue }) => {
 	try {
 		const { user, token, response } = await AuthServices.login(loginParams);
@@ -75,3 +75,8 @@ export const registerThunk = createAsyncThunk<
 		}
 	},
 );
+
+export const registerFinishThunk = createAsyncThunk(
+	'auth/finish',
+	async (finisParams:) => {}
+)

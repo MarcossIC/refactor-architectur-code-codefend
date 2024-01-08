@@ -50,15 +50,27 @@ export const useAuthState = () => {
 	};
 
 	const signUpFinish = (params: any): Promise<boolean> => {
-		return dispatch(registerFinishThunk(params)).then((response: any) => {
-			const { meta } = response;
-			console.log({ response });
-			if (meta.rejectedWithValue) throw new Error('');
-			toast.success;
-			if (meta.rejectedWithValue) throw Error('');
-			toast.success(`An error occurred during register step`);
-		});
+		return dispatch(registerFinishThunk(params))
+			.then((response: any) => {
+				const { meta } = response;
+				console.log({ response });
+				if (meta.rejectedWithValue) throw Error('');
+				toast.success(`An error occurred during register step`);
+				return true;
+			})
+			.catch((error: Error) => {
+				console.error('Error during registration:', error);
+				toast.error('An error occurred during registration.');
+				return false;
+			});
 	};
 
-	return { getUserdata, getAccessToken, isAuth, signInUser, signUpUser, signUpFinish };
+	return {
+		getUserdata,
+		getAccessToken,
+		isAuth,
+		signInUser,
+		signUpUser,
+		signUpFinish,
+	};
 };

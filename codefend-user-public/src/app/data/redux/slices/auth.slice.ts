@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginThunk, registerThunk } from '../thunks/auth.thunk';
-import { User, UserLogin, UserStore, getToken, getUser } from '../..';
+
+import { User, getToken, getUser } from '../..';
 
 // initialize userToken from local storage
 const accessToken = localStorage.getItem('userToken')
@@ -102,31 +103,14 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = true;
-			state.userData = {
-				companyID: act,
-				accessRole: '',
-				mfaKey: '',
-				name: action.payload.user.name,
-				lastName: '',
-				username: action.payload.user.username,
-				password: action.payload.user.password,
-				email: action.payload.user.email,
-				phone: '',
-				profileMedia: '',
-				country: '',
-				countryCode: '',
-				role: '',
-				companyRole: action.payload.user.role,
-				isDisabled: false,
-				createdAt: '',
-			};
-			state.accessToken = action.payload.token;
+			state.userData = action.payload.user as User;
+			state.accessToken = action.payload.token as string;
 		});
 		/* state =  with errors*/
 		builder.addCase(loginThunk.rejected, (state, action) => {
 			state.loading = false;
 			state.success = false;
-			state.error = action.error.message;
+			state.error = action.payload;
 		});
 	},
 });

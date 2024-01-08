@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styles from './table.module.scss';
 
+enum Sort {
+	asc = 'asc',
+	desc = 'desc',
+}
+
 export const Table = (DATA: any[]) => {
-	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc'); // magic string ya lo se no me retes!
+	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
 	const [dataSort, setDataSort] = useState<keyof TableType>('firstName');
 
 	/* Esto es para eliminar elementos repetidos
@@ -27,7 +32,7 @@ export const Table = (DATA: any[]) => {
 	);
 	console.log(HEADERS);
 	/* esto se ocupa del sorting de los elementos de la tabla */
-	const matches = React.useMemo(() => {
+	const matches = useMemo(() => {
 		const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig'); // esto es para limpiar el input
 
 		return [...FILTERED_DATA].sort((a, b) => {
@@ -36,7 +41,7 @@ export const Table = (DATA: any[]) => {
 			const bValue = Number(String(b[dataSort]).replace(numberRexeg, ''));
 
 			/* aca comparamos como number */
-			if (!Number.isNaN(aValue) && !Number.isNaN(bValue)) {
+			if (!isNaN(aValue) && !isNaN(bValue)) {
 				return bValue - aValue;
 			}
 
@@ -48,11 +53,11 @@ export const Table = (DATA: any[]) => {
 	const handleSort = (columnName: keyof TableType) => {
 		if (columnName === dataSort) {
 			setSortDirection((prevDirection) =>
-				prevDirection === 'asc' ? 'desc' : 'asc',
+				prevDirection === Sort.asc ? Sort.desc : Sort.asc,
 			);
 		} else {
 			setDataSort(columnName);
-			setSortDirection('asc');
+			setSortDirection(Sort.asc);
 		}
 	};
 
@@ -83,7 +88,7 @@ export const Table = (DATA: any[]) => {
 					</thead>
 
 					<tbody>
-						{FILTERED_DATA.map((row) => (
+						{FILTERED_DATA.map((row: any) => (
 							<tr key={row['firstName']}>
 								<td>{row['firstName']}</td>
 								{/* ... (renderizar otras celdas) */}

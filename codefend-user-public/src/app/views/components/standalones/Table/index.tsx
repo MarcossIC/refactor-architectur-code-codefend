@@ -18,28 +18,8 @@ export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
 	const [dataSort, setDataSort] = useState<any>('firstName');
 
-	/*const FILTERED_DATA = Object.values(
-		DATA.reduce<Record<any, any>>((map: any, row: any) => {
-			map[row['firstName']] = row;
-			return map;
-		}, {}),
-	);*/
-
 	const FILTERED_DATA = new Set<any>([]);
-	/*
-	const HEADERS = Object.values(
-		DATA.reduce(
-			(map: any, row: any) => {
-				map[row['firstName']] = row;
-				return map;
-			},
-			{} as Record<string, any>,
-		),
-	);
 
-	
-	console.log(HEADERS);*/
-	/* esto se ocupa del sorting de los elementos de la tabla */
 	const matches = useMemo(() => {
 		const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig'); // esto es para limpiar el input
 

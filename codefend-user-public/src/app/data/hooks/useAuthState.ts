@@ -2,6 +2,7 @@ import {
 	LoginParams,
 	RegisterParams,
 	loginThunk,
+	registerFinishThunk,
 	registerThunk,
 	useAppDispatch,
 	useAppSelector,
@@ -31,11 +32,13 @@ export const useAuthState = () => {
 	};
 
 	const signUpUser = (params: RegisterParams): Promise<boolean> => {
-		return dispatch(registerThunk(params) as any)
+		return dispatch(registerThunk(params))
 			.then((response: any) => {
 				const { meta } = response;
 				console.log({ response });
-				if (meta.rejectedWithValue) throw new Error('');
+				if (meta.rejectedWithValue) {
+					throw new Error('');
+				}
 				toast.success(`signup successful`);
 				return true;
 			})
@@ -46,5 +49,16 @@ export const useAuthState = () => {
 			});
 	};
 
-	return { getUserdata, getAccessToken, isAuth, signInUser, signUpUser };
+	const signUpFinish = (params: any): Promise<boolean> => {
+		return dispatch(registerFinishThunk(params)).then((response: any) => {
+			const { meta } = response;
+			console.log({ response });
+			if (meta.rejectedWithValue) throw new Error('');
+			toast.success;
+			if (meta.rejectedWithValue) throw Error('');
+			toast.success(`An error occurred during register step`);
+		});
+	};
+
+	return { getUserdata, getAccessToken, isAuth, signInUser, signUpUser, signUpFinish };
 };

@@ -75,3 +75,8 @@ export const registerThunk = createAsyncThunk<
 		}
 	},
 );
+
+export const registerFinishThunk = createAsyncThunk(
+	'auth/finish',
+	async (finisParams: any) => {},
+);

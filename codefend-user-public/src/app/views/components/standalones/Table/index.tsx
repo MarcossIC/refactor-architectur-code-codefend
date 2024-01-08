@@ -1,80 +1,97 @@
-import React from 'react'
-import styles from './table.module.scss'
-import { defaultData as DATA, TableType } from './tableColumnDef'
+import React, { useState } from 'react';
+import styles from './table.module.scss';
 
-/* Esto es para eliminar elementos repetidos
-	 Hay muchas formas de hacer esto!
-*/
-const FILTERED_DATA = Object.values(
-  DATA.reduce<Record<TableType['firstName'], TableType>>((map, row) => {
-    map[row['firstName']] = row;
-    return map;
-  }, {})
-);
+export const Table = (DATA: any[]) => {
+	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc'); // magic string ya lo se no me retes!
+	const [dataSort, setDataSort] = useState<keyof TableType>('firstName');
 
-export const Table = () => {
+	/* Esto es para eliminar elementos repetidos
+     Hay muchas formas de hacer esto!
+  */
+	const FILTERED_DATA = Object.values(
+		DATA.reduce<Record<TableType['firstName'], TableType>>((map, row) => {
+			map[row['firstName']] = row;
+			return map;
+		}, {}),
+	);
+	console.log(FILTERED_DATA);
 
-  const [dataSort, setDataSort] =
-    React.useState<keyof TableType>("firstName");
-
+	const HEADERS = Object.values(
+		DATA.reduce(
+			(map: any, row: any) => {
+				map[row['firstName']] = row;
+				return map;
+			},
+			{} as Record<string, TableType>,
+		),
+	);
+	console.log(HEADERS);
 	/* esto se ocupa del sorting de los elementos de la tabla */
-  const matches = React.useMemo(
-    () => {
-      const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig') // esto es para limpiar el input
+	const matches = React.useMemo(() => {
+		const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig'); // esto es para limpiar el input
 
-      return [...FILTERED_DATA].sort((a, b) => {
-        /* aqui se castean los datos o normalizan */
-        const aValue = Number(String(a[dataSort]).replace(numberRexeg, ''))
-        const bValue = Number(String(b[dataSort]).replace(numberRexeg, ''))
+		return [...FILTERED_DATA].sort((a, b) => {
+			/* aqui se castean los datos o normalizan */
+			const aValue = Number(String(a[dataSort]).replace(numberRexeg, ''));
+			const bValue = Number(String(b[dataSort]).replace(numberRexeg, ''));
 
-        /* aca comparamos como number */
-        if(!Number.isNaN(aValue)  && !Number.isNaN(bValue)) {
-          return bValue - aValue
-        }
-        
-        /* aca comparamos como string */
-        return (b[dataSort] as string).localeCompare((a[dataSort] as string)) 
+			/* aca comparamos como number */
+			if (!Number.isNaN(aValue) && !Number.isNaN(bValue)) {
+				return bValue - aValue;
+			}
 
-      })
-      
-    },
-    [dataSort]
-  );
+			/* aca comparamos como string */
+			return (b[dataSort] as string).localeCompare(a[dataSort] as string);
+		});
+	}, [dataSort]);
 
-  return (
-    <>
-    <div className={styles['table__title__header']}></div>
-    <div>
-			<table>
+	const handleSort = (columnName: keyof TableType) => {
+		if (columnName === dataSort) {
+			setSortDirection((prevDirection) =>
+				prevDirection === 'asc' ? 'desc' : 'asc',
+			);
+		} else {
+			setDataSort(columnName);
+			setSortDirection('asc');
+		}
+	};
 
-				<thead>
-					<tr>
-						<th onClick={() => setDataSort("firstName")}>firstName</th>
-						<th onClick={() => setDataSort("lastName")}>lastName</th>
-						<th onClick={() => setDataSort("age")}>age</th>
-						<th onClick={() => setDataSort("visits")}>visits</th>
-						<th onClick={() => setDataSort("status")}>status</th>
-						<th onClick={() => setDataSort("progress")}>progress</th>
-					</tr>
-				</thead>
+	const keys = Object.keys(DATA[0]) as (keyof TableType)[];
 
-				<tbody>
-					{
-						matches.map((row) => (
-							<tr key={row["firstName"]}>
-								<td>{row["firstName"]}</td>
-								<td>{row["lastName"]}</td>
-								<td>{row["age"]}</td>
-								<td>{row["visits"]}</td>
-								<td>{row["status"]}</td>
-								<td>{row["progress"]}</td>
+	return (
+		<>
+			<div className={styles['table__title__header']}></div>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							{/* Renderizar todas las claves en el encabezado */}
+							{keys.map((keyTable: any) => (
+								<th
+									key={keyTable}
+									onClick={() => handleSort(keyTable)}>
+									{keyTable}{' '}
+									{dataSort === keyTable &&
+										sortDirection === 'asc' &&
+										'↑'}{' '}
+									{dataSort === keyTable &&
+										sortDirection === 'desc' &&
+										'↓'}
+								</th>
+							))}
+						</tr>
+					</thead>
+
+					<tbody>
+						{FILTERED_DATA.map((row) => (
+							<tr key={row['firstName']}>
+								<td>{row['firstName']}</td>
+								{/* ... (renderizar otras celdas) */}
 							</tr>
-						))
-					}
-				</tbody>
-
-			</table>
-		</div>
-    </>
-  )
-}
+						))}
+					</tbody>
+				</table>
+			</div>
+		</>
+	);
+};

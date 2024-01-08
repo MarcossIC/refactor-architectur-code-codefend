@@ -1,42 +1,14 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import styles from './table.module.scss';
-import { defaultData as DATA } from './tableColumnDef';
 
-type TableType = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
-};
-
-
-const FILTERED_DATA = Object.values(
-	DATA.reduce<Record<TableType['firstName'], TableType>>((map, row) => {
-		map[row['firstName']] = row;
-		return map;
-	}, {}),
-);
-console.log(FILTERED_DATA);
-
-=======
 import React, { useMemo, useState } from 'react';
 import './table.module.scss';
 import { generateIDArray } from '../../../../data';
->>>>>>> b91b938b6984519d46b206108517e46aefc2df32
 
 enum Sort {
 	asc = 'asc',
 	desc = 'desc',
 }
 
-<<<<<<< HEAD
-	/* Esto es para eliminar elementos repetidos
-     Hay muchas formas de hacer esto!
-  */
-=======
+
 interface TableProps {
 	DATA: any;
 
@@ -54,7 +26,7 @@ export const Table: React.FC<TableProps> = (DATA, columns) => {
 			return map;
 		}, {}),
 	);*/
->>>>>>> b91b938b6984519d46b206108517e46aefc2df32
+
 
 	const FILTERED_DATA = new Set<any>([]);
 	/*

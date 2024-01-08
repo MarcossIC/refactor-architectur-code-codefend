@@ -46,7 +46,7 @@ export interface UserAPI {
 	pais_code: string;
 	pais_provincia: string;
 	pais_ciudad: string;
-	eliminado: boolean;
+	eliminado: string;
 	creacion: string;
 	exp?: number;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { ChartIcon } from "src/app/views/components";
+import { ChartIcon } from "../../../components";
 
 interface DashboardVulnerabilitiesStatusProps {
   vulnerabilityByShare: any;

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { PageLoader } from "src/app/views/components";
+import { PageLoader } from "../../../../components";
 import {
   MobileAppInfoCard,
   ProvidedTestingCredentials,

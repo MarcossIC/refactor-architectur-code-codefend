@@ -1,144 +1,137 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { PageLoader, ModalWrapper, EmptyScreenView } from "../../../components";
-import "../../../shared/card.scss";
-import { MobileAppCard } from "../components/MobileAppCard";
-
-interface Mobile {
-  app_name: string;
-  model: string;
-}
-
-interface MobileInfo {
-  info: Mobile[];
-  loading: boolean;
-  disponibles: [];
-}
-
-type RefetchFunction = { (): void };
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { PageLoader, EmptyScreenView } from '../../../components';
+import '../../../shared/card.scss';
+import { MobileAppCard } from '../components/MobileAppCard';
+import { generateIDArray, useMobile } from '../../../../data';
 
 interface MobileApp {
-  id: string;
-}
-
-function generateMobileInfoMock(): [MobileInfo, { refetch: RefetchFunction }] {
-  const mobileInfo: MobileInfo = {
-    info: [{ app_name: "ExampleBrand", model: "ExampleModel" }],
-    loading: false,
-    disponibles: [],
-  };
-
-  const refetch: RefetchFunction = () => {
-    console.log("Mock Refetch Function Called");
-  };
-
-  return [mobileInfo, { refetch }];
+	id: string;
 }
 
 const MobileApplicationPanel: React.FC = () => {
-  const [showScreen, setShowScreen] = useState(false);
-  const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp>(
-    {} as MobileApp
-  );
+	const [showScreen, setShowScreen] = useState<boolean>(false);
+	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp>(
+		{} as MobileApp,
+	);
 
-  const [mobileInfo, { refetch }] = generateMobileInfoMock();
+	const { isLoading, mobileInfo } = useMobile();
 
-  const getMobileInfo = () => {
-    const mobileData = mobileInfo.loading ? [] : mobileInfo.disponibles;
-    const mobileDataGroup = mobileData ?? [];
-    return mobileDataGroup;
-  };
+	const getMobileInfo = () => {
+		const mobileData = isLoading ? [] : mobileInfo.disponibles;
+		const mobileDataGroup = mobileData ?? [];
+		return mobileDataGroup;
+	};
 
-  const handleMobileAppClick = useCallback(
-    (mobile: any) => {
-      if (mobile.id === selectedMobileApp.id) return;
+	const handleMobileAppClick = useCallback(
+		(mobile: any) => {
+			if (mobile.id === selectedMobileApp.id) return;
 
-      setSelectedMobileApp(mobile);
-    },
-    [setSelectedMobileApp]
-  );
+			setSelectedMobileApp(mobile);
+		},
+		[setSelectedMobileApp],
+	);
 
-  const handleActiveMobileValidation = useCallback(
-    (mobile: any) => {
-      return mobile.id === selectedMobileApp.id;
-    },
-    [selectedMobileApp]
-  );
+	const handleActiveMobileValidation = useCallback(
+		(mobile: any) => {
+			return mobile.id === selectedMobileApp.id;
+		},
+		[selectedMobileApp],
+	);
 
-  useEffect(() => {
-    setTimeout(() => setShowScreen(true), 50);
-  }, []);
+	const mobileKeys = useMemo(
+		() => generateIDArray(mobileInfo.length),
+		[mobileInfo.length],
+	);
 
-  useEffect(() => {
-    if (selectedMobileApp === null) {
-      const mobileData = getMobileInfo();
-      if (!mobileInfo.loading && Boolean(mobileData.length))
-        setSelectedMobileApp(mobileData[0]);
-    }
-  }, [selectedMobileApp]);
+	useEffect(() => {
+		setTimeout(() => setShowScreen(true), 50);
+	}, []);
 
-  return (
-    <>
-      <main className={`mobile ${showScreen ? "actived" : ""}`}>
-        {!mobileInfo.loading ? (
-          <>
-            {!Boolean(mobileInfo.info.length) ? (
-              <>
-                <EmptyScreenView buttonText="Add Mobile" event={() => {}} />
-              </>
-            ) : (
-              <>
-                <section className="left">
-                  <div className="add-button">
-                    <button
-                      onClick={(e: React.FormEvent) => {}}
-                      className="btn btn-primary"
-                    >
-                      ADD MOBILE APP
-                    </button>
-                  </div>
+	useEffect(() => {
+		if (selectedMobileApp === null) {
+			const mobileData = getMobileInfo();
+			if (!isLoading && Boolean(mobileData.length))
+				setSelectedMobileApp(mobileData[0]);
+		}
+	}, [selectedMobileApp]);
 
-                  <div className="list">
-                    {mobileInfo.info.map((info: any) => (
-                      <div
-                        key={info.app_name}
-                        className="mobile-info"
-                        onClick={() => handleMobileAppClick(info)}
-                      >
-                        <>
-                          <MobileAppCard
-                            active={handleActiveMobileValidation(info)}
-                            onDone={(id: any) => {
-                              if (
-                                selectedMobileApp &&
-                                selectedMobileApp.id === id
-                              ) {
-                                setSelectedMobileApp({} as MobileApp);
-                              }
-                            }}
-                            type={"mobile"}
-                            {...info}
-                            name={info.app_name}
-                          />
-                        </>
-                      </div>
-                    ))}
-                  </div>
-                </section>
+	return (
+		<>
+			<main className={`mobile ${showScreen ? 'actived' : ''}`}>
+				{!isLoading ? (
+					<>
+						{!Boolean(mobileInfo.length) ? (
+							<>
+								<EmptyScreenView
+									buttonText="Add Mobile"
+									event={() => {}}
+								/>
+							</>
+						) : (
+							<>
+								<section className="left">
+									<div className="add-button">
+										<button
+											onClick={(e: React.FormEvent) => {}}
+											className="btn btn-primary">
+											ADD MOBILE APP
+										</button>
+									</div>
 
-                <section className="right">
-                  {selectedMobileApp && <></>}
-                </section>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <PageLoader />
-          </>
-        )}
-      </main>
-    </>
-  );
+									<div className="list">
+										{mobileInfo.map(
+											(info: any, index: number) => (
+												<div
+													key={mobileKeys[index]}
+													className="mobile-info"
+													onClick={() =>
+														handleMobileAppClick(
+															info,
+														)
+													}>
+													<>
+														<MobileAppCard
+															active={handleActiveMobileValidation(
+																info,
+															)}
+															onDone={(
+																id: any,
+															) => {
+																if (
+																	selectedMobileApp &&
+																	selectedMobileApp.id ===
+																		id
+																) {
+																	setSelectedMobileApp(
+																		{} as MobileApp,
+																	);
+																}
+															}}
+															type={'mobile'}
+															{...info}
+															name={info.app_name}
+														/>
+													</>
+												</div>
+											),
+										)}
+									</div>
+								</section>
+
+								<section className="right">
+									{selectedMobileApp && <></>}
+								</section>
+							</>
+						)}
+					</>
+				) : (
+					<>
+						<PageLoader />
+					</>
+				)}
+			</main>
+		</>
+	);
 };
 
 export default MobileApplicationPanel;

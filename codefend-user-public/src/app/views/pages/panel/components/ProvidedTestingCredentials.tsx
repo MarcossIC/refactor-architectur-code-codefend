@@ -1,61 +1,72 @@
-import React from "react";
+import React, { Fragment, useMemo } from 'react';
 
-import { ModalWrapper, ChartIcon, EmptyCard } from "src/app/views/components";
-import { CloudQuickAction } from "./CloudQuickAction";
+import { ModalWrapper, ChartIcon, EmptyCard } from '../../../components';
+import { CloudQuickAction } from './CloudQuickAction';
 
-import "../../../shared/card.scss";
-import { TestingCredentialCard } from "./TestingCredentialCard";
+import '../../../shared/card.scss';
+import { TestingCredentialCard } from './TestingCredentialCard';
+import { generateIDArray } from '../../../../data';
 
 interface ProvidedTestingCredentialsProps {
-  refetch?: () => void;
-  isLoading: boolean;
-  credentials: any;
+	refetch?: () => void;
+	isLoading: boolean;
+	credentials: any;
 }
 
 export const ProvidedTestingCredentials: React.FC<
-  ProvidedTestingCredentialsProps
+	ProvidedTestingCredentialsProps
 > = (props) => {
-  return (
-    <>
-      {props.isLoading ?? (
-        <>
-          <ModalWrapper>
-            <div className="quick-action internal-tables disable-border">
-              <div className="modal-header">
-                |<span>{" Add cloud actions "}</span>|
-              </div>
+	const credentialKey = useMemo(
+		() => generateIDArray(props.credentials.length),
+		[props.credentials.length],
+	);
 
-              <CloudQuickAction onDone={() => props.refetch?.()} />
+	return (
+		<>
+			{props.isLoading ?? (
+				<>
+					<ModalWrapper>
+						<div className="quick-action internal-tables disable-border">
+							<div className="modal-header">
+								|<span>{' Add cloud actions '}</span>|
+							</div>
 
-              <div className="helper-box"></div>
-            </div>
-          </ModalWrapper>
-        </>
-      )}
+							<CloudQuickAction
+								onDone={() => props.refetch?.()}
+							/>
 
-      <div className="card user-list">
-        <div className="header">
-          <div className="title">
-            <div className="icon">
-              <ChartIcon />
-            </div>
-            <span>provided testing credentials</span>
-          </div>
-        </div>
+							<div className="helper-box"></div>
+						</div>
+					</ModalWrapper>
+				</>
+			)}
 
-        <div className="list">
-          {props.credentials.map((cred: any, index: number) => (
-            <>
-              <TestingCredentialCard
-                key={index}
-                {...cred}
-                hideBorderBottom={props.credentials.legth - 1 === index}
-              />
-            </>
-          ))}
-        </div>
-      </div>
-      {(!props.isLoading && props.credentials.legth === 0) ?? <EmptyCard />}
-    </>
-  );
+			<div className="card user-list">
+				<div className="header">
+					<div className="title">
+						<div className="icon">
+							<ChartIcon />
+						</div>
+						<span>provided testing credentials</span>
+					</div>
+				</div>
+
+				<div className="list">
+					{props.credentials.map((cred: any, index: number) => (
+						<Fragment key={credentialKey[index]}>
+							<TestingCredentialCard
+								{...cred}
+								hideBorderBottom={
+									props.credentials.legth - 1 === index
+								}
+							/>
+						</Fragment>
+					))}
+				</div>
+			</div>
+			{(!props.isLoading && props.credentials.legth === 0) ?? (
+				<EmptyCard />
+			)}
+		</>
+	);
 };

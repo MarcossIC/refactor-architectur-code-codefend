@@ -1,39 +1,46 @@
-import React, { useEffect, useState } from "react";
-import { WebApplicationResources } from "./components/WebApplicationResources";
-import { WebApplicationLocation } from "./components/WebApplicationLocation";
-import { WebApplicationStatics } from "./components/WebApplicationStatics";
-import { WebApplicationCredentials } from "./components/WebApplicationCredentials";
-import "../../../shared/flag.scss";
-import "../../../shared/card.scss";
-import "../../../shared/table.scss";
-import "./webapplication.scss";
-import { WebResources } from "src/app/data";
+import React, { useEffect, useState } from 'react';
+import { WebApplicationResources } from './components/WebApplicationResources';
+import { WebApplicationLocation } from './components/WebApplicationLocation';
+import { WebApplicationStatics } from './components/WebApplicationStatics';
+import { WebApplicationCredentials } from './components/WebApplicationCredentials';
+import '../../../shared/flag.scss';
+import '../../../shared/card.scss';
+import '../../../shared/table.scss';
+import './webapplication.scss';
+import { useWebapplication } from '../../../../data';
 
 const WebApplicationView: React.FC = () => {
-  const [showScreen, setShowScreen] = useState(false);
+	const [showScreen, setShowScreen] = useState(false);
+	const { webResources, isLoading, refetch } = useWebapplication();
 
-  useEffect(() => {
-    setTimeout(() => setShowScreen(true), 50);
-  }, []);
+	useEffect(() => {
+		setTimeout(() => setShowScreen(true), 50);
+	}, []);
 
-  return (
-    <main className={`webapp ${showScreen ? "actived" : ""}`}>
-      <section className="left">
-        <WebApplicationResources
-          isLoading={false}
-          refetchResources={() => console.log("como va")}
-          webResources={{} as WebResources}
-        />
-      </section>
-      <section className="right">
-        <WebApplicationLocation webResources={{}} />
+	return (
+		<main className={`webapp ${showScreen ? 'actived' : ''}`}>
+			<section className="left">
+				<WebApplicationResources
+					isLoading={isLoading}
+					refetch={refetch}
+					webResources={webResources.resources}
+				/>
+			</section>
+			<section className="right">
+				<WebApplicationLocation
+					isLoading={isLoading}
+					webResources={webResources.resources}
+				/>
 
-        <WebApplicationStatics webResources={{}} isLoading={false} />
+				<WebApplicationStatics
+					webResources={webResources.resources}
+					isLoading={isLoading}
+				/>
 
-        <WebApplicationCredentials />
-      </section>
-    </main>
-  );
+				<WebApplicationCredentials />
+			</section>
+		</main>
+	);
 };
 
 export default WebApplicationView;

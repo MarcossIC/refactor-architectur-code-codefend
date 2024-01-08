@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAppSelector } from 'src/app/data';
+import { useAuthState } from '../../../../data';
 
-import { ButtonLoader, GlobeWebIcon } from 'src/app/views/components';
+import { ButtonLoader, GlobeWebIcon } from '../../../components';
 import '../../../shared/forms.scss';
 
 interface CloudQuickActionProps {
@@ -10,7 +10,7 @@ interface CloudQuickActionProps {
 }
 
 export const CloudQuickAction: React.FC<CloudQuickActionProps> = (props) => {
-	const userData = useAppSelector((state) => state.authState.userData);
+	const { getUserdata } = useAuthState();
 	const [domainName, setDomainName] = useState('');
 	const [isAddingDomain, setIsAddingDomain] = useState(false);
 
@@ -29,7 +29,7 @@ export const CloudQuickAction: React.FC<CloudQuickActionProps> = (props) => {
 			}
 
 			const requestParams = {
-				company_id: userData?.companyID,
+				company_id: getUserdata()?.companyID as string,
 				resource_address_domain: domainName,
 			};
 
@@ -43,7 +43,7 @@ export const CloudQuickAction: React.FC<CloudQuickActionProps> = (props) => {
 					setIsAddingDomain(false);
 				});
 		},
-		[domainName, userData],
+		[domainName, getUserdata],
 	);
 
 	return (

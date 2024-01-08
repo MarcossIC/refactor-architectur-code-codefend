@@ -11,7 +11,6 @@ const DashboardAssets: React.FC<{ resources: CompanyResource }> = ({
 		() => generateIDArray(Object.keys(resources).length),
 		[Object.keys(resources).length],
 	);
-	console.log('Result', resourceKeys);
 
 	return (
 		<div className="card stats">

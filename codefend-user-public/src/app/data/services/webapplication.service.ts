@@ -64,7 +64,7 @@ export const getCountryMetrics = (resources: Webresources[]) => {
 		}, [])
 		.concat(resources);
 
-	console.log('domainsAndSubDomains', { domainsAndSubDomains });
+	//console.log('domainsAndSubDomains', { domainsAndSubDomains });
 
 	const countries = domainsAndSubDomains.reduce((acc: any, value: any) => {
 		if (!value.serverCountryCode || value.serverCountryCode === '-')

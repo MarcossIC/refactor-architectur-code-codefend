@@ -28,19 +28,19 @@ const MobileApplicationPanel: React.FC = () => {
 
 			setSelectedMobileApp(mobile);
 		},
-		[setSelectedMobileApp],
+		[selectedMobileApp],
 	);
 
 	const handleActiveMobileValidation = useCallback(
-		(mobile: any) => {
+		(mobile: MobileApp) => {
 			return mobile.id === selectedMobileApp.id;
 		},
 		[selectedMobileApp],
 	);
 
 	const mobileKeys = useMemo(
-		() => generateIDArray(mobileInfo.length),
-		[mobileInfo.length],
+		() => generateIDArray(getMobileInfo().length),
+		[getMobileInfo().length],
 	);
 
 	useEffect(() => {
@@ -50,7 +50,7 @@ const MobileApplicationPanel: React.FC = () => {
 	useEffect(() => {
 		if (selectedMobileApp === null) {
 			const mobileData = getMobileInfo();
-			if (!isLoading && Boolean(mobileData.length))
+			if (!isLoading && Boolean(getMobileInfo().length))
 				setSelectedMobileApp(mobileData[0]);
 		}
 	}, [selectedMobileApp]);
@@ -60,10 +60,14 @@ const MobileApplicationPanel: React.FC = () => {
 			<main className={`mobile ${showScreen ? 'actived' : ''}`}>
 				{!isLoading ? (
 					<>
-						{!Boolean(mobileInfo.length) ? (
+						{!Boolean(getMobileInfo().length) ? (
 							<>
 								<EmptyScreenView
 									buttonText="Add Mobile"
+									title={"There's no data to display here"}
+									info={
+										'Start by clicking on the button below'
+									}
 									event={() => {}}
 								/>
 							</>
@@ -79,7 +83,7 @@ const MobileApplicationPanel: React.FC = () => {
 									</div>
 
 									<div className="list">
-										{mobileInfo.map(
+										{getMobileInfo().map(
 											(info: any, index: number) => (
 												<div
 													key={mobileKeys[index]}

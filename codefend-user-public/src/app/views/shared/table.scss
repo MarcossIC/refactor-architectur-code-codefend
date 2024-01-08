@@ -39,13 +39,6 @@
 		font-family: Questrial;
 		font-size: 14px;
 
-		div {
-			flex: 1;
-			height: 100%;
-			display: flex;
-			align-items: center;
-		}
-
 		&.left-marked {
 			border-left: 6px solid var(--bkg-codefend);
 			padding-left: 14px;
@@ -266,4 +259,11 @@
 		text-align: left;
 		font-weight: 700;
 	}
+}
+
+.table .item > div {
+	flex: 1;
+	height: 100%;
+	display: flex;
+	align-items: center;
 }

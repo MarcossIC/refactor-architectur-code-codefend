@@ -18,7 +18,7 @@ const DashboardVulnerabilities: React.FC<{
 	const keys = new Set<string>([
 		'published',
 		'author',
-		'className',
+		'class',
 		'risk',
 		'score',
 		'issue title',

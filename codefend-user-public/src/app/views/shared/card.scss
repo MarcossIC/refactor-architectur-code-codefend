@@ -89,8 +89,8 @@ section {
 		.content {
 			display: flex;
 			align-items: center;
-			justify-content: center;
-			padding: 1.25rem /* 20px */;
+			justify-content: space-between;
+			padding: 1.485rem;
 			column-gap: 1dvw;
 
 			.chart {

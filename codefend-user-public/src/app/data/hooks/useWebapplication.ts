@@ -10,23 +10,27 @@ export const useWebapplication = () => {
 		{} as WebapplicationProps,
 	);
 
+	const fetchWeb = useCallback(() => {
+		const companyID = getUserdata()?.companyID as string;
+		setLoading(true);
+
+		WebApplicationService.get(companyID)
+			.then((response: any) =>
+				setWebResources(mapToWebresourceProps(response)),
+			)
+			.finally(() => {
+				setLoading(false);
+			});
+	}, [getUserdata, setWebResources, setLoading]);
+
 	useEffect(() => {
 		if (hasFetch) {
-			const companyID = getUserdata()?.companyID as string;
-			setLoading(true);
-
-			WebApplicationService.get(companyID)
-				.then((response: any) =>
-					setWebResources(mapToWebresourceProps(response)),
-				)
-				.finally(() => {
-					setLoading(false);
-					setHasFetch(false);
-				});
+			fetchWeb();
+			setHasFetch(false);
 		}
-	}, [hasFetch]);
+	}, [hasFetch, fetchWeb, setHasFetch]);
 
-	const refetch = useCallback(() => setHasFetch(true), []);
+	const refetch = useCallback(() => setHasFetch(true), [setHasFetch]);
 
 	return { webResources, isLoading, refetch };
 };

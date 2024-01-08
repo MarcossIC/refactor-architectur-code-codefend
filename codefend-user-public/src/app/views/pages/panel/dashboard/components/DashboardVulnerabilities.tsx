@@ -8,11 +8,9 @@ const DashboardVulnerabilities: React.FC<{
 	const [sortBy, setSortBy] = useState('');
 	const [selectedNow, setSelectedNow] = useState(false);
 
-	console.log('Vul', { topVulnerabilities });
-
 	const updateSelectedRow = useCallback(
 		(updatedState: boolean) => setSelectedNow(updatedState),
-		[],
+		[setSelectedNow],
 	);
 
 	const keys = new Set<string>([

@@ -1,49 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import {
-	Chart as ChartJS,
-	Title,
-	Tooltip,
-	Legend,
-	Colors,
-	DoughnutController,
-	ChartOptions,
-} from 'chart.js';
 
 import { isEmptyData } from '../../../../../data/utils/helper';
 
-import { EmptyCard, PageLoader, BugIcon } from '../../../../components';
+import { EmptyCard, PageLoader, BugIcon, Table } from '../../../../components';
 import { IssuesShare, generateIDArray } from '../../../../../data';
 import { DashboardService } from '../../../../../data';
-
-const useChart = ({
-	vulnerabilityByRisk,
-}: {
-	vulnerabilityByRisk: IssuesShare;
-}) => {
-	const { total, ...otherMetrics } = vulnerabilityByRisk;
-
-	const chartData = useMemo(() => {
-		return {
-			labels: Object.keys(otherMetrics),
-			datasets: [
-				{
-					data: Object.values(otherMetrics),
-					backgroundColor: [
-						'#e85050', //critical
-						'#e25365', //elevated
-						'#e97e8b', //medium
-						'#f1a7b1', //low
-						'#f8d7db', //intel
-					],
-					borderWidth: 0,
-				},
-			],
-		};
-	}, [otherMetrics]);
-
-	return { chartData, otherMetrics, total };
-};
+import { useDoughnutChart } from '../../../../../data/hooks/useChart';
 
 interface DashboardChartProps {
 	vulnerabilityByRisk: IssuesShare;
@@ -54,33 +17,36 @@ const DashboardChart: React.FC<DashboardChartProps> = ({
 	vulnerabilityByRisk,
 	isLoading,
 }) => {
-	useEffect(() => {
-		ChartJS.register(Title, Tooltip, Legend, Colors, DoughnutController);
-	}, []);
+	const { chartData, otherMetrics, total, chartOptions } =
+		useDoughnutChart(vulnerabilityByRisk);
 
-	const { chartData, otherMetrics, total } = useChart({
-		vulnerabilityByRisk,
-	});
 	const { renderPercentage } = DashboardService;
 
-	const chartOptions: ChartOptions<'doughnut'> = {
-		plugins: {
-			legend: {
-				display: false,
-			},
-		},
-	};
-
-	const dataEmptyState = () => {
+	const dataEmptyState = useMemo(() => {
 		const { total, ...otherMetrics } = vulnerabilityByRisk;
 		return isEmptyData(otherMetrics);
-	};
+	}, [vulnerabilityByRisk]);
 
 	const metricsKey = useMemo(
 		() => generateIDArray(Object.keys(otherMetrics).length),
 		[Object.keys(otherMetrics).length],
 	);
-
+	const tableColumns = useMemo(
+		() => new Set<string>(['risk', 'count', 'percent']),
+		[],
+	);
+	const tableRows = useMemo(() => {
+		return Object.keys(otherMetrics).map((metric: string | number) => {
+			return {
+				risk: metric,
+				count: otherMetrics[metric as keyof typeof otherMetrics],
+				percent: renderPercentage(
+					String(otherMetrics[metric as keyof typeof otherMetrics]),
+					String(total),
+				),
+			};
+		});
+	}, []);
 	return (
 		<div className="card risk-chart">
 			{!isLoading ? (
@@ -94,7 +60,7 @@ const DashboardChart: React.FC<DashboardChartProps> = ({
 						</div>
 					</div>
 					<div className="content">
-						{dataEmptyState() ? (
+						{dataEmptyState ? (
 							<>
 								<EmptyCard />
 							</>
@@ -106,7 +72,29 @@ const DashboardChart: React.FC<DashboardChartProps> = ({
 										options={chartOptions}
 									/>
 								</div>
-								<div className="table small">
+
+								<Table
+									columns={tableColumns}
+									DATA={tableRows}
+								/>
+							</>
+						)}
+					</div>
+				</>
+			) : (
+				<>
+					<PageLoader />
+				</>
+			)}
+		</div>
+	);
+};
+
+export default DashboardChart;
+
+/* 
+
+<div className="table small">
 									<div className="columns-name">
 										<div className="risk">risk</div>
 										<div className="count">count</div>
@@ -144,17 +132,5 @@ const DashboardChart: React.FC<DashboardChartProps> = ({
 										)}
 									</div>
 								</div>
-							</>
-						)}
-					</div>
-				</>
-			) : (
-				<>
-					<PageLoader />
-				</>
-			)}
-		</div>
-	);
-};
 
-export default DashboardChart;
+*/

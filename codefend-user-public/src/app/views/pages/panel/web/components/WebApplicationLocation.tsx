@@ -14,8 +14,13 @@ export const WebApplicationLocation: React.FC<{
 
 	const getResources = () => (isLoading ? [] : webResources);
 
+	const metrics = useMemo(
+		() => WebApplicationService.getCountryMetrics(getResources()),
+		[getResources()],
+	);
+
 	useEffect(() => {
-		setResources(WebApplicationService.getCountryMetrics(getResources()));
+		setResources(metrics);
 	}, [getResources()]);
 
 	const resourcesKey = useMemo(

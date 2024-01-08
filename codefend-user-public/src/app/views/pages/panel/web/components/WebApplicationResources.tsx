@@ -69,7 +69,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 
 	const resourceKeys = useMemo(
 		() => generateIDArray(getResources().length),
-		[getResources().length],
+		[getResources()],
 	);
 
 	return (

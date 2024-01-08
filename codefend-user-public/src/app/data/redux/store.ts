@@ -15,7 +15,7 @@ const persistenceMiddleware: any =
 		setAuth(accessToken, userData);
 	};
 
-//Se definen los nombres de los reducers
+// Se definen los nombres de los reducers
 const rootReducer = {
 	authState: authSlice.reducer,
 };

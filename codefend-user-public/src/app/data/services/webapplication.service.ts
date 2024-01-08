@@ -84,14 +84,14 @@ export const getCountryMetrics = (resources: Webresources[]) => {
 		}
 	}, {});
 
-	console.log('countries', { countries });
+	//console.log('countries', { countries });
 
 	const total = Object.keys(countries).reduce(
 		(acc, value) => acc + countries[value].count,
 		0,
 	);
 
-	console.log('total', { total });
+	//console.log('total', { total });
 
 	const data = Object.keys(countries).map((countryKey: any) => {
 		return {
@@ -102,7 +102,7 @@ export const getCountryMetrics = (resources: Webresources[]) => {
 		};
 	});
 
-	console.log('metrics', { data });
+	//console.log('metrics', { data });
 	return data;
 };
 

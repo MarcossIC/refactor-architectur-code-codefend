@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { EmptyCard, PageLoader } from '../../../../components';
+import { EmptyCard, PageLoader, Table } from '../../../../components';
 
 const DashboardVulnerabilities: React.FC<{
 	topVulnerabilities: any;
@@ -8,17 +8,31 @@ const DashboardVulnerabilities: React.FC<{
 	const [sortBy, setSortBy] = useState('');
 	const [selectedNow, setSelectedNow] = useState(false);
 
+	console.log('Vul', { topVulnerabilities });
+
 	const updateSelectedRow = useCallback(
 		(updatedState: boolean) => setSelectedNow(updatedState),
 		[],
 	);
-	const getTopVulnerabilities = useCallback(() => topVulnerabilities, []);
+
+	const keys = new Set<string>([
+		'published',
+		'author',
+		'class',
+		'risk',
+		'score',
+		'issue title',
+		'status',
+	]);
+	//const getTopVulnerabilities = useCallback(() => topVulnerabilities, []);
 
 	return (
 		<div className="card">
 			<div>
 				{!isLoading ? (
-					<>{/* AQUI VA UNA TABLA */}</>
+					<>
+						<Table DATA={topVulnerabilities} columns={keys} />
+					</>
 				) : (
 					<>
 						<PageLoader />

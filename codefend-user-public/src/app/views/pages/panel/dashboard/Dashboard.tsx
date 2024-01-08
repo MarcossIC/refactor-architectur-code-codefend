@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import DashboardSearchbar from './components/DashboardSearchbar';
-import DashboardVulnerabilities from './components/DashboardVulnerabilities';
 import DashboardCollaborators from './components/DashboardCollaborators';
 import DashboardAssets from './components/DashboardAssets';
 import DashboardChart from './components/DashboardChart';
 import DashboardVulnerabilitiesStatus from './components/DashboardVulnerabilitiesStatus';
+import DashboardVulnerabilities from './components/DashboardVulnerabilities';
 
 import './dashboard.scss';
 import '../../../shared/card.scss';

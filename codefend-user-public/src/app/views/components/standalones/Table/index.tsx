@@ -1,5 +1,25 @@
 import React, { useState } from 'react';
 import styles from './table.module.scss';
+import { defaultData as DATA } from './tableColumnDef';
+
+type TableType = {
+  firstName: string;
+  lastName: string;
+  age: number;
+  visits: number;
+  status: string;
+  progress: number;
+};
+
+
+const FILTERED_DATA = Object.values(
+	DATA.reduce<Record<TableType['firstName'], TableType>>((map, row) => {
+		map[row['firstName']] = row;
+		return map;
+	}, {}),
+);
+console.log(FILTERED_DATA);
+
 
 export const Table = (DATA: any[]) => {
 	const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc'); // magic string ya lo se no me retes!
@@ -8,13 +28,6 @@ export const Table = (DATA: any[]) => {
 	/* Esto es para eliminar elementos repetidos
      Hay muchas formas de hacer esto!
   */
-	const FILTERED_DATA = Object.values(
-		DATA.reduce<Record<TableType['firstName'], TableType>>((map, row) => {
-			map[row['firstName']] = row;
-			return map;
-		}, {}),
-	);
-	console.log(FILTERED_DATA);
 
 	const HEADERS = Object.values(
 		DATA.reduce(

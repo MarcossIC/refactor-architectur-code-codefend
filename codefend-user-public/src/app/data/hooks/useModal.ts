@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 export const useModal = () => {
-	const [showModal, setShowModal] = useState<boolean | null>(null);
-	const [showModalStr, setShowModalStr] = useState<string | null>(null);
+	const [showModal, setShowModal] = useState<boolean>(false);
+	const [showModalStr, setShowModalStr] = useState<string>('');
 
 	return { showModal, setShowModal, showModalStr, setShowModalStr };
 };

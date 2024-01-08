@@ -16,7 +16,7 @@ interface TableProps {
 	rows?: any[];
 }
 
-export const Table: React.FC<TableProps> = (DATA, columns) => {
+export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
 	const [dataSort, setDataSort] = useState<any>('firstName');
 
@@ -29,20 +29,7 @@ export const Table: React.FC<TableProps> = (DATA, columns) => {
 
 
 	const FILTERED_DATA = new Set<any>([]);
-	/*
-	const HEADERS = Object.values(
-		DATA.reduce(
-			(map: any, row: any) => {
-				map[row['firstName']] = row;
-				return map;
-			},
-			{} as Record<string, any>,
-		),
-	);
 
-	
-	console.log(HEADERS);*/
-	/* esto se ocupa del sorting de los elementos de la tabla */
 	const matches = useMemo(() => {
 		const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig'); // esto es para limpiar el input
 
@@ -74,10 +61,9 @@ export const Table: React.FC<TableProps> = (DATA, columns) => {
 
 	//const keys = Object.keys(DATA[0]) as any;
 	const columnsID = useMemo(
-		() => generateIDArray(columns.length),
-		[columns.length],
+		() => generateIDArray(columns.size),
+		[columns.size],
 	);
-
 	return (
 		<>
 			<div className="table__title__header"></div>

@@ -23,9 +23,10 @@ export interface RegisterParams {
 
 // Tipo de retorno de la función de inicio de sesión
 export interface LoginResponse {
-	user: User;
-	token: string;
+	user?: User;
+	token?: string;
 	response: string;
+	message?: string;
 }
 
 // Tipo de retorno de la función de registro
@@ -48,13 +49,14 @@ export const loginThunk = createAsyncThunk<
 	{ rejectValue: string }
 >('auth/login', async (loginParams: LoginParams, { rejectWithValue }) => {
 	try {
-		const { user, token, response } = await AuthServices.login(loginParams);
-		if (response !== 'success') {
-			throw new Error('An error occurred with the credentials');
-		}
+		const { user, token, response, message } =
+			await AuthServices.login(loginParams);
+
+		if (response !== 'success') throw new Error(message);
+
 		return { user, token, response };
-	} catch (error) {
-		return rejectWithValue(error as string);
+	} catch (error: any) {
+		return rejectWithValue(error.message);
 	}
 });
 

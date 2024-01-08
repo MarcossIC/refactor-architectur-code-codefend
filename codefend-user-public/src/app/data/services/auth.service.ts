@@ -35,17 +35,18 @@ const registerFinish = async ({
 	username,
 	password,
 	lead_reference_number,
-}: RegisterFinishParams): Promise<any> => { //falta agregar tipo a la respuesta del back
+}: RegisterFinishParams): Promise<any> => {
+	//falta agregar tipo a la respuesta del back
 	const { data } = await fetchPOST({
 		params: {
 			model: 'users/new',
 			username: username,
 			password: password,
-			lead_reference_number: lead_reference_number
+			lead_reference_number: lead_reference_number,
 		},
 	});
 
-	return data
+	return data;
 };
 
 const login = async (loginParams: LoginParams): Promise<LoginResponse> => {
@@ -56,19 +57,21 @@ const login = async (loginParams: LoginParams): Promise<LoginResponse> => {
 			provided_password: loginParams.password,
 		},
 	});
-
-	const token = data.session as string;
 	const response = data.response as string;
-	let user = {} as User;
-	if (token || response !== 'success') {
-		const decodedToken = decodePayload(token);
-		user = {
-			...mapLoginResponseToUser(data.user),
-			exp: decodedToken.exp ?? 0,
-		};
+	if (response === 'success') {
+		const token = data.session as string;
+		let user = {} as User;
+		if (token || response !== 'success') {
+			const decodedToken = decodePayload(token);
+			user = {
+				...mapLoginResponseToUser(data.user),
+				exp: decodedToken.exp ?? 0,
+			};
+		}
+		return { user, token, response };
 	}
 
-	return { user, token, response };
+	return { response, message: data.message as string };
 };
 
 const logout2 = async () => {

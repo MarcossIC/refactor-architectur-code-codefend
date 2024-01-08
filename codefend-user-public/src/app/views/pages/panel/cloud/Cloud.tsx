@@ -14,15 +14,13 @@ const CloudApplicationPanel: React.FC = () => {
 	}, []);
 	return (
 		<>
-			<main className={`mobile ${showScreen ? 'cloud' : ''}`}>
-				<>
-					<EmptyScreenView
-						buttonText="Add Cloud"
-						title={"There's no data to display here"}
-						info={'Start by clicking on the button below'}
-						event={() => {}}
-					/>
-				</>
+			<main className={`mobile cloud ${showScreen ? 'actived' : ''}`}>
+				<EmptyScreenView
+					buttonText="Add Cloud"
+					title={"There's no data to display here"}
+					info={'Start by clicking on the button below'}
+					event={() => {}}
+				/>
 			</main>
 		</>
 	);

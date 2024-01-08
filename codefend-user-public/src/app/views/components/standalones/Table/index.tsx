@@ -1,3 +1,4 @@
+
 import React, { useMemo, useState } from 'react';
 import './table.module.scss';
 import { generateIDArray } from '../../../../data';
@@ -6,6 +7,7 @@ enum Sort {
 	asc = 'asc',
 	desc = 'desc',
 }
+
 
 interface TableProps {
 	DATA: any;
@@ -17,6 +19,14 @@ interface TableProps {
 export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
 	const [dataSort, setDataSort] = useState<any>('firstName');
+
+	/*const FILTERED_DATA = Object.values(
+		DATA.reduce<Record<any, any>>((map: any, row: any) => {
+			map[row['firstName']] = row;
+			return map;
+		}, {}),
+	);*/
+
 
 	const FILTERED_DATA = new Set<any>([]);
 

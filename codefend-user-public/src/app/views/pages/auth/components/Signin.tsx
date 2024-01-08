@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../../../../data/hooks/useAuthState';
+import { ButtonLoader } from '../../../components';
 
 const SignInLayout: React.FC = () => {
 	const { signInUser } = useAuthState();
@@ -17,14 +18,19 @@ const SignInLayout: React.FC = () => {
 		e.preventDefault();
 		setSigninForm((current) => ({ ...current, isLoading: true }));
 
-		signInUser({
-			email: signinForm.email,
-			password: signinForm.password,
-		})
-			.then((isLoggedIn) => isLoggedIn ?? navigate('/'))
-			.finally(() =>
-				setSigninForm((current) => ({ ...current, isLoading: false })),
-			);
+		setTimeout(() => {
+			signInUser({
+				email: signinForm.email,
+				password: signinForm.password,
+			})
+				.then((isLoggedIn) => isLoggedIn ?? navigate('/'))
+				.finally(() =>
+					setSigninForm((current) => ({
+						...current,
+						isLoading: false,
+					})),
+				);
+		}, 100);
 	};
 
 	return (
@@ -62,7 +68,8 @@ const SignInLayout: React.FC = () => {
 				<button
 					type="submit"
 					disabled={signinForm.isLoading}
-					className="btn btn-primary">
+					className="btn btn-primary signin-btn">
+					{signinForm.isLoading ? <ButtonLoader /> : <></>}
 					proceed
 				</button>
 

@@ -18,6 +18,9 @@ const WebApplication = lazy(
 const MobileApplication = lazy(
 	() => import('./views/pages/panel/mobile/MobileApplicationPanel'),
 );
+const CloudApplicationPanel = lazy(
+	() => import('./views/pages/panel/cloud/Cloud'),
+);
 
 export const AppRouter: React.FC = () => {
 	return (
@@ -41,6 +44,7 @@ export const AppRouter: React.FC = () => {
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/web" element={<WebApplication />} />
 					<Route path="/mobile" element={<MobileApplication />} />
+					<Route path="/cloud" element={<CloudApplicationPanel />} />
 				</Route>
 
 				{/* Rutas públicas para login y registro */}

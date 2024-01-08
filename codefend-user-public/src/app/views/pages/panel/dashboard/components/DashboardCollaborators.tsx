@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { PageLoader } from '../../../../components';
+import { EmptyCard, PageLoader, PeopleGroup } from '../../../../components';
 import { Table } from '../../../../components';
 
 const DashboardCollaborators: React.FC<{
@@ -16,12 +16,32 @@ const DashboardCollaborators: React.FC<{
 		[],
 	);
 
+	const keys = new Set<string>([
+		'id',
+		'fullname',
+		'email',
+		'phone number',
+		'role',
+	]);
+
 	return (
 		<div className="card colaborators">
 			<div className="colaborators-container">
 				<div>
 					{!isLoading ? (
-						<></>
+						<>
+							<div className="header">
+								<div className="title">
+									<div className="icon">
+										<PeopleGroup />
+									</div>
+									<span>COLLABORATORS AND TEAM MEMBERS</span>
+								</div>
+							</div>
+							<div className="table-wrapper">
+								<Table DATA={members} columns={keys} />
+							</div>
+						</>
 					) : (
 						<>
 							<PageLoader />

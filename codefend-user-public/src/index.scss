@@ -352,34 +352,6 @@ main {
 	height: 500px !important;
 }
 
-/* **************  CLOUD  ************************** */
-main.cloud {
-	column-gap: 15px;
-	.left {
-		overflow-y: auto;
-		overflow-x: hidden;
-		margin-bottom: -10px;
-		margin-top: -10px;
-		padding-top: 10px;
-		padding-right: 13px;
-
-		width: 30%;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-
-		.list {
-			display: flex;
-			flex-direction: column;
-			row-gap: 15px;
-			width: 100%;
-		}
-	}
-	.right {
-		width: 70%;
-	}
-}
-
 /* *************** SECTION ISSUE  ******************* */
 section.issue {
 	width: 100%;

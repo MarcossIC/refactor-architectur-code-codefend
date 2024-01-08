@@ -7,9 +7,10 @@ import {
 	GlobeWebIcon,
 	EmptyCard,
 	PageLoader,
+	TrashIcon,
 } from '../../../../components';
 import { useNavigate } from 'react-router';
-import { Webresources, generateIDArray } from '../../../../../data';
+import { Resouce, Webresources, generateIDArray } from '../../../../../data';
 import '../../../../shared/table.scss';
 
 interface WebResourceModalWrapper {
@@ -56,7 +57,7 @@ interface WebResourcesProps {
 }
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
-	const [selectedId, setSelectedId] = useState(0);
+	const [selectedId, setSelectedId] = useState('0');
 	const { showModal, showModalStr } = { showModal: false, showModalStr: '' };
 	const navigate = useNavigate();
 
@@ -142,7 +143,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 					<div className="rows">
 						{getResources()
 							.reverse()
-							.map((mainNetwork: any, index: number) => (
+							.map((mainNetwork: Webresources, index: number) => (
 								<Fragment key={resourceKeys[index]}>
 									<div className="item left-marked">
 										<div className="id">
@@ -172,12 +173,12 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 												setSelectedId(mainNetwork.id);
 												//modal
 											}}>
-											<GlobeWebIcon />
+											<TrashIcon />
 										</div>
 									</div>
 
 									{mainNetwork.childs.map(
-										(subNetwork: any) => (
+										(subNetwork: Resouce) => (
 											<div
 												key={subNetwork.id}
 												className="item">
@@ -192,37 +193,38 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 															subNetwork.resourceDomain
 														}
 													</span>
-													<span className="server-ip">
-														{subNetwork.mainServer}
-													</span>
-													<div className="location">
-														<span
-															className={`flag flag-${subNetwork.serverCountryCode.toLowerCase()}`}></span>
-														<span className="">
-															{
-																subNetwork.serverCountry
-															}
-														</span>
-													</div>
+												</div>
 
-													<div className="province">
-														{
-															subNetwork.serverCountryProvince
-														}
-														,{' '}
-														{
-															subNetwork.serverCountryCity
-														}
-													</div>
+												<div className="server-ip">
+													{subNetwork.mainServer}
+												</div>
+												<div className="location">
 													<div
-														className="trash"
-														onClick={(e) => {
-															e.preventDefault();
-															e.stopPropagation();
-															return false;
-														}}>
-														<GlobeWebIcon />
+														className={`flag flag-${subNetwork.serverCountryCode.toLowerCase()}`}></div>
+													<div className="">
+														{
+															subNetwork.serverCountry
+														}
 													</div>
+												</div>
+
+												<div className="province">
+													{
+														subNetwork.serverCountryProvince
+													}
+													,{' '}
+													{
+														subNetwork.serverCountryCity
+													}
+												</div>
+												<div
+													className="trash"
+													onClick={(e) => {
+														e.preventDefault();
+														e.stopPropagation();
+														return false;
+													}}>
+													<TrashIcon />
 												</div>
 											</div>
 										),

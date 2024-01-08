@@ -48,7 +48,7 @@ export const WebApplicationLocation: React.FC<{
 							{resource.country}
 						</div>
 						<div className="count">{resource.count}</div>
-						<div className="percent">{resource.percentage}</div>
+						<div className="percent">{resource.percentage}%</div>
 					</section>
 				))}
 			</div>

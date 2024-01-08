@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { EmptyCard, PageLoader, Table } from '../../../../components';
+import { BugIcon, EmptyCard, PageLoader, Table } from '../../../../components';
 
 const DashboardVulnerabilities: React.FC<{
 	topVulnerabilities: any;
@@ -18,20 +18,29 @@ const DashboardVulnerabilities: React.FC<{
 	const keys = new Set<string>([
 		'published',
 		'author',
-		'class',
+		'className',
 		'risk',
 		'score',
 		'issue title',
 		'status',
 	]);
-	//const getTopVulnerabilities = useCallback(() => topVulnerabilities, []);
 
 	return (
 		<div className="card">
 			<div>
 				{!isLoading ? (
 					<>
-						<Table DATA={topVulnerabilities} columns={keys} />
+						<div className="header">
+							<div className="title">
+								<div className="icon">
+									<BugIcon />
+								</div>
+								<span>Top priority vulnerabilities</span>
+							</div>
+						</div>
+						<div className="table-wrapper">
+							<Table DATA={topVulnerabilities} columns={keys} />
+						</div>
 					</>
 				) : (
 					<>

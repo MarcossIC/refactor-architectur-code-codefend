@@ -1,34 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
+import DashboardSearchbar from './components/DashboardSearchbar';
+import DashboardVulnerabilities from './components/DashboardVulnerabilities';
+import DashboardCollaborators from './components/DashboardCollaborators';
+import DashboardAssets from './components/DashboardAssets';
+import DashboardChart from './components/DashboardChart';
+import DashboardVulnerabilitiesStatus from './components/DashboardVulnerabilitiesStatus';
 
-import "./dashboard.scss";
-import "../../../shared/card.scss";
+import './dashboard.scss';
+import '../../../shared/card.scss';
+import { useDashboard } from '../../../../data';
 
 const Dashboard: React.FC = () => {
-  const [showScreen, setShowScreen] = useState(false);
-  const companyInfo = { loading: true };
+	const { isLoading, companyData } = useDashboard();
+	const [showScreen, setShowScreen] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowScreen(true);
-      companyInfo.loading = false;
-    }, 2500);
-  }, []);
+	useEffect(() => {
+		setTimeout(() => {
+			setShowScreen(true);
+		}, 2500);
+	}, []);
 
-  return (
-    <main className={` dashboard ${showScreen ? "actived" : ""}`}>
-      <section className="left">
-       <>
-        dash
-       </>
-      </section>
+	return (
+		<main className={` dashboard ${showScreen ? 'actived' : ''}`}>
+			<section className="left">
+				<DashboardSearchbar />
+				<DashboardVulnerabilities
+					isLoading={isLoading}
+					topVulnerabilities={companyData.issues ?? []}
+				/>
+				<DashboardAssets resources={companyData.resources ?? {}} />
+				<DashboardCollaborators
+					isLoading={isLoading}
+					members={companyData.members ?? []}
+				/>
+			</section>
 
-      <section className="right">
-       <>
-       vulnerability</>
-      </section>
-    </main>
-  );
+			<section className="right">
+				<DashboardChart
+					vulnerabilityByRisk={companyData.issuesShare ?? {}}
+					isLoading={isLoading}
+				/>
+				<DashboardVulnerabilitiesStatus
+					vulnerabilityByShare={companyData.issuesCondicion ?? {}}
+				/>
+			</section>
+		</main>
+	);
 };
 
 export default Dashboard;

@@ -25,6 +25,46 @@
       width: 100%;
     }
   }
+
+  .form-buttons {
+    display: flex;
+    margin-block-start: 1.5rem;
+
+    button {
+      color: #fff;
+      font-size: 0.875rem /* 14px */;
+      letter-spacing: 0.025em;
+
+      padding-block: 0.75rem;
+
+      transition-property: color, background-color, border-color,
+        text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 300ms;
+
+      &:focus {
+        outline: none;
+      }
+
+      .btn-cancel {
+        padding-inline: 1rem;
+        margin-inline-end: 0.5rem;
+
+        width: 33.333333%;
+      }
+
+      .btn-add {
+        width: 66.666667%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 0.5rem;
+
+        padding-inline: 1.75rem;
+      }
+    }
+  }
 }
 
 .modal {
@@ -39,7 +79,7 @@
   form {
     padding: 1.5rem;
 
-    .form-input-text {
+    .form-input {
       position: relative;
       display: flex;
       align-items: center;
@@ -55,6 +95,10 @@
         }
       }
 
+      .text {
+        margin-block-start: 1rem;
+      }
+
       input,
       select {
         display: block;
@@ -67,6 +111,9 @@
 
         &:focus {
           outline: none;
+        }
+        &:disabled {
+          cursor: not-allowed;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -149,46 +196,6 @@
         font-weight: 500;
         font-size: 0.875rem /* 14px */;
         line-height: 1.25rem /* 20px */;
-      }
-    }
-
-    .form-buttons {
-      display: flex;
-      margin-block-start: 1.5rem;
-
-      button {
-        color: #fff;
-        font-size: 0.875rem /* 14px */;
-        letter-spacing: 0.025em;
-
-        padding-block: 0.75rem;
-
-        transition-property: color, background-color, border-color,
-          text-decoration-color, fill, stroke;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-duration: 300ms;
-
-        &:focus {
-          outline: none;
-        }
-
-        .btn-cancel {
-          padding-inline: 1rem;
-          margin-inline-end: 0.5rem;
-
-          width: 33.333333%;
-        }
-
-        .btn-add {
-          width: 66.666667%;
-
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          column-gap: 0.5rem;
-
-          padding-inline: 1.75rem;
-        }
       }
     }
   }

@@ -52,3 +52,104 @@ select {
 input[type="checkbox"] {
   accent-color: var(--bkg-codefend);
 }
+
+.cloud-quick-actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+
+  form {
+    padding: 1.5rem;
+
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 24rem;
+
+      span {
+        position: absolute;
+
+        .icon {
+          width: 0.75rem;
+          height: 0.75rem;
+          margin-inline: 1rem;
+        }
+      }
+
+      input {
+        width: 100%;
+        display: block;
+
+        padding-block: 0.75rem;
+        padding-inline: 2.75rem;
+        background-color: #fff;
+        border-width: 1px;
+        border-style: solid;
+
+        &:focus {
+          outline: none;
+
+          @media (prefers-color-scheme: dark) {
+            .dark {
+              color: rgb(209 213 219 / 1);
+            }
+          }
+        }
+      }
+
+      .button-group {
+        margin-block-start: 1.5rem;
+        display: flex;
+
+        button {
+          padding-block: 0.75rem;
+          color: #fff;
+          font-size: 0.875rem /* 14px */;
+          line-height: 1.25rem /* 20px */;
+          letter-spacing: 0.025em;
+
+          transition-property: color, background-color, border-color,
+            text-decoration-color, fill, stroke;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-duration: 150ms;
+          transition-duration: 300ms;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .cancel-btn {
+          width: 33.333333%;
+          padding-inline: 1rem;
+          margin-inline-end: 0.5rem;
+        }
+
+        .add-btn {
+          width: 66.666667%;
+
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          column-gap: 0.5rem;
+
+          padding-inline: 1.5rem;
+        }
+      }
+    }
+
+    @media only screen and (min-width: 640px) {
+      & {
+        max-width: 640px;
+      }
+    }
+    @media only screen and (min-width: 768px) {
+      & {
+        max-width: 768px;
+      }
+    }
+  }
+}

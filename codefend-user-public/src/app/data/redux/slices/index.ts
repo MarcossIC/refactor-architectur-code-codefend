@@ -1,1 +1,1 @@
-export {authSlice} from './auth.slice';
+export * from './auth.slice';

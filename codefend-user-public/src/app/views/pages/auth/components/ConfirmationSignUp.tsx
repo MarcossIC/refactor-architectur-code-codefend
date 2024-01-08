@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const ConfirmationSignUp: React.FC = () => {
-  
   const [finishsignup, setFinishSignup] = useState({
     referenceNumber: "",
     isLoading: false,

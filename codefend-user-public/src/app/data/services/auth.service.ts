@@ -1,72 +1,93 @@
-import axios from "axios";
-import { decodePayload } from "./decodedToken";
-import { logout } from "../redux/slices/auth.slice";
-import { setAuth, clearAuth } from "../utils/helper";
-import { fetchPOST } from "./fetchAPI";
-import { RegisterParams, UserAPI, useAppSelector } from "..";
-const API_URL = "http://localhost:8000/users/";
+import { LoginParams, LoginResponse, User, mapLoginResponseToUser } from '..';
+import { useAuthState } from '../hooks/useAuthState';
+import { logout } from '../redux/slices/auth.slice';
+import { clearAuth } from '../utils/helper';
+import { decodePayload } from './decodedToken';
+import { fetchPOST } from './fetchAPI';
 
-const register = async (registerParams: RegisterParams) => {
-  const { data } = await fetchPOST({
-    params: {
-      model: "users/access",
-      lead_fname: registerParams.name,
-      lead_lname: registerParams.lastName,
-      lead_role: registerParams.companyRole,
-      lead_email: registerParams.email,
-      lead_phone: registerParams.phone,
-      company_name: registerParams.companyName,
-      company_web: registerParams.companyWeb,
-      company_size: registerParams.companySize,
-      company_area: registerParams.companyCountry,
-      phase: "1",
-    },
-  });
+export interface RegisterFinishParams {
+	username: string;
+	password: string;
+	lead_reference_number: string | undefined;
+}
 
-  return data;
+const register = async (registerParams: any) => {
+	const { data } = await fetchPOST({
+		params: {
+			model: 'users/access',
+			lead_fname: registerParams.name,
+			lead_lname: registerParams.lastName,
+			lead_role: registerParams.companyRole,
+			lead_email: registerParams.email,
+			lead_phone: registerParams.phone,
+			company_name: registerParams.companyName,
+			company_web: registerParams.companyWeb,
+			company_size: registerParams.companySize,
+			company_area: registerParams.companyCountry,
+			phase: '1',
+		},
+	});
+
+	return data;
 };
 
-const login = async (loginParams: any) => {
-  const { data } = await fetchPOST({
-    params: {
-      model: "users/access",
-      provided_email: loginParams.email,
-      provided_password: loginParams.password,
-    },
-  });
+const registerFinish = async ({
+	username,
+	password,
+	lead_reference_number,
+}: RegisterFinishParams): Promise<any> => { //falta agregar tipo a la respuesta del back
+	const { data } = await fetchPOST({
+		params: {
+			model: 'users/new',
+			username: username,
+			password: password,
+			lead_reference_number: lead_reference_number
+		},
+	});
 
-  const token = data.session as string;
-  if (token) {
-    const decodedToken = decodePayload(token);
-    const userData = { ...data.user, exp: decodedToken.exp ?? 0 };
+	return data
+};
 
-    setAuth(token, userData);
-    console.log("here in singin now here");
-  }
+const login = async (loginParams: LoginParams): Promise<LoginResponse> => {
+	const { data } = await fetchPOST({
+		params: {
+			model: 'users/access',
+			provided_email: loginParams.email,
+			provided_password: loginParams.password,
+		},
+	});
 
-  console.log("real login", { data });
+	const token = data.session as string;
+	const response = data.response as string;
+	let user = {} as User;
+	if (token || response !== 'success') {
+		const decodedToken = decodePayload(token);
+		user = {
+			...mapLoginResponseToUser(data.user),
+			exp: decodedToken.exp ?? 0,
+		};
+	}
 
-  return data;
+	return { user, token, response };
 };
 
 const logout2 = async () => {
-  clearAuth();
-  logout();
+	clearAuth();
+	logout();
 };
 
 const verifyAuth: () => boolean = () => {
-  const state = useAppSelector((state) => state.authReducer);
-  let currentTimestamp = Math.floor(Date.now() / 1000);
-  return (
-    !state.userData || currentTimestamp >= state.userData.exp! || !state.isAuth
-  );
+	const { getUserdata, isAuth } = useAuthState();
+
+	return !getUserdata() || !isAuth();
 };
 
 const AuthServices = {
-  register,
-  login,
-  logout2,
-  verifyAuth,
+	register,
+	registerFinish,
+	login,
+	logout2,
+	verifyAuth,
 };
 
 export default AuthServices;

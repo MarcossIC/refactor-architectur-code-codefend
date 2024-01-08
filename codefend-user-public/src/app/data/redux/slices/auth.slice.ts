@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginThunk, registerThunk } from "../thunks/auth.thunk";
-import { User, UserStore } from "../..";
+import { User, UserLogin, UserStore } from "../..";
 
 // initialize userToken from local storage
 const accessToken = localStorage.getItem("userToken")
@@ -84,52 +84,44 @@ export const authSlice = createSlice({
 
     /* State manager for login fetch api */
 
-    /* state = pending */
-    builder.addCase(loginThunk.pending, (state) => {
-      state.loading = true;
-      state.success = false;
-      state.isAuth = true;
-    });
-    /* state = success */
-    builder.addCase(loginThunk.fulfilled, (state, action) => {
-      state.loading = false;
-      state.success = true;
-      state.isAuth = true;
-
-      state.userData = {
-        id: action.payload.user.id as string,
-        companyID: action.payload.user.company_id as string,
-        accessRole: action.payload.user.access_role as string,
-        mfaKey: action.payload.user.mfa_llave as string,
-
-        name: action.payload.user.fname,
-        lastName: action.payload.user.lname,
-
+		/* state = pending */
+		builder.addCase(loginThunk.pending, (state) => {
+			state.loading = true;
+			state.success = false;
+			state.isAuth = true
+		});
+		/* state = success */
+		builder.addCase(loginThunk.fulfilled, (state, action) => {
+			state.loading = false;
+			state.success = true;
+			state.isAuth = true
+			state.userData = {
+        companyID: '',
+        accessRole: '',
+        mfaKey: '',
+        name: action.payload.user.name,
+        lastName: '',
         username: action.payload.user.username,
         password: action.payload.user.password,
         email: action.payload.user.email,
-        phone: action.payload.user.phone,
-        profile_media: action.payload.user.profile_media,
-
-        country: action.payload.user.pais,
-        countryCode: action.payload.user.pais_code,
+        phone: '',
+        profileMedia: '',
+        country: '', 
+        countryCode: '',
+        role: '',
         companyRole: action.payload.user.role,
-
-        isDisabled: action.payload.user.eliminado,
-        createdAt: action.payload.user.creacion,
-
-        exp: action.payload.user.exp,
+        isDisabled: false, 
+        createdAt: '', 
       };
-
-      state.accessToken = action.payload.session;
-    });
-    /* state =  with errors*/
-    builder.addCase(loginThunk.rejected, (state, action) => {
-      state.loading = false;
-      state.success = false;
-      state.error = action.error.message;
-    });
-  },
-});
+			state.accessToken = action.payload.token
+		});
+		/* state =  with errors*/
+		builder.addCase(loginThunk.rejected, (state, action) => {
+			state.loading = false;
+			state.success = false;
+			state.error = action.error.message;
+		});
+	}
+})
 
 export const { login, logout } = authSlice.actions;

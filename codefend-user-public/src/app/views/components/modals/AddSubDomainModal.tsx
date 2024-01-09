@@ -46,6 +46,8 @@ const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
 				toast.success('Successfully Added Domain..');
 			})
 			.finally(() => setIsAddingSubDomain(false));
+			
+			return null
 	};
 
 	return (

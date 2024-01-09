@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import AuthServices from '../../services/auth.service';
-import { User, UserAPI } from '../..';
+import { RegResponse, RegistrationData, User } from '../..';
 
 export interface LoginParams {
 	email: string;
@@ -61,7 +61,7 @@ export const loginThunk = createAsyncThunk<
 });
 
 export const registerThunk = createAsyncThunk<
-	RegisterResponse,
+	RegResponse,
 	RegisterParams,
 	{ rejectValue: string }
 >(
@@ -70,7 +70,7 @@ export const registerThunk = createAsyncThunk<
 		try {
 			const response = await AuthServices.register(registroParams);
 			// Realiza una conversión explícita del tipo AxiosResponse al tipo RegisterResponse
-			const registerResponse: RegisterResponse = response.data;
+			const registerResponse: RegResponse = response.data;
 			return registerResponse;
 		} catch (error) {
 			return rejectWithValue(error as string);
@@ -78,7 +78,16 @@ export const registerThunk = createAsyncThunk<
 	},
 );
 
-export const registerFinishThunk = createAsyncThunk(
-	'auth/finish',
-	async (finisParams: any) => {},
-);
+export const registerFinishThunk = createAsyncThunk<
+	RegistrationData,
+	RegisterParams, 
+	{ rejectValue: string } 
+>('auth/finish', async (finishParams: RegisterParams, { rejectWithValue }) => {
+	try {
+		const response = await AuthServices.registerFinish(finishParams);
+		const finishResponse: RegistrationData = response.data;
+		return finishResponse;
+	} catch (error) {
+		return rejectWithValue(error as string);
+	}
+});

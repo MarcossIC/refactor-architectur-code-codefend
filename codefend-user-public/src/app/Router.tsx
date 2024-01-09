@@ -1,9 +1,10 @@
 import { lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { RouterLayout } from './RouterLayout';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FinishSignUpLayout from './views/pages/auth/components/FinishsignUp';
 
 const AuthPage = lazy(() => import('./views/pages/auth/AuthPage'));
 const SignInLayout = lazy(() => import('./views/pages/auth/components/Signin'));
@@ -35,8 +36,9 @@ export const AppRouter: React.FC = () => {
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover
-				theme="dark"
+				theme="light"
 			/>
+
 			<Routes>
 				{/* Rutas privadas */}
 				<Route path="/" element={<RouterLayout />}>
@@ -52,9 +54,12 @@ export const AppRouter: React.FC = () => {
 					<Route index element={<Navigate to="signin" replace />} />
 					<Route path="signin" element={<SignInLayout />} />
 					<Route path="signup" element={<SignUpLayout />} />
+					<Route path="confirmation" element={<ConfirmationSignUp />} />
+
+					{/* <Route path="/auth/signup/:ref" component={RegisterFinishView} /> */}
 					<Route
 						path="signup/:ref"
-						element={<ConfirmationSignUp />}
+						element={<FinishSignUpLayout />}
 					/>
 				</Route>
 			</Routes>

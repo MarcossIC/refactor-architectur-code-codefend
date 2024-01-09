@@ -23,30 +23,32 @@ const register = async (registerParams: any) => {
 			company_name: registerParams.companyName,
 			company_web: registerParams.companyWeb,
 			company_size: registerParams.companySize,
-			company_area: registerParams.companyCountry,
-			phase: '1',
+			company_area: registerParams.companyCountry
 		},
 	});
 
 	return data;
 };
 
-const registerFinish = async ({
-	username,
-	password,
-	lead_reference_number,
-}: RegisterFinishParams): Promise<any> => {
-	//falta agregar tipo a la respuesta del back
-	const { data } = await fetchPOST({
+const registerFinish = async (registerParams: any): Promise<any> => {
+	const { data, status } = await fetchPOST({
 		params: {
 			model: 'users/new',
-			username: username,
-			password: password,
-			lead_reference_number: lead_reference_number,
+			phase: 2,
+			username: registerParams.email,
+      password: registerParams.password,
+      lead_reference_number: registerParams.ref,
 		},
 	});
 
-	return data;
+	console.log({ registrationData: data });
+
+	const response = data.response as string;
+	if (response === 'success') {
+		
+	}
+
+	return {data, status};
 };
 
 const login = async (loginParams: LoginParams): Promise<LoginResponse> => {

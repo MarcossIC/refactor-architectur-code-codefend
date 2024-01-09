@@ -7,11 +7,12 @@ import '../../styles/modal.scss';
 
 interface AddDomainProps {
 	onDone: () => void;
+	close?: () => void;
 }
 
 const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 	const [domainName, setDomainName] = useState('');
-	const [subdomainDetection, setSubdomainDetection] = useState(false);
+	const [subdomainDetection, setSubdomainDetection] = useState(true);
 	const [isAddingDomain, setIsAddingDomain] = useState(false);
 
 	const { getUserdata } = useAuthState();
@@ -23,12 +24,13 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 
 		if (!domainName || domainName.length == 0 || domainName.length > 100) {
 			toast.error('Invalid domain');
-			return setIsAddingDomain(false);
+			setIsAddingDomain(false);
+			return;
 		}
 		const user = getUserdata() as User;
 		const companyID = user?.companyID as string;
 
-		return WebApplicationService.addResource(domainName, companyID)
+		WebApplicationService.addResource(domainName, companyID)
 			.then((res) => {
 				setDomainName('');
 				props.onDone();
@@ -41,27 +43,27 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 		<div className="modal admin-modal text-format">
 			<form onSubmit={handleSubmit}>
 				<div className="form-input-text">
-					<span className="form-icon">
-						<div className="codefend-text-red">
-							<GlobeWebIcon />
-						</div>
-					</span>
-
 					<input
+						autoFocus
 						type="text"
 						className="log-inputs"
 						placeholder="domain name"
 						onChange={(e) => setDomainName(e.target.value)}
 						required
 					/>
+					<span className="form-icon">
+						<div className="codefend-text-red">
+							<GlobeWebIcon />
+						</div>
+					</span>
 				</div>
 
 				<div className="form-input-checkbox ">
 					<input
 						type="checkbox"
-						onClick={() =>
-							setSubdomainDetection(!subdomainDetection)
-						}
+						onChange={(e) => {
+							setSubdomainDetection(e.target.checked);
+						}}
 						name="link-checkbox"
 						id="link-checkbox"
 						checked={subdomainDetection}
@@ -78,14 +80,15 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 					<button
 						type="button"
 						disabled={isAddingDomain}
-						className="log-inputs codefend_secondary_ac btn-cancel">
+						onClick={() => props.close?.()}
+						className="log-inputs codefend_secondary_ac btn btn-secondary btn-cancel">
 						cancel
 					</button>
 
 					<button
-						type="button"
+						type="submit"
 						disabled={isAddingDomain}
-						className="log-inputs codefend_main_ac btn-add bg-codefend">
+						className="log-inputs codefend_main_ac btn btn-primary btn-add">
 						{isAddingDomain && <ButtonLoader />}
 						add web resource
 					</button>

@@ -24,6 +24,7 @@ import {
 	useModal,
 } from '../../../../../../data';
 import '../../../../../styles/buttons.scss';
+import '../../../../../styles/forms.scss';
 
 interface WebResourceModalWrapper {
 	children: ReactNode;
@@ -43,7 +44,12 @@ const WebResourceModalWrapper: React.FC<WebResourceModalWrapper> = ({
 			{isActive ? (
 				<>
 					<ModalWrapper action={close}>
-						<div className="web-modal-wrapper internal-tables disable-border">
+						<div
+							className="web-modal-wrapper internal-tables disable-border"
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+							}}>
 							<div className="modal-header">
 								<div className="icon">
 									<StatIcon />

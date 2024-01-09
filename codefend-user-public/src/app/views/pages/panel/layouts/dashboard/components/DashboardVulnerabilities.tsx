@@ -5,7 +5,7 @@ import {
 	PageLoader,
 	Table,
 } from '../../../../../components';
-import { Issues } from 'src/app/data';
+import { Issues } from '../../../../../../data';
 
 interface TopVulnerability {
 	published: string;

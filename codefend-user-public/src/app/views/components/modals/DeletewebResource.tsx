@@ -49,13 +49,13 @@ export const DeletewebResource: React.FC<DeleteResource> = (props) => {
 						type="button"
 						onClick={() => props.close?.()}
 						disabled={isDeletingResource}
-						className="log-inputs btn btn-cancel codefend_secondary_ac">
+						className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
 						Cancel
 					</button>
 					<button
 						type="submit"
 						disabled={isDeletingResource}
-						className="log-inputs btn btn-add codefend_main_ac">
+						className="log-inputs btn btn-primary btn-add codefend_main_ac">
 						{isDeletingResource && <ButtonLoader />}
 						Delete
 					</button>

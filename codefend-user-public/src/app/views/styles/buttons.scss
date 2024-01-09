@@ -23,26 +23,26 @@ button.btn {
 		outline: none;
 	}
 
-	&:hover {
-		background-color: #cb2222;
-	}
-
 	&.btn-primary {
 		background-color: var(--btn-color-main);
 		color: #ffffff;
+
+		&:hover {
+			background-color: #cb2222;
+		}
 	}
 
 	&.btn-secondary {
 		background-color: var(--btn-color-alt);
+
+		&:hover {
+			background-color: #1a1a1a;
+		}
 	}
 
 	&.btn-tertiary {
 		background-color: var(--color-border2);
 		color: var(--bg-black);
-	}
-
-	&.btn-secondary:hover {
-		background-color: #1a1a1a;
 	}
 
 	&.no-border-height {

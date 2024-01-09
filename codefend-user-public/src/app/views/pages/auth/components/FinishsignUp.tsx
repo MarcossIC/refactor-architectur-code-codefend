@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
@@ -31,7 +31,7 @@ const FinishSignUpLayout = () => {
 		}));
 	};
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		if (userState.password !== userState.confirmPassword) {
@@ -84,11 +84,6 @@ const FinishSignUpLayout = () => {
 
 				toast.success('Successfully Added User...');
 
-				/* const decodedToken = jwt_decode(response.data.session)
-        const userData = { ...response.data.user, exp: decodedToken.exp ?? 0 }
-        setAuth(response.data.session, userData)
-        setUser(userData)
- */
 				return navigate('/dashboard');
 			})
 			.finally(() => {
@@ -97,6 +92,8 @@ const FinishSignUpLayout = () => {
 					isLoading: false,
 				}));
 			});
+
+		return null;
 	};
 
 	return (

@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, registerThunk } from '../thunks/auth.thunk';
+import { loginThunk, registerThunk, registerFinishThunk } from '../thunks/auth.thunk';
 
-import { User, getToken, getUser } from '../..';
+import { User, UserFinishResponse, UserRegResponse, getToken, getUser } from '../..';
 
-// initialize userToken from local storage
+/* // initialize userToken from local storage
 const accessToken = localStorage.getItem('userToken')
 	? localStorage.getItem('userToken')
 	: null;
+ */
 
 interface AuthState {
 	isAuth: boolean;
@@ -14,7 +15,7 @@ interface AuthState {
 	error: string | null | undefined;
 	loading: boolean;
 	isExpired: null;
-	userData: User | null;
+	userData: UserRegResponse| UserFinishResponse | User | null;
 	accessToken: string | null;
 }
 
@@ -59,32 +60,28 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = false;
-			//Buscar cual es la respuesta de la fase 1 del registro
-			state.userData = null /*{
-        id: action.payload.user.id as string,
-        companyID: action.payload.user.company_id as string,
-        accessRole: action.payload.user.access_role as string,
-        mfaKey: action.payload.user.mfa_llave as string,
-
-        name: action.payload.user.fname,
-        lastName: action.payload.user.lname,
-
-        username: action.payload.user.username,
-        password: action.payload.user.password,
-        email: action.payload.user.email,
-        phone: action.payload.user.phone,
-        profile_media: action.payload.user.profile_media,
-
-        country: action.payload.user.pais,
-        countryCode: action.payload.user.pais_code,
-        companyRole: action.payload.user.role,
-
-        isDisabled: action.payload.user.eliminado,
-        createdAt: action.payload.user.creacion,
-      }*/;
+			state.userData = action.payload.leads
 		});
 		/* state =  with errors*/
 		builder.addCase(registerThunk.rejected, (state, action) => {
+			state.loading = false;
+			state.success = false;
+			state.error = action.error.message;
+		});
+
+		/* state = pending */
+		builder.addCase(registerFinishThunk.pending, (state) => {
+			state.loading = true;
+		});
+		/* state = success */
+		builder.addCase(registerFinishThunk.fulfilled, (state, action) => {
+			state.loading = false;
+			state.success = true;
+			state.isAuth = false;
+			state.userData = action.payload.user
+		});
+		/* state =  with errors*/
+		builder.addCase(registerFinishThunk.rejected, (state, action) => {
 			state.loading = false;
 			state.success = false;
 			state.error = action.error.message;

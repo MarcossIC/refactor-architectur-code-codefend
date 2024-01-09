@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState } from 'react';
 import './table.module.scss';
 import { generateIDArray } from '../../../../data';
@@ -7,7 +6,6 @@ enum Sort {
 	asc = 'asc',
 	desc = 'desc',
 }
-
 
 interface TableProps {
 	DATA: any;
@@ -27,13 +25,12 @@ export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 		}, {}),
 	);*/
 
-
 	const FILTERED_DATA = new Set<any>([]);
 
-	const matches = useMemo(() => {
+	const rows = useMemo(() => {
 		const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig'); // esto es para limpiar el input
 
-		return [...FILTERED_DATA].sort((a: any, b: any) => {
+		return [...DATA].sort((a: any, b: any) => {
 			/* aqui se castean los datos o normalizan */
 			const aValue = Number(String(a[dataSort]).replace(numberRexeg, ''));
 			const bValue = Number(String(b[dataSort]).replace(numberRexeg, ''));
@@ -90,11 +87,11 @@ export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 					</thead>
 
 					<tbody>
-						{/* FILTERED_DATA.map((row: any) => (
+						{rows.map((row: any) => (
 							<tr key={row['firstName']}>
 								<td>{row['firstName']}</td>
 							</tr>
-						)) */}
+						))}
 					</tbody>
 				</table>
 			</div>

@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 const ConfirmationSignUp: React.FC = () => {
+  const navigate = useNavigate()
   const [finishsignup, setFinishSignup] = useState({
     referenceNumber: "",
     isLoading: false,
   });
 
+  const handleCompleteSignup = async (e: any) => {
+    e.preventDefault();
+    navigate(`/auth/signup/${finishsignup.referenceNumber}`);
+  };
+
   return (
-    <form className="signup-confirm">
+    <form onSubmit={handleCompleteSignup} className="signup-confirm">
       <div className="check-mail">
         <div className="check-mail_img">
           <img src="/codefend/check_email.png" alt="mail-image" />

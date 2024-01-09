@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { BugIcon, EmptyCard, PageLoader } from '../../../components';
-import '../../../shared/table.scss';
+import '../../../styles/table.scss';
 import { useNavigate } from 'react-router';
 import { formatDate } from '../../../../data';
 

@@ -5,11 +5,7 @@ import { clearAuth } from '../utils/helper';
 import { decodePayload } from './decodedToken';
 import { fetchPOST } from './fetchAPI';
 
-export interface RegisterFinishParams {
-	username: string;
-	password: string;
-	lead_reference_number: string | undefined;
-}
+
 
 const register = async (registerParams: any) => {
 	const { data } = await fetchPOST({

@@ -3,7 +3,7 @@ import React, { Fragment, useMemo } from 'react';
 import { ModalWrapper, ChartIcon, EmptyCard } from '../../../components';
 import { CloudQuickAction } from './CloudQuickAction';
 
-import '../../../shared/card.scss';
+import '../../../styles/card.scss';
 import { TestingCredentialCard } from './TestingCredentialCard';
 import { generateIDArray } from '../../../../data';
 

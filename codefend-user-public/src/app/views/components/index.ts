@@ -1,4 +1,3 @@
-export { default as ButtonLoader } from './standalones/ButtonLoader';
 export { default as Logo } from './standalones/Logo';
 export { default as Navbar } from './standalones/Navbar';
 export { default as Sidebar } from './standalones/Sidebar';

@@ -1,4 +1,12 @@
-import { Company, User, UserAPI, WebapplicationProps, Webresources } from '..';
+import {
+	Company,
+	Issues,
+	User,
+	UserAPI,
+	WebapplicationProps,
+	Webresources,
+	formatDate,
+} from '..';
 import { DashboardProps } from '../';
 
 export const mapLoginResponseToUser: (response: UserAPI) => User = (
@@ -48,10 +56,31 @@ export const mapCompanyApiToCompanyProps = (source: any) => {
 		createdAt: source.creacion,
 	} as Company;
 };
+export const mapIssues = (source: any): Issues => {
+	return {
+		id: source.id,
+		companyID: source.company_id,
+		resourceClass: source.resource_class,
+		resourceID: source.resource_id,
+		researcherID: source.researcher_id,
+		researcherUsername: source.researcher_username,
+		riskLevel: source.risk_level,
+		riskScore: source.risk_score,
+		name: source.name,
+		condition: source.condicion,
+		price: source.price,
+		pricePaid: source.price_paid,
+		isDisabled: source.eliminado,
+		createdAt: formatDate(source.creacion),
+	};
+};
+
 export const mapGetCompanyToCompanyData = (source: any): DashboardProps => {
 	return {
 		company: mapCompanyApiToCompanyProps(source.company),
-		issues: source.issues,
+		issues: source.issues
+			? source.issues.map((issue: any) => mapIssues(issue))
+			: [],
 		resources: {
 			web: source.resources.web,
 			mobile: source.resources.mobile,

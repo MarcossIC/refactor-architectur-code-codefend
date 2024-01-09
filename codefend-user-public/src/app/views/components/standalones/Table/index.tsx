@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import './table.module.scss';
 import { generateIDArray } from '../../../../data';
+import './table.module.scss';
 
 enum Sort {
 	asc = 'asc',
@@ -8,42 +8,31 @@ enum Sort {
 }
 
 interface TableProps {
-	DATA: any;
+	data: any;
 
 	columns: Set<string>;
-	rows?: any[];
 }
 
-export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
+export const Table: React.FC<TableProps> = ({ data, columns }) => {
 	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
-	const [dataSort, setDataSort] = useState<any>('firstName');
-
-	/*const FILTERED_DATA = Object.values(
-		DATA.reduce<Record<any, any>>((map: any, row: any) => {
-			map[row['firstName']] = row;
-			return map;
-		}, {}),
-	);*/
-
-	const FILTERED_DATA = new Set<any>([]);
+	const [dataSort, setDataSort] = useState<any>(Array.from(columns)[0]);
 
 	const rows = useMemo(() => {
-		const numberRexeg = new RegExp(/[\$\(\)\,]/g, 'ig'); // esto es para limpiar el input
+		const cleanNumber = (value: any) =>
+			Number(String(value).replace(/[\$\(\)\,]/g, ''));
 
-		return [...DATA].sort((a: any, b: any) => {
-			/* aqui se castean los datos o normalizan */
-			const aValue = Number(String(a[dataSort]).replace(numberRexeg, ''));
-			const bValue = Number(String(b[dataSort]).replace(numberRexeg, ''));
+		return [...data].sort((a: any, b: any) => {
+			const aValue = cleanNumber(a[dataSort]);
+			const bValue = cleanNumber(b[dataSort]);
 
-			/* aca comparamos como number */
 			if (!isNaN(aValue) && !isNaN(bValue)) {
 				return bValue - aValue;
+			} else {
+				// Si al menos uno de los valores no es un número, compara como cadenas
+				return String(b[dataSort]).localeCompare(String(a[dataSort]));
 			}
-
-			/* aca comparamos como string */
-			return (b[dataSort] as string).localeCompare(a[dataSort] as string);
 		});
-	}, [dataSort]);
+	}, [dataSort, data]);
 
 	const handleSort = (columnName: any) => {
 		if (columnName === dataSort) {
@@ -56,11 +45,13 @@ export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 		}
 	};
 
-	//const keys = Object.keys(DATA[0]) as any;
 	const columnsID = useMemo(
 		() => generateIDArray(columns.size),
 		[columns.size],
 	);
+
+	const rowsID = useMemo(() => generateIDArray(rows.length), [rows.length]);
+
 	return (
 		<>
 			<div className="table__title__header"></div>
@@ -71,7 +62,9 @@ export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 							{Array.from(columns).map(
 								(keyTable: any, index: number) => (
 									<th
+										scope="col"
 										key={columnsID[index]}
+										id={'a' + columnsID[index]}
 										onClick={() => handleSort(keyTable)}>
 										{keyTable}{' '}
 										{dataSort === keyTable &&
@@ -87,9 +80,9 @@ export const Table: React.FC<TableProps> = ({ DATA, columns }) => {
 					</thead>
 
 					<tbody>
-						{rows.map((row: any) => (
-							<tr key={row['firstName']}>
-								<td>{row['firstName']}</td>
+						{rows.map((row: any, index: number) => (
+							<tr key={rowsID[index]}>
+								<td scope="row">{row['firstName']}</td>
 							</tr>
 						))}
 					</tbody>

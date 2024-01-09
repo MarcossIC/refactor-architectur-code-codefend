@@ -1,0 +1,231 @@
+@import url(./settings/index.scss);
+
+///////////////////////////////////////////////////////////////////
+// UTIL
+//////////////////////////////////////////////////////////////////
+.bg-codefend {
+	background-color: var(--bkg-codefend);
+	color: var(--color-codefend);
+}
+
+.title-format {
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: var(--color-codefend);
+	color: var(--font-color);
+	color: #000;
+}
+
+.red-border {
+	border-left: 6px solid var(--bkg-codefend) !important;
+}
+
+.border-bottom {
+	border-bottom: 1px solid var(--color-border) !important;
+}
+
+.sub-domain-icon-v {
+	display: inline-block;
+	width: 0.125rem /* 2px */;
+	height: 100%;
+	background-color: var(--bkg-codefend);
+}
+.sub-domain-icon-h {
+	display: inline-block;
+	width: 0.125rem /* 2px */;
+	height: 0.125rem /* 2px */;
+	align-self: center;
+	margin-inline-end: 0;
+
+	background-color: var(--bkg-codefend);
+}
+
+.codefend-text-red {
+	color: var(--bkg-codefend) !important;
+}
+
+.text-white {
+	color: var(--main-black) !important;
+}
+
+.text-gray {
+	color: var(--color-icon) !important;
+}
+
+.disable-border div {
+	border-bottom: 0px solid var(--color-border);
+}
+.helper-box {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-inline: auto;
+	padding: 0.75rem /* 12px */;
+
+	@media only screen and (min-width: 640px) {
+		& {
+			max-width: 640px;
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		& {
+			max-width: 768px;
+		}
+	}
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.text-fend-red {
+	color: var(--text-color-fend-red) !important;
+}
+
+.tox-textarea {
+	height: 500px !important;
+}
+
+/* *************** SECTION ISSUE  ******************* */
+section.issue {
+	width: 100%;
+	max-width: 1000px;
+	background-color: #ffffff;
+	border: 1px solid var(--color-border);
+
+	.header {
+		display: flex;
+		align-items: stretch;
+		border-bottom: 1px solid var(--color-border);
+		background-color: #ffffff;
+		font-family: 'Roboto';
+		color: var(--font-color);
+		height: 50px;
+		padding: 0px;
+
+		div {
+			border-right: 1px solid var(--color-border);
+			display: flex;
+			align-items: center;
+			padding-block: 0;
+			padding-inline: 13px;
+		}
+		.back {
+			transition: all 0.2s;
+
+			&:hover {
+				background-color: #f3f3f3;
+			}
+		}
+		.name {
+			text-transform: uppercase;
+			font-weight: 700;
+			font-size: 14px;
+			border-right: none;
+		}
+		.edit {
+			margin-left: auto;
+			border-left: 1px solid var(--color-border);
+			transition: all 0.2s;
+			color: var(--text-color-alt2);
+
+			&.on {
+				color: #ffffff;
+				background-color: #000000;
+
+				&:hover {
+					background-color: #333333;
+				}
+			}
+
+			&:hover {
+				background-color: #f3f3f3;
+			}
+		}
+		.save {
+			border-right: none;
+			transition: all 0.2s;
+			color: var(--text-color-alt2);
+
+			&.on {
+				color: #ffffff;
+				background-color: var(--bkg-codefend);
+
+				&:hover {
+					background-color: #cb2222;
+				}
+			}
+
+			&:hover {
+				background-color: #f3f3f3;
+			}
+		}
+	}
+
+	.info {
+		display: flex;
+		align-items: stretch;
+		column-gap: 20px;
+		font-family: 'Roboto';
+		text-transform: uppercase;
+		font-size: 12px;
+		height: 40px;
+		border-bottom: 1px solid var(--color-border);
+		padding: 0 32px;
+		select {
+			color: var(--color-gray);
+		}
+		div {
+			display: flex;
+			align-items: center;
+			font-weight: bolder;
+			color: var(--text-color-alt2);
+			border-right: 1px solid var(--color-border);
+			padding-right: 20px;
+			span {
+				color: var(--font-color);
+				margin-left: 5px;
+			}
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////
+// DEFAULT SIZE PANEL
+//////////////////////////////////////////////////////////////////
+main.dashboard,
+main.webapp,
+main.lan,
+main.social,
+main.issues-list,
+main.source-code,
+main.preferences,
+main.sb {
+	.left {
+		width: 70%;
+	}
+	.right {
+		width: 30%;
+	}
+}
+
+main.mobile,
+main.cloud {
+	.left {
+		width: 30%;
+	}
+	.right {
+		width: 70%;
+	}
+}

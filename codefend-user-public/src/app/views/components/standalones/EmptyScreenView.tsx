@@ -1,7 +1,7 @@
 import React from 'react';
 
-import '../../shared/card.scss';
-import '../../shared/buttons.scss';
+import '../../styles/card.scss';
+import '../../styles/buttons.scss';
 
 interface EmptyScreenProps {
 	title?: string;

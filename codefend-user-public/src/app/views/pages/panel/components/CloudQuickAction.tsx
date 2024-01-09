@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAuthState } from '../../../../data';
+import { User, useAuthState } from '../../../../data';
 
 import { ButtonLoader, GlobeWebIcon } from '../../../components';
 import '../../../styles/forms.scss';
@@ -27,9 +27,9 @@ export const CloudQuickAction: React.FC<CloudQuickActionProps> = (props) => {
 				toast.error('Invalaid domain');
 				return setIsAddingDomain(false);
 			}
-
+			const user = getUserdata() as User;
 			const requestParams = {
-				company_id: getUserdata()?.companyID as string,
+				company_id: user?.companyID as string,
 				resource_address_domain: domainName,
 			};
 

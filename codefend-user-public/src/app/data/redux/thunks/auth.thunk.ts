@@ -1,8 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import AuthServices from '../../services/auth.service';
-import { RegResponse, RegistrationData } from '../..';
-
-
+import {
+	LoginParams,
+	LoginResponse,
+	RegResponse,
+	RegisterParams,
+	RegistrationData,
+} from '../..';
 
 export const loginThunk = createAsyncThunk<
 	LoginResponse,
@@ -41,8 +45,8 @@ export const registerThunk = createAsyncThunk<
 
 export const registerFinishThunk = createAsyncThunk<
 	RegistrationData,
-	RegisterParams, 
-	{ rejectValue: string } 
+	RegisterParams,
+	{ rejectValue: string }
 >('auth/finish', async (finishParams: RegisterParams, { rejectWithValue }) => {
 	try {
 		const response = await AuthServices.registerFinish(finishParams);

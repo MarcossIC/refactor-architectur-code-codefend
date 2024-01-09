@@ -1,10 +1,10 @@
-import React, { ReactNode, lazy, useCallback, useState } from 'react';
+import React, { lazy, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../data/redux/slices/auth.slice';
-import '../../styles/navbar.scss';
-import { clearAuth, useAppSelector } from '../../../data';
+import { User, clearAuth, useAppSelector, useAuthState } from '../../../data';
 import { LogoutIcon } from '..';
+import '../../styles/navbar.scss';
 
 const Logo = lazy(() => import('./Logo'));
 
@@ -49,7 +49,8 @@ const NavbarLogoutConfirm: React.FC<{
 };
 
 const Navbar: React.FC = () => {
-	const { userData } = useAppSelector((state) => state.authState);
+	const { getUserdata } = useAuthState();
+	const userData = getUserdata() as User;
 	const [logoutModal, setLogoutModal] = useState<boolean>(false);
 
 	const updateModal = useCallback(

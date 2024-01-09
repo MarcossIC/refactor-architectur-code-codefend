@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { WebApplicationService } from '../services/webapplication.service';
-import { WebapplicationProps, mapToWebresourceProps, useAuthState } from '..';
+import {
+	User,
+	WebapplicationProps,
+	mapToWebresourceProps,
+	useAuthState,
+} from '..';
 
 export const useWebapplication = () => {
 	const { getUserdata } = useAuthState();
@@ -11,7 +16,8 @@ export const useWebapplication = () => {
 	);
 
 	const fetchWeb = useCallback(() => {
-		const companyID = getUserdata()?.companyID as string;
+		const user = getUserdata() as User;
+		const companyID = user?.companyID as string;
 		setLoading(true);
 
 		WebApplicationService.get(companyID)

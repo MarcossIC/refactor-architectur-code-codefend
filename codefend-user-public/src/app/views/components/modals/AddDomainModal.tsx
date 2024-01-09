@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { GlobeWebIcon, ButtonLoader } from '../';
 import { toast } from 'react-toastify';
+import { useAuthState, User, WebApplicationService } from '../../../data';
 import '../../styles/modal.scss';
-import { useAuthState, WebApplicationService } from '../../../data';
 
 interface AddDomainProps {
 	onDone: () => void;
@@ -25,7 +25,8 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 			toast.error('Invalid domain');
 			return setIsAddingDomain(false);
 		}
-		const companyID = getUserdata()?.companyID as string;
+		const user = getUserdata() as User;
+		const companyID = user?.companyID as string;
 
 		return WebApplicationService.addResource(domainName, companyID)
 			.then((res) => {

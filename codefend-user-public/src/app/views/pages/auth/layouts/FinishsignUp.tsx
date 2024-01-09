@@ -22,8 +22,6 @@ const FinishSignUpLayout = () => {
 	const navigate = useNavigate();
 	const { ref } = useParams();
 
-	console.log(ref);
-
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setUserState((prevUserState) => ({
@@ -112,7 +110,7 @@ const FinishSignUpLayout = () => {
 								<input
 									type="email"
 									onChange={handleChange}
-									className="full-w"
+									className="w-full"
 									placeholder="Select Username"
 									required
 								/>
@@ -122,7 +120,7 @@ const FinishSignUpLayout = () => {
 								<input
 									type="password"
 									onChange={handleChange}
-									className="full-w"
+									className="w-full"
 									placeholder="Select Password"
 									required
 								/>
@@ -131,8 +129,8 @@ const FinishSignUpLayout = () => {
 							<div className="mt-2">
 								<input
 									type="password"
-									onChange={hSSandleSubmit}
-									className="full-w"
+									onChange={handleChange}
+									className="w-full"
 									placeholder="Select Confirm Password"
 									required
 								/>

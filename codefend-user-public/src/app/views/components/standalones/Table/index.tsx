@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import './table.module.scss';
 import { generateIDArray } from '../../../../data';
+import './table.module.scss';
 
 enum Sort {
 	asc = 'asc',

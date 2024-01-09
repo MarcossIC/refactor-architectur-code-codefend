@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from './useAuthState';
 import { DashboardService } from '../services/dashboard.service';
 import { mapGetCompanyToCompanyData } from '../utils/mapper';
-import { DashboardProps } from '..';
+import { DashboardProps, User } from '..';
 
 export const useDashboard = () => {
 	const { getUserdata } = useAuthState();
@@ -12,7 +12,8 @@ export const useDashboard = () => {
 	);
 
 	useEffect(() => {
-		const companyID = getUserdata()?.companyID as string;
+		const user = getUserdata() as User;
+		const companyID = user?.companyID as string;
 		setLoading(true);
 		setCompanyResources({} as DashboardProps);
 

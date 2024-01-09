@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { DashboardProps, MobileProps, MobileService, useAuthState } from '..';
+import {
+	DashboardProps,
+	MobileProps,
+	MobileService,
+	User,
+	useAuthState,
+} from '..';
 
 export const useMobile = () => {
 	const { getUserdata } = useAuthState();
@@ -9,7 +15,8 @@ export const useMobile = () => {
 	);
 
 	useEffect(() => {
-		const companyID = getUserdata()?.companyID as string;
+		const user = getUserdata() as User;
+		const companyID = user?.companyID as string;
 		setLoading(true);
 
 		MobileService.getAll(companyID)

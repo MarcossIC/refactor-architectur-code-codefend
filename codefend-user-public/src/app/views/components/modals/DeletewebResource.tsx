@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ButtonLoader } from '../';
 import { toast } from 'react-toastify';
-import '../../styles/modal.scss';
 import { WebApplicationService } from '../../../data';
+import '../../styles/modal.scss';
 
 interface DeleteResource {
 	onDelete?: () => void;

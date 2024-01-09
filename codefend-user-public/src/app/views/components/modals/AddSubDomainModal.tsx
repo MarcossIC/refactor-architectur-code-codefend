@@ -3,6 +3,7 @@ import { ButtonLoader, GlobeWebIcon } from '../';
 import { toast } from 'react-toastify';
 import '../../styles/modal.scss';
 import {
+	User,
 	WebApplicationService,
 	Webresources,
 	useAuthState,
@@ -33,7 +34,8 @@ const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
 
 		setIsAddingSubDomain(true);
 
-		const companyID = getUserdata()?.companyID as string;
+		const user = getUserdata() as User;
+		const companyID = user?.companyID as string;
 
 		WebApplicationService.addSubresource(
 			mainDomainId,

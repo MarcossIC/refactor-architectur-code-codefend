@@ -2,12 +2,16 @@ import React from 'react';
 import '../../styles/loaders.scss';
 
 /**
- * Spinner para los loaders hecho solo con css
- * @param {string} icon - Clase css de "loaders.scss" que define el tamaño del Spinner
+ * Spinner for loaders made only with CSS
+ * @param {string} icon - "loaders.scss" css class that defines the size of the Spinner
  */
 const Spinner: React.FC<{ icon: string }> = ({ icon }) => (
 	<div className={`spinner ${icon}`}></div>
 );
+
+export const ButtonLoader: React.FC = () => {
+	return <div className="button-loader"></div>;
+};
 
 export const Loader: React.FC = () => {
 	return (

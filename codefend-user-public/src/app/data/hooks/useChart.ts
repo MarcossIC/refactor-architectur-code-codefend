@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { IssuesShare } from '..';
+
 import {
 	Chart as ChartJS,
 	Title,
@@ -10,6 +10,7 @@ import {
 	ChartOptions,
 	ArcElement,
 } from 'chart.js';
+import { IssuesShare } from '..';
 
 export const useDoughnutChart = (vulnerabilityByRisk: IssuesShare) => {
 	const { total, ...otherMetrics } = vulnerabilityByRisk;

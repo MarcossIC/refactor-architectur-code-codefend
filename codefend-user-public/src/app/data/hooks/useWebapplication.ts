@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { WebApplicationService } from '../services/webapplication.service';
-import {
-	User,
-	WebapplicationProps,
-	mapToWebresourceProps,
-	useAuthState,
-} from '..';
+import { User, WebapplicationProps, mapToWebresourceProps, useAuthState } from '..';
 
 export const useWebapplication = () => {
 	const { getUserdata } = useAuthState();

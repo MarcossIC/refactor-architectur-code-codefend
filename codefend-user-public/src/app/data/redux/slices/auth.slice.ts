@@ -4,7 +4,6 @@ import {
 	registerThunk,
 	registerFinishThunk,
 } from '../thunks/auth.thunk';
-
 import { AuthState, User, getToken, getUser } from '../..';
 
 const initialState: AuthState = (() => {

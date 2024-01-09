@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import AuthServices from '../../services/auth.service';
-import { RegFinishResponse, RegResponse, RegistrationData, User } from '../..';
+import { User, RegResponse, RegFinishResponse } from '../..';
+import { AuthServices } from '../../services';
 
 export interface LoginParams {
 	email: string;

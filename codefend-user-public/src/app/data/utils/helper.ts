@@ -1,4 +1,5 @@
-import { User, UserAPI } from '..';
+import { User } from "..";
+
 
 /** Gets token in localStorage */
 export const getToken = () => localStorage.getItem('token') ?? '';

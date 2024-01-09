@@ -1,16 +1,9 @@
-import {
-	LoginParams,
-	RegisterParams,
-	loginThunk,
-	registerFinishThunk,
-	registerThunk,
-	useAppDispatch,
-	useAppSelector,
-} from '../';
 import { toast } from 'react-toastify';
+import { useAppSelector, useAppDispatch, LoginParams, RegisterParams } from '..';
+import { loginThunk, registerThunk, registerFinishThunk } from '../redux/thunks/auth.thunk';
 
 export const useAuthState = () => {
-	const authState = useAppSelector((state) => state.authState);
+	const authState = useAppSelector((state: any) => state.authState);
 	const dispatch = useAppDispatch();
 
 	const getUserdata = () => authState.userData;

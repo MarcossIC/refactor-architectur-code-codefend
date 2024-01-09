@@ -134,22 +134,24 @@ export const mapWebresourceApiToWebresource = (source: any): Webresources => {
 		serverCountryCity: source.server_pais_ciudad,
 		isDisabled: source.eliminado === '1',
 		createdAt: source.creacion,
-		childs: source.childs.map((child: any) => {
-			return {
-				id: child.id,
-				companyID: child.company_id,
-				resourceDomain: child.resource_domain,
-				resourceDomainDad: child.resource_domain_dad,
-				servers: child.servers,
-				mainServer: child.main_server,
-				serverCountry: child.server_pais,
-				serverCountryCode: child.server_pais_code,
-				serverCountryProvince: child.server_pais_provincia,
-				serverCountryCity: child.server_pais_ciudad,
-				isDisabled: child.eliminado === '1',
-				createdAt: child.creacion,
-			};
-		}),
+		childs: source.childs
+			? source.childs.map((child: any) => {
+					return {
+						id: child.id,
+						companyID: child.company_id,
+						resourceDomain: child.resource_domain,
+						resourceDomainDad: child.resource_domain_dad,
+						servers: child.servers,
+						mainServer: child.main_server,
+						serverCountry: child.server_pais,
+						serverCountryCode: child.server_pais_code,
+						serverCountryProvince: child.server_pais_provincia,
+						serverCountryCity: child.server_pais_ciudad,
+						isDisabled: child.eliminado === '1',
+						createdAt: formatDate(child.creacion),
+					};
+				})
+			: [],
 	} as Webresources;
 };
 

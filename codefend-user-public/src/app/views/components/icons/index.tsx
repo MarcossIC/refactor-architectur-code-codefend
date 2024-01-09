@@ -250,8 +250,9 @@ export const CollaboratorsIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const TrashIcon: React.FC<{}> = () => (
+export const TrashIcon: React.FC<{ action?: any }> = ({ action }) => (
 	<svg
+		onClick={action}
 		strokeWidth={0}
 		height="1em"
 		width="1em"
@@ -263,3 +264,29 @@ export const TrashIcon: React.FC<{}> = () => (
 		<path d="M135.2 17.7 128 32H32C14.3 32 0 46.3 0 64s14.3 32 32 32h384c17.7 0 32-14.3 32-32s-14.3-32-32-32h-96l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32l21.2 339c1.6 25.3 22.6 45 47.9 45h245.8c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
 	</svg>
 );
+
+export const StatIcon = () => {
+	return (
+		<svg
+			strokeWidth={0}
+			height="1em"
+			width="1em"
+			xmlns="http://www.w3.org/2000/svg"
+			className="text-fend-red"
+			fill="none"
+			stroke="currentColor"
+			viewBox="0 0 24 24"
+			color="currentColor"
+			style={{
+				overflow: 'visible',
+				fontSize: '1.125rem',
+				lineHeight: '1.75rem',
+			}}>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="1.5"
+				d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"></path>
+		</svg>
+	);
+};

@@ -4,19 +4,22 @@ import '../../styles/modal.scss';
 interface ModalWrapper {
 	children: ReactNode;
 	isErrorBox?: boolean;
+	action: () => void;
 }
 
 const ModalWrapper: React.FC<ModalWrapper> = ({
 	isErrorBox = false,
 	children,
+	action,
 }) => {
 	return (
 		<div
 			onClick={(e) => {
-				e;
+				e.preventDefault();
+				action();
 			}}
-			className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-20 z-20 py-10">
-			<div className={`wrapper-content   ${!isErrorBox ? 'max-w' : ''}`}>
+			className="modal-wrapper">
+			<div className={`wrapper-content ${!isErrorBox ? 'max-w' : ''}`}>
 				<div>{children}</div>
 			</div>
 		</div>

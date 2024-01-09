@@ -1,62 +1,62 @@
 button.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  outline: none;
-  cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	outline: none;
+	cursor: pointer;
 
-  padding-inline: 23px;
+	padding-inline: 23px;
 
-  color: #fff;
-  font-size: 13px;
-  font-family: "Roboto";
-  font-weight: 800;
-  text-decoration: none;
+	color: #fff;
+	font-size: 13px;
+	font-family: 'Roboto';
+	font-weight: 800;
+	text-decoration: none;
 
-  height: 45px;
-  border-radius: 4px;
-  background-color: var(--btn-color-main);
-  border: none;
-  transition: all 0.3s;
+	height: 45px;
+	border-radius: 4px;
+	background-color: var(--btn-color-main);
+	border: none;
+	transition: all 0.3s;
 
-  &:focus {
-    outline: none;
-  }
+	&:focus {
+		outline: none;
+	}
 
-  &.btn-primary {
-    background-color: var(--btn-color-main);
-    color: #ffffff;
-  }
+	&:hover {
+		background-color: #cb2222;
+	}
 
-  &.btn-secondary {
-    background-color: var(--btn-color-alt);
-  }
+	&.btn-primary {
+		background-color: var(--btn-color-main);
+		color: #ffffff;
+	}
 
-  &.btn-tertiary {
-    background-color: var(--color-border2);
-    color: var(--bg-black);
-  }
+	&.btn-secondary {
+		background-color: var(--btn-color-alt);
+	}
 
-  &:hover {
-    background-color: #cb2222;
-  }
+	&.btn-tertiary {
+		background-color: var(--color-border2);
+		color: var(--bg-black);
+	}
 
-  &.btn-secondary:hover {
-    background-color: #1a1a1a;
-  }
+	&.btn-secondary:hover {
+		background-color: #1a1a1a;
+	}
 
-  &.no-border-height {
-    height: auto;
-    border-radius: 0px;
-  }
+	&.no-border-height {
+		height: auto;
+		border-radius: 0px;
+	}
 
-  @media only screen and (max-width: 768px) {
-    & {
-      font-size: 15px;
-      height: 35px;
-      padding-block: 0;
-      padding-inline: 13px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2666666667);
-    }
-  }
+	@media only screen and (max-width: 768px) {
+		& {
+			font-size: 15px;
+			height: 35px;
+			padding-block: 0;
+			padding-inline: 13px;
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.2666666667);
+		}
+	}
 }

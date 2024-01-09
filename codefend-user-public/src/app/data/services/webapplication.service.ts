@@ -26,11 +26,12 @@ const addResource = async (newResource: string, companyID: string) => {
 	return data;
 };
 
-const deleteResource = async (resourceId: string) => {
+const deleteResource = async (resourceId: string, companyID: string) => {
 	const { data } = await fetchPOST({
 		params: {
 			model: 'resources/web/del',
 			resource_id: resourceId,
+			company_id: companyID,
 		},
 	});
 

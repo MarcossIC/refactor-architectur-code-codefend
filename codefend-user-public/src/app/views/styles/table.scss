@@ -22,6 +22,9 @@
 		div {
 			flex: 1;
 		}
+		.action {
+			text-align: center;
+		}
 	}
 
 	.rows {
@@ -38,6 +41,13 @@
 		color: var(--font-color);
 		font-family: Questrial;
 		font-size: 14px;
+
+		div {
+			flex: 1;
+			height: 100%;
+			display: flex;
+			align-items: center;
+		}
 
 		&.left-marked {
 			border-left: 6px solid var(--bkg-codefend);
@@ -180,7 +190,7 @@
 		flex: inherit !important;
 	}
 	.full-name {
-		min-width: 200px;
+		min-width: 12.5rem;
 		flex: inherit !important;
 	}
 	.email {
@@ -191,18 +201,25 @@
 		flex: 1 1 270px !important;
 	}
 	.role {
-		min-width: 200px;
+		min-width: 12.5rem;
 		flex: inherit !important;
 	}
 	.province {
-		min-width: 250px;
-		max-width: 250px;
+		min-width: 15.625rem;
+		max-width: 15.625rem;
 		flex: inherit !important;
 		text-transform: lowercase;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
-		line-height: 10px;
+		line-height: 0.625rem;
+
+		.province-container {
+			max-width: 14.688rem;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	}
 }
 
@@ -259,11 +276,4 @@
 		text-align: left;
 		font-weight: 700;
 	}
-}
-
-.table .item > div {
-	flex: 1;
-	height: 100%;
-	display: flex;
-	align-items: center;
 }

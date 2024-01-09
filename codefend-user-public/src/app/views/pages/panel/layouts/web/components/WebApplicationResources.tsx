@@ -1,4 +1,10 @@
-import React, { Fragment, ReactNode, useMemo, useState } from 'react';
+import React, {
+	Fragment,
+	ReactNode,
+	useCallback,
+	useMemo,
+	useState,
+} from 'react';
 import {
 	ModalWrapper,
 	AddDomainModal,
@@ -8,43 +14,49 @@ import {
 	EmptyCard,
 	PageLoader,
 	TrashIcon,
+	StatIcon,
 } from '../../../../../components';
 import { useNavigate } from 'react-router';
-import { Resouce, Webresources, generateIDArray } from '../../../../../../data';
-
+import {
+	Resouce,
+	Webresources,
+	generateIDArray,
+	useModal,
+} from '../../../../../../data';
+import '../../../../../styles/buttons.scss';
 
 interface WebResourceModalWrapper {
 	children: ReactNode;
 	headerTitle: string;
 	isActive: boolean;
+	close: () => void;
 }
 
 const WebResourceModalWrapper: React.FC<WebResourceModalWrapper> = ({
 	children,
 	headerTitle,
 	isActive,
+	close,
 }) => {
 	return (
 		<>
-			{isActive ?? (
+			{isActive ? (
 				<>
-					<ModalWrapper>
+					<ModalWrapper action={close}>
 						<div className="web-modal-wrapper internal-tables disable-border">
 							<div className="modal-header">
 								<div className="icon">
-									|
-									<span className="text-fend-red">
-										{' '}
-										{headerTitle}{' '}
-									</span>
-									|
+									<StatIcon />
 								</div>
+								{headerTitle}
 							</div>
 							{children}
 							<div className="modal-helper-box text-format"></div>
 						</div>
 					</ModalWrapper>
 				</>
+			) : (
+				<></>
 			)}
 		</>
 	);
@@ -58,7 +70,8 @@ interface WebResourcesProps {
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	const [selectedId, setSelectedId] = useState('0');
-	const { showModal, showModalStr } = { showModal: false, showModalStr: '' };
+	const { showModal, setShowModal, showModalStr, setShowModalStr } =
+		useModal();
 	const navigate = useNavigate();
 
 	const getResources = () => {
@@ -72,28 +85,38 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 		[getResources()],
 	);
 
+	const show = useCallback(() => {
+		setShowModal(true);
+	}, []);
+	const close = useCallback(() => {
+		setShowModal(false);
+	}, []);
+
 	return (
 		<>
 			<WebResourceModalWrapper
 				isActive={showModal && showModalStr === 'add_domain'}
+				close={close}
 				headerTitle="Add web resource">
 				<AddDomainModal onDone={() => props.refetch()} />
 			</WebResourceModalWrapper>
 
 			<WebResourceModalWrapper
 				isActive={showModal && showModalStr === 'delete_resource'}
+				close={close}
 				headerTitle="Delete web resource">
 				<DeletewebResource
 					id={selectedId}
-					isDeleting={true}
 					onDone={() => {
-						navigate('/');
+						window.location.reload();
 					}}
+					close={() => setShowModal(false)}
 				/>
 			</WebResourceModalWrapper>
 
 			<WebResourceModalWrapper
 				isActive={showModal && showModalStr === 'add_subdomain'}
+				close={close}
 				headerTitle="Add web sub-resource">
 				<AddSubDomainModal
 					onDone={() => props.refetch()}
@@ -115,7 +138,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 							onClick={() => {
 								if (props.isLoading) return;
 
-								//modal
+								setShowModal(!showModal);
+								setShowModalStr('add_domain');
 							}}>
 							Add domain
 						</div>
@@ -123,7 +147,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 							onClick={() => {
 								if (props.isLoading) return;
 
-								//modal
+								setShowModal(!showModal);
+								setShowModalStr('add_subdomain');
 							}}>
 							Add subdomain
 						</div>
@@ -171,7 +196,10 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 											className="trash"
 											onClick={() => {
 												setSelectedId(mainNetwork.id);
-												//modal
+												setShowModal(!showModal);
+												setShowModalStr(
+													'delete_resource',
+												);
 											}}>
 											<TrashIcon />
 										</div>
@@ -199,32 +227,40 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 													{subNetwork.mainServer}
 												</div>
 												<div className="location">
-													<div
-														className={`flag flag-${subNetwork.serverCountryCode.toLowerCase()}`}></div>
-													<div className="">
+													<span
+														className={`flag flag-${subNetwork.serverCountryCode.toLowerCase()}`}></span>
+													<p className="">
 														{
 															subNetwork.serverCountry
 														}
-													</div>
+													</p>
 												</div>
 
 												<div className="province">
-													{
-														subNetwork.serverCountryProvince
-													}
-													,{' '}
-													{
-														subNetwork.serverCountryCity
-													}
+													<span className="province-container">
+														{
+															subNetwork.serverCountryProvince
+														}
+														,{' '}
+														{
+															subNetwork.serverCountryCity
+														}
+													</span>
 												</div>
-												<div
-													className="trash"
-													onClick={(e) => {
-														e.preventDefault();
-														e.stopPropagation();
-														return false;
-													}}>
-													<TrashIcon />
+												<div className="trash">
+													<TrashIcon
+														action={() => {
+															setSelectedId(
+																subNetwork.id,
+															);
+															setShowModal(
+																!showModal,
+															);
+															setShowModalStr(
+																'delete_resource',
+															);
+														}}
+													/>
 												</div>
 											</div>
 										),

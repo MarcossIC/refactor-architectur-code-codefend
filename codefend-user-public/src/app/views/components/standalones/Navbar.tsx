@@ -20,22 +20,22 @@ const NavbarLogoutConfirm: React.FC<{
 		clearAuth();
 	};
 	return (
-		<div className="logout-confirm-container">
-			<div className="logout-confirm-content disable-border">
-				<div className="title-content">
-					<p className="text-small title-format">
+		<div className="logout-modal">
+			<div className="logout-modal-wrapper disable-border">
+				<div className="logout-modal-head">
+					<p className="logout-modal-head-text text-small title-format">
 						Are you sure you want to Logout?
 					</p>
 				</div>
 
-				<div className="buttons">
+				<div className="logout-modal-buttons">
 					<button
 						onClick={() => closed(false)}
-						className="btn btn-secondary">
+						className="btn btn-secondary logout-modal-buttons-btn">
 						Cancel
 					</button>
 					<button
-						className="btn btn-primary"
+						className="btn btn-primary logout-modal-buttons-btn"
 						aria-label="Log out"
 						onClick={handleLogout}>
 						Logout
@@ -60,39 +60,40 @@ const Navbar: React.FC = () => {
 
 	return (
 		<>
-			<nav>
+			<nav className="navbar">
 				{logoutModal ? (
 					<div
 						onClick={() => {
-							console.log('Close Modal');
+							setLogoutModal(false);
 						}}
-						className="wrapper">
+						className="navbar-modal">
 						<div
 							onClick={(e) => {
 								e.preventDefault();
 								e.stopPropagation();
 							}}
-							className="wrapper-content">
+							className="navbar-modal-container">
 							<NavbarLogoutConfirm closed={updateModal} />
 						</div>
 					</div>
 				) : (
 					<></>
 				)}
-				<div className="container">
+				<div className="navbar-logo">
 					<Link to="/">
-						<span className="brand-container">
+						<span className="navbar-logo-container">
 							<Logo theme="aim" />
 						</span>
 					</Link>
 				</div>
 
-				<div>
+				<div className="navbar-user">
 					<span>{userData?.email}</span>
 				</div>
 
-				<div title="Logout" className="power-off">
+				<div title="Logout" className="navbar-logount">
 					<span
+						className="navbar-logout-icon"
 						onClick={(e: React.FormEvent) => setLogoutModal(true)}>
 						<LogoutIcon />
 					</span>

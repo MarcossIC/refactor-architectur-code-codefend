@@ -3,11 +3,11 @@ import { WebApplicationResources } from './components/WebApplicationResources';
 import { WebApplicationLocation } from './components/WebApplicationLocation';
 import { WebApplicationStatics } from './components/WebApplicationStatics';
 import { WebApplicationCredentials } from './components/WebApplicationCredentials';
+import { useWebapplication } from '../../../../../data';
 import '../../../../styles/card.scss';
 import '../../../../styles/table.scss';
 import '../../../../styles/flag.scss';
 import './webapplication.scss';
-import { useWebapplication } from '../../../../../data';
 
 const WebApplicationView: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);

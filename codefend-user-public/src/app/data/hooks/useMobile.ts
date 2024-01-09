@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
-import {
-	DashboardProps,
-	MobileProps,
-	MobileService,
-	User,
-	useAuthState,
-} from '..';
+import { MobileProps, MobileService, User, useAuthState } from '..';
+
 
 export const useMobile = () => {
 	const { getUserdata } = useAuthState();

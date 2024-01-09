@@ -4,6 +4,7 @@ import { DashboardService } from '../services/dashboard.service';
 import { mapGetCompanyToCompanyData } from '../utils/mapper';
 import { DashboardProps, User } from '..';
 
+
 export const useDashboard = () => {
 	const { getUserdata } = useAuthState();
 	const [isLoading, setLoading] = useState(false);

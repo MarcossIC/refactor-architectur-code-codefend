@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { generateIDArray } from '../../../../data';
 import './table.module.scss';
+import { generateIDArray } from '../../../../data';
 
 enum Sort {
 	asc = 'asc',
@@ -80,9 +80,15 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 					</thead>
 
 					<tbody>
-						{rows.map((row: any, index: number) => (
-							<tr key={rowsID[index]}>
-								<td scope="row">{row['firstName']}</td>
+						{rows.map((row: any, rowIndex: number) => (
+							<tr key={rowsID[rowIndex]}>
+								{Array.from(columns).map(
+									(column: any, colIndex: number) => (
+										<td key={colIndex}>
+											{row[column.toLowerCase()]}
+										</td>
+									),
+								)}
 							</tr>
 						))}
 					</tbody>

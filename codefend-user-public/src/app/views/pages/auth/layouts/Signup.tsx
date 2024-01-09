@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { RegisterParams } from '../../../../data';
 import { companySizesList, countries } from '../../../../data/mocks';
 import { ButtonLoader } from '../../../components';
 import { useAuthState } from '../../../../data/hooks/useAuthState';
+import { RegisterParams } from 'src/app/data';
 
 interface SignupForm {
 	name: string;
@@ -23,8 +23,8 @@ const SignUpLayout: React.FC = () => {
 	const navigate = useNavigate();
 
 	const [signupForm, setSignupForm] = useState<SignupForm>({
-		surname: '',
 		name: '',
+		surname: '',
 		companyRole: '',
 		email: '',
 		phone: '',
@@ -86,7 +86,7 @@ const SignUpLayout: React.FC = () => {
 					onChange={(e) =>
 						setSignupForm((current: any) => ({
 							...current,
-							username: e.target.value,
+							surname: e.target.value,
 						}))
 					}
 					name="last_name"

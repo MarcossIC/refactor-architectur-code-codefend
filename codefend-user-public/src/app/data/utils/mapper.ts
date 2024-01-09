@@ -1,13 +1,5 @@
-import {
-	Company,
-	Issues,
-	User,
-	UserAPI,
-	WebapplicationProps,
-	Webresources,
-	formatDate,
-} from '..';
-import { DashboardProps } from '../';
+import { Company, DashboardProps, Issues, User, UserAPI, WebapplicationProps, Webresources, formatDate } from "..";
+
 
 export const mapLoginResponseToUser: (response: UserAPI) => User = (
 	response: UserAPI,

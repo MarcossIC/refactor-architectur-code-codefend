@@ -2,15 +2,14 @@ import React, { ChangeEvent, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
-import {
-	useAppSelector,
-	useAuthState,
-	RegisterFinishParams,
-} from '../../../../data';
+
 import { ButtonLoader } from '../../../components';
+import { useAppSelector } from '../../../../data/redux/';
+import { useAuthState } from '../../../../data';
+import { RegisterFinishParams } from 'src/app/data/interfaces/auth';
 
 const FinishSignUpLayout = () => {
-	const loading = useAppSelector((state) => state.authState.loading);
+	const loading = useAppSelector((state: any) => state.authState.loading);
 	const { signUpFinish } = useAuthState();
 	const [userState, setUserState] = useState({
 		email: '',

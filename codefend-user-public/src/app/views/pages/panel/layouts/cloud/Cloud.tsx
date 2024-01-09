@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { EmptyScreenView } from '../../../../components';
 import './cloud.scss';
+import { useModal } from 'src/app/data';
 
 interface MobileApp {
 	id: string;
@@ -8,6 +9,22 @@ interface MobileApp {
 
 const CloudApplicationPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState<boolean>(false);
+
+	const [selectedCloudApp, setSelectedCloudApp] = useState(null);
+
+	const { setShowModal, setShowModalStr, showModal, showModalStr } =
+		useModal();
+
+	const handleCloudAppClick = (cloud: any) => {
+		console.log({ cloud, selectedCloudApp });
+		if (cloud.id === (selectedCloudApp ? selectedCloudApp.id : null))
+			return;
+		setSelectedCloudApp(cloud);
+	};
+
+	const handleActiveCloudValidation = (cloud: any) => {
+		return cloud.id === (selectedCloudApp ? selectedCloudApp.id : null);
+	};
 
 	useEffect(() => {
 		setTimeout(() => setShowScreen(true), 50);

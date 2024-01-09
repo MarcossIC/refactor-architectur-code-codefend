@@ -80,9 +80,26 @@ export interface CompanyMember {
 	createdAt: string;
 }
 
+export interface Issues {
+	id: string;
+	companyID: string;
+	resourceClass: string;
+	resourceID: string;
+	researcherID: string;
+	researcherUsername: string;
+	riskLevel: string;
+	riskScore: string;
+	name: string;
+	condition: string;
+	price: string;
+	pricePaid: string;
+	isDisabled: string;
+	createdAt: string;
+}
+
 export interface DashboardProps {
 	company: Company;
-	issues: {} | null;
+	issues: Issues[];
 	members: CompanyMember[];
 	resources: CompanyResource;
 	issuesShare: IssuesShare;

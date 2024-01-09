@@ -8,21 +8,20 @@ enum Sort {
 }
 
 interface TableProps {
-	DATA: any;
+	data: any;
 
 	columns: Set<string>;
-	rowsTable?: any[];
 }
 
-export const Table: React.FC<TableProps> = ({ DATA, columns, rowsTable }) => {
+export const Table: React.FC<TableProps> = ({ data, columns }) => {
 	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
-	const [dataSort, setDataSort] = useState<any>('firstName');
+	const [dataSort, setDataSort] = useState<any>(Array.from(columns)[0]);
 
 	const rows = useMemo(() => {
 		const cleanNumber = (value: any) =>
 			Number(String(value).replace(/[\$\(\)\,]/g, ''));
 
-		return [...DATA].sort((a: any, b: any) => {
+		return [...data].sort((a: any, b: any) => {
 			const aValue = cleanNumber(a[dataSort]);
 			const bValue = cleanNumber(b[dataSort]);
 
@@ -33,7 +32,7 @@ export const Table: React.FC<TableProps> = ({ DATA, columns, rowsTable }) => {
 				return String(b[dataSort]).localeCompare(String(a[dataSort]));
 			}
 		});
-	}, [dataSort]);
+	}, [dataSort, data]);
 
 	const handleSort = (columnName: any) => {
 		if (columnName === dataSort) {
@@ -46,7 +45,6 @@ export const Table: React.FC<TableProps> = ({ DATA, columns, rowsTable }) => {
 		}
 	};
 
-	//const keys = Object.keys(DATA[0]) as any;
 	const columnsID = useMemo(
 		() => generateIDArray(columns.size),
 		[columns.size],
@@ -64,7 +62,9 @@ export const Table: React.FC<TableProps> = ({ DATA, columns, rowsTable }) => {
 							{Array.from(columns).map(
 								(keyTable: any, index: number) => (
 									<th
+										scope="col"
 										key={columnsID[index]}
+										id={'a' + columnsID[index]}
 										onClick={() => handleSort(keyTable)}>
 										{keyTable}{' '}
 										{dataSort === keyTable &&
@@ -82,7 +82,7 @@ export const Table: React.FC<TableProps> = ({ DATA, columns, rowsTable }) => {
 					<tbody>
 						{rows.map((row: any, index: number) => (
 							<tr key={rowsID[index]}>
-								<td>{row['firstName']}</td>
+								<td scope="row">{row['firstName']}</td>
 							</tr>
 						))}
 					</tbody>

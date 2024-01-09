@@ -39,7 +39,7 @@ const DashboardCollaborators: React.FC<{
 								</div>
 							</div>
 							<div className="table-wrapper">
-								<Table DATA={members} columns={keys} />
+								<Table data={members} columns={keys} />
 							</div>
 						</>
 					) : (

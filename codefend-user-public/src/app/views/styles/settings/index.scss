@@ -53,7 +53,7 @@
 	box-sizing: border-box;
 	border-width: 0;
 	border-style: solid;
-	border-color: #e5e7eb;
+	border-color: oklch(92.76% 0.006 264.53);
 }
 
 body {
@@ -96,7 +96,7 @@ input,
 }
 
 h2 {
-	color: #585858;
+	color: oklch(46.04% 0 0);
 }
 h3 {
 	color: var(--text-color-alt);
@@ -135,7 +135,7 @@ a {
 main {
 	opacity: 0;
 	display: flex;
-	column-gap: 10px;
+	column-gap: 0.625rem;
 	color: var(--color-codefend);
 
 	margin-block-start: var(--navbar-height);

@@ -160,8 +160,8 @@ hr {
   */
 
 mark {
-	background: #ff0;
-	color: #000;
+	background: oklch(96.78% 0.21 109.76);
+	color: oklch(0% 0 0);
 }
 
 /**
@@ -261,7 +261,7 @@ figure {
   */
 
 fieldset {
-	border: 1px solid #c0c0c0;
+	border: 1px solid oklch(80.78% 0 0);
 	margin: 0 2px;
 	padding: 0.35em 0.625em 0.75em;
 }

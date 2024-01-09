@@ -6,14 +6,13 @@ import {
 	PageLoader,
 	BugIcon,
 	Table,
-	
 } from '../../../../../components';
 import {
 	IssuesShare,
 	generateIDArray,
 	DashboardService,
 	isEmptyData,
-	useDoughnutChart
+	useDoughnutChart,
 } from '../../../../../../data';
 
 interface DashboardChartProps {
@@ -83,7 +82,7 @@ const DashboardChart: React.FC<DashboardChartProps> = ({
 
 								<Table
 									columns={tableColumns}
-									DATA={tableRows}
+									data={tableRows}
 								/>
 							</>
 						)}

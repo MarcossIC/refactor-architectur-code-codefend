@@ -1,13 +1,24 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
 	BugIcon,
 	EmptyCard,
 	PageLoader,
 	Table,
 } from '../../../../../components';
+import { Issues } from 'src/app/data';
+
+interface TopVulnerability {
+	published: string;
+	author: string;
+	type: string;
+	risk: string;
+	score: string;
+	issueTitle: string;
+	status: string;
+}
 
 const DashboardVulnerabilities: React.FC<{
-	topVulnerabilities: any;
+	topVulnerabilities: Issues[];
 	isLoading: boolean;
 }> = ({ topVulnerabilities, isLoading }) => {
 	const [sortBy, setSortBy] = useState('');
@@ -28,6 +39,22 @@ const DashboardVulnerabilities: React.FC<{
 		'status',
 	]);
 
+	const dataTable = useMemo(() => {
+		return topVulnerabilities.map(
+			(issue: Issues) =>
+				({
+					published: issue.createdAt,
+					author: '@' + issue.researcherUsername,
+					issueTitle: issue.name,
+					risk: issue.riskLevel,
+					type: issue.resourceClass,
+					score: issue.riskScore,
+					status: issue.condition,
+				}) as TopVulnerability,
+		);
+	}, [topVulnerabilities]);
+	console.log('vul:', { dataTable });
+
 	return (
 		<div className="card">
 			<div>
@@ -42,7 +69,7 @@ const DashboardVulnerabilities: React.FC<{
 							</div>
 						</div>
 						<div className="table-wrapper">
-							<Table DATA={topVulnerabilities} columns={keys} />
+							<Table data={dataTable} columns={keys} />
 						</div>
 					</>
 				) : (

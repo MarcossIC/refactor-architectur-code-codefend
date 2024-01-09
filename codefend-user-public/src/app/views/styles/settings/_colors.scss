@@ -1,60 +1,60 @@
 /* Color Scheme Light */
 :root {
-	--color-main: #222222;
-	--bg-black: #1f1f1f;
-	--color-black: #fdfdfd;
-	--sidebar-bkg: #fafafa;
+	--color-main: oklch(25.2% 0 0);
+	--bg-black: oklch(23.93% 0 0);
+	--color-black: oklch(99.4% 0 0);
+	--sidebar-bkg: oklch(98.51% 0 0);
 
-	--color-gray: #666;
-	--color-codefend: #fcfcfc;
-	--color-icon: #afafaf;
-	--color-border: #e5e5e5;
-	--color-border2: #d0c5c5;
-	--color-active-border: #ff3939;
-	--focus-icon: #4a2f34;
-	--color-panel: #b3b3b3;
-	--font-color: #999999;
-	--font-alternative: #999999;
+	--color-gray: oklch(51.03% 0 0);
+	--color-codefend: oklch(99.11% 0 0);
+	--color-icon: oklch(75.4% 0 0);
+	--color-border: oklch(92.19% 0 0);
+	--color-border2: oklch(92.19% 0 0);
+	--color-active-border: oklch(65.36% 0.232 26.55);
+	--focus-icon: oklch(33.94% 0.04 7.29);
+	--color-panel: oklch(76.68% 0 0);
+	--font-color: oklch(68.3% 0 0);
+	--font-alternative: oklch(68.3% 0 0);
 
-	--main-black: #f7f7f7;
-	--input-background: #ffffff;
-	--input-font-color: #222222;
-	--text-color-main: #222222;
+	--main-black: oklch(97.61% 0 0);
+	--input-background: oklch(100% 0 0);
+	--input-font-color: oklch(25.2% 0 0);
+	--text-color-main: oklch(25.2% 0 0);
 
-	--text-color-fend-red: #e84f4f;
+	--text-color-fend-red: oklch(63.82% 0.189 24.23);
 
-	--toolbar-text-color: #ffffff;
-	--toolbar-bg-color: #232323;
+	--toolbar-text-color: oklch(100% 0 0);
+	--toolbar-bg-color: oklch(25.62% 0 0);
 
 	color-scheme: light;
 
-	--bkg-main: #ffffff;
-	--bkg-alt: #f8f8f8;
-	--bkg-codefend: #fe4e4e;
+	--bkg-main: oklch(100% 0 0);
+	--bkg-alt: oklch(97.91% 0 0);
+	--bkg-codefend: oklch(67.25% 0.213 24.94);
 
 	--sidebar-width: 64px;
 
 	--text-large: 18px;
 	--text-small: 12px;
-	--text-color: #333333;
-	--text-color-alt: #666666;
-	--text-color-alt2: #fe4e4e;
-	--text-color-alt3: #999999;
+	--text-color: oklch(32.11% 0 0);
+	--text-color-alt: oklch(51.03% 0 0);
+	--text-color-alt2: oklch(67.25% 0.213 24.94);
+	--text-color-alt3: oklch(68.3% 0 0);
 
-	--btn-color-main: #fe4e4e;
-	--btn-color-alt: #333333;
+	--btn-color-main: oklch(67.25% 0.213 24.94);
+	--btn-color-alt: oklch(32.11% 0 0);
 
 	--nav-height: 50px;
 
-	--header-lines-color: #000000;
-	--header-title-bkg: #f7f7f7;
+	--header-lines-color: oklch(0% 0 0);
+	--header-title-bkg: oklch(97.61% 0 0);
 
-	--input-outline-color: #fe4e4e;
+	--input-outline-color: oklch(67.25% 0.213 24.94);
 
-	--stats-value-color: #cfcfcf;
+	--stats-value-color: oklch(85.45% 0 0);
 
-	--higlights-color-line: #6f2121;
-	--highlights-color-bkg: #4c0b0b;
+	--higlights-color-line: oklch(37.1% 0.111 24.27);
+	--highlights-color-bkg: oklch(27.36% 0.096 26.27);
 
 	--padding-general: 0 3dvw;
 	--padding-top-sections-c: 50px;
@@ -65,16 +65,16 @@
 }
 
 .dark:root {
-	--bkg-main: #262626;
-	--bkg-alt: #2d2d2d;
-	--text-color: #a8a8a8;
+	--bkg-main: oklch(26.86% 0 0);
+	--bkg-alt: oklch(29.72% 0 0);
+	--text-color: oklch(73.16% 0 0);
 
-	--header-title-bkg: #2d2d2d;
-	--color-border: #343434;
+	--header-title-bkg: oklch(29.72% 0 0);
+	--color-border: oklch(32.5% 0 0);
 
-	--text-color-alt: #ffffff;
+	--text-color-alt: oklch(100% 0 0);
 
-	--header-lines-color: #ffffff;
-	--sidebar-bkg: #2d2d2d;
-	--color-icon: #686868;
+	--header-lines-color: oklch(100% 0 0);
+	--sidebar-bkg: oklch(29.72% 0 0);
+	--color-icon: oklch(51.73% 0 0);
 }

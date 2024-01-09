@@ -1,6 +1,15 @@
 import { toast } from 'react-toastify';
-import { useAppSelector, useAppDispatch, LoginParams, RegisterParams } from '..';
-import { loginThunk, registerThunk, registerFinishThunk } from '../redux/thunks/auth.thunk';
+import {
+	useAppSelector,
+	useAppDispatch,
+	LoginParams,
+	RegisterParams,
+} from '..';
+import {
+	loginThunk,
+	registerThunk,
+	registerFinishThunk,
+} from '../redux/thunks/auth.thunk';
 
 export const useAuthState = () => {
 	const authState = useAppSelector((state: any) => state.authState);
@@ -10,7 +19,7 @@ export const useAuthState = () => {
 	const getAccessToken = () => authState.accessToken;
 	const isAuth = () => authState.isAuth;
 
-	const signInUser = (params: LoginParams): Promise<boolean> => {
+	const signInUser = async (params: LoginParams): Promise<boolean> => {
 		return dispatch(loginThunk(params))
 			.then((response: any) => {
 				const { meta } = response;
@@ -28,7 +37,7 @@ export const useAuthState = () => {
 			});
 	};
 
-	const signUpUser = (params: RegisterParams): Promise<boolean> => {
+	const signUpUser = async (params: RegisterParams): Promise<boolean> => {
 		return dispatch(registerThunk(params))
 			.then((response: any) => {
 				const { meta } = response;
@@ -47,7 +56,7 @@ export const useAuthState = () => {
 			});
 	};
 
-	const signUpFinish = (params: any): Promise<boolean> => {
+	const signUpFinish = async (params: any): Promise<boolean> => {
 		return dispatch(registerFinishThunk(params))
 			.then((response: any) => {
 				const { meta } = response;

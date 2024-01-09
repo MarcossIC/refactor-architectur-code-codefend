@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { GlobeWebIcon, ButtonLoader } from '../';
 import { toast } from 'react-toastify';
@@ -12,17 +12,24 @@ interface AddDomainProps {
 
 const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 	const [domainName, setDomainName] = useState('');
-	const [subdomainDetection, setSubdomainDetection] = useState(true);
-	const [isAddingDomain, setIsAddingDomain] = useState(false);
+	const [subdomainDetection, setSubdomainDetection] = useState<boolean>(true);
+	const [isAddingDomain, setIsAddingDomain] = useState<boolean>(false);
 
 	const { getUserdata } = useAuthState();
+
+	const handleChange = (e: React.ChangeEvent) => {
+		console.log(subdomainDetection);
+		setSubdomainDetection(!subdomainDetection);
+		console.log(subdomainDetection);
+	};
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsAddingDomain(true);
+		console.log({ domainName });
 		if (!domainName) return;
 
-		if (!domainName || domainName.length == 0 || domainName.length > 100) {
+		if (!domainName || domainName.length === 0 || domainName.length > 100) {
 			toast.error('Invalid domain');
 			setIsAddingDomain(false);
 			return;
@@ -31,47 +38,49 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 		const companyID = user?.companyID as string;
 
 		WebApplicationService.addResource(domainName, companyID)
-			.then((res) => {
+			.then(({ response }) => {
+				if (response !== 'success') {
+					throw new Error('An error has occurred on the server');
+				}
+
 				setDomainName('');
 				props.onDone();
 				toast.success('Successfully Added Domain..');
 			})
+			.catch((error: any) => {
+				toast.error(error.message);
+				props.close?.();
+			})
 			.finally(() => setIsAddingDomain(false));
+		return;
 	};
 
 	return (
 		<div className="modal admin-modal text-format">
-			<form onSubmit={handleSubmit}>
+			<form>
 				<div className="form-input-text">
+					<span className="form-icon">
+						<div className="codefend-text-red">
+							<GlobeWebIcon />
+						</div>
+					</span>
 					<input
-						autoFocus
 						type="text"
 						className="log-inputs"
 						placeholder="domain name"
 						onChange={(e) => setDomainName(e.target.value)}
 						required
 					/>
-					<span className="form-icon">
-						<div className="codefend-text-red">
-							<GlobeWebIcon />
-						</div>
-					</span>
 				</div>
 
 				<div className="form-input-checkbox ">
 					<input
 						type="checkbox"
-						onChange={(e) => {
-							setSubdomainDetection(e.target.checked);
-						}}
-						name="link-checkbox"
-						id="link-checkbox"
-						checked={subdomainDetection}
-						className="codefend-text-red checkbox-color"
-						required
+						name="resourceDomainNetwork"
+						className="codefend-checkbox"
 					/>
 
-					<label htmlFor="link-checkbox" className="modal_info">
+					<label className="modal_info">
 						Automatic subdomain detection
 					</label>
 				</div>
@@ -82,15 +91,16 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 						disabled={isAddingDomain}
 						onClick={() => props.close?.()}
 						className="log-inputs codefend_secondary_ac btn btn-secondary btn-cancel">
-						cancel
+						Cancel
 					</button>
 
 					<button
 						type="submit"
 						disabled={isAddingDomain}
+						onClick={handleSubmit}
 						className="log-inputs codefend_main_ac btn btn-primary btn-add">
 						{isAddingDomain && <ButtonLoader />}
-						add web resource
+						Add web resource
 					</button>
 				</div>
 			</form>

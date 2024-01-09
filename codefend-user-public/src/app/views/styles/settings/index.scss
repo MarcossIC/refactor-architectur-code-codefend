@@ -159,3 +159,15 @@ main {
 		padding-block-start: 59px;
 	}
 }
+
+.codefend-checkbox {
+	color: inherit !important;
+	padding: 0;
+	--primary-hover-color: hsl(0, 71%, 46%);
+	--checkbox-diameter: 20px;
+	--checkbox-border-radius: 5px;
+	--checkbox-border-color: #d9d9d9;
+	--checkbox-border-width: 1px;
+	--checkbox-border-style: solid;
+	--checkmark-size: 1.2;
+}

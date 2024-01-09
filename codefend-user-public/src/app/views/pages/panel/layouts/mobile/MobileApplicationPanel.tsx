@@ -46,7 +46,7 @@ const MobileApplicationPanel: React.FC = () => {
 
 	useEffect(() => {
 		setTimeout(() => setShowScreen(true), 50);
-	}, []);
+	}, [showScreen]);
 
 	useEffect(() => {
 		if (selectedMobileApp === null) {

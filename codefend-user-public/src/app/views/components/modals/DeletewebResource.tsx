@@ -7,54 +7,58 @@ import '../../styles/modal.scss';
 interface DeleteResource {
 	onDelete?: () => void;
 	onDone?: () => void;
-	close?: () => void;
-	id?: string | number;
+	close: () => void;
+	id: string;
 }
 
-export const DeletewebResource: React.FC<DeleteResource> = (props) => {
+export const DeletewebResource: React.FC<DeleteResource> = ({
+	id,
+	close,
+	onDone,
+	onDelete,
+}) => {
 	const [isDeletingResource, setIsDeletingResource] = useState(false);
 	const { getUserdata } = useAuthState();
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		setIsDeletingResource(true);
 
-		if (props.onDelete && props.onDelete !== undefined) {
-			props.onDelete();
+		if (onDelete && onDelete !== undefined) {
+			onDelete();
 			return;
 		}
-		setIsDeletingResource(true);
 		const user = getUserdata() as User;
-		WebApplicationService.deleteResource(
-			props?.id as string,
-			user.companyID,
-		)
-			.then(({ res }) => {
-				if (res !== 'success')
+
+		WebApplicationService.deleteResource(id, user.companyID)
+			.then(({ response }) => {
+				if (response !== 'success')
 					throw new Error('An error has occurred on the server');
 
 				toast.success('Successfully Deleted Web Resource...');
-				if (props.onDone && props.onDone !== undefined) props.onDone();
+				if (onDone && onDone !== undefined) onDone();
 			})
 			.catch((error: any) => {
 				toast.error(error.message);
-				props.close?.();
+				close?.();
 			})
 			.finally(() => setIsDeletingResource(false));
 	};
 
 	return (
 		<div className="modal delete-webr">
-			<form onSubmit={handleSubmit}>
+			<form>
 				<div className="form-buttons">
 					<button
 						type="button"
-						onClick={() => props.close?.()}
+						onClick={() => close?.()}
 						disabled={isDeletingResource}
 						className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
 						Cancel
 					</button>
 					<button
-						type="submit"
+						type="button"
 						disabled={isDeletingResource}
+						onClick={handleSubmit}
 						className="log-inputs btn btn-primary btn-add codefend_main_ac">
 						{isDeletingResource && <ButtonLoader />}
 						Delete

@@ -25,7 +25,7 @@ export const ProvidedTestingCredentials: React.FC<
 		<>
 			{props.isLoading ?? (
 				<>
-					<ModalWrapper>
+					<ModalWrapper action={() => {}}>
 						<div className="quick-action internal-tables disable-border">
 							<div className="modal-header">
 								|<span>{' Add cloud actions '}</span>|

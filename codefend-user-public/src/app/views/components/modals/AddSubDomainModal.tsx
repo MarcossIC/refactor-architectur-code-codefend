@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ButtonLoader, GlobeWebIcon } from '../';
 import { toast } from 'react-toastify';
 import '../../styles/modal.scss';
@@ -9,57 +9,74 @@ import {
 	useAuthState,
 } from '../../../data';
 
-interface SubdomainModalP {
+interface SubdomainModalProps {
 	onDone: () => void;
-	webResources?: any;
+	close: () => void;
+	webResources: Webresources[];
 }
 
-const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
+const AddSubDomainModal: React.FC<SubdomainModalProps> = (props) => {
 	const [mainDomainId, setMainDomainId] = useState('');
 	const [domainName, setDomainName] = useState('');
 	const [ipAddress, setIpAddress] = useState('');
 	const [isAddingSubDomain, setIsAddingSubDomain] = useState(false);
 	const { getUserdata } = useAuthState();
 
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
+	const handleSubmit = useCallback(
+		(e: React.FormEvent) => {
+			e.preventDefault();
+			e.stopPropagation();
 
-		if (!mainDomainId || mainDomainId.length == 0) {
-			return toast.error('Invalid main resource');
-		}
+			if (!mainDomainId || mainDomainId.length == 0) {
+				toast.error('Invalid main resource');
+				return;
+			}
 
-		if (!domainName || domainName.length == 0 || domainName.length > 100) {
-			return toast.error('Invalid domain');
-		}
+			if (
+				!domainName ||
+				domainName.length == 0 ||
+				domainName.length > 100
+			) {
+				toast.error('Invalid domain');
+				return;
+			}
 
-		setIsAddingSubDomain(true);
+			setIsAddingSubDomain(true);
 
-		const user = getUserdata() as User;
-		const companyID = user?.companyID as string;
+			const user = getUserdata() as User;
+			const companyID = user?.companyID as string;
 
-		WebApplicationService.addSubresource(
-			mainDomainId,
-			domainName,
-			companyID,
-		)
-			.then((res) => {
-				setDomainName('');
-				props.onDone();
-				toast.success('Successfully Added Domain..');
-			})
-			.finally(() => setIsAddingSubDomain(false));
+			WebApplicationService.addSubresource(
+				mainDomainId,
+				domainName,
+				companyID,
+			)
+				.then((response: any) => {
+					if (!response && !response.company)
+						throw new Error('An error has occurred on the server');
 
-		return null;
-	};
+					setDomainName('');
+					props.onDone();
+					toast.success('Successfully Added Domain..');
+				})
+				.catch((error: any) => {
+					toast.error(error.message);
+					props.close?.();
+				})
+				.finally(() => setIsAddingSubDomain(false));
+		},
+		[domainName, mainDomainId],
+	);
 
 	return (
 		<div className="modal subdomain-modal">
-			<form onClick={handleSubmit}>
+			<form>
 				<div className="form-input">
 					<span className="form-icon">
-						<GlobeWebIcon />
+						<div className="codefend-text-red">
+							<GlobeWebIcon />
+						</div>
 					</span>
-
 					<select
 						onChange={(e) => setMainDomainId(e.target.value)}
 						value={mainDomainId}
@@ -79,8 +96,10 @@ const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
 				</div>
 
 				<div className="form-input text">
-					<span className="form-icon codefend-text-red">
-						<GlobeWebIcon />
+					<span className="form-icon">
+						<div className="codefend-text-red">
+							<GlobeWebIcon />
+						</div>
 					</span>
 					<input
 						type="text"
@@ -91,8 +110,10 @@ const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
 				</div>
 
 				<div className="form-input text">
-					<span className="form-icon codefend-text-red">
-						<GlobeWebIcon />
+					<span className="form-icon">
+						<div className="codefend-text-red">
+							<GlobeWebIcon />
+						</div>
 					</span>
 					<input
 						type="text"
@@ -106,14 +127,16 @@ const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
 					<button
 						type="button"
 						disabled={isAddingSubDomain}
-						className="log-inputs btn-cancel codefend_secondary_ac">
+						onClick={() => props.close?.()}
+						className="log-inputs codefend_secondary_ac btn btn-secondary btn-cancel">
 						Cancel
 					</button>
 
 					<button
 						type="submit"
 						disabled={isAddingSubDomain}
-						className="log-inputs btn-add codefend_main_ac">
+						onClick={handleSubmit}
+						className="log-inputs codefend_main_ac btn btn-primary btn-add">
 						{isAddingSubDomain && <ButtonLoader />}
 						Add web resource
 					</button>

@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
 		setTimeout(() => {
 			setShowScreen(true);
 		}, 50);
-	}, []);
+	}, [showScreen]);
 
 	return (
 		<main className={` dashboard ${showScreen ? 'actived' : ''}`}>

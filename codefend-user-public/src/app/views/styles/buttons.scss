@@ -7,7 +7,7 @@ button.btn {
 
 	padding-inline: 23px;
 
-	color: #fff;
+	color: #fff !important;
 	font-size: 13px;
 	font-family: 'Roboto';
 	font-weight: 800;
@@ -25,7 +25,6 @@ button.btn {
 
 	&.btn-primary {
 		background-color: var(--btn-color-main);
-		color: #ffffff;
 
 		&:hover {
 			background-color: #cb2222;

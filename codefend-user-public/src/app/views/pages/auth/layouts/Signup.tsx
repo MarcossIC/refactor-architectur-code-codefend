@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { companySizesList, countries } from '../../../../data/mocks';
 import { ButtonLoader } from '../../../components';
 import { useAuthState } from '../../../../data/hooks/useAuthState';
-import { RegisterParams } from 'src/app/data';
+import { RegisterParams } from '../../../../data';
 
 interface SignupForm {
 	name: string;

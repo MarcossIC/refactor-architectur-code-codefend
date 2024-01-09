@@ -5,8 +5,7 @@ import { toast } from 'react-toastify';
 
 import { ButtonLoader } from '../../../components';
 import { useAppSelector } from '../../../../data/redux/';
-import { useAuthState } from '../../../../data';
-import { RegisterFinishParams } from 'src/app/data/interfaces/auth';
+import { useAuthState, RegisterFinishParams } from '../../../../data';
 
 const FinishSignUpLayout = () => {
 	const loading = useAppSelector((state: any) => state.authState.loading);

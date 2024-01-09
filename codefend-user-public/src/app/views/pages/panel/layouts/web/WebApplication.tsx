@@ -15,7 +15,7 @@ const WebApplicationView: React.FC = () => {
 
 	useEffect(() => {
 		setTimeout(() => setShowScreen(true), 50);
-	}, []);
+	}, [showScreen]);
 
 	return (
 		<main className={`webapp ${showScreen ? 'actived' : ''}`}>

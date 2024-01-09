@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { WebApplicationService } from '../services/webapplication.service';
-import { User, WebapplicationProps, mapToWebresourceProps, useAuthState } from '..';
+import {
+	User,
+	WebapplicationProps,
+	mapToWebresourceProps,
+	useAuthState,
+} from '..';
 
 export const useWebapplication = () => {
 	const { getUserdata } = useAuthState();
 	const [isLoading, setLoading] = useState<boolean>(false);
-	const [hasFetch, setHasFetch] = useState<boolean>(true);
 	const [webResources, setWebResources] = useState<WebapplicationProps>(
 		{} as WebapplicationProps,
 	);
@@ -22,16 +26,13 @@ export const useWebapplication = () => {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [getUserdata, setWebResources, setLoading]);
+	}, [getUserdata, setLoading]);
 
 	useEffect(() => {
-		if (hasFetch) {
-			fetchWeb();
-			setHasFetch(false);
-		}
-	}, [hasFetch, fetchWeb, setHasFetch]);
+		fetchWeb();
+	}, []);
 
-	const refetch = useCallback(() => setHasFetch(true), [setHasFetch]);
+	const refetch = useCallback(() => fetchWeb(), []);
 
 	return { webResources, isLoading, refetch };
 };

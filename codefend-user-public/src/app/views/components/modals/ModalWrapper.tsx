@@ -16,6 +16,7 @@ const ModalWrapper: React.FC<ModalWrapper> = ({
 		<div
 			onClick={(e) => {
 				e.preventDefault();
+				e.stopPropagation();
 				action();
 			}}
 			className="modal-wrapper">

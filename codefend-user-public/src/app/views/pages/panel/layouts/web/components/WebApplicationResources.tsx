@@ -75,7 +75,7 @@ interface WebResourcesProps {
 }
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
-	const [selectedId, setSelectedId] = useState('0');
+	const [selectedId, setSelectedId] = useState<string>('0');
 	const { showModal, setShowModal, showModalStr, setShowModalStr } =
 		useModal();
 	const navigate = useNavigate();
@@ -92,9 +92,12 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	);
 
 	const show = useCallback(() => {
+		console.log('Alo in show?');
 		setShowModal(true);
 	}, []);
 	const close = useCallback(() => {
+		console.log('Alo in close?');
+
 		setShowModal(false);
 	}, []);
 
@@ -104,7 +107,13 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				isActive={showModal && showModalStr === 'add_domain'}
 				close={close}
 				headerTitle="Add web resource">
-				<AddDomainModal onDone={() => props.refetch()} />
+				<AddDomainModal
+					onDone={() => {
+						props.refetch();
+						setShowModal(false);
+					}}
+					close={() => setShowModal(false)}
+				/>
 			</WebResourceModalWrapper>
 
 			<WebResourceModalWrapper
@@ -126,6 +135,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				headerTitle="Add web sub-resource">
 				<AddSubDomainModal
 					onDone={() => props.refetch()}
+					close={() => setShowModal(false)}
 					webResources={getResources()}
 				/>
 			</WebResourceModalWrapper>

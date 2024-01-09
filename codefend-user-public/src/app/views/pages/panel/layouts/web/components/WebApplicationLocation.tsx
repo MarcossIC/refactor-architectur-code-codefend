@@ -21,11 +21,11 @@ export const WebApplicationLocation: React.FC<{
 
 	useEffect(() => {
 		setResources(metrics);
-	}, [getResources()]);
+	}, [setResources]);
 
 	const resourcesKey = useMemo(
 		() => generateIDArray(resources.length),
-		[resources],
+		[resources.length],
 	);
 
 	return (

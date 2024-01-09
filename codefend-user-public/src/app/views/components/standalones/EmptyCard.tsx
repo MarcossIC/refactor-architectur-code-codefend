@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../shared/card.scss';
+import '../../styles/card.scss';
 
 interface EmptyCardProps {
 	title?: string;

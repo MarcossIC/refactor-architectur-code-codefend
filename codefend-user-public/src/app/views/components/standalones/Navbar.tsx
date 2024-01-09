@@ -2,7 +2,7 @@ import React, { ReactNode, lazy, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../data/redux/slices/auth.slice';
-import '../../shared/navbar.scss';
+import '../../styles/navbar.scss';
 import { clearAuth, useAppSelector } from '../../../data';
 import { LogoutIcon } from '..';
 

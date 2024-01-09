@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-	RegisterParams,
-} from '../../../../data';
+import { RegisterParams } from '../../../../data';
 import { companySizesList, countries } from '../../../../data/mocks';
 import { ButtonLoader } from '../../../components';
-import '../../../shared/buttons.scss';
-import '../../../shared/forms.scss';
+import '../../../styles/buttons.scss';
+import '../../../styles/forms.scss';
 
 import { useAuthState } from '../../../../data/hooks/useAuthState';
 

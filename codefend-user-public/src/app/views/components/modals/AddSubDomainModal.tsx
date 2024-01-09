@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ButtonLoader, GlobeWebIcon } from '../';
 import { toast } from 'react-toastify';
-import '../../shared/modal.scss';
+import '../../styles/modal.scss';
 import {
 	WebApplicationService,
 	Webresources,
@@ -46,8 +46,8 @@ const AddSubDomainModal: React.FC<SubdomainModalP> = (props) => {
 				toast.success('Successfully Added Domain..');
 			})
 			.finally(() => setIsAddingSubDomain(false));
-			
-			return null
+
+		return null;
 	};
 
 	return (

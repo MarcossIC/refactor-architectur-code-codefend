@@ -8,7 +8,7 @@ import DashboardVulnerabilitiesStatus from './components/DashboardVulnerabilitie
 import DashboardVulnerabilities from './components/DashboardVulnerabilities';
 
 import './dashboard.scss';
-import '../../../shared/card.scss';
+import '../../../styles/card.scss';
 import { useDashboard } from '../../../../data';
 
 const Dashboard: React.FC = () => {

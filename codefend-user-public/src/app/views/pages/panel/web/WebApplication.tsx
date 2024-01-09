@@ -3,9 +3,9 @@ import { WebApplicationResources } from './components/WebApplicationResources';
 import { WebApplicationLocation } from './components/WebApplicationLocation';
 import { WebApplicationStatics } from './components/WebApplicationStatics';
 import { WebApplicationCredentials } from './components/WebApplicationCredentials';
-import '../../../shared/flag.scss';
-import '../../../shared/card.scss';
-import '../../../shared/table.scss';
+import '../../../styles/flag.scss';
+import '../../../styles/card.scss';
+import '../../../styles/table.scss';
 import './webapplication.scss';
 import { useWebapplication } from '../../../../data';
 

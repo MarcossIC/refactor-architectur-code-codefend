@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ButtonLoader } from '../';
 import { toast } from 'react-toastify';
-import '../../shared/modal.scss';
+import '../../styles/modal.scss';
 import { WebApplicationService } from '../../../data';
 
 interface DeleteResource {

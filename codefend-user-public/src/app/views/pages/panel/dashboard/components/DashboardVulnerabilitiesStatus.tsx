@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChartIcon } from '../../../../components';
 
-import '../../../../shared/flag.scss';
+import '../../../../styles/flag.scss';
 import { IssuesCondition } from '../../../../../data';
 
 const DashboardVulnerabilitiesStatus: React.FC<{

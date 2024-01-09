@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchIcon } from '../../../../components';
-import '../../../../shared/buttons.scss';
+import '../../../../styles/buttons.scss';
 
 const DashboardSearchbar: React.FC = () => {
 	const [searchValue, setSearchValue] = useState('');

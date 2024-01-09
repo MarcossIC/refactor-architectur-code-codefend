@@ -11,7 +11,7 @@ import {
 } from '../../../../components';
 import { useNavigate } from 'react-router';
 import { Resouce, Webresources, generateIDArray } from '../../../../../data';
-import '../../../../shared/table.scss';
+import '../../../../styles/table.scss';
 
 interface WebResourceModalWrapper {
 	children: ReactNode;

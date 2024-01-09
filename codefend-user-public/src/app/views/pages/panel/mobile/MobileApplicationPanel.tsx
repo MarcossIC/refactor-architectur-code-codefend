@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { PageLoader, EmptyScreenView } from '../../../components';
 import { MobileAppCard } from '../components/MobileAppCard';
 import { generateIDArray, useMobile } from '../../../../data';
-import '../../../shared/card.scss';
+import '../../../styles/card.scss';
 import './mobileApplicationPanel.scss';
 
 interface MobileApp {

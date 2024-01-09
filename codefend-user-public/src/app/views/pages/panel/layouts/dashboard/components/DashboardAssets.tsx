@@ -1,8 +1,8 @@
 import React, { Fragment, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { CircleIcon } from '../../../../components';
-import { CompanyResource, generateIDArray } from '../../../../../data';
+import { CircleIcon } from '../../../../../components';
+import { CompanyResource, generateIDArray } from '../../../../../../data';
 
 const DashboardAssets: React.FC<{ resources: CompanyResource }> = ({
 	resources,

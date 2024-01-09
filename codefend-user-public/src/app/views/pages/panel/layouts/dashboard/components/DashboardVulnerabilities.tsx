@@ -1,5 +1,10 @@
 import React, { useCallback, useState } from 'react';
-import { BugIcon, EmptyCard, PageLoader, Table } from '../../../../components';
+import {
+	BugIcon,
+	EmptyCard,
+	PageLoader,
+	Table,
+} from '../../../../../components';
 
 const DashboardVulnerabilities: React.FC<{
 	topVulnerabilities: any;

@@ -1,12 +1,12 @@
 import React, { lazy, Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { Loader } from './views/components';
-import AuthServices from './data/services/auth.service';
+import { Loader } from '../../components';
+import AuthServices from '../../../data/services/auth.service';
 
-const Navbar = lazy(() => import('./views/components/standalones/Navbar'));
-const Sidebar = lazy(() => import('./views/components/standalones/Sidebar'));
+const Navbar = lazy(() => import('../../components/standalones/Navbar'));
+const Sidebar = lazy(() => import('../../components/standalones/Sidebar'));
 
-export const RouterLayout: React.FC = () => {
+export const PanelPage: React.FC = () => {
 	const isNotAuthenticated = AuthServices.verifyAuth();
 	if (isNotAuthenticated) AuthServices.logout2();
 

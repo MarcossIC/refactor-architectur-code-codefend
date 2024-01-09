@@ -1,12 +1,13 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useAuthState } from 'src/app/data/hooks/useAuthState';
-import { RegisterFinishParams } from 'src/app/data/services/auth.service';
-import { useAppSelector } from 'src/app/data';
-import { ButtonLoader } from 'src/app/views/components';
+import {
+	useAppSelector,
+	useAuthState,
+	RegisterFinishParams,
+} from '../../../../data';
+import { ButtonLoader } from '../../../components';
 
 const FinishSignUpLayout = () => {
 	const loading = useAppSelector((state) => state.authState.loading);

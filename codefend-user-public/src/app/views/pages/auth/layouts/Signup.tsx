@@ -3,9 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { RegisterParams } from '../../../../data';
 import { companySizesList, countries } from '../../../../data/mocks';
 import { ButtonLoader } from '../../../components';
-import '../../../styles/buttons.scss';
-import '../../../styles/forms.scss';
-
 import { useAuthState } from '../../../../data/hooks/useAuthState';
 
 interface SignupForm {

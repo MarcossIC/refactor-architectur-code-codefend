@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChartIcon } from '../../../../components';
+import { ChartIcon } from '../../../../../components';
 
-import '../../../../styles/flag.scss';
-import { IssuesCondition } from '../../../../../data';
+import { IssuesCondition } from '../../../../../../data';
 
 const DashboardVulnerabilitiesStatus: React.FC<{
 	vulnerabilityByShare: IssuesCondition;

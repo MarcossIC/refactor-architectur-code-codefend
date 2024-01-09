@@ -8,10 +8,10 @@ import {
 	EmptyCard,
 	PageLoader,
 	TrashIcon,
-} from '../../../../components';
+} from '../../../../../components';
 import { useNavigate } from 'react-router';
-import { Resouce, Webresources, generateIDArray } from '../../../../../data';
-import '../../../../styles/table.scss';
+import { Resouce, Webresources, generateIDArray } from '../../../../../../data';
+
 
 interface WebResourceModalWrapper {
 	children: ReactNode;

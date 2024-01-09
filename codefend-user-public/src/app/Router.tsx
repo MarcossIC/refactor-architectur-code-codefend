@@ -1,26 +1,29 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { RouterLayout } from './RouterLayout';
+import { PanelPage } from './views/pages/panel/PanelPage';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import FinishSignUpLayout from './views/pages/auth/components/FinishsignUp';
+import FinishSignUpLayout from './views/pages/auth/layouts/FinishsignUp';
 
 const AuthPage = lazy(() => import('./views/pages/auth/AuthPage'));
-const SignInLayout = lazy(() => import('./views/pages/auth/components/Signin'));
-const SignUpLayout = lazy(() => import('./views/pages/auth/components/Signup'));
+const SignInLayout = lazy(() => import('./views/pages/auth/layouts/Signin'));
+const SignUpLayout = lazy(() => import('./views/pages/auth/layouts/Signup'));
 const ConfirmationSignUp = lazy(
-	() => import('./views/pages/auth/components/ConfirmationSignUp'),
+	() => import('./views/pages/auth/layouts/ConfirmationSignUp'),
 );
-const Dashboard = lazy(() => import('./views/pages/panel/dashboard/Dashboard'));
+
+const Dashboard = lazy(
+	() => import('./views/pages/panel/layouts/dashboard/Dashboard'),
+);
 const WebApplication = lazy(
-	() => import('./views/pages/panel/web/WebApplication'),
+	() => import('./views/pages/panel/layouts/web/WebApplication'),
 );
 const MobileApplication = lazy(
-	() => import('./views/pages/panel/mobile/MobileApplicationPanel'),
+	() => import('./views/pages/panel/layouts/mobile/MobileApplicationPanel'),
 );
 const CloudApplicationPanel = lazy(
-	() => import('./views/pages/panel/cloud/Cloud'),
+	() => import('./views/pages/panel/layouts/cloud/Cloud'),
 );
 
 export const AppRouter: React.FC = () => {
@@ -41,7 +44,7 @@ export const AppRouter: React.FC = () => {
 
 			<Routes>
 				{/* Rutas privadas */}
-				<Route path="/" element={<RouterLayout />}>
+				<Route path="/" element={<PanelPage />}>
 					<Route index element={<Dashboard />} />
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/web" element={<WebApplication />} />
@@ -54,7 +57,10 @@ export const AppRouter: React.FC = () => {
 					<Route index element={<Navigate to="signin" replace />} />
 					<Route path="signin" element={<SignInLayout />} />
 					<Route path="signup" element={<SignUpLayout />} />
-					<Route path="confirmation" element={<ConfirmationSignUp />} />
+					<Route
+						path="confirmation"
+						element={<ConfirmationSignUp />}
+					/>
 
 					{/* <Route path="/auth/signup/:ref" component={RegisterFinishView} /> */}
 					<Route

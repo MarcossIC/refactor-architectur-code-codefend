@@ -1,6 +1,12 @@
-import { User } from '.';
+import { User, UserFinishResponse, UserRegResponse } from '.';
 
-interface RegisterParams {
+export interface LoginParams {
+	email: string;
+	password: string;
+}
+
+//paso 1
+export interface RegisterParams {
 	lead_fname: string;
 	lead_lname?: string;
 	lead_role: string | number;
@@ -13,8 +19,16 @@ interface RegisterParams {
 	phase: string;
 }
 
+// Tipo de retorno de la función de inicio de sesión
+export interface LoginResponse {
+	user?: User;
+	token?: string;
+	response: string;
+	message?: string;
+}
+
 // Tipo de retorno de la función de registro
-interface RegisterResponse {
+export interface RegisterResponse {
 	_id: string;
 	username: string;
 	email: string;
@@ -25,17 +39,6 @@ interface RegisterResponse {
 	companyRole: string;
 	companyWeb: string;
 	companyCountry: string;
-}
-
-interface LoginParams {
-	email: string;
-	password: string;
-}
-
-// Tipo de retorno de la función de inicio de sesión
-interface LoginResponse {
-	user: User;
-	token: string;
 }
 
 // Tipo de Usuario que retorna la API en el Login
@@ -56,7 +59,23 @@ export interface UserAPI {
 	pais_code: string;
 	pais_provincia: string;
 	pais_ciudad: string;
-	eliminado: boolean;
+	eliminado: string;
 	creacion: string;
 	exp?: number;
+}
+
+export interface AuthState {
+	isAuth: boolean;
+	success: boolean;
+	error: string | null | undefined;
+	loading: boolean;
+	isExpired: null;
+	userData: UserRegResponse | UserFinishResponse | User | null;
+	accessToken: string | null;
+}
+
+export interface RegisterFinishParams {
+	username: string;
+	password: string;
+	lead_reference_number: string | undefined;
 }

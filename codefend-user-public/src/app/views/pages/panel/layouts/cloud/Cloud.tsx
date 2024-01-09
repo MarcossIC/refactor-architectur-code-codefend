@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { EmptyScreenView } from '../../../components';
+import { EmptyScreenView } from '../../../../components';
 import './cloud.scss';
 
 interface MobileApp {

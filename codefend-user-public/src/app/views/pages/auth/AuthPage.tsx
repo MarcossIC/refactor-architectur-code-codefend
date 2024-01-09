@@ -1,10 +1,10 @@
 import React, { Suspense, lazy } from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
+import { AuthServices } from '../../../data';
 
-import './auth.scss';
 import '../../styles/buttons.scss';
 import '../../styles/forms.scss';
-import { AuthServices } from '../../../data';
+import './auth.scss';
 
 const Logo = lazy(() => import('../../components/standalones/Logo'));
 

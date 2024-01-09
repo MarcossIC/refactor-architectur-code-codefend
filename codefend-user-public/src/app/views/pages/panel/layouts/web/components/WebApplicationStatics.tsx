@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChartIcon } from '../../../../components';
-import { WebApplicationService, Webresources } from '../../../../../data';
+import { ChartIcon } from '../../../../../components';
+import { WebApplicationService, Webresources } from '../../../../../../data';
 
 interface WebResourceStaticProps {
 	webResources: Webresources[];

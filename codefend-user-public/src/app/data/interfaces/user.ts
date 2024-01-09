@@ -1,3 +1,5 @@
+import { UserAPI } from './auth';
+
 // Interface para la propiedad 'user'
 export interface UserRegResponse {
 	id: string;
@@ -54,13 +56,13 @@ export interface UserFinishResponse {
 	profile_media: string;
 	role: string;
 	username: string;
-  }
+}
 
 export interface RegFinishResponse {
-	message: string,
-	response: string,
-	session: string,
-	user: UserFinishResponse
+	message: string;
+	response: string;
+	session: string;
+	user: UserFinishResponse;
 }
 
 export interface User {
@@ -85,28 +87,6 @@ export interface User {
 	companyCountry?: string;
 	isDisabled: boolean;
 	createdAt: string;
-	exp?: number;
-}
-
-export interface UserAPI {
-	id: string;
-	company_id: string;
-	fname: string;
-	lname: string;
-	username: string;
-	role: string;
-	access_role: string;
-	email: string;
-	phone: string;
-	password: string;
-	mfa_llave: string;
-	profile_media: string;
-	pais: string;
-	pais_code: string;
-	pais_provincia: string;
-	pais_ciudad: string;
-	eliminado: string;
-	creacion: string;
 	exp?: number;
 }
 

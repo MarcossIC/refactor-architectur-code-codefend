@@ -1,12 +1,20 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
-import { isEmptyData } from '../../../../../data/utils/helper';
-
-import { EmptyCard, PageLoader, BugIcon, Table } from '../../../../components';
-import { IssuesShare, generateIDArray } from '../../../../../data';
-import { DashboardService } from '../../../../../data';
-import { useDoughnutChart } from '../../../../../data/hooks/useChart';
+import {
+	EmptyCard,
+	PageLoader,
+	BugIcon,
+	Table,
+	
+} from '../../../../../components';
+import {
+	IssuesShare,
+	generateIDArray,
+	DashboardService,
+	isEmptyData,
+	useDoughnutChart
+} from '../../../../../../data';
 
 interface DashboardChartProps {
 	vulnerabilityByRisk: IssuesShare;

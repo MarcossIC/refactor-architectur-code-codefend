@@ -7,9 +7,11 @@ import DashboardChart from './components/DashboardChart';
 import DashboardVulnerabilitiesStatus from './components/DashboardVulnerabilitiesStatus';
 import DashboardVulnerabilities from './components/DashboardVulnerabilities';
 
+import { useDashboard } from '../../../../../data';
+import '../../../../styles/flag.scss';
+import '../../../../styles/card.scss';
+import '../../../../styles/buttons.scss';
 import './dashboard.scss';
-import '../../../styles/card.scss';
-import { useDashboard } from '../../../../data';
 
 const Dashboard: React.FC = () => {
 	const { isLoading, companyData } = useDashboard();

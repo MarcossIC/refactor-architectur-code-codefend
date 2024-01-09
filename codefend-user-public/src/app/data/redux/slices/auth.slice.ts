@@ -1,23 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginThunk, registerThunk, registerFinishThunk } from '../thunks/auth.thunk';
+import {
+	loginThunk,
+	registerThunk,
+	registerFinishThunk,
+} from '../thunks/auth.thunk';
 
-import { User, UserFinishResponse, UserRegResponse, getToken, getUser } from '../..';
-
-/* // initialize userToken from local storage
-const accessToken = localStorage.getItem('userToken')
-	? localStorage.getItem('userToken')
-	: null;
- */
-
-interface AuthState {
-	isAuth: boolean;
-	success: boolean;
-	error: string | null | undefined;
-	loading: boolean;
-	isExpired: null;
-	userData: UserRegResponse| UserFinishResponse | User | null;
-	accessToken: string | null;
-}
+import { AuthState, User, getToken, getUser } from '../..';
 
 const initialState: AuthState = (() => {
 	const user = getUser();
@@ -60,7 +48,7 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = false;
-			state.userData = action.payload.leads
+			state.userData = action.payload.leads;
 		});
 		/* state =  with errors*/
 		builder.addCase(registerThunk.rejected, (state, action) => {
@@ -78,7 +66,7 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = false;
-			state.userData = action.payload.user
+			state.userData = action.payload.user;
 		});
 		/* state =  with errors*/
 		builder.addCase(registerFinishThunk.rejected, (state, action) => {

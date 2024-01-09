@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { PageLoader, EmptyScreenView } from '../../../components';
-import { MobileAppCard } from '../components/MobileAppCard';
-import { generateIDArray, useMobile } from '../../../../data';
-import '../../../styles/card.scss';
+import { PageLoader, EmptyScreenView } from '../../../../components';
+import { MobileAppCard } from '../../components/MobileAppCard';
+import { generateIDArray, useMobile } from '../../../../../data';
 import './mobileApplicationPanel.scss';
+import '../../../../styles/card.scss';
 
 interface MobileApp {
 	id: string;

@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { CircleIcon } from '../../../../components';
+import { CircleIcon } from '../../../../../components';
 import {
 	WebApplicationService,
 	Webresources,
 	generateIDArray,
-} from '../../../../../data';
+} from '../../../../../../data';
 
 export const WebApplicationLocation: React.FC<{
 	webResources: Webresources[];

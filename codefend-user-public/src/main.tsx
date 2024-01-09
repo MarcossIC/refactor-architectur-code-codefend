@@ -4,7 +4,7 @@ import { relaunch } from '@tauri-apps/api/process';
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 import { listen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/tauri';
-import './index.scss';
+import './app/views/styles/index.scss';
 import { App } from './app/App';
 
 // Tauri

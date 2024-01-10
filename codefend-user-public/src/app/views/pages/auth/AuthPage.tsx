@@ -1,8 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 
-import '../../styles/buttons.scss';
-import '../../styles/forms.scss';
 import './auth.scss';
 import { AuthServices } from '../../../data/services';
 

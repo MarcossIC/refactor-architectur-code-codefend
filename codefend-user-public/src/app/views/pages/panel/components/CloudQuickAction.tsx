@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import { User, useAuthState } from '../../../../data';
 
 import { ButtonLoader, GlobeWebIcon } from '../../../components';
-import '../../../styles/forms.scss';
 
 interface CloudQuickActionProps {
 	onDone: () => void;

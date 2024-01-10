@@ -15,8 +15,9 @@ import {
 	useModal,
 } from '../../../../../data';
 import { MobileSelectedDetails } from './components/MobileSelectedDetails';
+
 import './mobileApplicationPanel.scss';
-import '../../../../styles/card.scss';
+import { useNavigate } from 'react-router';
 
 const MobileApplicationPanel: React.FC = () => {
 	const {
@@ -50,6 +51,8 @@ const MobileApplicationPanel: React.FC = () => {
 		}
 	}, [getMobileInfo()]);
 
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<ModalTitleWrapper
@@ -59,8 +62,9 @@ const MobileApplicationPanel: React.FC = () => {
 				<AddMobileModal
 					onDone={() => {
 						refetch();
-						window.location.reload();
+						navigate(0);
 					}}
+					close={() => setShowModal(false)}
 				/>
 			</ModalTitleWrapper>
 			<main className={`mobile ${showScreen ? 'actived' : ''}`}>

@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { ModalWrapper, StatIcon } from '..';
-import '../../styles/modal.scss';
 
 interface ModalTitleWrapperProps {
 	children: ReactNode;

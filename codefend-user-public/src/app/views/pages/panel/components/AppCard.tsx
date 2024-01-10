@@ -1,8 +1,6 @@
 import React from 'react';
 import { defaultMobileCloudResourceAsset, useAppCard } from '../../../../data';
 import { CloseIcon, ConfirmModal, ModalWrapper } from '../../../components';
-import '../../../styles/buttons.scss';
-import '../../../styles/forms.scss';
 
 interface MobileAppCardProps {
 	isActive?: boolean;

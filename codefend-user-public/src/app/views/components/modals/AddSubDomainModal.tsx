@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { ButtonLoader, GlobeWebIcon } from '../';
 import { toast } from 'react-toastify';
-import '../../styles/modal.scss';
 import {
 	User,
 	WebApplicationService,
@@ -32,11 +31,7 @@ const AddSubDomainModal: React.FC<SubdomainModalProps> = (props) => {
 				return;
 			}
 
-			if (
-				!domainName ||
-				domainName.length == 0 ||
-				domainName.length > 100
-			) {
+			if (!domainName || domainName.length == 0 || domainName.length > 100) {
 				toast.error('Invalid domain');
 				return;
 			}

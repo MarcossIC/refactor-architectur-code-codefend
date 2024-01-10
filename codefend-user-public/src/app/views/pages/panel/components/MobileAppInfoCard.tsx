@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { AppCard } from './AppCard';
-import '../../../styles/card.scss';
 import { MobileApp } from 'app/data';
 
 interface MobileAppInfoCardProps {

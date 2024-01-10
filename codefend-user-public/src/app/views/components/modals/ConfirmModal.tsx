@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { ButtonLoader } from '..';
-import '../../styles/modal.scss';
 
 interface Props {
 	close: () => void;

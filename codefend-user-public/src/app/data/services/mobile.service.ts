@@ -38,12 +38,18 @@ const deleteApp = async (mobileId: string, companyID: string) => {
 	return data;
 };
 
-const add = async (androidAddress: string, iosAddress: string) => {
+const add = async (
+	androidAddress: string,
+	iosAddress: string,
+	companyID: string,
+) => {
 	const { data } = await fetchPOST({
 		params: {
 			model: 'resources/mobile',
+			ac: 'add',
 			app_android_link: androidAddress,
 			app_apple_link: iosAddress,
+			company_id: companyID,
 		},
 	});
 

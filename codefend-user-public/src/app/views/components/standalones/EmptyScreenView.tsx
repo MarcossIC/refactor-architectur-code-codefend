@@ -1,8 +1,5 @@
 import React from 'react';
 
-import '../../styles/card.scss';
-import '../../styles/buttons.scss';
-
 interface EmptyScreenProps {
 	title?: string;
 	info?: string;

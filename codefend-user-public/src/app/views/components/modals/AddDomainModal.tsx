@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { GlobeWebIcon, ButtonLoader } from '../';
 import { toast } from 'react-toastify';
 import { useAuthState, User, WebApplicationService } from '../../../data';
-import '../../styles/modal.scss';
 
 interface AddDomainProps {
 	onDone: () => void;

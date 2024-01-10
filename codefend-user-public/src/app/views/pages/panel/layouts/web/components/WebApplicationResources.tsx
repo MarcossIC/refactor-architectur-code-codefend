@@ -24,8 +24,6 @@ import {
 	generateIDArray,
 	useModal,
 } from '../../../../../../data';
-import '../../../../../styles/buttons.scss';
-import '../../../../../styles/forms.scss';
 
 interface WebResourcesProps {
 	refetch: () => void;

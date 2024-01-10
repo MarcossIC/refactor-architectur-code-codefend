@@ -1,5 +1,5 @@
-import { MobileService, useModal } from 'app/data';
 import React, { useState } from 'react';
+import { MobileService, useModal } from '../../../data';
 import { toast } from 'react-toastify';
 import { ButtonLoader, GlobeWebIcon } from '..';
 

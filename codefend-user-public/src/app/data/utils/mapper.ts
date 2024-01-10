@@ -1,6 +1,9 @@
 import {
+	AllIssues,
+	CloudApp,
 	Company,
 	DashboardProps,
+	IssueClass,
 	Issues,
 	IssuesCondition,
 	IssuesShare,
@@ -11,6 +14,7 @@ import {
 	UserAPI,
 	WebapplicationProps,
 	Webresources,
+	cleanReview,
 	formatDate,
 } from '..';
 
@@ -77,7 +81,7 @@ export const mapIssues = (source: any): Issues => {
 		pricePaid: source.price_paid,
 		isDisabled: source.eliminado,
 		createdAt: formatDate(source.creacion),
-	};
+	} as Issues;
 };
 export const mapIssueShare = (source: any): IssuesShare => {
 	return {
@@ -187,7 +191,7 @@ export const mapMobileApp = (source: any): MobileApp => {
 		appDeveloper: source.app_developer,
 		appDesc: source.app_desc,
 		appRank: source.app_rank,
-		appReviews: source.app_reviews,
+		appReviews: cleanReview(source.app_reviews),
 		appAndroidDownloads: source.app_android_downloads,
 		appMedia: source.app_media,
 		isDisabled: source.eliminado === '1',
@@ -198,7 +202,9 @@ export const mapMobileApp = (source: any): MobileApp => {
 export const mapMobileProps = (source: any): MobileProps => {
 	return {
 		error: source.error,
-		available: source.disponibles.map((apps: any) => mapMobileApp(apps)),
+		available: source.disponibles
+			? source.disponibles.map((apps: any) => mapMobileApp(apps))
+			: [],
 	};
 };
 
@@ -209,5 +215,32 @@ export const mobileUniqueProps = (source: any): MobileUnique => {
 		issues: source.unico.issues,
 		issueShare: mapIssueShare(source.unico),
 		issueCondition: mapIssuesCondition(source.unico),
+	};
+};
+
+export const mapCloudApp = (source: any): CloudApp => {
+	return {
+		id: source.id,
+		companyID: source.company_id,
+		appName: source.cloud_name,
+		appDesc: source.cloud_desc,
+		cloudProvider: source.cloud_provider,
+		cloudFirstKey: source.cloud_llave_1,
+		cloudSecondKey: source.cloud_llave_2,
+		cloudThirdKey: source.cloud_llave_3,
+		appMedia: source.media,
+		isDisabled: source.eliminado === '1',
+		createdAt: formatDate(source.creacion),
+	} as CloudApp;
+};
+
+export const mapAllIssues = (source: any): AllIssues => {
+	return {
+		issues: source.issues
+			? source.issues.map((issue: any) => mapIssues(issue))
+			: [],
+		issueClass: source.issues_class,
+		issueShare: mapIssueShare(source),
+		issueCondition: mapIssuesCondition(source),
 	};
 };

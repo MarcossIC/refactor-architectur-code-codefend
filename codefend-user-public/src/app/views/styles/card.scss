@@ -105,11 +105,20 @@ section {
 				display: flex;
 				align-items: center;
 				column-gap: 0.25rem;
+				font-weight: 700;
+				text-transform: uppercase;
 
 				h3 {
-					color: #000;
 					font-weight: 700;
 					text-transform: uppercase;
+				}
+
+				.black {
+					color: #000;
+				}
+
+				.red {
+					color: rgba(239, 68, 68, 1);
 				}
 			}
 

@@ -16,6 +16,7 @@ export { default as ModalTitleWrapper } from './modals/ModalTitleWrapper';
 export { AddMobileModal } from './modals/AddMobileModal';
 export { default as AddAccessPointModal } from './modals/AddAccessPointModal';
 export { AddNetworkDeviceModal } from './modals/AddNetworkDeviceModal';
+export { AddCloudModal } from './modals/AddCloudModal';
 export * from './modals/DeletewebResource';
 
 export { Table } from './standalones/Table';

@@ -1,5 +1,4 @@
-import { User } from "..";
-
+import { User } from '..';
 
 /** Gets token in localStorage */
 export const getToken = () => localStorage.getItem('token') ?? '';
@@ -76,4 +75,11 @@ export const generateIDArray = (count: number): string[] => {
 	return Array.from({ length: count }, () => {
 		return generateID();
 	});
+};
+
+export const cleanReview = (source: string) => {
+	let update = source.replace(/\bopiniones\b/gi, '');
+	update = update.replace(/&nbsp;/g, '');
+	update = update.replace(/&Acirc;/g, '');
+	return update.trim();
 };

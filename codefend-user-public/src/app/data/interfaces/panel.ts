@@ -1,7 +1,6 @@
-import { User } from '.';
+import { ID, Monitoring, ResourceID, User } from '.';
 
-export interface Company {
-	id: string;
+export interface Company extends ID, Monitoring {
 	name: string;
 	web: string;
 	country: string;
@@ -19,13 +18,9 @@ export interface Company {
 	ownerPhone: string;
 	profileMedia: string;
 	orderSize: string;
-	isDisabled: boolean;
-	createdAt: string;
 }
 
-export interface Resouce {
-	id: string;
-	companyID: string;
+export interface Resouce extends ResourceID, Monitoring {
 	resourceDomain: string;
 	resourceDomainDad: string;
 	servers: string;
@@ -34,8 +29,6 @@ export interface Resouce {
 	serverCountryCode: string;
 	serverCountryProvince: string;
 	serverCountryCity: string;
-	isDisabled: boolean;
-	createdAt: string;
 }
 
 export interface Webresources extends Resouce {
@@ -63,9 +56,7 @@ export interface IssuesCondition {
 	open: string | number;
 }
 
-export interface CompanyMember {
-	id: string;
-	companyID: string;
+export interface CompanyMember extends ResourceID, Monitoring {
 	name: string;
 	lastName: string;
 	companyRole: string;
@@ -76,13 +67,9 @@ export interface CompanyMember {
 	countryCode: string;
 	countryProvince: string;
 	countryCity: string;
-	isDisabled: boolean;
-	createdAt: string;
 }
 
-export interface Issues {
-	id: string;
-	companyID: string;
+export interface Issues extends ResourceID, Monitoring {
 	resourceClass: string;
 	resourceID: string;
 	researcherID: string;
@@ -93,8 +80,6 @@ export interface Issues {
 	condition: string;
 	price: string;
 	pricePaid: string;
-	isDisabled: string;
-	createdAt: string;
 }
 
 export interface DashboardProps {
@@ -111,9 +96,7 @@ export interface WebapplicationProps {
 	resources: Webresources[];
 }
 
-export interface MobileApp {
-	id: string;
-	companyID: string;
+export interface MobileApp extends ResourceID, Monitoring {
 	appOS: string;
 	appName: string;
 	appLink: string;
@@ -124,8 +107,6 @@ export interface MobileApp {
 	appReviews: string;
 	appAndroidDownloads: string;
 	appMedia: string;
-	isDisabled: boolean;
-	createdAt: string;
 }
 
 export interface MobileUnique extends MobileApp {
@@ -138,4 +119,30 @@ export interface MobileUnique extends MobileApp {
 export interface MobileProps {
 	error: string;
 	available: MobileApp[];
+}
+
+export interface CloudApp extends ResourceID, Monitoring {
+	appName: string;
+	appDesc: string;
+	cloudProvider: string;
+	cloudFirstKey: string;
+	cloudSecondKey: string;
+	cloudThirdKey: string;
+	appMedia: string;
+}
+export interface IssueClass {
+	total: string;
+	web: string;
+	mobile: string;
+	infra: string;
+	source: string;
+	social: string;
+	research: string;
+}
+
+export interface AllIssues {
+	issues: Issues[];
+	issueClass: IssueClass;
+	issueShare: IssuesShare;
+	issueCondition: IssuesCondition;
 }

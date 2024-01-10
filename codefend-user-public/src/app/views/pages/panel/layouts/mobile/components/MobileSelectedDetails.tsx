@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { PageLoader } from '../../../../../components';
 import {
-	MobileAppInfoCard,
+	AppCardInfo,
 	ProvidedTestingCredentials,
 	VulnerabilityRisk,
 	VulnerabilitiesStatus,
@@ -34,10 +34,7 @@ export const MobileSelectedDetails: React.FC<MobileSelectedDetailsProps> = ({
 			{!isLoding ? (
 				<>
 					<div>
-						<MobileAppInfoCard
-							type="mobile"
-							selectedApp={selectedMobileApp}
-						/>
+						<AppCardInfo type="mobile" selectedApp={selectedMobileApp} />
 					</div>
 					<div className="provided-testing-container">
 						<div className="wrapper">
@@ -50,14 +47,14 @@ export const MobileSelectedDetails: React.FC<MobileSelectedDetailsProps> = ({
 							<VulnerabilityRisk
 								isLoading={isLoding}
 								vulnerabilityByRisk={
-									getMobile().issueShare ??
-									({} as IssuesShare)
+									getMobile().issueShare
+										? getMobile().issueShare
+										: ({} as IssuesShare)
 								}
 							/>
 							<VulnerabilitiesStatus
 								vulnerabilityByShare={
-									getMobile().issueCondition ??
-									({} as IssuesCondition)
+									getMobile().issueCondition ?? ({} as IssuesCondition)
 								}
 							/>
 						</div>

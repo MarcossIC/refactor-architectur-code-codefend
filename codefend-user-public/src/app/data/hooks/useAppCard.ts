@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { MobileService, useAuthState, useModal } from '..';
+import { CloudService, MobileService, useAuthState, useModal } from '..';
 import { toast } from 'react-toastify';
 
 interface HookProps {
@@ -33,9 +33,9 @@ export const useAppCard = (props: HookProps) => {
 
 	const handleDelete = useCallback(
 		(id: string) => {
-			const action = isMobileType ? MobileService : MobileService;
+			const action = isMobileType ? MobileService : CloudService;
 
-			action
+			return action
 				.deleteApp(id, getUserdata()?.companyID)
 				.then(() => {
 					toast.success(
@@ -49,7 +49,6 @@ export const useAppCard = (props: HookProps) => {
 				})
 				.finally(() => {
 					viewModal(false);
-					window.location.reload();
 				});
 		},
 		[isMobileType],

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import {
 	Chart as ChartJS,
@@ -9,7 +9,7 @@ import {
 	ChartData,
 	ChartOptions,
 	ArcElement,
-} from 'chart.js';
+} from 'chart.js/auto';
 import { IssuesShare } from '..';
 
 export const useDoughnutChart = (vulnerabilityByRisk: IssuesShare) => {

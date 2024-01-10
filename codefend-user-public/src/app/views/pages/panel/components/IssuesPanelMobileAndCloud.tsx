@@ -1,19 +1,27 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
 import { BugIcon, EmptyCard, PageLoader } from '../../../components';
 import { useNavigate } from 'react-router';
-import { formatDate, generateIDArray } from '../../../../data';
+import {
+	Issues,
+	Monitoring,
+	formatDate,
+	generateIDArray,
+} from '../../../../data';
 import '../../../styles/table.scss';
 
 interface Props {
 	isLoading: boolean;
-	issues: any;
+	issues: Issues[] | Issues;
+	refetch?: () => void;
 }
 
 export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 	const navigate = useNavigate();
+
 	const formatIssues = useMemo(() => {
-		if (props.issues.constructor !== Array) return [props.issues];
-		return props.issues;
+		if (!Array.isArray(props.issues)) return [props.issues] as Issues[];
+
+		return props.issues as Issues[];
 	}, [props.issues]);
 
 	const isValidRiskScore = useCallback(
@@ -25,7 +33,9 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 
 	const generateVulnerabilityArray = useCallback(
 		(riskScore: any) =>
-			isValidRiskScore(riskScore) ? [...Array(parseInt(riskScore))] : [],
+			isValidRiskScore(riskScore)
+				? generateIDArray(parseInt(riskScore))
+				: [],
 		[isValidRiskScore],
 	);
 
@@ -39,11 +49,11 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 
 	const issuesKeys = useMemo(
 		() =>
-			formatIssues && formatIssues.length !== 0
-				? generateIDArray(formatIssues.length)
-				: [],
+			formatIssues.length !== 0 ? generateIDArray(formatIssues.length) : [],
 		[formatIssues],
 	);
+
+	console.log({ formatIssue: formatIssues[0] });
 
 	return (
 		<>
@@ -72,52 +82,48 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 
 			{!props.isLoading ? (
 				<div className="rows">
-					{formatIssues.map((vulnerability: any, index: number) => (
+					{formatIssues.map((vulnerability: Issues, index: number) => (
 						<Fragment key={issuesKeys[index]}>
 							<div
 								className="item"
 								onClick={(e: React.FormEvent) => {
 									navigate(
-										`/issues/${vulnerability.id}_${vulnerability.name}_${vulnerability.risk_level}`,
+										`/issues/${vulnerability.id}_${vulnerability.name}_${vulnerability.riskLevel}`,
 									);
 									e.preventDefault();
 									e.stopPropagation();
 								}}>
-								<div className="date">
-									{formatDate(vulnerability.creacion)}
-								</div>
+								<div className="date">{vulnerability.createdAt}</div>
 								<div className="username">
-									{vulnerability.researcher_username}
+									{vulnerability.researcherUsername}
 								</div>
 								<div className="vul-class">
-									{vulnerability.resource_class}
+									{vulnerability.resourceClass}
 								</div>
 								<div className="vul-risk">
-									{vulnerability.risk_level}
+									{vulnerability.riskLevel}
 								</div>
 								<div className="vul-score flex no-border-bottom">
 									<span className="risk-score">
-										{vulnerability.risk_score}
+										{vulnerability.riskScore}
 									</span>
 									<span className="space"></span>
 									{generateVulnerabilityArray(
-										vulnerability.risk_score,
+										vulnerability.riskScore,
 									).map((value) => (
 										<Fragment key={value}>
 											<span className="red-border codefend-bg-red risk-score-helper"></span>
 										</Fragment>
 									))}
-									{generateLimitedArray(
-										vulnerability.risk_score,
-									).map((value) => (
-										<Fragment key={value}>
-											<span className="codefend-border-red risk-score-helper"></span>
-										</Fragment>
-									))}
+									{generateLimitedArray(vulnerability.riskScore).map(
+										(value) => (
+											<Fragment key={value}>
+												<span className="codefend-border-red risk-score-helper"></span>
+											</Fragment>
+										),
+									)}
 								</div>
-								<div className="vul-title">
-									{vulnerability.name}
-								</div>
+								<div className="vul-title">{vulnerability.name}</div>
 							</div>
 						</Fragment>
 					))}

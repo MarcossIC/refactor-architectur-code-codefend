@@ -204,6 +204,43 @@ main.mobile,
 main.cloud {
 	.left {
 		width: 30%;
+		margin-block-end: -10px;
+		margin-block-start: -10px;
+
+		padding-block-start: 10px;
+		padding-block-end: 4rem;
+		padding-inline-end: 13px;
+
+		width: 30%;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		max-height: 100dvh;
+
+		.list {
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+			width: 100%;
+			overflow-y: auto;
+			overflow-x: hidden;
+			padding-inline-end: 0.625rem;
+
+			.app-info {
+				cursor: pointer;
+			}
+		}
+
+		.add-button {
+			display: flex;
+			width: 100%;
+
+			button {
+				width: 100%;
+				margin-block-end: 1rem;
+			}
+		}
 	}
 	.right {
 		max-width: 70%;

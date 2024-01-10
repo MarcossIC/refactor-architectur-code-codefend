@@ -12,13 +12,17 @@ import {
 
 export const useMobile = () => {
 	const { getUserdata } = useAuthState();
+
 	const [isLoading, setLoading] = useState(false);
+
 	const [mobileInfo, setCompanyMobileData] = useState<MobileProps>({
 		error: '',
 		available: [],
 	} as MobileProps);
-	const [selectedMobileApp, setSelectedMobileApp] =
-		useState<MobileApp | null>(null);
+
+	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp | null>(
+		null,
+	);
 
 	const fetchWeb = useCallback((companyID: string) => {
 		setLoading(true);
@@ -37,10 +41,11 @@ export const useMobile = () => {
 		fetchWeb(companyID);
 	}, []);
 
-	const refetch = useCallback(
-		() => (companyID: string) => fetchWeb(companyID),
-		[],
-	);
+	const refetch = useCallback(() => {
+		const user = getUserdata() as User;
+		const companyID = user?.companyID as string;
+		fetchWeb(companyID);
+	}, []);
 
 	const selectMobile = useCallback(
 		(mobile: MobileApp) => {

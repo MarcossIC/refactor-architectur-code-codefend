@@ -56,20 +56,7 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 
 	return (
 		<>
-			<div className="table__title__header">
-				<label>
-					Selecciona el campo:
-					<select
-						value={selectedField}
-						onChange={(e) => handleFieldChange(e.target.value)}>
-						{columns.map((column, index) => (
-							<option key={index} value={column}>
-								{column}
-							</option>
-						))}
-					</select>
-				</label>
-			</div>
+			<div className="table__title__header"></div>
 			<div>
 				<table>
 					<thead>
@@ -92,19 +79,13 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 						</tr>
 					</thead>
 					<tbody style={{ overflowX: 'auto' }}>
-						
-							{rows.map((row: any, rowIndex: number) => (
-								<tr key={rowsID[rowIndex]}>
-									{columns.map(
-										(column: string, colIndex: number) => (
-											<td key={colIndex}>
-												{row[column.toLowerCase()]}
-											</td>
-										),
-									)}
-								</tr>
-							))}
-						
+						{rows.map((row: any, rowIndex: number) => (
+							<tr key={rowsID[rowIndex]}>
+								{columns.map((column: string, colIndex: number) => (
+									<td key={colIndex}>{row[column.toLowerCase()]}</td>
+								))}
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</div>

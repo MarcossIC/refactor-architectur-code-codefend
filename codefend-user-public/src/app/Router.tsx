@@ -26,6 +26,34 @@ const CloudApplicationPanel = lazy(
 	() => import('./views/pages/panel/layouts/cloud/Cloud'),
 );
 
+const EnpPanel = lazy(() => import('./views/pages/panel/layouts/enp/EnpPanel'));
+
+const SourceCodePanel = lazy(
+	() => import('./views/pages/panel/layouts/sourcecode/SourceCodePanel'),
+);
+
+const SocielEngineeringPanel = lazy(
+	() => import('./views/pages/panel/layouts/social/SocielEngineeringPanel'),
+);
+
+const IssuesPanel = lazy(
+	() => import('./views/pages/panel/layouts/issues/IssuesPanel'),
+);
+
+const SupportPanel = lazy(
+	() => import('./views/pages/panel/layouts/support/SupportPanel'),
+);
+
+const PreferencePanel = lazy(
+	() => import('./views/pages/panel/layouts/preferences/PreferencePanel'),
+);
+
+const InxPanel = lazy(() => import('./views/pages/panel/layouts/inx/InxPanel'));
+
+const SnsPanel = lazy(() => import('./views/pages/panel/layouts/sns/SnsPanel'));
+
+const VdbPanel = lazy(() => import('./views/pages/panel/layouts/vdb/VdbPanel'));
+
 export const AppRouter: React.FC = () => {
 	return (
 		<>
@@ -49,7 +77,20 @@ export const AppRouter: React.FC = () => {
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/web" element={<WebApplication />} />
 					<Route path="/mobile" element={<MobileApplication />} />
-					<Route path="/cloud" element={<CloudApplicationPanel />} /> 
+					<Route path="/cloud" element={<CloudApplicationPanel />} />
+
+					<Route path="/enp" element={<EnpPanel />} />
+					<Route path="/source" element={<SourceCodePanel />} />
+					<Route path="/social" element={<SocielEngineeringPanel />} />
+					<Route path="/issues" element={<IssuesPanel />} />
+					<Route path="/support" element={<SupportPanel />} />
+					<Route path="/preferences" element={<PreferencePanel />} />
+					<Route path="/inx" element={<InxPanel />} />
+					<Route path="/sns" element={<SnsPanel />} />
+					<Route path="/vdb" element={<VdbPanel />} />
+
+					{/* ?? No aparece en la sidebar, si en sus rutas */}
+					<Route path="/companies" element={<></>} />
 				</Route>
 
 				{/* Rutas públicas para login y registro */}
@@ -57,16 +98,10 @@ export const AppRouter: React.FC = () => {
 					<Route index element={<Navigate to="signin" replace />} />
 					<Route path="signin" element={<SignInLayout />} />
 					<Route path="signup" element={<SignUpLayout />} />
-					<Route
-						path="confirmation"
-						element={<ConfirmationSignUp />}
-					/>
+					<Route path="confirmation" element={<ConfirmationSignUp />} />
 
 					{/* <Route path="/auth/signup/:ref" component={RegisterFinishView} /> */}
-					<Route
-						path="signup/:ref"
-						element={<FinishSignUpLayout />}
-					/>
+					<Route path="signup/:ref" element={<FinishSignUpLayout />} />
 				</Route>
 			</Routes>
 		</>

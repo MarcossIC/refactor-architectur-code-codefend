@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { AppCard } from './AppCard';
-import { MobileApp } from 'app/data';
+import { CloudApp, MobileApp } from '../../../../data';
 
-interface MobileAppInfoCardProps {
-	type: string;
-	selectedApp: MobileApp | any;
+interface AppCardInfoProps {
+	type?: string;
+	selectedApp: MobileApp | CloudApp;
 }
 
-export const MobileAppInfoCard: React.FC<MobileAppInfoCardProps> = ({
+export const AppCardInfo: React.FC<AppCardInfoProps> = ({
 	type,
 	selectedApp,
 }) => {
@@ -24,15 +24,24 @@ export const MobileAppInfoCard: React.FC<MobileAppInfoCardProps> = ({
 			}`}>
 			<div className={`${isMobileType ? 'app-card-isMobile' : ''}`}>
 				<AppCard
-					showDetails={isMobileType ? false : true}
+					showDetails={true}
 					isMobile={isMobileType}
 					id={selectedApp.id}
 					appMedia={selectedApp.appMedia}
 					appDesc={selectedApp.appDesc}
-					appReviews={selectedApp.appReviews}
-					appRank={selectedApp.appRank}
-					appDeveloper={selectedApp.appDeveloper}
 					name={selectedApp.appName}
+					appReviews={
+						'appReviews' in selectedApp ? selectedApp.appReviews : ''
+					}
+					appRank={'appRank' in selectedApp ? selectedApp.appRank : ''}
+					appDeveloper={
+						'appDeveloper' in selectedApp ? selectedApp.appDeveloper : ''
+					}
+					cloudProvider={
+						'cloudProvider' in selectedApp
+							? selectedApp.cloudProvider
+							: ''
+					}
 				/>
 			</div>
 

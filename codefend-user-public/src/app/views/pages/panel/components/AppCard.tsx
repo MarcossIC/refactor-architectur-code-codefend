@@ -10,15 +10,15 @@ interface MobileAppCardProps {
 	cloudProvider?: any;
 	isMainGoogleNetwork?: string | boolean;
 	isMobile?: string | boolean;
+	appReviews?: string;
+	appRank?: string;
+	appDeveloper?: string;
 	type?: string;
 
 	id: string;
 	name: string;
 	appMedia: string;
 	appDesc: string;
-	appReviews: string;
-	appRank: string;
-	appDeveloper: string;
 }
 
 export const AppCard: React.FC<MobileAppCardProps> = ({
@@ -71,7 +71,7 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 									viewModal(false);
 								}}
 								action={() => {
-									handleDelete(id);
+									handleDelete(id).finally(() => onDone?.(id));
 								}}
 							/>
 						</div>
@@ -81,10 +81,10 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 				<></>
 			)}
 			<div
-				className={`app-card ${
-					isDetails || isMobile ? 'detail' : 'app-card-border'
-				} ${isActive ? 'active' : ''}`}>
-				{(isDetails || isMobileType) && (
+				className={`app-card ${!isDetails ? 'app-card-border' : 'pt-5'} ${
+					isActive && 'active'
+				}`}>
+				{!isDetails && (
 					<button
 						className="app-delete-btn"
 						title={
@@ -109,7 +109,9 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 						) : (
 							<img
 								src={
-									defaultMobileCloudResourceAsset.includes(name)
+									Array.from(defaultMobileCloudResourceAsset).includes(
+										name,
+									)
 										? `/codefend/${name}.jpg`
 										: `/clouds/${
 												isMobileType
@@ -127,11 +129,15 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 					</div>
 					<div className="app-card-content-body">
 						<div className="app-card-title">
-							<h3 className={`${isDetails ?? 'text-red-500'}`}>
+							<h3 className={`${isDetails ? 'red' : 'black'}`}>
 								{isMainGoogleNetwork ? 'main google network' : name}
 							</h3>
-							{isDetails && (
-								<span className="second-text">resource id: {id}</span>
+							{isDetails && !isMobileType ? (
+								<span className="second-text black">
+									resource id: {id}
+								</span>
+							) : (
+								<></>
 							)}
 						</div>
 						<div className="app-details text-gray">

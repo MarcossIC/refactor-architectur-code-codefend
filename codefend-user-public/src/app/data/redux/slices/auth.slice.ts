@@ -4,7 +4,7 @@ import {
 	registerThunk,
 	registerFinishThunk,
 } from '../thunks/auth.thunk';
-import { AuthState, User, getToken, getUser } from '../..';
+import { AuthState, User, UserAPI, getToken, getUser } from '../..';
 
 const initialState: AuthState = (() => {
 	const user = getUser();
@@ -47,7 +47,7 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = false;
-			state.userData = action.payload.leads;
+			state.userData = action.payload.leads as unknown as User;
 		});
 		/* state =  with errors*/
 		builder.addCase(registerThunk.rejected, (state, action) => {
@@ -65,7 +65,7 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = false;
-			state.userData = action.payload.user;
+			state.userData = action.payload.user as unknown as User;
 		});
 		/* state =  with errors*/
 		builder.addCase(registerFinishThunk.rejected, (state, action) => {
@@ -87,7 +87,7 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = true;
-			state.userData = action.payload.user as User;
+			state.userData = action.payload.user as User ;
 			state.accessToken = action.payload.token as string;
 		});
 		/* state =  with errors*/

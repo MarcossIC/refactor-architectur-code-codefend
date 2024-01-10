@@ -49,7 +49,7 @@ export const AppRouter: React.FC = () => {
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/web" element={<WebApplication />} />
 					<Route path="/mobile" element={<MobileApplication />} />
-					<Route path="/cloud" element={<CloudApplicationPanel />} />
+					<Route path="/cloud" element={<CloudApplicationPanel />} /> 
 				</Route>
 
 				{/* Rutas públicas para login y registro */}

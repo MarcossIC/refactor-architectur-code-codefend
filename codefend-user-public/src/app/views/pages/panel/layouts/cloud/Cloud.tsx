@@ -17,13 +17,13 @@ const CloudApplicationPanel: React.FC = () => {
 
 	const handleCloudAppClick = (cloud: any) => {
 		console.log({ cloud, selectedCloudApp });
-		if (cloud.id === (selectedCloudApp ? selectedCloudApp.id : null))
+		if (cloud.id === (selectedCloudApp ? selectedCloudApp : null))
 			return;
 		setSelectedCloudApp(cloud);
 	};
 
 	const handleActiveCloudValidation = (cloud: any) => {
-		return cloud.id === (selectedCloudApp ? selectedCloudApp.id : null);
+		return cloud.id === (selectedCloudApp ? selectedCloudApp : null);
 	};
 
 	useEffect(() => {

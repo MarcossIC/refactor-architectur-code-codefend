@@ -70,7 +70,7 @@ export interface AuthState {
 	error: string | null | undefined;
 	loading: boolean;
 	isExpired: null;
-	userData: UserRegResponse | UserFinishResponse | User | null;
+	userData:  User | null;
 	accessToken: string | null;
 }
 

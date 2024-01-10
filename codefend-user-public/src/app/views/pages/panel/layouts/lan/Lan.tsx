@@ -4,6 +4,8 @@ import { LanApplicationService } from '../../../../../data/services/lan.service'
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { invoke } from '@tauri-apps/api/tauri';
+import InternalNetworks from './components/InternalNetworks';
+import { PageLoaderWhite } from '../../../../components';
 
 export const LanPage: React.FC = () => {
 	const companyID = useAppSelector(
@@ -74,17 +76,18 @@ export const LanPage: React.FC = () => {
 							setInternalNetwork({ loading: true, data: {} })
 						}
 						internalNetwork={
-							internalNetworkDataInfo().disponibles ?? []
+							/*internalNetworkDataInfo().disponibles ?? []*/ []
 						}
 					/>
 				</section>
 				<section className="right">
+					{/* 
 					<InternalNetworksChart
 						isLoading={internalNetwork.loading}
-						internalNetwork={
-							internalNetworkDataInfo().disponibles ?? []
-						}
-					/>
+						internalNetwork={internalNetworkDataInfo().disponibles ?? []}
+					/> 
+				
+					*/}
 					<button
 						onClick={() => {
 							scanLocal();

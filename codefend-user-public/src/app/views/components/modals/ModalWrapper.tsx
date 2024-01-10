@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 interface ModalWrapper {
 	children: ReactNode;
 	isErrorBox?: boolean;
-	action: () => void;
+	action?: () => void;
 }
 
 const ModalWrapper: React.FC<ModalWrapper> = ({
@@ -16,7 +16,7 @@ const ModalWrapper: React.FC<ModalWrapper> = ({
 			onClick={(e) => {
 				e.preventDefault();
 				e.stopPropagation();
-				action();
+				action && action();
 			}}
 			className="modal-wrapper">
 			<div className={`wrapper-content ${!isErrorBox ? 'max-w' : ''}`}>

@@ -28,7 +28,7 @@ const getOne = async (lanId: string | number, companyID: number) => {
 	}
 };
 
-const add = async (params: any, companyID: string) => {
+const add = async (params: any, companyID: string | undefined) => {
 	const { data } = await fetchPOST({
 		params: {
 			model: 'resources/lan',

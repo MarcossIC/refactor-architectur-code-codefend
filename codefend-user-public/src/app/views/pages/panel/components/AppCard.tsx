@@ -90,9 +90,7 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 					<button
 						className="app-delete-btn"
 						title={
-							isMobileType
-								? 'Remove mobile app'
-								: 'Remove cloud app'
+							isMobileType ? 'Remove mobile app' : 'Remove cloud app'
 						}
 						onClick={(e) => {
 							e.preventDefault();
@@ -113,9 +111,7 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 						) : (
 							<img
 								src={
-									defaultMobileCloudResourceAsset.includes(
-										name,
-									)
+									defaultMobileCloudResourceAsset.includes(name)
 										? `/codefend/${name}.jpg`
 										: `/clouds/${
 												isMobileType
@@ -134,31 +130,25 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 					<div className="app-card-content-body">
 						<div className="app-card-title">
 							<h3 className={`${isDetails ?? 'text-red-500'}`}>
-								{isMainGoogleNetwork
-									? 'main google network'
-									: name}
+								{isMainGoogleNetwork ? 'main google network' : name}
 							</h3>
 							{isDetails && (
-								<span className="second-text">
-									resource id: {id}
-								</span>
+								<span className="second-text">resource id: {id}</span>
 							)}
 						</div>
 						<div className="app-details text-gray">
 							{isMainGoogleNetwork ? (
 								<>
 									<span>
-										This is our main GCP network. Please
-										handle with care.
+										This is our main GCP network. Please handle with
+										care.
 									</span>
 								</>
 							) : (
 								<>
 									<p
 										className={`app-details-description ${
-											isMobileType
-												? 'isMobile'
-												: 'notMobile'
+											isMobileType ? 'isMobile' : 'notMobile'
 										}`}>
 										{appDesc ?? ''}
 									</p>

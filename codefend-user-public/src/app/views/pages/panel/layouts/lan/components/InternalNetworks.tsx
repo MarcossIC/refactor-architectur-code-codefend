@@ -1,9 +1,9 @@
+import { useModal } from 'app/data';
+import useCompany from 'app/data/hooks/useCompany';
+import { ApiHandlers } from 'app/data/services/api.service';
 import { useEffect, useState } from 'react';
-import { ApiHandlers } from '../../../../../data/services/api.service';
-import useCompany from '../../../../../data/hooks/useCompany';
-import { useModal } from '../../../../../data';
 
-export const InternalNetworks: React.FC = () => {
+export const InternalNetworks: React.FC<any> = (props) => {
 	const [state, setState] = useState({
 		companies: [],
 		showModal: false,
@@ -190,18 +190,14 @@ export const InternalNetworks: React.FC = () => {
 								setCompanyStore(company);
 							}}
 							className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base w-1/12 pt-3 pb-3">
-								{company.id}
-							</p>
+							<p className="text-base w-1/12 pt-3 pb-3">{company.id}</p>
 							<p className="w-4/12 text-base pt-3 pb-3">
 								{company.name}
 							</p>
 							<p className="text-base w-3/12 pt-3 pb-3">
 								{company.country}
 							</p>
-							<p className="text-base w-4/12 pt-3 pb-3">
-								{company.web}
-							</p>
+							<p className="text-base w-4/12 pt-3 pb-3">{company.web}</p>
 						</div>
 					))}
 				</div>

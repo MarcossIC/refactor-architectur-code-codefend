@@ -1,60 +1,40 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { PageLoader, EmptyScreenView } from '../../../../components';
-import { MobileAppCard } from '../../components/MobileAppCard';
-import { generateIDArray, useMobile } from '../../../../../data';
+import { AppCard } from '../../components/AppCard';
+import { MobileApp, generateIDArray, useMobile } from '../../../../../data';
+import { MobileSelectedDetails } from './components/MobileSelectedDetails';
 import './mobileApplicationPanel.scss';
 import '../../../../styles/card.scss';
 
-interface MobileApp {
-	id: string;
-}
-
 const MobileApplicationPanel: React.FC = () => {
+	const {
+		isLoading,
+		getMobileInfo,
+		selectedMobileApp,
+		isCurrentMobileSelected,
+		refetch,
+		isSelected,
+		selectMobile,
+		changeMobile,
+	} = useMobile();
+
 	const [showScreen, setShowScreen] = useState<boolean>(false);
-	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp>(
-		{} as MobileApp,
-	);
 
-	const { isLoading, mobileInfo } = useMobile();
-
-	const getMobileInfo = () => {
-		const mobileData = isLoading ? [] : mobileInfo.disponibles;
-		const mobileDataGroup = mobileData ?? [];
-		return mobileDataGroup;
-	};
-
-	const handleMobileAppClick = useCallback(
-		(mobile: any) => {
-			if (mobile.id === selectedMobileApp.id) return;
-
-			setSelectedMobileApp(mobile);
-		},
-		[selectedMobileApp],
-	);
-
-	const handleActiveMobileValidation = useCallback(
-		(mobile: MobileApp) => {
-			return mobile.id === selectedMobileApp.id;
-		},
-		[selectedMobileApp],
-	);
-
-	const mobileKeys = useMemo(
-		() => generateIDArray(getMobileInfo().length),
-		[getMobileInfo().length],
-	);
+	const mobileKeys = useMemo(() => {
+		const mobileInfo = getMobileInfo();
+		return mobileInfo ? generateIDArray(mobileInfo.length) : [];
+	}, [getMobileInfo]);
 
 	useEffect(() => {
 		setTimeout(() => setShowScreen(true), 50);
 	}, [showScreen]);
 
 	useEffect(() => {
-		if (selectedMobileApp === null) {
-			const mobileData = getMobileInfo();
-			if (!isLoading && Boolean(getMobileInfo().length))
-				setSelectedMobileApp(mobileData[0]);
+		if (!isLoading && !isSelected && Boolean(getMobileInfo().length)) {
+			console.log('Entre ?');
+			selectMobile(getMobileInfo()[0]);
 		}
-	}, [selectedMobileApp]);
+	}, [getMobileInfo()]);
 
 	return (
 		<>
@@ -85,36 +65,50 @@ const MobileApplicationPanel: React.FC = () => {
 
 									<div className="list">
 										{getMobileInfo().map(
-											(info: any, index: number) => (
+											(
+												mobile: MobileApp,
+												index: number,
+											) => (
 												<div
 													key={mobileKeys[index]}
 													className="mobile-info"
 													onClick={() =>
-														handleMobileAppClick(
-															info,
-														)
+														selectMobile(mobile)
 													}>
 													<>
-														<MobileAppCard
-															active={handleActiveMobileValidation(
-																info,
+														<AppCard
+															isActive={isCurrentMobileSelected(
+																mobile.id,
 															)}
 															onDone={(
-																id: any,
+																id: string,
 															) => {
-																if (
-																	selectedMobileApp &&
-																	selectedMobileApp.id ===
-																		id
-																) {
-																	setSelectedMobileApp(
-																		{} as MobileApp,
-																	);
-																}
+																refetch();
+																changeMobile(
+																	mobile,
+																	id,
+																);
 															}}
 															type={'mobile'}
-															{...info}
-															name={info.app_name}
+															id={mobile.id}
+															appMedia={
+																mobile.appMedia
+															}
+															appDesc={
+																mobile.appDesc
+															}
+															appReviews={
+																mobile.appReviews
+															}
+															appRank={
+																mobile.appRank
+															}
+															appDeveloper={
+																mobile.appDeveloper
+															}
+															name={
+																mobile.appName
+															}
 														/>
 													</>
 												</div>
@@ -124,7 +118,15 @@ const MobileApplicationPanel: React.FC = () => {
 								</section>
 
 								<section className="right">
-									{selectedMobileApp && <></>}
+									{isSelected && (
+										<>
+											<MobileSelectedDetails
+												selectedMobileApp={
+													selectedMobileApp!
+												}
+											/>
+										</>
+									)}
 								</section>
 							</>
 						)}

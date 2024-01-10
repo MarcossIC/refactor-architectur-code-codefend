@@ -103,7 +103,7 @@ export interface DashboardProps {
 	members: CompanyMember[];
 	resources: CompanyResource;
 	issuesShare: IssuesShare;
-	issuesCondicion: IssuesCondition;
+	issuesCondition: IssuesCondition;
 }
 
 export interface WebapplicationProps {
@@ -111,14 +111,31 @@ export interface WebapplicationProps {
 	resources: Webresources[];
 }
 
-export interface MobileProps {
-	disponibles: any;
+export interface MobileApp {
+	id: string;
+	companyID: string;
+	appOS: string;
+	appName: string;
+	appLink: string;
+	appAppleSubheader: string;
+	appDeveloper: string;
+	appDesc: string;
+	appRank: string;
+	appReviews: string;
+	appAndroidDownloads: string;
+	appMedia: string;
+	isDisabled: boolean;
+	createdAt: string;
 }
 
-/* 
-{
-    "error": "0",
-    "disponibles": null,
-    "info": "Transacción sin problemas."
+export interface MobileUnique extends MobileApp {
+	creds: {} | null;
+	issues: Issues;
+	issueShare: IssuesShare;
+	issueCondition: IssuesCondition;
 }
-*/
+
+export interface MobileProps {
+	error: string;
+	available: MobileApp[];
+}

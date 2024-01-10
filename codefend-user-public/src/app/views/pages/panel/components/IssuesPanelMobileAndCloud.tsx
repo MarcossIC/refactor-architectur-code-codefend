@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { BugIcon, EmptyCard, PageLoader } from '../../../components';
-import '../../../styles/table.scss';
 import { useNavigate } from 'react-router';
 import { formatDate } from '../../../../data';
+import '../../../styles/table.scss';
 
 interface Props {
 	isLoading: boolean;

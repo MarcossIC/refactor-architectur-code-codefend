@@ -48,15 +48,148 @@ section {
 	}
 }
 
-.mobile-card {
-	border: 1px solid var(--color-border2);
+.app-card {
+	display: flex;
+	flex-direction: column;
+	padding-inline-start: 1.25rem;
+	padding-block-end: 1.25rem;
+	pointer-events: none;
+	font-size: 0.75rem /* 12px */;
+	line-height: 1rem /* 16px */;
 
-	&.active {
-		border: 1px solid var(--color-active-border);
+	&.mobile {
+		border: 1px solid var(--color-border2);
+
+		&.active {
+			border: 1px solid var(--color-active-border);
+		}
+	}
+
+	&.detail {
+		padding-block-start: 1.25rem;
 	}
 
 	.text-gray {
 		color: var(--color-gray);
+	}
+
+	&-content {
+		display: flex;
+		align-items: center;
+		column-gap: 1.25rem;
+
+		&-img {
+			width: 6.5rem;
+			min-width: 6.5rem;
+			height: 100%;
+			min-height: 100%;
+
+			background-color: rgba(239, 68, 68, 1);
+
+			img {
+				object-fit: cover;
+				height: 100%;
+			}
+		}
+
+		&-body {
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+
+			text-overflow: ellipsis;
+			overflow: hidden;
+			overflow-wrap: break-word;
+
+			.app-card-title {
+				display: flex;
+				align-items: center;
+				column-gap: 0.25rem;
+
+				h3 {
+					color: #000;
+					font-weight: 700;
+					text-transform: uppercase;
+				}
+			}
+
+			.app-details {
+				display: flex;
+				flex-direction: column;
+				margin-block-start: 1.25rem;
+				row-gap: 0.25rem;
+
+				&-description {
+					max-height: 3rem;
+					overflow: hidden;
+					font-size: 14px;
+					line-height: 1.25rem;
+					margin: 0;
+
+					&.isMobile {
+						max-height: 3.5rem;
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 3;
+					}
+
+					&.notMobile {
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 2;
+					}
+				}
+
+				.reviews {
+					display: flex;
+					align-items: center;
+					column-gap: 0.25rem;
+				}
+			}
+		}
+
+		.second-text {
+			padding-inline-start: 1rem;
+			border-left: 1px solid #000;
+		}
+	}
+
+	.app-delete-btn {
+		align-self: flex-end;
+		width: fit-content;
+
+		display: flex;
+		align-items: center;
+		column-gap: 0.5rem;
+
+		font-size: 14px;
+		padding: 0.5rem;
+
+		background-color: #efefef;
+		border-radius: 2px;
+		cursor: pointer;
+		pointer-events: auto;
+		border-bottom-left-radius: 1.5rem;
+		transition: all 200ms ease;
+
+		button,
+		svg,
+		path {
+			color: oklch(0.53 0.01 131.28);
+			cursor: pointer;
+		}
+
+		&:hover {
+			background-color: #e8e8e8;
+
+			button,
+			svg,
+			path {
+				color: oklch(0.53 0.01 131.28);
+			}
+		}
 	}
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { CircleIcon } from '../../../../../components';
 import {
 	WebApplicationService,
@@ -12,20 +12,23 @@ export const WebApplicationLocation: React.FC<{
 }> = ({ webResources, isLoading }) => {
 	const [resources, setResources] = useState([] as any);
 
-	const getResources = () => (isLoading ? [] : webResources);
+	const getResources = useCallback(
+		() => (isLoading ? [] : webResources),
+		[isLoading, webResources],
+	);
 
 	const metrics = useMemo(
 		() => WebApplicationService.getCountryMetrics(getResources()),
-		[getResources()],
+		[getResources],
 	);
 
 	useEffect(() => {
 		setResources(metrics);
-	}, [setResources]);
+	}, [metrics]);
 
 	const resourcesKey = useMemo(
 		() => generateIDArray(resources.length),
-		[resources.length],
+		[resources],
 	);
 
 	return (

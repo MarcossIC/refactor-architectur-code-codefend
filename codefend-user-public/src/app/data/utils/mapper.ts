@@ -1,5 +1,18 @@
-import { Company, DashboardProps, Issues, User, UserAPI, WebapplicationProps, Webresources, formatDate } from "..";
-
+import {
+	Company,
+	DashboardProps,
+	Issues,
+	IssuesCondition,
+	IssuesShare,
+	MobileApp,
+	MobileProps,
+	MobileUnique,
+	User,
+	UserAPI,
+	WebapplicationProps,
+	Webresources,
+	formatDate,
+} from '..';
 
 export const mapLoginResponseToUser: (response: UserAPI) => User = (
 	response: UserAPI,
@@ -66,6 +79,23 @@ export const mapIssues = (source: any): Issues => {
 		createdAt: formatDate(source.creacion),
 	};
 };
+export const mapIssueShare = (source: any): IssuesShare => {
+	return {
+		total: source.issues_share.total,
+		critical: source.issues_share.critical,
+		elevated: source.issues_share.elevated,
+		medium: source.issues_share.medium,
+		low: source.issues_share.low,
+	};
+};
+
+export const mapIssuesCondition = (source: any): IssuesCondition => {
+	return {
+		total: source.issues_condicion.total,
+		fixed: source.issues_condicion.fixed,
+		open: source.issues_condicion.open,
+	};
+};
 
 export const mapGetCompanyToCompanyData = (source: any): DashboardProps => {
 	return {
@@ -81,18 +111,8 @@ export const mapGetCompanyToCompanyData = (source: any): DashboardProps => {
 			source: source.resources.source,
 			social: source.resources.social,
 		},
-		issuesShare: {
-			total: source.issues_share.total,
-			critical: source.issues_share.critical,
-			elevated: source.issues_share.elevated,
-			medium: source.issues_share.medium,
-			low: source.issues_share.low,
-		},
-		issuesCondicion: {
-			total: source.issues_condicion.total,
-			fixed: source.issues_condicion.fixed,
-			open: source.issues_condicion.open,
-		},
+		issuesShare: mapIssueShare(source),
+		issuesCondition: mapIssuesCondition(source),
 		members: source.members.map((member: any) => ({
 			id: member.id,
 			companyID: member.company_id,
@@ -154,4 +174,40 @@ export const mapToWebresourceProps = (source: any) => {
 			mapWebresourceApiToWebresource(resource),
 		),
 	} as WebapplicationProps;
+};
+
+export const mapMobileApp = (source: any): MobileApp => {
+	return {
+		id: source.id,
+		companyID: source.company_id,
+		appOS: source.app_os,
+		appName: source.app_name,
+		appLink: source.app_link,
+		appAppleSubheader: source.app_apple_subheader,
+		appDeveloper: source.app_developer,
+		appDesc: source.app_desc,
+		appRank: source.app_rank,
+		appReviews: source.app_reviews,
+		appAndroidDownloads: source.app_android_downloads,
+		appMedia: source.app_media,
+		isDisabled: source.eliminado === '1',
+		createdAt: formatDate(source.creacion),
+	};
+};
+
+export const mapMobileProps = (source: any): MobileProps => {
+	return {
+		error: source.error,
+		available: source.disponibles.map((apps: any) => mapMobileApp(apps)),
+	};
+};
+
+export const mobileUniqueProps = (source: any): MobileUnique => {
+	return {
+		...mapMobileApp(source.unico),
+		creds: source.unico.creds,
+		issues: source.unico.issues,
+		issueShare: mapIssueShare(source.unico),
+		issueCondition: mapIssuesCondition(source.unico),
+	};
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChartIcon } from '../../../../../components';
+import { ChartIcon } from '../../../components';
 
-import { IssuesCondition } from '../../../../../../data';
+import { IssuesCondition } from '../../../../data';
 
-const DashboardVulnerabilitiesStatus: React.FC<{
+export const VulnerabilitiesStatus: React.FC<{
 	vulnerabilityByShare: IssuesCondition;
 }> = ({ vulnerabilityByShare }) => {
 	const navigate = useNavigate();
@@ -54,5 +54,3 @@ const DashboardVulnerabilitiesStatus: React.FC<{
 		</div>
 	);
 };
-
-export default DashboardVulnerabilitiesStatus;

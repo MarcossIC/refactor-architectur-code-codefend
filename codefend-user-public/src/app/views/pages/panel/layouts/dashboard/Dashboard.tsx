@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 import DashboardSearchbar from './components/DashboardSearchbar';
 import DashboardCollaborators from './components/DashboardCollaborators';
 import DashboardAssets from './components/DashboardAssets';
-import DashboardChart from './components/DashboardChart';
-import DashboardVulnerabilitiesStatus from './components/DashboardVulnerabilitiesStatus';
 import DashboardVulnerabilities from './components/DashboardVulnerabilities';
 
 import { useDashboard } from '../../../../../data';
+import { VulnerabilityRisk, VulnerabilitiesStatus } from '../../components/';
 import '../../../../styles/flag.scss';
 import '../../../../styles/card.scss';
 import '../../../../styles/buttons.scss';
@@ -39,12 +38,12 @@ const Dashboard: React.FC = () => {
 			</section>
 
 			<section className="right">
-				<DashboardChart
+				<VulnerabilityRisk
 					vulnerabilityByRisk={companyData.issuesShare ?? {}}
 					isLoading={isLoading}
 				/>
-				<DashboardVulnerabilitiesStatus
-					vulnerabilityByShare={companyData.issuesCondicion ?? {}}
+				<VulnerabilitiesStatus
+					vulnerabilityByShare={companyData.issuesCondition ?? {}}
 				/>
 			</section>
 		</main>

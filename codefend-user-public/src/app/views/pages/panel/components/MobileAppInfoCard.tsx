@@ -1,33 +1,38 @@
-import React from 'react';
-import { MobileAppCard } from './MobileAppCard';
+import React, { useMemo } from 'react';
+import { AppCard } from './AppCard';
 import '../../../styles/card.scss';
+import { MobileApp } from 'app/data';
 
 interface MobileAppInfoCardProps {
 	type: string;
-	selectedApp: any;
+	selectedApp: MobileApp | any;
 }
 
 export const MobileAppInfoCard: React.FC<MobileAppInfoCardProps> = ({
 	type,
 	selectedApp,
 }) => {
-	const isMobileType = type == 'mobile';
-	const buttonText = isMobileType
-		? ' request pentest'
-		: ' request automated scan';
-	const appName = isMobileType ? 'app_name' : 'cloud_name';
+	const isMobileType = useMemo(() => type === 'mobile', [type]);
+	const buttonText = useMemo(
+		() => (isMobileType ? ' Request pentest' : ' Request automated scan'),
+		[isMobileType],
+	);
 
 	return (
 		<div className={`mobile-info-card ${!isMobileType ? 'notMobile' : ''}`}>
 			<div className={`${!isMobileType ? 'isMobile' : ''}`}>
-				<MobileAppCard
-					name={selectedApp[appName]}
+				<AppCard
+					showDetails={isMobileType ? false : true}
+					isMobile={isMobileType}
+					id={selectedApp.id}
+					appMedia={selectedApp.appMedia}
 					appDesc={
 						isMobileType ? undefined : selectedApp['cloud_desc']
 					}
-					{...selectedApp}
-					showDetails={isMobileType ? false : true}
-					isMobile={isMobileType}
+					appReviews={selectedApp.appReviews}
+					appRank={selectedApp.appRank}
+					appDeveloper={selectedApp.appDeveloper}
+					name={selectedApp.appName}
 				/>
 			</div>
 

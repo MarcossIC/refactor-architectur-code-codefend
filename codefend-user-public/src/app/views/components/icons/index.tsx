@@ -265,7 +265,7 @@ export const TrashIcon: React.FC<{ action?: any }> = ({ action }) => (
 	</svg>
 );
 
-export const StatIcon = () => {
+export const StatIcon: React.FC = () => {
 	return (
 		<svg
 			strokeWidth={0}
@@ -287,6 +287,24 @@ export const StatIcon = () => {
 				strokeLinejoin={'round'}
 				strokeWidth={1.5}
 				d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"></path>
+		</svg>
+	);
+};
+
+export const CloseIcon: React.FC = ({}): any => {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			strokeWidth={1.5}
+			stroke="currentColor"
+			style={{ width: '1.5rem', height: '1.5rem' }}>
+			<path
+				strokeLinecap={'round'}
+				strokeLinejoin={'round'}
+				d="M6 18 18 6M6 6l12 12"
+			/>
 		</svg>
 	);
 };

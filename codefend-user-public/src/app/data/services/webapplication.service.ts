@@ -1,4 +1,3 @@
-
 import { Webresources } from '..';
 import { fetchPOST } from './fetchAPI';
 
@@ -77,7 +76,7 @@ export const getCountryMetrics = (resources: Webresources[]) => {
 		} else {
 			acc[value.serverCountryCode] = {
 				count: 1,
-				country: value.serverCountryCode,
+				country: value.serverCountry,
 				countryCode: value.serverCountryCode,
 				percentage: 1,
 			};

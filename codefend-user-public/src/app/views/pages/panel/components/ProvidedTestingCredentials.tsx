@@ -3,9 +3,9 @@ import React, { Fragment, useMemo } from 'react';
 import { ModalWrapper, ChartIcon, EmptyCard } from '../../../components';
 import { CloudQuickAction } from './CloudQuickAction';
 
-import '../../../styles/card.scss';
 import { TestingCredentialCard } from './TestingCredentialCard';
 import { generateIDArray } from '../../../../data';
+import '../../../styles/card.scss';
 
 interface ProvidedTestingCredentialsProps {
 	refetch?: () => void;

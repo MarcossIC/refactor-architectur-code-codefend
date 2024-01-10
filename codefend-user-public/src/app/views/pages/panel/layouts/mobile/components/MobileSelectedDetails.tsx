@@ -3,25 +3,35 @@ import { PageLoader } from '../../../../../components';
 import {
 	MobileAppInfoCard,
 	ProvidedTestingCredentials,
-	DashboardChart,
-	DashboardVulnerabilitiesStatus,
+	VulnerabilityRisk,
+	VulnerabilitiesStatus,
 	IssuesPanelMobileAndCloud,
 } from '../../../components';
+import {
+	IssuesCondition,
+	IssuesShare,
+	MobileApp,
+	useMobileOne,
+} from '../../../../../../data';
 
-interface Props {
-	isLoading: boolean;
-	selectedMobileApp: any;
+interface MobileSelectedDetailsProps {
+	selectedMobileApp: MobileApp;
 }
 
-export const MobileSelectedDetails: React.FC<Props> = ({
-	isLoading,
+export const MobileSelectedDetails: React.FC<MobileSelectedDetailsProps> = ({
 	selectedMobileApp,
 }) => {
-	const getSelectedMobileAppId = useCallback(() => selectedMobileApp?.id, []);
+	const getSelectedMobileAppId = useCallback(
+		() => (selectedMobileApp ? selectedMobileApp.id : ''),
+		[],
+	);
+	const { isLoding, getMobile, refetch } = useMobileOne(
+		getSelectedMobileAppId(),
+	);
 
 	return (
 		<>
-			{!isLoading ? (
+			{!isLoding ? (
 				<>
 					<div>
 						<MobileAppInfoCard
@@ -32,32 +42,37 @@ export const MobileSelectedDetails: React.FC<Props> = ({
 					<div className="provided-testing-container">
 						<div className="wrapper">
 							<ProvidedTestingCredentials
-								credentials={[]}
-								isLoading={false}
+								credentials={getMobile().creds ?? []}
+								isLoading={isLoding}
 							/>
 						</div>
 						<div className="dashboard-charts">
-							<DashboardChart
-								isLoading={false}
-								vulnerabilityByRisk={{}}
+							<VulnerabilityRisk
+								isLoading={isLoding}
+								vulnerabilityByRisk={
+									getMobile().issueShare ??
+									({} as IssuesShare)
+								}
 							/>
-							<DashboardVulnerabilitiesStatus
-								vulnerabilityByShare={{}}
+							<VulnerabilitiesStatus
+								vulnerabilityByShare={
+									getMobile().issueCondition ??
+									({} as IssuesCondition)
+								}
 							/>
 						</div>
 					</div>
 
 					<section className="card table">
 						<IssuesPanelMobileAndCloud
-							isLoading={false}
-							issues={{}}
+							isLoading={isLoding}
+							issues={getMobile().issues ?? {}}
 						/>
 					</section>
 				</>
 			) : (
 				<>
-					{' '}
-					<PageLoader />{' '}
+					<PageLoader />
 				</>
 			)}
 		</>

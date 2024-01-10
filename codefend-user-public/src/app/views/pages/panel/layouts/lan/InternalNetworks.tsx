@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ApiHandlers } from 'app/data/services/api.service';
-import useCompany from 'app/data/hooks/useCompany';
-import { useModal } from 'app/data';
+import { ApiHandlers } from '../../../../../data/services/api.service';
+import useCompany from '../../../../../data/hooks/useCompany';
+import { useModal } from '../../../../../data';
 
 export const InternalNetworks: React.FC = () => {
 	const [state, setState] = useState({

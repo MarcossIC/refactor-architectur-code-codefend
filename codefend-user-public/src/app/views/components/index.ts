@@ -10,6 +10,6 @@ export * from './icons';
 export { default as ModalWrapper } from './modals/ModalWrapper';
 export { default as AddDomainModal } from './modals/AddDomainModal';
 export { default as AddSubDomainModal } from './modals/AddSubDomainModal';
-export * from './modals/DeletewebResource';
+export * from './modals/DeleteWebResource';
 
 export { Table } from './standalones/Table';

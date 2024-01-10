@@ -1,9 +1,10 @@
 // Core packages
-import { useAppSelector } from '../../../../../data';
-import { LanApplicationService } from '../../../../../data/services/lan.service';
+import { useAppSelector } from 'app/data';
+import { LanApplicationService } from 'app/data/services/lan.service';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { invoke } from '@tauri-apps/api/tauri';
+import InternalNetworks from './components/InternalNetworks';
 
 export const LanPage: React.FC = () => {
 	const companyID = useAppSelector(

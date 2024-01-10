@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonLoader } from '../';
+import { ButtonLoader } from '..';
 import { toast } from 'react-toastify';
 import { User, WebApplicationService, useAuthState } from '../../../data';
 import '../../styles/modal.scss';
@@ -7,8 +7,9 @@ import '../../styles/modal.scss';
 interface DeleteResource {
 	onDelete?: () => void;
 	onDone?: () => void;
-	close: () => void;
-	id: string;
+	close?: () => void;
+	isDeleting: boolean;
+	id: string | null;
 }
 
 export const DeletewebResource: React.FC<DeleteResource> = ({
@@ -17,7 +18,7 @@ export const DeletewebResource: React.FC<DeleteResource> = ({
 	onDone,
 	onDelete,
 }) => {
-	const [isDeletingResource, setIsDeletingResource] = useState(false);
+	const [isDeletingResource, setIsDeletingResource] = useState<boolean>(false);
 	const { getUserdata } = useAuthState();
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -29,7 +30,7 @@ export const DeletewebResource: React.FC<DeleteResource> = ({
 		}
 		const user = getUserdata() as User;
 
-		WebApplicationService.deleteResource(id, user.companyID)
+		WebApplicationService.deleteResource(id!, user.companyID)
 			.then(({ response }) => {
 				if (response !== 'success')
 					throw new Error('An error has occurred on the server');

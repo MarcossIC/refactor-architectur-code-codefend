@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FinishSignUpLayout from './views/pages/auth/layouts/FinishsignUp';
 
+
 const AuthPage = lazy(() => import('./views/pages/auth/AuthPage'));
 const SignInLayout = lazy(() => import('./views/pages/auth/layouts/Signin'));
 const SignUpLayout = lazy(() => import('./views/pages/auth/layouts/Signup'));
@@ -25,6 +26,7 @@ const MobileApplication = lazy(
 const CloudApplicationPanel = lazy(
 	() => import('./views/pages/panel/layouts/cloud/Cloud'),
 );
+const LanApplicationPanel = lazy(() => import('./views/pages/panel/layouts/lan/Lan'))
 
 export const AppRouter: React.FC = () => {
 	return (
@@ -50,6 +52,7 @@ export const AppRouter: React.FC = () => {
 					<Route path="/web" element={<WebApplication />} />
 					<Route path="/mobile" element={<MobileApplication />} />
 					<Route path="/cloud" element={<CloudApplicationPanel />} /> 
+					<Route path='/lan' element={<LanApplicationPanel/>}/>
 				</Route>
 
 				{/* Rutas públicas para login y registro */}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { EmptyScreenView } from '../../../../components';
 import './cloud.scss';
-import { useModal } from 'src/app/data';
+import { useModal } from '../../../../../data';
 
 interface MobileApp {
 	id: string;
@@ -17,13 +17,13 @@ const CloudApplicationPanel: React.FC = () => {
 
 	const handleCloudAppClick = (cloud: any) => {
 		console.log({ cloud, selectedCloudApp });
-		if (cloud.id === (selectedCloudApp ? selectedCloudApp.id : null))
+		if (cloud.id === (selectedCloudApp ? selectedCloudApp : null))
 			return;
 		setSelectedCloudApp(cloud);
 	};
 
 	const handleActiveCloudValidation = (cloud: any) => {
-		return cloud.id === (selectedCloudApp ? selectedCloudApp.id : null);
+		return cloud.id === (selectedCloudApp ? selectedCloudApp : null);
 	};
 
 	useEffect(() => {

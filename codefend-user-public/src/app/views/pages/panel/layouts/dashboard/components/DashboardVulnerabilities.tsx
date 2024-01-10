@@ -29,15 +29,15 @@ const DashboardVulnerabilities: React.FC<{
 		[setSelectedNow],
 	);
 
-	const keys = new Set<string>([
+	const keys = [
 		'published',
 		'author',
-		'class',
+		'class', //  'class' is used in this array, not 'type' as in TopVulnerability
 		'risk',
 		'score',
-		'issue title',
+		'issue title', // 'issue title' is used in this array, not 'issueTitle' as in TopVulnerability
 		'status',
-	]);
+	];
 
 	const dataTable = useMemo(() => {
 		return topVulnerabilities.map(

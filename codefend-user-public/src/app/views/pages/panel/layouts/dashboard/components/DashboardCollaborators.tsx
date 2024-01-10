@@ -16,13 +16,7 @@ const DashboardCollaborators: React.FC<{
 		[],
 	);
 
-	const keys = new Set<string>([
-		'id',
-		'fullname',
-		'email',
-		'phone number',
-		'role',
-	]);
+	const keys = ['id', 'fullname', 'email', 'phone number', 'role'];
 
 	return (
 		<div className="card colaborators">

@@ -38,10 +38,8 @@ const DashboardChart: React.FC<DashboardChartProps> = ({
 		() => generateIDArray(Object.keys(otherMetrics).length),
 		[Object.keys(otherMetrics).length],
 	);
-	const tableColumns = useMemo(
-		() => new Set<string>(['risk', 'count', 'percent']),
-		[],
-	);
+	const tableColumns = useMemo(() => ['risk', 'count', 'percent'], []);
+	
 	const tableRows = useMemo(() => {
 		return Object.keys(otherMetrics).map((metric: string | number) => {
 			return {

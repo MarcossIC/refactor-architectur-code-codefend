@@ -22,10 +22,10 @@ export const ProvidedTestingCredentials: React.FC<
 	);
 
 	return (
-		<>
+		<>{/* 
 			{props.isLoading ?? (
 				<>
-					<ModalWrapper>
+					<ModalWrapper action={props}>
 						<div className="quick-action internal-tables disable-border">
 							<div className="modal-header">
 								|<span>{' Add cloud actions '}</span>|
@@ -39,7 +39,7 @@ export const ProvidedTestingCredentials: React.FC<
 						</div>
 					</ModalWrapper>
 				</>
-			)}
+			)} */}
 
 			<div className="card user-list">
 				<div className="header">
@@ -68,5 +68,5 @@ export const ProvidedTestingCredentials: React.FC<
 				<EmptyCard />
 			)}
 		</>
-	);
-};
+	
+)};

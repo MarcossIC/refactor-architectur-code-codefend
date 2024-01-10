@@ -1,8 +1,7 @@
-import { Webresources } from '..';
 import { fetchPOST } from './fetchAPI';
 
-export const WebApplicationService = {
-	getAll: async (companyID: string | number) => {
+export const LanApplicationService = {
+	getAll: async (companyID: string ) => {
 		const { data } = await fetchPOST({
 			params: {
 				model: 'resources/lan',

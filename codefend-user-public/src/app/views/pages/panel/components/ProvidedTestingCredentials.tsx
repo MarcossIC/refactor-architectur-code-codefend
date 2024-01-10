@@ -17,9 +17,15 @@ export const ProvidedTestingCredentials: React.FC<
 	ProvidedTestingCredentialsProps
 > = (props) => {
 	const credentialKey = useMemo(
-		() => generateIDArray(props.credentials.length),
-		[props.credentials.length],
+		() =>
+			props.credentials && props.credentials.length !== 0
+				? generateIDArray(props.credentials.length)
+				: [],
+		[props.credentials],
 	);
+
+	console.log('cred', { credentials: props.credentials });
+	console.log('credentialKey', { credentialKey });
 
 	return (
 		<>
@@ -52,19 +58,23 @@ export const ProvidedTestingCredentials: React.FC<
 				</div>
 
 				<div className="list">
-					{props.credentials.map((cred: any, index: number) => (
-						<Fragment key={credentialKey[index]}>
-							<TestingCredentialCard
-								{...cred}
-								hideBorderBottom={
-									props.credentials.legth - 1 === index
-								}
-							/>
-						</Fragment>
-					))}
+					{!props.isLoading ? (
+						props.credentials.map((cred: any, index: number) => (
+							<Fragment key={credentialKey[index]}>
+								<TestingCredentialCard
+									{...cred}
+									hideBorderBottom={
+										props.credentials.legth - 1 === index
+									}
+								/>
+							</Fragment>
+						))
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
-			{(!props.isLoading && props.credentials.legth === 0) ?? (
+			{(!props.isLoading && props.credentials.length === 0) ?? (
 				<EmptyCard />
 			)}
 		</>

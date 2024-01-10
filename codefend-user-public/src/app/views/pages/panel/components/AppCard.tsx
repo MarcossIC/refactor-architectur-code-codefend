@@ -62,8 +62,8 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 			)}
 			<div
 				className={`app-card ${
-					isDetails || isMobile ? 'detail' : 'mobile'
-				} ${isActive && 'active'}`}>
+					isDetails || isMobile ? 'detail' : 'app-card-border'
+				} ${isActive ? 'active' : ''}`}>
 				{(isDetails || isMobileType) && (
 					<button
 						className="app-delete-btn"

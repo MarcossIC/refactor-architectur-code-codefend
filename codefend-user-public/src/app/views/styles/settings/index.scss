@@ -51,9 +51,9 @@
 ::after {
 	cursor: default;
 	box-sizing: border-box;
-	border-width: 0;
-	border-style: solid;
-	border-color: oklch(92.76% 0.006 264.53);
+	/* FireFox Support */
+	scrollbar-width: thin;
+	scrollbar-color: #ff6c6c #e5e5e5;
 }
 
 body {

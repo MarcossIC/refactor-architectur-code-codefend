@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 import { BugIcon, EmptyCard, PageLoader } from '../../../components';
 import { useNavigate } from 'react-router';
-import { formatDate } from '../../../../data';
+import { formatDate, generateIDArray } from '../../../../data';
 import '../../../styles/table.scss';
 
 interface Props {
@@ -11,10 +11,10 @@ interface Props {
 
 export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 	const navigate = useNavigate();
-	const formatIssues = () => {
+	const formatIssues = useMemo(() => {
 		if (props.issues.constructor !== Array) return [props.issues];
 		return props.issues;
-	};
+	}, [props.issues]);
 
 	const isValidRiskScore = useCallback(
 		(riskScore: any) => {
@@ -32,9 +32,17 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 	const generateLimitedArray = useCallback(
 		(riskScore: any) =>
 			isValidRiskScore(riskScore)
-				? [...Array(Math.max(0, 5 - riskScore))]
-				: [...Array(5)],
+				? [...generateIDArray(Math.max(0, 5 - riskScore))]
+				: [...generateIDArray(5)],
 		[isValidRiskScore],
+	);
+
+	const issuesKeys = useMemo(
+		() =>
+			formatIssues && formatIssues.length !== 0
+				? generateIDArray(formatIssues.length)
+				: [],
+		[formatIssues],
 	);
 
 	return (
@@ -64,10 +72,9 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 
 			{!props.isLoading ? (
 				<div className="rows">
-					{formatIssues().map((vulnerability) => (
-						<>
+					{formatIssues.map((vulnerability: any, index: number) => (
+						<Fragment key={issuesKeys[index]}>
 							<div
-								key={vulnerability.id}
 								className="item"
 								onClick={(e: React.FormEvent) => {
 									navigate(
@@ -95,24 +102,24 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 									<span className="space"></span>
 									{generateVulnerabilityArray(
 										vulnerability.risk_score,
-									).map(() => (
-										<>
+									).map((value) => (
+										<Fragment key={value}>
 											<span className="red-border codefend-bg-red risk-score-helper"></span>
-										</>
+										</Fragment>
 									))}
 									{generateLimitedArray(
 										vulnerability.risk_score,
-									).map(() => (
-										<>
+									).map((value) => (
+										<Fragment key={value}>
 											<span className="codefend-border-red risk-score-helper"></span>
-										</>
+										</Fragment>
 									))}
 								</div>
 								<div className="vul-title">
 									{vulnerability.name}
 								</div>
 							</div>
-						</>
+						</Fragment>
 					))}
 				</div>
 			) : (
@@ -121,7 +128,7 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 				</>
 			)}
 
-			{(!props.isLoading && formatIssues().length === 0) ?? (
+			{(!props.isLoading && formatIssues.length === 0) ?? (
 				<>
 					<EmptyCard />
 				</>

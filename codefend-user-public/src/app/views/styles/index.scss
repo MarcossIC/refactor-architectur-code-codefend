@@ -226,6 +226,7 @@ main.cloud {
 		width: 30%;
 	}
 	.right {
-		width: 70%;
+		max-width: 70%;
+		padding-inline-end: 1rem;
 	}
 }

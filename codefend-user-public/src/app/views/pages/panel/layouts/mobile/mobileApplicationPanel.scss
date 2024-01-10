@@ -1,5 +1,5 @@
 main.mobile {
-	column-gap: 15px;
+	column-gap: 0.5rem;
 
 	.left {
 		margin-block-end: -10px;
@@ -26,6 +26,7 @@ main.mobile {
 			padding-inline-end: 0.625rem;
 
 			.mobile-info {
+				cursor: pointer;
 			}
 		}
 

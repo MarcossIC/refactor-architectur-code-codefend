@@ -19,16 +19,17 @@ export const MobileAppInfoCard: React.FC<MobileAppInfoCardProps> = ({
 	);
 
 	return (
-		<div className={`mobile-info-card ${!isMobileType ? 'notMobile' : ''}`}>
-			<div className={`${!isMobileType ? 'isMobile' : ''}`}>
+		<div
+			className={`app-card-wrapper app-card-border ${
+				!isMobileType ? 'notMobile' : ''
+			}`}>
+			<div className={`${isMobileType ? 'app-card-isMobile' : ''}`}>
 				<AppCard
 					showDetails={isMobileType ? false : true}
 					isMobile={isMobileType}
 					id={selectedApp.id}
 					appMedia={selectedApp.appMedia}
-					appDesc={
-						isMobileType ? undefined : selectedApp['cloud_desc']
-					}
+					appDesc={selectedApp.appDesc}
 					appReviews={selectedApp.appReviews}
 					appRank={selectedApp.appRank}
 					appDeveloper={selectedApp.appDeveloper}

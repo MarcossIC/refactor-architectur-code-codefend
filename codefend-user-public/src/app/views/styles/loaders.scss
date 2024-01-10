@@ -1,10 +1,14 @@
 .button-loader {
-	border: 3px solid rgb(0 0 0 / 50%);
-	border-left-color: transparent;
-	width: 14px;
-	height: 14px;
-	animation: spin89345 1s linear infinite;
-	border-radius: 50%;
+	background-color: inherit !important;
+	border: 3px solid rgb(0 0 0 / 50%) !important;
+	border-left-color: transparent !important;
+	width: 14px !important;
+	height: 14px !important;
+	border-radius: 50% !important;
+	animation: spin-rotation 1s linear infinite;
+	position: absolute;
+	left: 7%;
+	cursor: pointer;
 }
 
 .loader {

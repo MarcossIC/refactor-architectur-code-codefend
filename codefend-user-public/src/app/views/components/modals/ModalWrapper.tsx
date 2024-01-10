@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import '../../styles/modal.scss';
 
 interface ModalWrapper {
 	children: ReactNode;

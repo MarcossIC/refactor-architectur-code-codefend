@@ -25,8 +25,27 @@ const getMobileByID = async (ID: string, companyID: string) => {
 	return data;
 };
 
-const deleteApp = async () => {
-	const { data } = await fetchPOST({});
+const deleteApp = async (mobileId: string, companyID: string) => {
+	const { data } = await fetchPOST({
+		params: {
+			model: 'resources/mobile',
+			ac: 'del',
+			id: mobileId,
+			company_id: companyID,
+		},
+	});
+
+	return data;
+};
+
+const add = async (androidAddress: string, iosAddress: string) => {
+	const { data } = await fetchPOST({
+		params: {
+			model: 'resources/mobile',
+			app_android_link: androidAddress,
+			app_apple_link: iosAddress,
+		},
+	});
 
 	return data;
 };
@@ -35,4 +54,5 @@ export const MobileService = {
 	getAll,
 	deleteApp,
 	getMobileByID,
+	add,
 };

@@ -1,4 +1,4 @@
-@import url(./settings/index.scss);
+@import url(./settings/generic.scss);
 
 ///////////////////////////////////////////////////////////////////
 // UTIL
@@ -55,26 +55,6 @@
 
 .disable-border div {
 	border-bottom: 0px solid var(--color-border);
-}
-.helper-box {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-inline: auto;
-	padding: 0.75rem /* 12px */;
-
-	@media only screen and (min-width: 640px) {
-		& {
-			max-width: 640px;
-		}
-	}
-
-	@media only screen and (min-width: 768px) {
-		& {
-			max-width: 768px;
-		}
-	}
 }
 
 .sr-only {

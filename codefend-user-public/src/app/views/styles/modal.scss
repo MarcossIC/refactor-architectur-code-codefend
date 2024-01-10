@@ -74,6 +74,57 @@
 			}
 		}
 	}
+
+	&-title {
+		width: 100%;
+
+		.modal-helper-box {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-inline: auto;
+			padding: 0.75rem;
+
+			@media only screen and (min-width: 640px) {
+				& {
+					max-width: 640px;
+				}
+			}
+			@media only screen and (min-width: 768px) {
+				& {
+					max-width: 768px;
+				}
+			}
+		}
+
+		.modal-header {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			height: 2.5rem;
+			padding: 0 1.25rem;
+			background-color: var(--header-title-bkg) !important;
+			border-bottom: 1px solid var(--color-border) !important;
+			color: var(--font-color) !important;
+			font-family: 'Roboto';
+			font-size: 0.75rem;
+			line-height: 0.813rem;
+			text-transform: uppercase;
+			font-weight: bold;
+
+			.icon {
+				font-size: 1.125rem /* 18px */;
+				line-height: 1.75rem /* 28px */;
+				margin-inline-end: 0.5rem;
+				background-color: inherit !important;
+			}
+			span {
+				font-size: 0.875rem /* 14px */;
+				line-height: 1.25rem /* 20px */;
+			}
+		}
+	}
 }
 
 .modal {
@@ -86,7 +137,9 @@
 	margin-inline: auto;
 	padding: 0.75rem;
 	form {
-		padding: 1.5rem;
+		padding-block-start: 0.5rem;
+		padding-block-end: 1.5rem;
+		padding-inline: 1.5rem;
 
 		.form-input {
 			position: relative;

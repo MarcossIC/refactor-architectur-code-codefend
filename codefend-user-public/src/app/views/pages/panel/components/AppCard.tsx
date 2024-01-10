@@ -1,11 +1,8 @@
-import React, { useMemo } from 'react';
-import {
-	MobileApp,
-	useModal,
-	defaultMobileCloudResourceAsset,
-} from '../../../../data';
-import { CloseIcon } from '../../../components';
-import { useAppCard } from '../../../../data/hooks/useAppCard';
+import React from 'react';
+import { defaultMobileCloudResourceAsset, useAppCard } from '../../../../data';
+import { CloseIcon, ConfirmModal, ModalWrapper } from '../../../components';
+import '../../../styles/buttons.scss';
+import '../../../styles/forms.scss';
 
 interface MobileAppCardProps {
 	isActive?: boolean;
@@ -51,14 +48,39 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 		isMobileType,
 		isImage,
 		isDetails,
+		handleDelete,
 	} = useAppCard({ type, name, isMainNetwork, showDetails, appMedia });
 
 	return (
 		<>
-			{(showModal && showModalStr === 'delete_confirmation') ?? (
-				<div className="mobile-card-delete">
-					{' Add Mobile cloud deleted modal '}
-				</div>
+			{showModal && showModalStr === 'delete_confirmation' ? (
+				<>
+					<ModalWrapper
+						action={() => {
+							viewModal(false);
+						}}>
+						<div
+							className="web-modal-wrapper internal-tables disable-border"
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+							}}>
+							<ConfirmModal
+								header={`Are you sure you want to delete "${name}" ?`}
+								cancelText="Cancel"
+								confirmText="Delete"
+								close={() => {
+									viewModal(false);
+								}}
+								action={() => {
+									handleDelete(id);
+								}}
+							/>
+						</div>
+					</ModalWrapper>
+				</>
+			) : (
+				<></>
 			)}
 			<div
 				className={`app-card ${
@@ -73,6 +95,8 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 								: 'Remove cloud app'
 						}
 						onClick={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
 							viewModal(true);
 						}}>
 						<CloseIcon />

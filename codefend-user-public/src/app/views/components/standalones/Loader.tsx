@@ -6,7 +6,7 @@ import '../../styles/loaders.scss';
  * @param {string} icon - "loaders.scss" css class that defines the size of the Spinner
  */
 const Spinner: React.FC<{ icon: string }> = ({ icon }) => (
-	<div className={`spinner ${icon}`}></div>
+	<aside className={`spinner ${icon}`}></aside>
 );
 
 export const ButtonLoader: React.FC = () => {

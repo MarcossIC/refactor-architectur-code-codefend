@@ -3,6 +3,7 @@ export * from './hooks/useChart';
 export * from './hooks/useDashboard';
 export * from './hooks/useMobile';
 export * from './hooks/useModal';
+export * from './hooks/useAppCard';
 export * from './hooks/useWebapplication';
 export * from './interfaces';
 export * from './mocks';

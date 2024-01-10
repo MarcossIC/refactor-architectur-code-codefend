@@ -18,6 +18,7 @@ button.btn {
 	background-color: var(--btn-color-main);
 	border: none;
 	transition: all 0.3s;
+	position: relative;
 
 	&:focus {
 		outline: none;

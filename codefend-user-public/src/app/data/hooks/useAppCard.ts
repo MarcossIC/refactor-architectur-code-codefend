@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { MobileService, useModal } from '..';
+import { MobileService, useAuthState, useModal } from '..';
 import { toast } from 'react-toastify';
 
 interface HookProps {
@@ -11,6 +11,8 @@ interface HookProps {
 }
 
 export const useAppCard = (props: HookProps) => {
+	const { getUserdata } = useAuthState();
+
 	const isMainGoogleNetwork = useMemo(
 		() => Boolean(props.isMainNetwork),
 		[props.isMainNetwork],
@@ -25,39 +27,37 @@ export const useAppCard = (props: HookProps) => {
 		() => props.appMedia && props.appMedia !== undefined,
 		[props.appMedia],
 	);
-	const deleteText = useMemo(
-		() => (isMobileType ? 'delete mobile' : 'delete cloud'),
-		[isMobileType],
-	);
-	useEffect(() => {
-		setShowModalStr(deleteText);
-	}, [deleteText]);
 
 	const { showModal, setShowModal, showModalStr, setShowModalStr } =
 		useModal();
 
-	const handleDelete = useCallback(() => {
-		const action = isMobileType ? MobileService : MobileService;
+	const handleDelete = useCallback(
+		(id: string) => {
+			const action = isMobileType ? MobileService : MobileService;
 
-		action
-			.deleteApp()
-			.then(() => {
-				toast.success(
-					`successfully deleted ${
-						isMobileType ? 'mobile app' : 'cloud'
-					} `,
-				);
-			})
-			.catch(() => {
-				toast.error('An unexpected error has occurred on the server');
-			})
-			.finally(() => {
-				viewModal(false);
-			});
-	}, []);
+			action
+				.deleteApp(id, getUserdata()?.companyID)
+				.then(() => {
+					toast.success(
+						`successfully deleted ${
+							isMobileType ? 'mobile app' : 'cloud'
+						} `,
+					);
+				})
+				.catch(() => {
+					toast.error('An unexpected error has occurred on the server');
+				})
+				.finally(() => {
+					viewModal(false);
+					window.location.reload();
+				});
+		},
+		[isMobileType],
+	);
 
 	const viewModal = useCallback((state: boolean) => {
 		setShowModal(state);
+		setShowModalStr('delete_confirmation');
 	}, []);
 
 	return {
@@ -67,5 +67,6 @@ export const useAppCard = (props: HookProps) => {
 		isMobileType,
 		isImage,
 		isDetails,
+		handleDelete,
 	};
 };

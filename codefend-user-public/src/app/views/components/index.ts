@@ -10,6 +10,9 @@ export * from './icons';
 export { default as ModalWrapper } from './modals/ModalWrapper';
 export { default as AddDomainModal } from './modals/AddDomainModal';
 export { default as AddSubDomainModal } from './modals/AddSubDomainModal';
+export { default as ConfirmModal } from './modals/ConfirmModal';
+export { default as ModalTitleWrapper } from './modals/ModalTitleWrapper';
+export { AddMobileModal } from './modals/AddMobileModal';
 export * from './modals/DeletewebResource';
 
 export { Table } from './standalones/Table';

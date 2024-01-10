@@ -24,9 +24,6 @@ export const ProvidedTestingCredentials: React.FC<
 		[props.credentials],
 	);
 
-	console.log('cred', { credentials: props.credentials });
-	console.log('credentialKey', { credentialKey });
-
 	return (
 		<>
 			{props.isLoading ?? (
@@ -58,7 +55,7 @@ export const ProvidedTestingCredentials: React.FC<
 				</div>
 
 				<div className="list">
-					{!props.isLoading ? (
+					{!props.isLoading && props.credentials.length !== 0 ? (
 						props.credentials.map((cred: any, index: number) => (
 							<Fragment key={credentialKey[index]}>
 								<TestingCredentialCard
@@ -74,8 +71,10 @@ export const ProvidedTestingCredentials: React.FC<
 					)}
 				</div>
 			</div>
-			{(!props.isLoading && props.credentials.length === 0) ?? (
+			{!props.isLoading && props.credentials.length === 0 ? (
 				<EmptyCard />
+			) : (
+				<></>
 			)}
 		</>
 	);

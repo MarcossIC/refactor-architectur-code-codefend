@@ -32,9 +32,6 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
-  react-icons:
-    specifier: ^5.0.0
-    version: 5.0.0(react@18.2.0)
   react-redux:
     specifier: 9.0.4
     version: 9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@5.0.1)
@@ -88,9 +85,6 @@ devDependencies:
   eslint-plugin-react-refresh:
     specifier: 0.4.5
     version: 0.4.5(eslint@8.55.0)
-  install:
-    specifier: 0.13.0
-    version: 0.13.0
   postcss:
     specifier: 8.4.33
     version: 8.4.33
@@ -1769,11 +1763,6 @@ packages:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
     dev: true
 
-  /install@0.13.0:
-    resolution: {integrity: sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==}
-    engines: {node: '>= 0.10'}
-    dev: true
-
   /is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
     engines: {node: '>=8'}
@@ -2211,14 +2200,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
-
-  /react-icons@5.0.0(react@18.2.0):
-    resolution: {integrity: sha512-8gBBjYRrO14BU9RuMEVptG5aB1gwNPAAgsKOuPggx2hg332pTky/r8FidEJW95cL6IG2mYCEHaYuAxw74wLefw==}
-    peerDependencies:
-      react: '*'
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /react-redux@9.0.4(@types/react@18.2.46)(react@18.2.0)(redux@5.0.1):

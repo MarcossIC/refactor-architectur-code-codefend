@@ -8,7 +8,7 @@ interface DeleteResource {
 	onDelete?: () => void;
 	onDone?: () => void;
 	close?: () => void;
-	isDeleting: boolean;
+	isDeleting?: boolean;
 	id: string | null;
 }
 

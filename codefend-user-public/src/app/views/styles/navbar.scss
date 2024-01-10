@@ -85,6 +85,8 @@
 		.logout-modal {
 			width: 100%;
 			margin-block-start: 1rem /* 16px */;
+			overflow: hidden;
+			padding: 1rem;
 
 			&-wrapper {
 				width: 100%;

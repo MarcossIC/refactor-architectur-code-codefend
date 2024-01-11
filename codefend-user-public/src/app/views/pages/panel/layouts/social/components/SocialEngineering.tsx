@@ -2,10 +2,10 @@ import {
 	EmptyCard,
 	ModalWrapper,
 	PageLoader,
-} from 'app/views/components/index.js';
+} from '../../../../../../views/components';
 
-import { roleMap, useModal } from 'app/data/index.js';
-import AddSocialModal from 'app/views/components/modals/AddSocialModal';
+import { roleMap, useModal } from '../../../../../../data';
+import AddSocialModal from '../../../../../components/modals/AddSocialModal';
 
 interface Social {
   id: string;

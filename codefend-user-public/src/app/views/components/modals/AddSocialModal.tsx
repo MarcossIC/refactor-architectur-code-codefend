@@ -1,5 +1,5 @@
-import { useAppSelector, useModal } from "app/data";
-import { SocialAplicationService } from "app/data/services/social.service";
+import { useAppSelector, useModal } from "../../../data";
+import { SocialAplicationService } from "../../../data/services/social.service";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonLoader, GlobeWebIcon } from "..";

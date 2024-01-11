@@ -1,4 +1,4 @@
-import { roleMap } from 'app/data';
+import { roleMap } from '../../../../../../data';
 import React, { Dispatch, SetStateAction } from 'react';
 
 type MemberKey = keyof typeof roleMap;
@@ -23,7 +23,7 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (props
 		const memberValue = props.members[member];
 		console.log({ memberValue });
 		if (memberValue == 0) return;
-		
+
 		props.setSocialFilters((prevState) => ({
 			...prevState,
 			department: [...prevState.department, member], 

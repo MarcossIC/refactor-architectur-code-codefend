@@ -1,10 +1,10 @@
-import { SocialAplicationService } from 'app/data/services/social.service';
+import { useAuthState } from '../../../../../data';
+import { SocialAplicationService } from '../../../../../data/services/social.service';
+import { computedRoles } from '../../../../../data/utils/compute';
 import { useCallback, useEffect, useState } from 'react';
+import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
 import SocialEngineeringMembers from './components/SocialEngineeringMembers';
-import SocialAttackVectors from './components/SocialAttackVectors';
-import { useAuthState } from 'app/data';
-import { computedRoles } from 'app/data/utils/compute';
 
 const fetchSocial = async (companyID: string) => {
 	try {

@@ -7,7 +7,6 @@ import { LanApplicationService } from '../../../../../data/services/lan.service'
 import { PageLoaderWhite } from '../../../../../views/components';
 import { LanNetworkData } from './components/LanNetworkData';
 import { LanNetworksChart } from './components/LanNetworksChart';
-import { InternalNetworks } from '.';
 
 const LanPage: React.FC = () => {
 	const { getUserdata } = useAuthState();

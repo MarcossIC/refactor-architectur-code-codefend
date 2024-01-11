@@ -17,6 +17,7 @@ export { AddMobileModal } from './modals/AddMobileModal';
 export { default as AddAccessPointModal } from './modals/AddAccessPointModal';
 export { AddNetworkDeviceModal } from './modals/AddNetworkDeviceModal';
 export { AddCloudModal } from './modals/AddCloudModal';
-export * from './modals/DeletewebResource';
+export { DeletewebResource } from './modals/DeletewebResource';
+export { AddRepositoryModal } from './modals/AddRepositoryModal';
 
 export { Table } from './standalones/Table';

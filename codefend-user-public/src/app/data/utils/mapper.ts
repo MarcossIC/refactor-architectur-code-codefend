@@ -1,3 +1,4 @@
+import { access } from 'fs';
 import {
 	AllIssues,
 	CloudApp,
@@ -10,6 +11,7 @@ import {
 	MobileApp,
 	MobileProps,
 	MobileUnique,
+	SourceCode,
 	User,
 	UserAPI,
 	WebapplicationProps,
@@ -244,3 +246,18 @@ export const mapAllIssues = (source: any): AllIssues => {
 		issueCondition: mapIssuesCondition(source),
 	};
 };
+
+export const mapSourceCode = (source: any): SourceCode => {
+	return {
+		id: source.id,
+		companyID: source.company_id,
+		name: source.name,
+		accessLink: source.access_link,
+		isPublic: source.is_public,
+		sourceCode: source.source_code,
+		isDisabled: source.eliminado === '1',
+		createdAt: source.creacion,
+	};
+};
+
+

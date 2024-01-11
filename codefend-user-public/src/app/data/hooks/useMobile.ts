@@ -36,9 +36,7 @@ export const useMobile = () => {
 	}, []);
 
 	useEffect(() => {
-		const user = getUserdata() as User;
-		const companyID = user?.companyID as string;
-		fetchWeb(companyID);
+		refetch();
 	}, []);
 
 	const refetch = useCallback(() => {

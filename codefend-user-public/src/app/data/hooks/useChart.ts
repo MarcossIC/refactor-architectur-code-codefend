@@ -11,9 +11,18 @@ import {
 	ArcElement,
 } from 'chart.js/auto';
 import { IssuesShare } from '..';
-
-export const useDoughnutChart = (vulnerabilityByRisk: IssuesShare) => {
-	const { total, ...otherMetrics } = vulnerabilityByRisk;
+import { SourceCodeService } from '../services/sourcecode.service';
+interface DoughnutCharProps {
+	vulnerabilityByRisk: any;
+	isComputed: boolean;
+}
+export const useDoughnutChart = ({
+	vulnerabilityByRisk,
+	isComputed,
+}: DoughnutCharProps) => {
+	const { total, ...otherMetrics } = !isComputed
+		? vulnerabilityByRisk
+		: SourceCodeService.computeSourceCodeMetrics(vulnerabilityByRisk);
 
 	useEffect(() => {
 		ChartJS.register(Title, Tooltip, Legend, Colors, ArcElement);

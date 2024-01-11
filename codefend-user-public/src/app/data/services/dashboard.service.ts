@@ -11,17 +11,6 @@ const getCompanyInfo = async (companyId: string | number) => {
 	return data;
 };
 
-const renderPercentage = (value: string, total: string) => {
-	if (value === '0') {
-		return '0%';
-	}
-	let percentValue =
-		((parseInt(value) / parseInt(total)) * 100).toFixed() + '%';
-
-	return percentValue;
-};
-
 export const DashboardService = {
 	getCompanyInfo,
-	renderPercentage,
 };

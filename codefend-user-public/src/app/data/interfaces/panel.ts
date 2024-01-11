@@ -146,3 +146,10 @@ export interface AllIssues {
 	issueShare: IssuesShare;
 	issueCondition: IssuesCondition;
 }
+
+export interface SourceCode extends ResourceID, Monitoring {
+	name: string;
+	accessLink: string;
+	isPublic: string;
+	sourceCode: string;
+}

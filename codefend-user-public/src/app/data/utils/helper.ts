@@ -42,17 +42,6 @@ export const formatDate = (stringDate: string): string => {
 	return `${year}-${month}-${day}`;
 };
 
-/** calculate percentage  */
-export const renderPercentage = (value: string, total: string) => {
-	if (value === '0') {
-		return '0%';
-	}
-	let percentValue =
-		((parseInt(value) / parseInt(total)) * 100).toFixed() + '%';
-
-	return percentValue;
-};
-
 /** check if  data is empty/zeros */
 export const isEmptyData = (data: any) => {
 	if (data.constructor !== Object) return true;
@@ -82,4 +71,14 @@ export const cleanReview = (source: string) => {
 	update = update.replace(/&nbsp;/g, '');
 	update = update.replace(/&Acirc;/g, '');
 	return update.trim();
+};
+
+export const renderPercentage = (value: string, total: string) => {
+	if (value === '0') {
+		return '0%';
+	}
+	let percentValue =
+		((parseInt(value) / parseInt(total)) * 100).toFixed() + '%';
+
+	return percentValue;
 };

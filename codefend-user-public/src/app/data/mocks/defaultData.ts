@@ -221,6 +221,37 @@ export const defaultSocialAttackVectors = {
 
 export const osTypes = ['windows', 'linux', 'android', 'ios', 'unknown'];
 
+export const languageTypes = new Set([
+	'javascript',
+	'php',
+	'python',
+	'typescript',
+	'java',
+	'js',
+	'ts',
+	'rust',
+	'html',
+	'css',
+	'ruby',
+	'go',
+	'golang',
+	'c',
+	'c++',
+	'c#',
+	'.net',
+	'shell',
+	'bash',
+	'swift',
+	'kotlin',
+	'dart',
+	'perl',
+	'scala',
+	'r',
+	'erlang',
+	'Clojure',
+	'f#',
+]);
+
 export const publicRoutes = ['/auth/signin', '/auth/signup'];
 
 export const defaultMobileCloudCredentials = [

@@ -10,13 +10,16 @@ import {
 	registerThunk,
 	registerFinishThunk,
 } from '../redux/thunks/auth.thunk';
+import { useCallback } from 'react';
 
 export const useAuthState = () => {
 	const authState = useAppSelector((state: any) => state.authState);
 	const dispatch = useAppDispatch();
 
 	const getUserdata = () => authState.userData;
+
 	const getAccessToken = () => authState.accessToken;
+
 	const isAuth = () => authState.isAuth;
 
 	const signInUser = async (params: LoginParams): Promise<boolean> => {

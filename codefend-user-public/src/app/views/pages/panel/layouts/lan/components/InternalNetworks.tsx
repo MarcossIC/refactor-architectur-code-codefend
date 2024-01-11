@@ -1,6 +1,6 @@
-import { useModal } from 'app/data';
-import useCompany from 'app/data/hooks/useCompany';
-import { ApiHandlers } from 'app/data/services/api.service';
+import { useModal } from '../../../../../../data';
+import useCompany from '../../../../../../data/hooks/useCompany';
+import { ApiHandlers } from '../../../../../../data/services/api.service';
 import { useEffect, useState } from 'react';
 
 export const InternalNetworks: React.FC<any> = (props) => {

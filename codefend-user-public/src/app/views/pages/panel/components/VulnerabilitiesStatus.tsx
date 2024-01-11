@@ -6,14 +6,12 @@ import { IssuesCondition } from '../../../../data';
 
 export const VulnerabilitiesStatus: React.FC<{
 	vulnerabilityByShare: IssuesCondition;
-}> = ({ vulnerabilityByShare }) => {
-	const navigate = useNavigate();
-
+}> = (props) => {
 	const renderMetrics = () => {
 		return {
-			total: vulnerabilityByShare.total ?? 0,
-			fixed: vulnerabilityByShare.fixed ?? 0,
-			open: vulnerabilityByShare.open ?? 0,
+			total: props.vulnerabilityByShare.total ?? 0,
+			fixed: props.vulnerabilityByShare.fixed ?? 0,
+			open: props.vulnerabilityByShare.open ?? 0,
 		};
 	};
 
@@ -29,12 +27,15 @@ export const VulnerabilitiesStatus: React.FC<{
 				<div className="actions"></div>
 			</div>
 
-			<div onClick={() => navigate('/issues')} className="content">
+			<div
+				onClick={() => {
+					const navigate = useNavigate();
+					navigate('/issues');
+				}}
+				className="content">
 				<div className="stat">
 					<div className="value">
-						<span className="text-fend-red">
-							{renderMetrics().open}
-						</span>
+						<span className="text-fend-red">{renderMetrics().open}</span>
 						{`/${renderMetrics().total}`}
 					</div>
 					<p className="text-fend-red">Open issues</p>

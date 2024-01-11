@@ -1,7 +1,9 @@
+import { useMemo } from 'react';
 import {
 	ChartService,
 	ChartValueType,
 	Network,
+	isEmptyData,
 	osTypes,
 	useDoughnutChart,
 } from '../../../../../../data';
@@ -14,11 +16,14 @@ interface LanNetworksChartProps {
 }
 
 export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
-	const { chartOptions, chartData, otherMetrics, total, dataEmptyState } =
-		useDoughnutChart({
-			data: props.internalNetwork,
-			type: ChartValueType.NETWORK_OS,
-		});
+	const { chartOptions, chartData, otherMetrics, total } = useDoughnutChart({
+		data: props.internalNetwork,
+		type: ChartValueType.NETWORK_OS,
+	});
+
+	const dataEmptyState = useMemo(() => {
+		return isEmptyData(otherMetrics);
+	}, [otherMetrics]);
 
 	const { renderPercentage } = ChartService;
 	return (

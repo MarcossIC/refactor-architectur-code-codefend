@@ -7,15 +7,5 @@ main.webapp {
 				}
 			}
 		}
-
-		.trash {
-			display: flex;
-			justify-content: center;
-
-			svg,
-			path {
-				cursor: pointer;
-			}
-		}
 	}
 }

@@ -9,7 +9,7 @@ export * from './hooks/useMobile';
 export * from './hooks/useModal';
 export * from './hooks/useAppCard';
 export * from './hooks/useCloud';
-export * from './hooks/useIssues';
+export * from './hooks/issues/useIssues';
 export * from './hooks/useSourceCode';
 export * from './hooks/useWebapplication';
 

@@ -1,12 +1,9 @@
 import axios from 'axios';
 import { useAuthState } from '..';
 var host = import.meta.env.VITE_SERVER_HOST;
-var intel_host = import.meta.env.VITE_INTEL_HOST;
-const { getUserdata } = useAuthState();
 
-export const ApiHandlers =  {
-
-	getPanelCompanies: async  () => {
+export const ApiHandlers = {
+	getPanelCompanies: async () => {
 		return axios({
 			method: 'get',
 			url: host + '/v1/approval/getcompanies',
@@ -40,5 +37,4 @@ export const ApiHandlers =  {
 				return false;
 			});
 	},
-
 };

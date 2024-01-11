@@ -83,7 +83,9 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 						{rows.map((row: any, rowIndex: number) => (
 							<tr key={rowsID[rowIndex]}>
 								{columns.map((column: string, colIndex: number) => (
-									<td key={colIndex}>{row[column.toLowerCase()]}</td>
+									<td key={colIndex} title={row[column.toLowerCase()]}>
+										{row[column.toLowerCase()]}
+									</td>
 								))}
 							</tr>
 						))}

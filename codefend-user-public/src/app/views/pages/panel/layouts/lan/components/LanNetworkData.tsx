@@ -1,13 +1,16 @@
-import { useAppSelector, useModal } from 'app/data';
-import { LanApplicationService } from 'app/data/services/lan.service';
-import { EmptyCard, ModalWrapper, PageLoader } from 'app/views/components';
-
-import AddAccessPointModal from 'app/views/components/modals/AddAccessPointModal';
-import { AddNetworkDeviceModal } from 'app/views/components/modals/AddNetworkDeviceModal';
-import { DeletewebResource } from 'app/views/components/modals/DeleteWebResource';
+import { useAppSelector, useModal } from '../../../../../../data';
+import { LanApplicationService } from '../../../../../../data/services/lan.service';
+import {
+	ModalWrapper,
+	DeletewebResource,
+	AddAccessPointModal,
+	AddNetworkDeviceModal,
+	LanIcon,
+	TrashIcon,
+	PageLoader,
+	EmptyCard,
+} from '../../../../../components';
 import React, { useState } from 'react';
-import { FaServer, FaTrashAlt } from 'react-icons/fa';
-import { HiOutlineBars3BottomLeft } from 'react-icons/hi2';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
@@ -61,7 +64,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 				<ModalWrapper>
 					<div className="w-full w-96 internal-tables disable-border">
 						<div className="modal-header">
-							<HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" />
+							{/* <HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" /> */}
 							<span className="text-sm">Delete LAN</span>
 						</div>
 						<DeletewebResource
@@ -81,7 +84,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 				<ModalWrapper>
 					<div className="w-full w-96 internal-tables disable-border">
 						<div className="modal-header">
-							<HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" />
+							{/* <HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" /> */}
 							<span className="text-sm">Add access point</span>
 						</div>
 						<AddAccessPointModal
@@ -98,7 +101,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 				<ModalWrapper>
 					<div className="w-full w-96 internal-tables disable-border">
 						<div className="modal-header">
-							<HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" />
+							{/* <HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" /> */}
 							<span className="text-sm">Add network device</span>
 						</div>
 						<AddNetworkDeviceModal
@@ -113,7 +116,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 				<div className="header">
 					<div className="title">
 						<div className="icon">
-							<FaServer />
+							<LanIcon />
 						</div>
 						<span>Internal network structure</span>
 					</div>
@@ -150,19 +153,12 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 							<React.Fragment key={network.id}>
 								<div className="item left-marked">
 									<div className="id">{network.id}</div>
-									<div className="ip">
-										{network.device_in_address}
-									</div>
-									<div className="ip">
-										{network.device_ex_address}
-									</div>
+									<div className="ip">{network.device_in_address}</div>
+									<div className="ip">{network.device_ex_address}</div>
 									<div className="os">
-										{network.device_os}/
-										{network.device_vendor}
+										{network.device_os}/{network.device_vendor}
 									</div>
-									<div className="hostname">
-										{network.device_name}
-									</div>
+									<div className="hostname">{network.device_name}</div>
 									<div
 										className="id cursor-pointer p-3 flex"
 										onClick={() => {
@@ -170,15 +166,13 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 											setShowModal(!showModal);
 											setShowModalStr('delete_resource');
 										}}>
-										<FaTrashAlt />
+										<TrashIcon />
 									</div>
 								</div>
 
 								{network.childs!.map((subNetwork) => (
 									<div className="item" key={subNetwork.id}>
-										<div className="id">
-											{subNetwork.id}
-										</div>
+										<div className="id">{subNetwork.id}</div>
 										<div className="ip lined">
 											<span className="sub-domain-icon-v"></span>
 											<span className="sub-domain-icon-h"></span>
@@ -204,13 +198,13 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 											<div
 												className="id cursor-pointer p-3 flex"
 												onClick={() => {
-													setSelectedLanIdToDelete(String(network?.id));
-													setShowModal(!showModal);
-													setShowModalStr(
-														'delete_resource',
+													setSelectedLanIdToDelete(
+														String(network?.id),
 													);
+													setShowModal(!showModal);
+													setShowModalStr('delete_resource');
 												}}>
-												<FaTrashAlt />
+												<TrashIcon />
 											</div>
 										</div>
 									</div>

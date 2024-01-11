@@ -1,7 +1,7 @@
-import { isEmptyData, renderPercentage } from 'app/data';
-import { computeInternalNetworkOSAndCount } from 'app/data/utils/compute';
-import { EmptyCard, PageLoader } from 'app/views/components';
-import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js';
+import { isEmptyData, renderPercentage } from '../../../../../../data';
+import { computeInternalNetworkOSAndCount } from '../../../../../../data';
+import { EmptyCard, PageLoader } from '../../../../../../views/components';
+import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js/auto';
 import { useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Network } from './LanNetworkData';
@@ -41,10 +41,10 @@ export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
 		return { chartData, otherMetrics, total };
 	};
 
-	useEffect(() => {
+	 useEffect(() => {
 		Chart.register(Title, Tooltip, Legend, Colors);
 	});
-
+ 
 	const chartOptions = {
 		plugins: {
 			legend: {

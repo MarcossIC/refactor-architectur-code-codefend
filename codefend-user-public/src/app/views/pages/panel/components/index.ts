@@ -1,6 +1,8 @@
-export { AppCard } from './AppCard';
-export { MobileAppInfoCard } from './MobileAppInfoCard';
-export { ProvidedTestingCredentials } from './ProvidedTestingCredentials';
-export { VulnerabilityRisk } from './VulnerabilityRisk';
-export { VulnerabilitiesStatus } from './VulnerabilitiesStatus';
-export { IssuesPanelMobileAndCloud } from './IssuesPanelMobileAndCloud';
+export * from './AppCard';
+export * from './CloudQuickAction';
+export * from './IssuesPanelMobileAndCloud';
+export * from './MobileAppInfoCard';
+export * from './ProvidedTestingCredentials';
+export * from './TestingCredentialCard';
+export * from './VulnerabilitiesStatus';
+export * from './VulnerabilityRisk';

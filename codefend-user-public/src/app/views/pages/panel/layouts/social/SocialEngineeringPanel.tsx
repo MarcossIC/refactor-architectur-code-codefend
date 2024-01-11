@@ -34,8 +34,8 @@ const SocialEngineeringView = () => {
 	});
 
 	const [socialFilters, setSocialFilters] = useState({
-		department: [],
-		attackVectors: [],
+		department: [] as string[],
+		attackVectors: [] as string[],
 	});
 
 	const fetch = useCallback(() => {
@@ -56,32 +56,32 @@ const SocialEngineeringView = () => {
 		return socialData ?? [];
 	};
 
-	const handleFilter = () => {
-		const filterArray = Object.entries(socialFilters.department);
-		if (filterArray.length === 0)
-			return { filteredData: [], isFiltered: false };
-
-		const selectedFilters = filterArray.reduce(
-			(acc: string[], [key, value]) => {
-				if (value) acc.push(key.toLowerCase());
-				return acc;
-			},
-			[],
-		);
-
-		const socialDataList: Social[] | undefined =
-			socialInfoData() ?? [];
-
-		if (!socialDataList) {
-			return { filteredData: [], isFiltered: false };
-		}
-
-		const filteredData = socialDataList.filter((datum) =>
-			selectedFilters.includes(datum.member_role.toLowerCase()),
-		);
-
-		return { filteredData, isFiltered: selectedFilters.length !== 0 };
-	};
+  const handleFilter = () => {
+    const filterArray = Object.entries(socialFilters.department);
+    if (filterArray.length === 0)
+      return { filteredData: [], isFiltered: false };
+  
+    const selectedFilters = filterArray.reduce(
+      (acc: string[], [key, value]) => {
+        if (value) acc.push(key.toLowerCase());
+        return acc;
+      },
+      [],
+    );
+  
+    const socialDataList: Social[] | undefined = socialInfoData() ?? [];
+  
+    if (!socialDataList) {
+      return { filteredData: [], isFiltered: false };
+    }
+  
+    const filteredData = socialDataList.filter((datum) =>
+      selectedFilters.includes(datum.member_role.toLowerCase()),
+    );
+  
+    return { filteredData, isFiltered: selectedFilters.length !== 0 };
+  };
+  
 
 	return (
 		<>

@@ -1,5 +1,5 @@
 import { roleMap } from 'app/data';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 type MemberKey = keyof typeof roleMap;
 
@@ -8,7 +8,7 @@ interface SocialEngineeringMembersProps {
   members: {
     [key: string]: number;
   };
-  setSocialFilters: () => void;
+  setSocialFilters: Dispatch<SetStateAction<{ department: string[]; attackVectors: string[]; }>>;
 
 }
 
@@ -23,7 +23,11 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (props
 		const memberValue = props.members[member];
 		console.log({ memberValue });
 		if (memberValue == 0) return;
-		props.setSocialFilters('department', member, e.target.checked);
+		
+		props.setSocialFilters((prevState) => ({
+			...prevState,
+			department: [...prevState.department, member], 
+		}));
 	};
 
 	return (

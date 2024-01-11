@@ -41,7 +41,8 @@ const MobileApplicationPanel: React.FC = () => {
 	}, [getMobileInfo]);
 
 	useEffect(() => {
-		setTimeout(() => setShowScreen(true), 50);
+		const timeoutId = setTimeout(() => setShowScreen(true), 50);
+		return () => clearTimeout(timeoutId);
 	}, [showScreen]);
 
 	useEffect(() => {

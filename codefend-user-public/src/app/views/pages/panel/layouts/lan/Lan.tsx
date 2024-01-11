@@ -1,35 +1,69 @@
 // Core packages
-import { useAppSelector } from '../../../../../data';
-import { LanApplicationService } from '../../../../../data/services/lan.service';
+import { useAppSelector } from 'app/data';
+import { LanApplicationService } from 'app/data/services/lan.service';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { invoke } from '@tauri-apps/api/tauri';
-import InternalNetworks from './components/InternalNetworks';
-import { PageLoaderWhite } from '../../../../components';
+import { PageLoaderWhite } from 'app/views/components';
+import { LanNetworkData, Network } from './components/LanNetworkData';
+import { LanNetworksChart } from './components/LanNetworksChart';
 
-export const LanPage: React.FC = () => {
-	const companyID = useAppSelector(
-		(state) => state.authState.userData?.companyID,
-	) as string;
-	const [scanLoading, setScanLoading] = useState(false);
 
-	const getInternalNetworks = async () => {
-		try {
-			const data = await LanApplicationService.getAll(companyID);
-			return data;
-		} catch (error) {
-			console.log({ error });
-		}
-	};
+const companyID = useAppSelector(
+	(state) => state.authState.userData?.companyID,
+) as string;
 
+
+const [scanLoading, setScanLoading] = useState(false);
+
+const getInternalNetworks = async () => {
+	try {
+		const data = await LanApplicationService.getAll(companyID);
+		console.log(data)
+		return data;
+	} catch (error) {
+		console.log({ error });
+	}
+};
+
+const scanLocal = async () => {
+	setScanLoading(true);
+	return invoke('scan_local')
+		.then((res: any) => {
+			const parsedRes = JSON.parse(res);
+
+			console.log(parsedRes);
+
+			if (parsedRes.success) {
+				setScanLoading(false);
+				toast.success(parsedRes.success);
+			} else {
+				setScanLoading(false);
+			}
+		})
+		.catch((err: any) => {
+			setScanLoading(false);
+			const parsedErr = JSON.parse(err);
+
+			if (parsedErr.error) {
+				toast.error(parsedErr.error);
+			}
+		});
+};
+
+const LanPage: React.FC = () => {
+	
 	const [internalNetwork, setInternalNetwork] = useState({
 		loading: true,
-		data: {},
+		data: [] as Network[],
 	});
 
 	const internalNetworkDataInfo = () => {
-		return internalNetwork.loading ? {} : internalNetwork.data;
-	};
+    const internalNetworkData = internalNetwork.loading
+      ? {}
+      : getInternalNetworks();
+    return internalNetworkData ?? [];
+  };
 
 	const [showScreen, setShowScreen] = useState(false);
 
@@ -41,53 +75,27 @@ export const LanPage: React.FC = () => {
 		return () => clearTimeout(timeoutId);
 	}, []);
 
-	const scanLocal = async () => {
-		setScanLoading(true);
-		return invoke('scan_local')
-			.then((res: any) => {
-				const parsedRes = JSON.parse(res);
-
-				console.log(parsedRes);
-
-				if (parsedRes.success) {
-					setScanLoading(false);
-					toast.success(parsedRes.success);
-				} else {
-					setScanLoading(false);
-				}
-			})
-			.catch((err: any) => {
-				setScanLoading(false);
-				const parsedErr = JSON.parse(err);
-
-				if (parsedErr.error) {
-					toast.error(parsedErr.error);
-				}
-			});
-	};
 
 	return (
 		<>
 			<main className={`lan ${showScreen ? 'actived' : ''}`}>
 				<section className="left">
-					<InternalNetworks
+					<LanNetworkData
 						isLoading={internalNetwork.loading}
 						refetchInternalNetwork={() =>
-							setInternalNetwork({ loading: true, data: {} })
+							setInternalNetwork({ loading: true, data: [] })
 						}
-						internalNetwork={
-							/*internalNetworkDataInfo().disponibles ?? []*/ []
-						}
+						internalNetwork={internalNetworkDataInfo() as Network[]}
 					/>
 				</section>
+
 				<section className="right">
-					{/* 
-					<InternalNetworksChart
+					<LanNetworksChart
 						isLoading={internalNetwork.loading}
-						internalNetwork={internalNetworkDataInfo().disponibles ?? []}
+						internalNetwork={
+							internalNetworkDataInfo()  as Network[]
+						}
 					/> 
-				
-					*/}
 					<button
 						onClick={() => {
 							scanLocal();
@@ -101,3 +109,4 @@ export const LanPage: React.FC = () => {
 		</>
 	);
 };
+export default LanPage

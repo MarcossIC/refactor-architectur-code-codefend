@@ -25,28 +25,6 @@ const deleteSource = async (sourceId: String, companyID: string) => {
 	return data;
 };
 
-/** Compute Source Code metrics for source code screen */
-const computeSourceCodeMetrics = (sourceCode: any) => {
-	if (!Array.isArray(sourceCode) || sourceCode.length === 0) return {};
-
-	const metrics = sourceCode.reduce((acc, metric) => {
-		const code = metric.sourceCode;
-		if (acc[code]) {
-			acc[code] += 1;
-		} else {
-			acc[code] = 1;
-		}
-
-		return acc;
-	}, {});
-
-	const total = Object.values(metrics).reduce(
-		(acc: any, value: any) => value + acc,
-		0,
-	);
-	return { total, ...metrics };
-};
-
 const add = async (params: any, companyID: string) => {
 	const { data } = await fetchPOST({
 		params: {
@@ -76,7 +54,6 @@ const modify = async (sourceId: string, companyID: string) => {
 export const SourceCodeService = {
 	getAll,
 	delete: deleteSource,
-	computeSourceCodeMetrics,
 	add,
 	modify,
 };

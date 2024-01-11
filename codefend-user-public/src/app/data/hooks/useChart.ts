@@ -10,19 +10,27 @@ import {
 	ChartOptions,
 	ArcElement,
 } from 'chart.js/auto';
-import { IssuesShare } from '..';
-import { SourceCodeService } from '../services/sourcecode.service';
+import { ChartService, ChartValueType, isEmptyData } from '..';
+
 interface DoughnutCharProps {
-	vulnerabilityByRisk: any;
-	isComputed: boolean;
+	data: any;
+	type: ChartValueType;
 }
-export const useDoughnutChart = ({
-	vulnerabilityByRisk,
-	isComputed,
-}: DoughnutCharProps) => {
-	const { total, ...otherMetrics } = !isComputed
-		? vulnerabilityByRisk
-		: SourceCodeService.computeSourceCodeMetrics(vulnerabilityByRisk);
+type ChartMetrics = {
+	[ChartValueType.SOURCE_CODE]: (value: any) => any;
+	[ChartValueType.PLAIN]: (value: any) => any;
+	[ChartValueType.NETWORK_OS]: (value: any) => any;
+};
+export const useDoughnutChart = (value: DoughnutCharProps) => {
+	const metrics: ChartMetrics = {
+		[ChartValueType.SOURCE_CODE]: (value) =>
+			ChartService.computeSourceCodeMetrics(value),
+		[ChartValueType.PLAIN]: (value) => value,
+		[ChartValueType.NETWORK_OS]: (value) =>
+			ChartService.computeInternalNetworkOSAndCount(value),
+	};
+
+	const { total, ...otherMetrics } = metrics[value.type](value.data);
 
 	useEffect(() => {
 		ChartJS.register(Title, Tooltip, Legend, Colors, ArcElement);
@@ -58,5 +66,9 @@ export const useDoughnutChart = ({
 		[],
 	);
 
-	return { chartOptions, chartData, otherMetrics, total };
+	const dataEmptyState = useMemo(() => {
+		return isEmptyData(otherMetrics);
+	}, [otherMetrics]);
+
+	return { chartOptions, chartData, otherMetrics, total, dataEmptyState };
 };

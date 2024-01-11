@@ -25,6 +25,9 @@ const MobileApplication = lazy(
 const CloudApplicationPanel = lazy(
 	() => import('./views/pages/panel/layouts/cloud/Cloud'),
 );
+const LanApplicationPanel = lazy(
+	() => import('./views/pages/panel/layouts/lan/Lan'),
+);
 
 const EnpPanel = lazy(() => import('./views/pages/panel/layouts/enp/EnpPanel'));
 
@@ -78,9 +81,10 @@ export const AppRouter: React.FC = () => {
 					<Route path="/web" element={<WebApplication />} />
 					<Route path="/mobile" element={<MobileApplication />} />
 					<Route path="/cloud" element={<CloudApplicationPanel />} />
-
+					<Route path="/lan" element={<LanApplicationPanel />} />
 					<Route path="/enp" element={<EnpPanel />} />
 					<Route path="/source" element={<SourceCodePanel />} />
+
 					<Route path="/social" element={<SocielEngineeringPanel />} />
 					<Route path="/issues" element={<IssuesPanel />} />
 					<Route path="/support" element={<SupportPanel />} />

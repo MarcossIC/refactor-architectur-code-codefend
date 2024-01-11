@@ -7,3 +7,6 @@ export * from './webapplication.service';
 export * from './mobile.service';
 export * from './cloud.service';
 export * from './issues.service';
+export * from './lan.service';
+
+export * from './chart.service';

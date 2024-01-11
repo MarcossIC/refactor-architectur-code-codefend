@@ -1,22 +1,11 @@
-import { useAppSelector, useModal } from 'app/data';
-import { LanApplicationService } from 'app/data/services/lan.service';
-import {
-	DeletewebResource,
-	EmptyCard,
-	ModalTitleWrapper,
-	ModalWrapper,
-	PageLoader,
-	AddAccessPointModal,
-	AddNetworkDeviceModal,
-	LanIcon,
-	TrashIcon,
-} from '../../../../../components';
+import React, { useState } from 'react';
+import { useAppSelector, useModal, LanApplicationService } from '../../../../../../data';
+import { EmptyCard, ModalWrapper, PageLoader,AddAccessPointModal,AddNetworkDeviceModal,DeletewebResource } from '../../../../../components';
 
-import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
-interface Network {
+export interface Network {
 	id: number;
 	device_in_address: string;
 	device_ex_address: string;
@@ -38,9 +27,11 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 	);
 	const { showModal, setShowModal, setShowModalStr, showModalStr } =
 		useModal();
+
 	const [selectedLanIdToDelete, setSelectedLanIdToDelete] = useState<
 		string | null
 	>(null);
+
 	const [isDeletingLan, setIsDeletingLan] = useState<boolean>(false);
 
 	const navigate = useNavigate();
@@ -60,45 +51,63 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 
 	return (
 		<>
-			<ModalTitleWrapper
-				isActive={showModal && showModalStr === 'delete_resource'}
-				headerTitle="Delete LAN"
-				close={() => {}}>
-				<DeletewebResource
-					isDeleting={isDeletingLan}
-					onDelete={handleDelete}
-					id={selectedLanIdToDelete}
-					onDone={() => {
-						window.location.reload();
-					}}
-				/>
-			</ModalTitleWrapper>
+			{showModal && showModalStr === 'delete_resource' && (
+				<ModalWrapper>
+					<div className="w-full w-96 internal-tables disable-border">
+						<div className="modal-header">
+							<HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" />
+							<span className="text-sm">Delete LAN</span>
+						</div>
+						<DeletewebResource
+							isDeleting={isDeletingLan}
+							onDelete={handleDelete}
+							id={selectedLanIdToDelete}
+							onDone={() => {
+								navigate(0);
+							}}
+						/>
+						<div className="container flex items-center justify-center mx-auto p-3 text-format"></div>
+					</div>
+				</ModalWrapper>
+			)}
 
-			<ModalTitleWrapper
-				close={() => {}}
-				isActive={showModal && showModalStr === 'add_access_point'}
-				headerTitle="Add access point">
-				<AddAccessPointModal
-					onDone={() => {
-						props.refetchInternalNetwork();
-					}}
-				/>
-			</ModalTitleWrapper>
+			{showModal && showModalStr === 'add_access_point' && (
+				<ModalWrapper>
+					<div className="w-full w-96 internal-tables disable-border">
+						<div className="modal-header">
+							<HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" />
+							<span className="text-sm">Add access point</span>
+						</div>
+						<AddAccessPointModal
+							onDone={() => {
+								props.refetchInternalNetwork();
+							}}
+						/>
+						<div className="container flex items-center justify-center mx-auto p-3 text-format"></div>
+					</div>
+				</ModalWrapper>
+			)}
 
-			<ModalTitleWrapper
-				headerTitle="Add network device"
-				close={() => {}}
-				isActive={showModal && showModalStr === 'add_network_device'}>
-				<AddNetworkDeviceModal
-					internalNetwork={props.internalNetwork ?? []}
-				/>
-			</ModalTitleWrapper>
+			{showModal && showModalStr === 'add_network_device' && (
+				<ModalWrapper>
+					<div className="w-full w-96 internal-tables disable-border">
+						<div className="modal-header">
+							<HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" />
+							<span className="text-sm">Add network device</span>
+						</div>
+						<AddNetworkDeviceModal
+							internalNetwork={props.internalNetwork ?? []}
+						/>
+						<div className="container flex items-center justify-center mx-auto p-3 text-format"></div>
+					</div>
+				</ModalWrapper>
+			)}
 
 			<div className="card table flex-grow">
 				<div className="header">
 					<div className="title">
 						<div className="icon">
-							<LanIcon />
+							<FaServer />
 						</div>
 						<span>Internal network structure</span>
 					</div>
@@ -132,29 +141,38 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 				{!props.isLoading ? (
 					<div className="rows">
 						{props.internalNetwork.map((network) => (
-							<Fragment key={network.id}>
+							<React.Fragment key={network.id}>
 								<div className="item left-marked">
 									<div className="id">{network.id}</div>
-									<div className="ip">{network.device_in_address}</div>
-									<div className="ip">{network.device_ex_address}</div>
-									<div className="os">
-										{network.device_os}/{network.device_vendor}
+									<div className="ip">
+										{network.device_in_address}
 									</div>
-									<div className="hostname">{network.device_name}</div>
+									<div className="ip">
+										{network.device_ex_address}
+									</div>
+									<div className="os">
+										{network.device_os}/
+										{network.device_vendor}
+									</div>
+									<div className="hostname">
+										{network.device_name}
+									</div>
 									<div
 										className="id cursor-pointer p-3 flex"
 										onClick={() => {
-											setSelectedLanIdToDelete(network?.id as any);
+											setSelectedLanIdToDelete(String(network?.id));
 											setShowModal(!showModal);
 											setShowModalStr('delete_resource');
 										}}>
-										<TrashIcon />
+										<FaTrashAlt />
 									</div>
 								</div>
 
 								{network.childs!.map((subNetwork) => (
 									<div className="item" key={subNetwork.id}>
-										<div className="id">{subNetwork.id}</div>
+										<div className="id">
+											{subNetwork.id}
+										</div>
 										<div className="ip lined">
 											<span className="sub-domain-icon-v"></span>
 											<span className="sub-domain-icon-h"></span>
@@ -180,18 +198,18 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 											<div
 												className="id cursor-pointer p-3 flex"
 												onClick={() => {
-													setSelectedLanIdToDelete(
-														subNetwork?.id as any,
-													);
+													setSelectedLanIdToDelete(String(network?.id));
 													setShowModal(!showModal);
-													setShowModalStr('delete_resource');
+													setShowModalStr(
+														'delete_resource',
+													);
 												}}>
-												<TrashIcon />
+												<FaTrashAlt />
 											</div>
 										</div>
 									</div>
 								))}
-							</Fragment>
+							</React.Fragment>
 						))}
 					</div>
 				) : (

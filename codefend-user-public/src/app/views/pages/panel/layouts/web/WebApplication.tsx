@@ -8,11 +8,12 @@ import '../../../../styles/flag.scss';
 import './webapplication.scss';
 
 const WebApplicationView: React.FC = () => {
-	const [showScreen, setShowScreen] = useState(false);
 	const { webResources, isLoading, refetch } = useWebapplication();
+	const [showScreen, setShowScreen] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => setShowScreen(true), 50);
+		const timeoutId = setTimeout(() => setShowScreen(true), 50);
+		return () => clearTimeout(timeoutId);
 	}, [showScreen]);
 
 	return (

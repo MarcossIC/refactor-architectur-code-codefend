@@ -1,10 +1,11 @@
 import React, { Fragment, useMemo } from 'react';
 import {
+	ChartService,
+	ChartValueType,
 	SourceCode,
 	generateIDArray,
 	isEmptyData,
 	languageTypes,
-	renderPercentage,
 	useDoughnutChart,
 } from '../../../../../../data';
 import { ChartIcon, EmptyCard, PageLoader } from '../../../../../components';
@@ -17,8 +18,8 @@ interface Props {
 
 export const SourceCodeChart: React.FC<Props> = (props) => {
 	const { chartData, otherMetrics, total, chartOptions } = useDoughnutChart({
-		vulnerabilityByRisk: props.sourceCode,
-		isComputed: true,
+		data: props.sourceCode,
+		type: ChartValueType.SOURCE_CODE,
 	});
 
 	const dataEmptyState = useMemo(() => {
@@ -28,6 +29,8 @@ export const SourceCodeChart: React.FC<Props> = (props) => {
 	const sourceKeys = useMemo(() => {
 		return props.isLoading ? [] : generateIDArray(props.sourceCode.length);
 	}, [props.sourceCode]);
+
+	const { renderPercentage } = ChartService;
 
 	return (
 		<>

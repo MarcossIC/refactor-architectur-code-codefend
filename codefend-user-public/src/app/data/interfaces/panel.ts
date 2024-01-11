@@ -153,3 +153,9 @@ export interface SourceCode extends ResourceID, Monitoring {
 	isPublic: string;
 	sourceCode: string;
 }
+
+export enum ChartValueType {
+	SOURCE_CODE,
+	PLAIN,
+	NETWORK_OS,
+}

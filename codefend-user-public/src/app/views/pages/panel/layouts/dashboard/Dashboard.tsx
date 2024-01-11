@@ -15,9 +15,8 @@ const Dashboard: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => {
-			setShowScreen(true);
-		}, 50);
+		const timeoutId = setTimeout(() => setShowScreen(true), 50);
+		return () => clearTimeout(timeoutId);
 	}, [showScreen]);
 
 	return (

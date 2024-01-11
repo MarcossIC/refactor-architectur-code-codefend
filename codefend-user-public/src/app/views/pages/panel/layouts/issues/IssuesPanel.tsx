@@ -4,7 +4,7 @@ import { VulnerabilitiesStatus, VulnerabilityRisk } from '../..';
 import { IssueReport } from './components/IssueReport';
 import { IssueResources } from './components/IssueResources';
 import '../../../../styles/table.scss';
-
+import './issues.scss';
 const IssuesPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
 	const [reShow, setReshow] = useState(false);

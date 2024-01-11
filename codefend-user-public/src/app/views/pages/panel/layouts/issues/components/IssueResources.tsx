@@ -8,6 +8,7 @@ import {
 	PageLoader,
 	TrashIcon,
 } from '../../../../../components';
+import { useNavigate } from 'react-router';
 
 interface Props {
 	isLoading: boolean;
@@ -22,7 +23,7 @@ export const IssueResources: React.FC<Props> = (props) => {
 		() => (props.issues ? generateIDArray(props.issues.length) : []),
 		[props.issues],
 	);
-
+	const navigate = useNavigate();
 	const isValidRiskScore = useCallback(
 		(riskScore: any) => {
 			return riskScore && !isNaN(parseInt(riskScore));
@@ -71,7 +72,11 @@ export const IssueResources: React.FC<Props> = (props) => {
 						<span>Issues</span>
 					</div>
 					<div className="actions">
-						<div className="" onClick={() => {}}>
+						<div
+							className=""
+							onClick={() => {
+								navigate('/create/issues');
+							}}>
 							Add finding
 						</div>
 					</div>

@@ -1,13 +1,12 @@
 import {
 	ChartService,
 	ChartValueType,
+	Network,
 	osTypes,
 	useDoughnutChart,
 } from '../../../../../../data';
 import { ChartIcon, EmptyCard, PageLoader } from '../../../../../components';
-
 import { Doughnut } from 'react-chartjs-2';
-import { Network } from './LanNetworkData';
 
 interface LanNetworksChartProps {
 	isLoading: boolean;
@@ -20,7 +19,6 @@ export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
 			data: props.internalNetwork,
 			type: ChartValueType.NETWORK_OS,
 		});
-
 
 	const { renderPercentage } = ChartService;
 	return (

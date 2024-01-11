@@ -5,6 +5,7 @@ import { WebApplicationStatics } from './components/WebApplicationStatics';
 import { WebApplicationCredentials } from './components/WebApplicationCredentials';
 import { useWebapplication } from '../../../../../data';
 import '../../../../styles/flag.scss';
+import '../../../../styles/table.scss';
 import './webapplication.scss';
 
 const WebApplicationView: React.FC = () => {

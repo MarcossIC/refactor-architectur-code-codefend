@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { GlobeWebIcon, ButtonLoader } from '../';
 import { toast } from 'react-toastify';

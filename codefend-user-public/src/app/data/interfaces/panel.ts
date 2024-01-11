@@ -159,3 +159,12 @@ export enum ChartValueType {
 	PLAIN,
 	NETWORK_OS,
 }
+
+export interface Network extends ResourceID, Monitoring {
+	device_in_address: string;
+	device_ex_address: string;
+	device_os: string;
+	device_vendor: string;
+	device_name: string;
+	childs?: Network[];
+}

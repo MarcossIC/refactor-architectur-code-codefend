@@ -117,9 +117,10 @@ export const AcessPointModal: React.FC<{ onDone: () => void }> = (props) => {
 			<div className="container flex items-center justify-center  mx-auto p-3 text-format">
 				<form onSubmit={handleSubmit} className="p-6">
 					<div className="relative flex items-center w-96">
-						<span className="absolute">
-							{/* <FaSolidGlobe className="w-3 h-3 mx-4 codefend-text-red" /> */}
-							<GlobeWebIcon />
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<select

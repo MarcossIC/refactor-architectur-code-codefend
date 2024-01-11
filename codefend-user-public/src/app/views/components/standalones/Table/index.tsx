@@ -57,6 +57,7 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 	return (
 		<>
 			<div className="table__title__header"></div>
+
 			<div>
 				<table>
 					<thead>

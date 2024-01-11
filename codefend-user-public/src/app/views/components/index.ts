@@ -1,11 +1,3 @@
-export { default as Logo } from './standalones/Logo';
-export { default as Navbar } from './standalones/Navbar';
-export { default as Sidebar } from './standalones/Sidebar';
-export { default as EmptyCard } from './standalones/EmptyCard';
-export { default as EmptyScreenView } from './standalones/EmptyScreenView';
-export * from './standalones/Loader';
-
-export * from './standalones/Loader';
 export * from './icons';
 
 export { default as ModalWrapper } from './modals/ModalWrapper';
@@ -21,3 +13,7 @@ export { DeletewebResource } from './modals/DeletewebResource';
 export { AddRepositoryModal } from './modals/AddRepositoryModal';
 
 export { Table } from './standalones/Table';
+
+export * from './modals';
+export * from './standalones/Table';
+export * from './standalones';

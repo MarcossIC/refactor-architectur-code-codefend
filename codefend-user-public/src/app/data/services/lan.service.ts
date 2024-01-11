@@ -5,7 +5,7 @@ const getAll = async (companyID: string) => {
 		params: {
 			model: 'resources/lan',
 			ac: 'view_all',
-			companyId: companyID,
+			company_id: companyID,
 		},
 	});
 	return data;

@@ -16,21 +16,17 @@ interface DoughnutCharProps {
 	data: any;
 	type: ChartValueType;
 }
-type ChartMetrics = {
-	[ChartValueType.SOURCE_CODE]: (value: any) => any;
-	[ChartValueType.PLAIN]: (value: any) => any;
-	[ChartValueType.NETWORK_OS]: (value: any) => any;
-};
-export const useDoughnutChart = (value: DoughnutCharProps) => {
-	const metrics: ChartMetrics = {
-		[ChartValueType.SOURCE_CODE]: (value) =>
-			ChartService.computeSourceCodeMetrics(value),
-		[ChartValueType.PLAIN]: (value) => value,
-		[ChartValueType.NETWORK_OS]: (value) =>
-			ChartService.computeInternalNetworkOSAndCount(value),
-	};
 
-	const { total, ...otherMetrics } = metrics[value.type](value.data);
+export const useDoughnutChart = (value: DoughnutCharProps) => {
+	let metrics = null;
+	if (value.type === ChartValueType.SOURCE_CODE) {
+		metrics = ChartService.computeSourceCodeMetrics(value.data);
+	} else if (value.type === ChartValueType.NETWORK_OS) {
+		metrics = ChartService.computeInternalNetworkOSAndCount(value.data);
+	} else {
+		metrics = value.data;
+	}
+	const { total, ...otherMetrics } = metrics;
 
 	useEffect(() => {
 		ChartJS.register(Title, Tooltip, Legend, Colors, ArcElement);

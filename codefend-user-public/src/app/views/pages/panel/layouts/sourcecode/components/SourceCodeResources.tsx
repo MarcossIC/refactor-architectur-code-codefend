@@ -5,11 +5,11 @@ import {
 	ModalTitleWrapper,
 	PageLoader,
 	SourceCodeIcon,
-	TrashIcon,
-	AddRepositoryModal,
+	TrashIcon
 } from '../../../../../components';
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import '../../../../../styles/table.scss';
+import { AddRepositoryModal } from '../../../../../components/modals/AddRepositoryModal';
 
 interface SourceCodeProps {
 	isLoading: boolean;

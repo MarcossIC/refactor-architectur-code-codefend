@@ -7,6 +7,7 @@ import { LanApplicationService } from '../../../../../data/services/lan.service'
 import { PageLoaderWhite } from '../../../../../views/components';
 import { LanNetworkData } from './components/LanNetworkData';
 import { LanNetworksChart } from './components/LanNetworksChart';
+import { InternalNetworks } from '.';
 
 const LanPage: React.FC = () => {
 	const { getUserdata } = useAuthState();
@@ -18,7 +19,7 @@ const LanPage: React.FC = () => {
 	});
 
 	const fetch = useCallback(() => {
-		const companyID = getUserdata()?.companyID;
+		const companyID: string = getUserdata()?.companyID;
 		setScanLoading(true);
 		LanApplicationService.getAll(companyID)
 			.then((response: any) => {
@@ -95,7 +96,7 @@ const LanPage: React.FC = () => {
 						className="btn btn-primary full-w mt-4">
 						{scanLoading ? <PageLoaderWhite /> : 'REQUEST SCAN'}
 					</button>
-					{/* <InternalNetworks /> */}
+				
 				</section>
 			</main>
 		</>

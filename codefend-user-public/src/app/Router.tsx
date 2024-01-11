@@ -35,8 +35,8 @@ const SourceCodePanel = lazy(
 	() => import('./views/pages/panel/layouts/sourcecode/SourceCodePanel'),
 );
 
-const SocielEngineeringPanel = lazy(
-	() => import('./views/pages/panel/layouts/social/SocielEngineeringPanel'),
+const SocialEngineeringPanel = lazy(
+	() => import('./views/pages/panel/layouts/social/SocialEngineeringPanel'),
 );
 
 const IssuesPanel = lazy(
@@ -85,7 +85,7 @@ export const AppRouter: React.FC = () => {
 					<Route path="/enp" element={<EnpPanel />} />
 					<Route path="/source" element={<SourceCodePanel />} />
 
-					<Route path="/social" element={<SocielEngineeringPanel />} />
+					<Route path="/social" element={<SocialEngineeringPanel />} />
 					<Route path="/issues" element={<IssuesPanel />} />
 					<Route path="/support" element={<SupportPanel />} />
 					<Route path="/preferences" element={<PreferencePanel />} />

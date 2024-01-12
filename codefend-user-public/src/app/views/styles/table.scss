@@ -1,5 +1,7 @@
 .table {
 	width: 100%;
+	display: table;
+	flex-grow: 1;
 
 	&.small {
 		.columns-name {

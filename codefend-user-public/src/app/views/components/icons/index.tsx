@@ -35,20 +35,15 @@ export const GlobeWebIcon: React.FC<{}> = () => (
 
 export const MobileIcon: React.FC<{}> = () => (
 	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
 		strokeWidth={0}
-		stroke="currentColor"
-		color="currentColor"
-		fill="currentColor"
 		height="1em"
 		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 384 512"
+		color="currentColor"
+		fill="currentColor"
 		style={{ overflow: 'visible' }}>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
-		/>
+		<path d="M16 64C16 28.7 44.7 0 80 0h224c35.3 0 64 28.7 64 64v384c0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64V64zm128 384c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16zM304 64H80v320h224V64z"></path>
 	</svg>
 );
 

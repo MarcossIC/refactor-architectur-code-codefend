@@ -3,6 +3,7 @@ import { Loader } from '../../../../components';
 import { useOneIssue } from '../../../../../data';
 import { IssueChatDisplay } from './components/IssueChatDisplay';
 import { useParams } from 'react-router';
+import IssueUpdatePanel from './components/IssueUpdatePanel';
 
 const IssuesCreation: React.FC<{}> = () => {
 	const { getIssues, isLoading, refetchOne } = useOneIssue();
@@ -23,11 +24,13 @@ const IssuesCreation: React.FC<{}> = () => {
 	return (
 		<>
 			<main className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
-				<section className="issue"></section>
+				<section className="issue">
+					<IssueUpdatePanel issue={getIssues()} isLoading={isLoading} />
+				</section>
 				<section className="h-full flex-grow">
 					<IssueChatDisplay
 						isLoading={isLoading}
-						selectedIssue={{}}
+						selectedIssue={getIssues()}
 						refetch={() => setReshow(!reShow)}
 					/>
 				</section>

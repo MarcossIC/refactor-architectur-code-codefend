@@ -10,9 +10,8 @@ import { AppEditor } from './AppEditor';
 import { Issues, useSaveIssue } from '../../../../../../data';
 
 interface IssueUpdatePanelProps {
-	issue: Issues;
+	issue: any;
 	isLoading: boolean;
-	onDone: () => void;
 }
 
 const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = (props) => {
@@ -30,32 +29,16 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = (props) => {
 			issueClass: props.issue.resourceClass,
 		}));
 		save().then((response) => {
-			if (props.onDone) props.onDone();
-
-			navigate(`issues/${response?.newIssue}`);
+			navigate(`/issues`);
 		});
 	}, []);
 
-	const handleKeyDown = useCallback(
-		(event: any) => {
-			if (event.ctrlKey && (event.key === 's' || event.keyCode === 83)) {
-				event.preventDefault();
-				handleIssueUpdate();
-			}
-		},
-		[handleIssueUpdate],
-	);
-
-	useEffect(() => {
-		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
-		if (!iframe) return;
-		const contentWindow = iframe.contentWindow;
-		contentWindow!.addEventListener('keydown', handleKeyDown);
-
-		return () => {
-			contentWindow!.removeEventListener('keydown', handleKeyDown);
-		};
-	}, []);
+	const handleKeyDown = (event: any) => {
+		if (event.ctrlKey && (event.key === 's' || event.keyCode === 83)) {
+			event.preventDefault();
+			handleIssueUpdate();
+		}
+	};
 
 	const nameText = () => {
 		if (!issueNameUpdate) return props.issue.name;
@@ -65,14 +48,16 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = (props) => {
 		return props.issue.name;
 	};
 
-	const handleIsEditable = () => {
+	useEffect(() => {
 		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
 		if (!iframe) return;
 		const contentWindow = iframe.contentWindow;
 		contentWindow!.addEventListener('keydown', handleKeyDown);
-
 		setEditable(!isEditable);
-	};
+		return () => {
+			contentWindow!.removeEventListener('keydown', handleKeyDown);
+		};
+	}, []);
 
 	return (
 		<>
@@ -101,12 +86,12 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = (props) => {
 						)}
 						<div
 							className={`edit + ${isEditable ? 'on' : 'off'}`}
-							onClick={() => handleIsEditable()}>
+							onClick={() => setEditable(!isEditable)}>
 							{/*<FaSolidPencil />*/}*Pecil*
 						</div>
 						<div
 							className={`save + ${isEditable ? 'on' : 'off'}`}
-							onClick={() => {}}>
+							onClick={() => handleIssueUpdate()}>
 							<SaveIcon />
 						</div>
 					</div>

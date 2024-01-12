@@ -18,13 +18,13 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 	const { newIssue, setNewIssue, save } = useSaveIssue();
 	const navigate = useNavigate();
 
-	const handleIssueUpdate = useCallback(() => {
+	const handleIssueUpdate = () => {
 		save().then((response) => {
 			if (props.onDone) props.onDone();
 
-			navigate(`issues/${response?.newIssue}`);
+			navigate(`/issues/${response?.newIssue}`);
 		});
-	}, []);
+	};
 
 	const handleKeyDown = useCallback(
 		(event: any) => {
@@ -123,7 +123,7 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 			<div className="">
 				<AppEditor
 					initialValue={props.issues ?? ''}
-					isEditable={() => true}
+					isEditable={true}
 					isIssueCreation
 				/>
 			</div>

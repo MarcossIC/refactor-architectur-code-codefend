@@ -1,3 +1,4 @@
+import { useAppDispatch } from '..';
 import { fetchPOST, handleFetchError } from './fetchAPI';
 
 const getCompanyInfo = async (companyId: string | number) => {

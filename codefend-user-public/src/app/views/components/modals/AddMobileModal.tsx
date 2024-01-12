@@ -9,8 +9,6 @@ interface Props {
 }
 
 export const AddMobileModal: React.FC<Props> = (props) => {
-	const { showModal, setShowModal, showModalStr, setShowModalStr } =
-		useModal();
 	const [appName, setAppName] = useState('');
 	const [androidAddress, setAndroidAddress] = useState('');
 	const [iosAddress, setIosAddress] = useState('');

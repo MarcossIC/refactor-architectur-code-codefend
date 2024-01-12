@@ -2,7 +2,8 @@ import { useMemo } from 'react';
 import {
 	ChartService,
 	ChartValueType,
-	Network,
+	Device,
+	generateIDArray,
 	isEmptyData,
 	osTypes,
 	useDoughnutChart,
@@ -12,7 +13,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 interface LanNetworksChartProps {
 	isLoading: boolean;
-	internalNetwork: Network[];
+	internalNetwork: Device[];
 }
 
 export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
@@ -26,6 +27,13 @@ export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
 	}, [otherMetrics]);
 
 	const { renderPercentage } = ChartService;
+
+	const lanKeys = useMemo(() => {
+		return props.isLoading
+			? []
+			: generateIDArray(Object.keys(otherMetrics).length);
+	}, [Object.keys(otherMetrics)]);
+
 	return (
 		<>
 			<div className="card risk-chart">
@@ -59,24 +67,26 @@ export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
 							</div>
 
 							<div className="row">
-								{Object.keys(otherMetrics).map((network) => (
-									<div className="item" key={network}>
-										<div className="os">
-											{osTypes.includes(network.toLowerCase())
-												? network
-												: 'Unknown'}
+								{Object.keys(otherMetrics).map(
+									(network: any, i: number) => (
+										<div className="item" key={lanKeys[i]}>
+											<div className="os">
+												{osTypes.includes(network.toLowerCase())
+													? network
+													: 'Unknown'}
+											</div>
+											<div className="count">
+												{otherMetrics[network]}
+											</div>
+											<div className="percent">
+												{renderPercentage(
+													otherMetrics[network],
+													total,
+												)}
+											</div>
 										</div>
-										<div className="count">
-											{otherMetrics[network]}
-										</div>
-										<div className="percent">
-											{renderPercentage(
-												otherMetrics[network],
-												total,
-											)}
-										</div>
-									</div>
-								))}
+									),
+								)}
 							</div>
 						</div>
 					</div>

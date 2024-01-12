@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
-	AddCloudModal,
 	EmptyScreenView,
 	ModalTitleWrapper,
 	PageLoader,
@@ -13,6 +12,7 @@ import {
 	useModal,
 } from '../../../../../data';
 import { CloudSelectedDetails } from './components/CloudSelectedDetails';
+import { AddCloudModal } from '../../../../components/modals/AddCloudModal';
 
 const CloudApplicationPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState<boolean>(false);

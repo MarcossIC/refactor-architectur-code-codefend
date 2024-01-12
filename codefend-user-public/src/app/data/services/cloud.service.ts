@@ -11,6 +11,18 @@ const getAll = async (companyID: string) => {
 
 	return data;
 };
+
+const getOne = async (cloudID: string, companyID: string) => {
+	const { data } = await fetchPOST({
+		params: {
+			model: 'resources/cloud',
+			ac: 'view_one',
+			id: cloudID,
+			company_id: companyID,
+		},
+	});
+};
+
 const add = async (params: any, companyID: string) => {
 	const { data } = await fetchPOST({
 		params: {
@@ -22,6 +34,16 @@ const add = async (params: any, companyID: string) => {
 	});
 
 	return data;
+};
+
+const modify = async (params: any, companyID: string) => {
+	const { data } = await fetchPOST({
+		params: {
+			model: 'resource/cloud',
+			ac: 'mod',
+			company_id: companyID,
+		},
+	});
 };
 
 const deleteApp = async (cloudId: string, companyID: string) => {
@@ -37,4 +59,4 @@ const deleteApp = async (cloudId: string, companyID: string) => {
 	return data;
 };
 
-export const CloudService = { getAll, add, deleteApp };
+export const CloudService = { getAll, getOne, add, modify, deleteApp };

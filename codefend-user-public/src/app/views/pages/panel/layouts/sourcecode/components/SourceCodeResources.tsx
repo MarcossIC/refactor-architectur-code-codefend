@@ -6,10 +6,10 @@ import {
 	ModalTitleWrapper,
 	PageLoader,
 	SourceCodeIcon,
-	TrashIcon,
-	AddRepositoryModal,
+	TrashIcon
 } from '../../../../../components';
 import '../../../../../styles/table.scss';
+import { AddRepositoryModal } from '../../../../../components/modals/AddRepositoryModal';
 
 interface SourceCodeProps {
 	isLoading: boolean;

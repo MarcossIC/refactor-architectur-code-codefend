@@ -36,8 +36,8 @@ const SourceCodePanel = lazy(
 	() => import('./views/pages/panel/layouts/sourcecode/SourceCodePanel'),
 );
 
-const SocielEngineeringPanel = lazy(
-	() => import('./views/pages/panel/layouts/social/SocielEngineeringPanel'),
+const SocialEngineeringPanel = lazy(
+	() => import('./views/pages/panel/layouts/social/SocialEngineeringPanel'),
 );
 
 const SupportPanel = lazy(
@@ -80,7 +80,7 @@ export const AppRouter: React.FC = () => {
 					<Route path="/cloud" element={<CloudApplicationPanel />} />
 					<Route path="/lan" element={<LanApplicationPanel />} />
 					<Route path="/source" element={<SourceCodePanel />} />
-					<Route path="/social" element={<SocielEngineeringPanel />} />
+
 					<Route path="/issues" element={<IssuesPanel />} />
 					<Route path="/create/issues" element={<IssuesCreation />} />
 

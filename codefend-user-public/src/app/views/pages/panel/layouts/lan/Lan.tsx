@@ -1,33 +1,25 @@
 // Core packages
 import { invoke } from '@tauri-apps/api/tauri';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Network, useAuthState } from '../../../../../data';
-import { LanApplicationService } from '../../../../../data/services/lan.service';
+import { Device, Network } from '../../../../../data';;
 import { PageLoaderWhite } from '../../../../../views/components';
 import { LanNetworkData } from './components/LanNetworkData';
 import { LanNetworksChart } from './components/LanNetworksChart';
+import { useLan } from '../../../../../data/hooks/useLan';
+import '../../../../styles/flag.scss';
+import '../../../../styles/table.scss';
+
+
 
 const LanPage: React.FC = () => {
-	const { getUserdata } = useAuthState();
+	const { networks, loading, refetch, error, info } = useLan();
 
 	const [scanLoading, setScanLoading] = useState(false);
-	const [internalNetwork, setInternalNetwork] = useState({
-		loading: true,
-		data: [] as Network[],
-	});
-
-	const fetch = useCallback(() => {
-		const companyID: string = getUserdata()?.companyID;
-		setScanLoading(true);
-		LanApplicationService.getAll(companyID)
-			.then((response: any) => {
-				setInternalNetwork((current) => ({ ...current, data: response }));
-			})
-			.finally(() => {
-				setScanLoading(true);
-			});
-	}, [getUserdata]);
+  const [internalNetwork, setInternalNetwork] = useState({
+    loading: true,
+    data: [] as Device[],
+  });
 
 	const scanLocal = async () => {
 		setScanLoading(true);
@@ -62,7 +54,7 @@ const LanPage: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
 
 	useEffect(() => {
-		fetch();
+		refetch();
 		const timeoutId = setTimeout(() => {
 			setShowScreen(true);
 		}, 50);
@@ -75,18 +67,16 @@ const LanPage: React.FC = () => {
 			<main className={`lan ${showScreen ? 'actived' : ''}`}>
 				<section className="left">
 					<LanNetworkData
-						isLoading={internalNetwork.loading}
-						refetchInternalNetwork={() =>
-							setInternalNetwork({ loading: true, data: [] })
-						}
-						internalNetwork={internalNetworkDataInfo() as Network[]}
+						isLoading={loading}
+						refetchInternalNetwork={refetch}
+						internalNetwork={networks}
 					/>
 				</section>
 
 				<section className="right">
 					<LanNetworksChart
-						isLoading={internalNetwork.loading}
-						internalNetwork={internalNetworkDataInfo() as Network[]}
+						isLoading={loading}
+						internalNetwork={networks}
 					/>
 					<button
 						onClick={() => {

@@ -9,6 +9,7 @@ import SocialEngineeringMembers from './components/SocialEngineeringMembers';
 const fetchSocial = async (companyID: string) => {
 	try {
 		const data = await SocialAplicationService.getAll(companyID);
+		
 		return data;
 	} catch (error) {
 		console.log({ error });

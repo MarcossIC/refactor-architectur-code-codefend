@@ -3,15 +3,12 @@ import {
 	useAppSelector,
 	useModal,
 	LanApplicationService,
-	Network,
+	Device,
 } from '../../../../../../data';
 import {
 	EmptyCard,
-	ModalWrapper,
 	PageLoader,
 	AddAccessPointModal,
-	AddNetworkDeviceModal,
-	DeletewebResource,
 	ModalTitleWrapper,
 	TrashIcon,
 	LanIcon,
@@ -23,7 +20,7 @@ import { toast } from 'react-toastify';
 
 interface LanNetworkDataProps {
 	isLoading: boolean;
-	internalNetwork: Network[];
+	internalNetwork: Device[];
 	refetchInternalNetwork: () => void;
 }
 
@@ -131,7 +128,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 
 				{!props.isLoading ? (
 					<div className="rows">
-						{props.internalNetwork.map((network) => (
+						{props.internalNetwork.map((network: Device) => (
 							<React.Fragment key={network.id}>
 								<div className="item left-marked">
 									<div className="id">{network.id}</div>
@@ -152,45 +149,46 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 									</div>
 								</div>
 
-								{network.childs!.map((subNetwork) => (
-									<div className="item" key={subNetwork.id}>
-										<div className="id">{subNetwork.id}</div>
-										<div className="ip lined">
-											<span className="sub-domain-icon-v"></span>
-											<span className="sub-domain-icon-h"></span>
-											{subNetwork.device_in_address}
-										</div>
-										<div className="ip">
-											{subNetwork.device_ex_address}
-										</div>
-										<div className="os">
-											{subNetwork.device_os}/
-											{subNetwork.device_vendor}
-										</div>
-										<div className="hostname">
-											{subNetwork.device_name}
-										</div>
-										<div
-											className=""
-											onClick={(e) => {
-												e.preventDefault();
-												e.stopPropagation();
-												return false;
-											}}>
+								{network.childs &&
+									network.childs.map((subNetwork) => (
+										<div className="item" key={subNetwork.id}>
+											<div className="id">{subNetwork.id}</div>
+											<div className="ip lined">
+												<span className="sub-domain-icon-v"></span>
+												<span className="sub-domain-icon-h"></span>
+												{subNetwork.device_in_address}
+											</div>
+											<div className="ip">
+												{subNetwork.device_ex_address}
+											</div>
+											<div className="os">
+												{subNetwork.device_os}/
+												{subNetwork.device_vendor}
+											</div>
+											<div className="hostname">
+												{subNetwork.device_name}
+											</div>
 											<div
-												className="id cursor-pointer p-3 flex"
-												onClick={() => {
-													setSelectedLanIdToDelete(
-														String(network?.id),
-													);
-													setShowModal(!showModal);
-													setShowModalStr('delete_resource');
+												className=""
+												onClick={(e) => {
+													e.preventDefault();
+													e.stopPropagation();
+													return false;
 												}}>
-												<TrashIcon />
+												<div
+													className="id cursor-pointer p-3 flex"
+													onClick={() => {
+														setSelectedLanIdToDelete(
+															String(network?.id),
+														);
+														setShowModal(!showModal);
+														setShowModalStr('delete_resource');
+													}}>
+													<TrashIcon />
+												</div>
 											</div>
 										</div>
-									</div>
-								))}
+									))}
 							</React.Fragment>
 						))}
 					</div>

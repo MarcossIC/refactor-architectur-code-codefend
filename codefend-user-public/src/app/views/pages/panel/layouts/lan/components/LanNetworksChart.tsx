@@ -1,6 +1,7 @@
 import {
 	ChartService,
 	ChartValueType,
+	Device,
 	Network,
 	osTypes,
 	useDoughnutChart,
@@ -10,7 +11,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 interface LanNetworksChartProps {
 	isLoading: boolean;
-	internalNetwork: Network[];
+	internalNetwork: Device[];
 }
 
 export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {

@@ -168,3 +168,30 @@ export interface Network extends ResourceID, Monitoring {
 	device_name: string;
 	childs?: Network[];
 }
+
+
+export interface Device {
+	id: string;
+	company_id: string;
+	device_in_address: string;
+	access_username: string;
+	access_password: string;
+	creacion: string;
+	device_ex_address: string;
+	device_name: string;
+	device_os: string;
+	device_vendor: string;
+	device_version: string;
+	eliminado: string;
+	pem: string;
+	ppk: string;
+	resource_lan_dad: string;
+	childs?: Device[] | null;
+  }
+  
+  export interface DeviceListResponse {
+	disponibles: Device[];
+	eliminados: null | any; 
+	error: string;
+	info: string;
+  }

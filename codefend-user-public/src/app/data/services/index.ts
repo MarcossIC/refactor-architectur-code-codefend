@@ -9,4 +9,4 @@ export * from './cloud.service';
 export * from './issues.service';
 export * from './lan.service';
 
-export * from './chart.service';
+export * from './metric.service';

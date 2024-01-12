@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import {
-	ChartService,
+	MetricsService,
 	ChartValueType,
 	Device,
 	generateIDArray,
@@ -26,7 +26,7 @@ export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
 		return isEmptyData(otherMetrics);
 	}, [otherMetrics]);
 
-	const { renderPercentage } = ChartService;
+	const { renderPercentage } = MetricsService;
 
 	const lanKeys = useMemo(() => {
 		return props.isLoading

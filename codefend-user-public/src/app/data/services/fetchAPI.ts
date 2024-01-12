@@ -109,8 +109,10 @@ export const fetchDELETE: ({}: FetchWhitoutMethods) => Promise<
 export const handleFetchError = (error: any) => {
 	console.log({ errorName: error.name, errorMessage: error.message });
 	if (error.name === 'AxiosError' && error.message === 'Network Error') {
-		toast.error('Network error...');
-		return;
+		//toast.error('Network error...');
+		localStorage.setItem('error', JSON.stringify(true));
+		window.dispatchEvent(new Event('errorState'));
+		return { data: error ?? {}, isNetworkError: true };
 	}
 
 	if (error.response?.data) {
@@ -119,5 +121,5 @@ export const handleFetchError = (error: any) => {
 		message && toast.error(message);
 	}
 
-	return { data: error ?? {} };
+	return { data: error ?? {}, isNetworkError: false };
 };

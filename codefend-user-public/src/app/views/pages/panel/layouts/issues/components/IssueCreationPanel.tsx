@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
 	LeftArrow,
 	PageLoaderOverlay,
@@ -6,84 +6,25 @@ import {
 } from '../../../../../components';
 import { useNavigate } from 'react-router';
 import { AppEditor } from './AppEditor';
-import {
-	IssueService,
-	Issues,
-	useAuthState,
-	useModal,
-} from '../../../../../../data';
-import { getTinyEditorContent } from '../../../../../../../editor-lib/';
-import { toast } from 'react-toastify';
+import { Issues, useSaveIssue } from '../../../../../../data';
 
-interface Props {
+interface IssueCreationPanelProps {
 	issues: Issues[];
+	isLoading: boolean;
 	onDone: () => void;
 }
 
-const IssueCreationPanel: React.FC<Props> = (props) => {
-	const [issueName, setIssueName] = useState('');
-	const [score, setScore] = useState('');
-	const [issueClass, setIssueClass] = useState('');
-	const [isAddingIssue, setIsAddingIssue] = useState(false);
-	const { showModal, setShowModal } = useModal();
-	const { getUserdata } = useAuthState();
+const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
+	const { newIssue, setNewIssue, save } = useSaveIssue();
 	const navigate = useNavigate();
 
-	const handleIssueUpdate = useCallback(async () => {
-		// e.preventDefault();
-		const _editorContent = getTinyEditorContent('issue');
-		if (!_editorContent) {
-			toast.error('Invalid content, please add content using the editor');
-			return;
-		}
+	const handleIssueUpdate = () => {
+		save().then((response) => {
+			if (props.onDone) props.onDone();
 
-		if (!score) {
-			toast.error('Invalid score');
-			return;
-		}
-
-		if (!issueName || issueName.length == 0 || issueName.length > 100) {
-			toast.error('Invalid name');
-			return;
-		}
-
-		if (
-			![
-				'web',
-				'mobile',
-				'cloud',
-				'lan',
-				'source',
-				'social',
-				'research',
-			].includes(issueClass)
-		) {
-			toast.error('Invalid issue type');
-			return;
-		}
-
-		setIsAddingIssue(true);
-
-		const requestParams = {
-			risk_score: score,
-			name: issueName,
-			resource_class: issueClass,
-			researcher_username: getUserdata()?.username,
-			main_desc: _editorContent,
-		};
-
-		IssueService.add(requestParams, '')
-			.then((response: any) => {
-				const newIssueId = response?.new_issue?.id ?? '';
-				props.onDone();
-				setShowModal(!showModal);
-				toast.success('Successfully Added Issue...');
-				if (newIssueId) {
-					navigate(`issues/${newIssueId}`);
-				}
-			})
-			.finally(() => setIsAddingIssue(false));
-	}, [issueName, score, issueClass]);
+			navigate(`/issues/${response?.newIssue}`);
+		});
+	};
 
 	const handleKeyDown = useCallback(
 		(event: any) => {
@@ -115,8 +56,13 @@ const IssueCreationPanel: React.FC<Props> = (props) => {
 				<input
 					className="w-[90%] h-full"
 					placeholder="Add Issue title here..."
-					value={issueName}
-					onChange={(e) => setIssueName(e.target.value)}
+					value={newIssue.issueName}
+					onChange={(e) =>
+						setNewIssue((current) => ({
+							...current,
+							issueName: e.target.value,
+						}))
+					}
 				/>
 
 				<div onClick={() => {}} className={`save on`}>
@@ -128,11 +74,14 @@ const IssueCreationPanel: React.FC<Props> = (props) => {
 				<div className="flex items-center">
 					<p>Class:</p>
 					<select
-						onChange={(e) => {
-							setIssueClass(e.target.value);
-						}}
+						onChange={(e) =>
+							setNewIssue((current) => ({
+								...current,
+								issueClass: e.target.value,
+							}))
+						}
 						className="  py-3 bg-white focus:outline-none"
-						value={issueClass}
+						value={newIssue.issueClass}
 						required>
 						<option value="" disabled>
 							Select Class
@@ -151,10 +100,13 @@ const IssueCreationPanel: React.FC<Props> = (props) => {
 					<p>Risk score:</p>
 					<select
 						onChange={(e) => {
-							setScore(e.target.value);
+							setNewIssue((current) => ({
+								...current,
+								score: e.target.value,
+							}));
 						}}
 						className=" py-3 bg-whitefocus:outline-none "
-						value={score}
+						value={newIssue.score}
 						required>
 						<option value="" disabled>
 							Select Score
@@ -171,12 +123,12 @@ const IssueCreationPanel: React.FC<Props> = (props) => {
 			<div className="">
 				<AppEditor
 					initialValue={props.issues ?? ''}
-					isEditable={() => true}
+					isEditable={true}
 					isIssueCreation
 				/>
 			</div>
 
-			{isAddingIssue && <PageLoaderOverlay />}
+			{newIssue.isAddingIssue && <PageLoaderOverlay />}
 		</>
 	);
 };

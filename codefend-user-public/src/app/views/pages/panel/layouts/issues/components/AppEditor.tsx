@@ -7,14 +7,13 @@ import addTinyMce, {
 interface AppEditorProps {
 	onUpdateIssue?: any;
 	initialValue: any;
-	isEditable: any;
-	isIssueCreation: any;
+	isEditable: boolean;
+	isIssueCreation?: any;
 }
 export const AppEditor: React.FC<AppEditorProps> = ({
 	initialValue,
 	onUpdateIssue,
 	isEditable,
-	isIssueCreation,
 }) => {
 	const emptyUpdateIssueText = useMemo(
 		() => '<p>Please add issues here...</p>',
@@ -27,7 +26,7 @@ export const AppEditor: React.FC<AppEditorProps> = ({
 	};
 
 	const setEditorMode = () => {
-		if (isEditable()) {
+		if (isEditable) {
 			setMode('issue', 'design');
 		} else {
 			setMode('issue', 'readonly');
@@ -48,14 +47,6 @@ export const AppEditor: React.FC<AppEditorProps> = ({
 	useEffect(() => {
 		setEditorMode();
 	}, [isEditable]);
-
-	useEffect(() => {
-		if (isIssueCreation) {
-			setTimeout(() => {
-				setMode('issue', 'design');
-			}, 300);
-		}
-	}, []);
 
 	return (
 		<>

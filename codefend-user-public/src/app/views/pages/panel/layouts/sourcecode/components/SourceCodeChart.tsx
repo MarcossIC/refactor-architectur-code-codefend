@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 import {
-	ChartService,
+	MetricsService,
 	ChartValueType,
 	SourceCode,
 	generateIDArray,
@@ -30,7 +30,7 @@ export const SourceCodeChart: React.FC<Props> = (props) => {
 		return props.isLoading ? [] : generateIDArray(props.sourceCode.length);
 	}, [props.sourceCode]);
 
-	const { renderPercentage } = ChartService;
+	const { renderPercentage } = MetricsService;
 
 	return (
 		<>

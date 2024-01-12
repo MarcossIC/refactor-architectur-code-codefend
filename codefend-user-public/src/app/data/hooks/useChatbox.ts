@@ -7,46 +7,40 @@ export const useChatbox = () => {
 	const [isAdding, setIsAdding] = useState(false);
 	const { getUserdata } = useAuthState();
 
-	const handleIssueSubmit = useCallback(
-		(selectedID: string, onDone: () => void) => {
-			setIsAdding(true);
+	const handleIssueSubmit = (selectedID: string, onDone: () => void) => {
+		setIsAdding(true);
 
-			const requestParams = {
-				issue_cs_body: message,
-				issue_id: selectedID,
-			};
-			const companyID = getUserdata()?.companyID;
-			IssueService.addCSMessage(requestParams, companyID)
-				.then((response: any) => {
-					setMessage('');
-					onDone();
-				})
-				.finally(() => {
-					setIsAdding(false);
-				});
-		},
-		[message],
-	);
+		const requestParams = {
+			issue_cs_body: message,
+			issue_id: selectedID,
+		};
+		const companyID = getUserdata()?.companyID;
+		IssueService.addCSMessage(requestParams, companyID)
+			.then((response: any) => {
+				setMessage('');
+				onDone();
+			})
+			.finally(() => {
+				setIsAdding(false);
+			});
+	};
 
-	const handleSupportSubmit = useCallback(
-		(selectedID: string, onDone: () => void) => {
-			const params = {
-				cs_body: message,
-				dad_id: selectedID,
-			};
-			const companyID = getUserdata()?.companyID;
-			const userID = getUserdata()?.userID;
-			CustomerService.add(params, companyID, userID)
-				.then((response: any) => {
-					setMessage('');
-					onDone();
-				})
-				.finally(() => {
-					setIsAdding(false);
-				});
-		},
-		[message],
-	);
+	const handleSupportSubmit = (selectedID: string, onDone: () => void) => {
+		const params = {
+			cs_body: message,
+			dad_id: selectedID,
+		};
+		const companyID = getUserdata()?.companyID;
+		const userID = getUserdata()?.userID;
+		CustomerService.add(params, companyID, userID)
+			.then((response: any) => {
+				setMessage('');
+				onDone();
+			})
+			.finally(() => {
+				setIsAdding(false);
+			});
+	};
 
 	return {
 		message,

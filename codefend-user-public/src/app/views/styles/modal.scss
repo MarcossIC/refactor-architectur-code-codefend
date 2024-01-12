@@ -281,3 +281,39 @@
 		}
 	}
 }
+
+.error-wrapper {
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+	width: 40.3rem;
+	overflow: hidden;
+	background-color: #fff;
+	display: flex;
+	display: flex;
+	flex-direction: column;
+	padding-inline: 2.75rem;
+	padding-block: 1.25rem;
+	font-family: roboto;
+
+	.header-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		column-gap: 2.5rem;
+		color: #000;
+		font-size: 1.875rem /* 30px */;
+		line-height: 2.25rem /* 36px */;
+		text-transform: uppercase;
+		margin-block: 2.5rem;
+
+		h2 {
+			font-weight: 700;
+		}
+	}
+
+	.error-buttons {
+		display: flex;
+		justify-content: space-evenly;
+		flex: 1;
+		margin-block-start: 2rem;
+	}
+}

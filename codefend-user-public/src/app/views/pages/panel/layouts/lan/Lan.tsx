@@ -1,23 +1,25 @@
 // Core packages
 import { invoke } from '@tauri-apps/api/tauri';
-import React, { useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Device } from '../../../../../data';
+import { Device, Network } from '../../../../../data';;
 import { PageLoaderWhite } from '../../../../../views/components';
 import { LanNetworkData } from './components/LanNetworkData';
 import { LanNetworksChart } from './components/LanNetworksChart';
-import { useLan } from '../../../../../data/hooks/panel/useLan';
+import { useLan } from '../../../../../data/hooks/useLan';
 import '../../../../styles/flag.scss';
 import '../../../../styles/table.scss';
+
+
 
 const LanPage: React.FC = () => {
 	const { networks, loading, refetch, error, info } = useLan();
 
 	const [scanLoading, setScanLoading] = useState(false);
-	const [internalNetwork, setInternalNetwork] = useState({
-		loading: true,
-		data: [] as Device[],
-	});
+  const [internalNetwork, setInternalNetwork] = useState({
+    loading: true,
+    data: [] as Device[],
+  });
 
 	const scanLocal = async () => {
 		setScanLoading(true);
@@ -45,7 +47,7 @@ const LanPage: React.FC = () => {
 	};
 
 	const internalNetworkDataInfo = () => {
-		const internalNetworkData = scanLoading ? [] : internalNetwork;
+		const internalNetworkData = loading ? [] : internalNetwork;
 		return internalNetworkData ?? [];
 	};
 
@@ -83,6 +85,7 @@ const LanPage: React.FC = () => {
 						className="btn btn-primary full-w mt-4">
 						{scanLoading ? <PageLoaderWhite /> : 'REQUEST SCAN'}
 					</button>
+				
 				</section>
 			</main>
 		</>

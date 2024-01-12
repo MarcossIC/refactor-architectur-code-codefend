@@ -3,17 +3,19 @@ import {
 	useAppSelector,
 	useModal,
 	LanApplicationService,
-	Device,
+	Network,
 } from '../../../../../../data';
 import {
 	EmptyCard,
+	ModalWrapper,
 	PageLoader,
 	AddAccessPointModal,
+	AddNetworkDeviceModal,
+	DeletewebResource,
 	ModalTitleWrapper,
 	TrashIcon,
 	LanIcon,
 	ConfirmModal,
-	AddNetworkDeviceModal,
 } from '../../../../../components';
 
 import { useNavigate } from 'react-router';
@@ -21,7 +23,7 @@ import { toast } from 'react-toastify';
 
 interface LanNetworkDataProps {
 	isLoading: boolean;
-	internalNetwork: Device[];
+	internalNetwork: Network[];
 	refetchInternalNetwork: () => void;
 }
 
@@ -56,10 +58,9 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 	return (
 		<>
 			<ModalTitleWrapper
-				isActive={showModal && showModalStr === 'delete_resource'}
 				headerTitle="Delete LAN"
 				close={() => setShowModal(false)}
-			>
+				isActive={showModal && showModalStr === 'delete_resource'}>
 				<ConfirmModal
 					header=""
 					cancelText="Cancel"
@@ -72,14 +73,13 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 			</ModalTitleWrapper>
 
 			<ModalTitleWrapper
-				headerTitle="Add access point"
+				headerTitle="Delete LAN"
 				close={() => setShowModal(false)}
 				isActive={showModal && showModalStr === 'add_access_point'}>
 				<AddAccessPointModal
 					onDone={() => {
 						props.refetchInternalNetwork();
 					}}
-					close={() => setShowModal(false)}
 				/>
 			</ModalTitleWrapper>
 
@@ -87,12 +87,10 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 				headerTitle="Add network device"
 				close={() => setShowModal(false)}
 				isActive={showModal && showModalStr === 'add_network_device'}>
-				<AddNetworkDeviceModal
+				<AddAccessPointModal
 					onDone={() => {
 						props.refetchInternalNetwork();
 					}}
-					internalNetwork={[]}
-					close={() => setShowModal(false)}
 				/>
 			</ModalTitleWrapper>
 
@@ -133,7 +131,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 
 				{!props.isLoading ? (
 					<div className="rows">
-						{props.internalNetwork.map((network: Device) => (
+						{props.internalNetwork.map((network) => (
 							<React.Fragment key={network.id}>
 								<div className="item left-marked">
 									<div className="id">{network.id}</div>
@@ -154,46 +152,45 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 									</div>
 								</div>
 
-								{network.childs &&
-									network.childs.map((subNetwork) => (
-										<div className="item" key={subNetwork.id}>
-											<div className="id">{subNetwork.id}</div>
-											<div className="ip lined">
-												<span className="sub-domain-icon-v"></span>
-												<span className="sub-domain-icon-h"></span>
-												{subNetwork.device_in_address}
-											</div>
-											<div className="ip">
-												{subNetwork.device_ex_address}
-											</div>
-											<div className="os">
-												{subNetwork.device_os}/
-												{subNetwork.device_vendor}
-											</div>
-											<div className="hostname">
-												{subNetwork.device_name}
-											</div>
+								{network.childs!.map((subNetwork) => (
+									<div className="item" key={subNetwork.id}>
+										<div className="id">{subNetwork.id}</div>
+										<div className="ip lined">
+											<span className="sub-domain-icon-v"></span>
+											<span className="sub-domain-icon-h"></span>
+											{subNetwork.device_in_address}
+										</div>
+										<div className="ip">
+											{subNetwork.device_ex_address}
+										</div>
+										<div className="os">
+											{subNetwork.device_os}/
+											{subNetwork.device_vendor}
+										</div>
+										<div className="hostname">
+											{subNetwork.device_name}
+										</div>
+										<div
+											className=""
+											onClick={(e) => {
+												e.preventDefault();
+												e.stopPropagation();
+												return false;
+											}}>
 											<div
-												className=""
-												onClick={(e) => {
-													e.preventDefault();
-													e.stopPropagation();
-													return false;
+												className="id cursor-pointer p-3 flex"
+												onClick={() => {
+													setSelectedLanIdToDelete(
+														String(network?.id),
+													);
+													setShowModal(!showModal);
+													setShowModalStr('delete_resource');
 												}}>
-												<div
-													className="id cursor-pointer p-3 flex"
-													onClick={() => {
-														setSelectedLanIdToDelete(
-															String(network?.id),
-														);
-														setShowModal(!showModal);
-														setShowModalStr('delete_resource');
-													}}>
-													<TrashIcon />
-												</div>
+												<TrashIcon />
 											</div>
 										</div>
-									))}
+									</div>
+								))}
 							</React.Fragment>
 						))}
 					</div>

@@ -1,12 +1,5 @@
-import React, {
-	Fragment,
-	ReactNode,
-	useCallback,
-	useMemo,
-	useState,
-} from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import {
-	ModalWrapper,
 	AddDomainModal,
 	AddSubDomainModal,
 	DeletewebResource,
@@ -14,10 +7,8 @@ import {
 	EmptyCard,
 	PageLoader,
 	TrashIcon,
-	StatIcon,
 	ModalTitleWrapper,
 } from '../../../../../components';
-import { useNavigate } from 'react-router';
 import {
 	Resouce,
 	Webresources,
@@ -35,8 +26,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	const [selectedId, setSelectedId] = useState<string>('0');
 	const { showModal, setShowModal, showModalStr, setShowModalStr } =
 		useModal();
-	const navigate = useNavigate();
-
+	
 	const getResources = () => {
 		const resources = props.isLoading ? [] : props.webResources;
 

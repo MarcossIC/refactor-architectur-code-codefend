@@ -55,9 +55,10 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 	return (
 		<>
 			<ModalTitleWrapper
+				isActive={showModal && showModalStr === 'delete_resource'}
 				headerTitle="Delete LAN"
 				close={() => setShowModal(false)}
-				isActive={showModal && showModalStr === 'delete_resource'}>
+			>
 				<ConfirmModal
 					header=""
 					cancelText="Cancel"

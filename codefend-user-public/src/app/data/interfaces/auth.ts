@@ -1,4 +1,4 @@
-import { User, UserFinishResponse, UserRegResponse } from '.';
+import { User } from '.';
 
 export interface LoginParams {
 	email: string;
@@ -70,7 +70,7 @@ export interface AuthState {
 	error: string | null | undefined;
 	loading: boolean;
 	isExpired: null;
-	userData:  User | null;
+	userData: User | null;
 	accessToken: string | null;
 }
 

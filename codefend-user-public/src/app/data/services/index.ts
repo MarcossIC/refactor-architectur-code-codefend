@@ -10,3 +10,4 @@ export * from './issues.service';
 export * from './lan.service';
 
 export * from './metric.service';
+export * from './enp.service';

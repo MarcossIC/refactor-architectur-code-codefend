@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Loader } from '../../../../components';
 import IssueCreationPanel from './components/IssueCreationPanel';
 import { IssueChatDisplay } from './components/IssueChatDisplay';
@@ -18,9 +18,8 @@ const IssuesCreation: React.FC<{}> = () => {
 		return () => clearTimeout(timeoutId);
 	}, [reShow]);
 
-	let script = useMemo(() => document.createElement('script'), []);
 	useEffect(() => {
-		script = document.createElement('script');
+		const script = document.createElement('script');
 		script.src = '/src/editor-lib/visual/mce/tinymce.min.js';
 		script.async = true;
 		script.onload = () => {
@@ -39,12 +38,16 @@ const IssuesCreation: React.FC<{}> = () => {
 				<main
 					className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
 					<section className="issue">
-						<IssueCreationPanel issues={[]} onDone={() => {}} />
+						<IssueCreationPanel
+							isLoading={false}
+							issues={[]}
+							onDone={() => {}}
+						/>
 					</section>
 					<section className="h-full flex-grow">
 						<IssueChatDisplay
-							selectedIssue={{}}
 							isLoading={false}
+							selectedIssue={{}}
 							refetch={() => {}}
 						/>
 					</section>

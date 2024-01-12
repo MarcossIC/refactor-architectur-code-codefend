@@ -71,7 +71,7 @@ export const AppRouter: React.FC = () => {
 			/>
 
 			<Routes>
-				{/* Rutas privadas */}
+				{/* Private Routes */}
 				<Route path="/" element={<PanelPage />}>
 					<Route index element={<Dashboard />} />
 					<Route path="/dashboard" element={<Dashboard />} />
@@ -82,6 +82,7 @@ export const AppRouter: React.FC = () => {
 					<Route path="/source" element={<SourceCodePanel />} />
 
 					<Route path="/issues" element={<IssuesPanel />} />
+					<Route path="/issues/:ref" element={<IssuesPanel />} />
 					<Route path="/create/issues" element={<IssuesCreation />} />
 
 					<Route path="/enp" element={<EnpPanel />} />
@@ -95,14 +96,13 @@ export const AppRouter: React.FC = () => {
 					<Route path="/companies" element={<></>} />
 				</Route>
 
-				{/* Rutas públicas para login y registro */}
+				{/* Public Routes */}
 				<Route path="/auth/*" element={<AuthPage />}>
 					<Route index element={<Navigate to="signin" replace />} />
 					<Route path="signin" element={<SignInLayout />} />
 					<Route path="signup" element={<SignUpLayout />} />
 					<Route path="confirmation" element={<ConfirmationSignUp />} />
 
-					{/* <Route path="/auth/signup/:ref" component={RegisterFinishView} /> */}
 					<Route path="signup/:ref" element={<FinishSignUpLayout />} />
 				</Route>
 			</Routes>

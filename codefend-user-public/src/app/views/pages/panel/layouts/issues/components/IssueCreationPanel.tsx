@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
 	LeftArrow,
 	PageLoaderOverlay,
@@ -6,18 +6,11 @@ import {
 } from '../../../../../components';
 import { useNavigate } from 'react-router';
 import { AppEditor } from './AppEditor';
-import {
-	IssueService,
-	Issues,
-	useAuthState,
-	useModal,
-	useSaveIssue,
-} from '../../../../../../data';
-import { getTinyEditorContent } from '../../../../../../../editor-lib/';
-import { toast } from 'react-toastify';
+import { Issues, useSaveIssue } from '../../../../../../data';
 
 interface IssueCreationPanelProps {
 	issues: Issues[];
+	isLoading: boolean;
 	onDone: () => void;
 }
 

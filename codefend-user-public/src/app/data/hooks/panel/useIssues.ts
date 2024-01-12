@@ -22,6 +22,7 @@ export const useIssues = () => {
 				setLoading(false);
 			});
 	}, []);
+
 	const refetchAll = () => {
 		const companyID = getUserdata()?.companyID;
 		fetchAll(companyID);
@@ -50,7 +51,6 @@ export const useSaveIssue = () => {
 	const { getUserdata } = useAuthState();
 
 	const save = useCallback(async () => {
-		// e.preventDefault();
 		const _editorContent = getTinyEditorContent('issue');
 		if (!_editorContent) {
 			toast.error('Invalid content, please add content using the editor');
@@ -108,4 +108,36 @@ export const useSaveIssue = () => {
 	}, [newIssue]);
 
 	return { newIssue, setNewIssue, save };
+};
+
+export const useOneIssue = () => {
+	const [issues, setIssues] = useState({} as any);
+	const [isLoading, setLoading] = useState(true);
+	const { getUserdata } = useAuthState();
+
+	const fetchOne = useCallback((companyID: string, selectedID: string) => {
+		setLoading(true);
+		IssueService.getOne(selectedID, companyID)
+			.then((response: any) => {
+				if (response !== 'success') {
+				}
+				console.log({ response });
+				setIssues(mapAllIssues(response));
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, []);
+
+	const refetchOne = (selectedID: string) => {
+		const companyID = getUserdata()?.companyID;
+		fetchOne(companyID, selectedID);
+	};
+
+	const getIssues = () => {
+		const issuesData = isLoading ? ({} as any) : issues;
+		return issuesData ?? {};
+	};
+
+	return { getIssues, isLoading, refetchOne };
 };

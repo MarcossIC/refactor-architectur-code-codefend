@@ -3,11 +3,11 @@ import { useAuthState } from '../hooks/useAuthState';
 import { logout } from '../redux/slices/auth.slice';
 import { clearAuth } from '../utils/helper';
 import { decodePayload } from './decodedToken';
-import { fetchPOST } from './fetchAPI';
+import { fetchPOST, handleFetchError } from './fetchAPI';
 
 const register = async (registerParams: any) => {
 	try {
-		const { data, status } = await fetchPOST({
+		const { data, status } = (await fetchPOST({
 			params: {
 				model: 'users/new',
 				lead_fname: registerParams.name,
@@ -19,21 +19,19 @@ const register = async (registerParams: any) => {
 				company_web: registerParams.companyWeb,
 				company_size: registerParams.companySize,
 				company_area: registerParams.companyCountry,
-				phase: registerParams.phase
+				phase: registerParams.phase,
 			},
-		});
-		console.log({ registerData: data });
+		}).catch((error: any) => handleFetchError(error))) as any;
 
 		return { success: status, data };
 	} catch (error) {
 		console.error('Error during registration:');
-		return { success: false};
+		return { success: false };
 	}
 };
 
-
 const registerFinish = async (registerParams: any): Promise<any> => {
-	const { data, status } = await fetchPOST({
+	const { data, status } = (await fetchPOST({
 		params: {
 			model: 'users/new',
 			phase: 2,
@@ -41,7 +39,7 @@ const registerFinish = async (registerParams: any): Promise<any> => {
 			password: registerParams.password,
 			lead_reference_number: registerParams.ref,
 		},
-	});
+	}).catch((error: any) => handleFetchError(error))) as any;
 
 	console.log({ registrationData: data });
 
@@ -53,13 +51,13 @@ const registerFinish = async (registerParams: any): Promise<any> => {
 };
 
 const login = async (loginParams: LoginParams): Promise<LoginResponse> => {
-	const { data } = await fetchPOST({
+	const { data } = (await fetchPOST({
 		params: {
 			model: 'users/access',
 			provided_email: loginParams.email,
 			provided_password: loginParams.password,
 		},
-	});
+	}).catch((error: any) => handleFetchError(error))) as any;
 	const response = data.response as string;
 	if (response === 'success') {
 		const token = data.session as string;

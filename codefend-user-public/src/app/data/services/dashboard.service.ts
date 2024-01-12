@@ -1,12 +1,12 @@
-import { fetchPOST } from './fetchAPI';
+import { fetchPOST, handleFetchError } from './fetchAPI';
 
 const getCompanyInfo = async (companyId: string | number) => {
-	const { data } = await fetchPOST({
+	const { data } = (await fetchPOST({
 		params: {
 			model: 'companies/dashboard',
 			company_id: companyId,
 		},
-	});
+	}).catch((error: any) => handleFetchError(error))) as any;
 
 	return data;
 };

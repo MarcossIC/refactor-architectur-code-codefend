@@ -90,7 +90,7 @@ const renderPercentage = (value: string, total: string) => {
 	return percentValue;
 };
 
-export const ChartService = {
+export const MetricsService = {
 	isUserChat,
 	computedRoles,
 	computeSourceCodeMetrics,

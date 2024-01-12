@@ -10,7 +10,7 @@ import {
 	ChartOptions,
 	ArcElement,
 } from 'chart.js/auto';
-import { ChartService, ChartValueType, isEmptyData } from '..';
+import { MetricsService, ChartValueType, isEmptyData } from '..';
 
 interface DoughnutCharProps {
 	data: any;
@@ -20,9 +20,9 @@ interface DoughnutCharProps {
 export const useDoughnutChart = (value: DoughnutCharProps) => {
 	let metrics = null;
 	if (value.type === ChartValueType.SOURCE_CODE) {
-		metrics = ChartService.computeSourceCodeMetrics(value.data);
+		metrics = MetricsService.computeSourceCodeMetrics(value.data);
 	} else if (value.type === ChartValueType.NETWORK_OS) {
-		metrics = ChartService.computeInternalNetworkOSAndCount(value.data);
+		metrics = MetricsService.computeInternalNetworkOSAndCount(value.data);
 	} else {
 		metrics = value.data;
 	}

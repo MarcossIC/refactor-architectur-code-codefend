@@ -1,5 +1,6 @@
 import React from 'react';
 import { ModalWrapper } from '.';
+import { ErrorIcon } from '..';
 
 const ErrorConection: React.FC<{ closeModal: () => void }> = (props) => {
 	return (
@@ -7,7 +8,7 @@ const ErrorConection: React.FC<{ closeModal: () => void }> = (props) => {
 			<ModalWrapper isErrorBox={true} action={props.closeModal}>
 				<div className="error-wrapper">
 					<div className="header-wrapper">
-						{/* WANING ICON */}*ERROR*
+						<ErrorIcon />
 						<h2>Connection error.</h2>
 					</div>
 					<p className="leading-6">

@@ -355,3 +355,23 @@ export const SendIcon = () => {
 		</svg>
 	);
 };
+
+export const ErrorIcon = () => {
+	return (
+		<svg
+			strokeWidth={0}
+			height="1em"
+			width="1em"
+			xmlns="http://www.w3.org/2000/svg"
+			className="codefend-text-red"
+			fill="currentColor"
+			viewBox="0 0 16 16"
+			color="currentColor"
+			style={{ overflow: 'visible', width: '3.5rem', height: '3.5rem' }}>
+			<path
+				fillRule="evenodd"
+				d="M7.56 1h.88l6.54 12.26-.44.74H1.44L1 13.26 7.56 1zM8 2.28 2.28 13H13.7L8 2.28zM8.625 12v-1h-1.25v1h1.25zm-1.25-2V6h1.25v4h-1.25z"
+				clip-rule="evenodd"></path>
+		</svg>
+	);
+};

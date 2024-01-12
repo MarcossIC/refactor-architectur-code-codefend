@@ -84,7 +84,7 @@ export const AppRouter: React.FC = () => {
 					<Route path="/issues" element={<IssuesPanel />} />
 					<Route path="/issues/:ref" element={<IssuesPanel />} />
 					<Route path="/create/issues" element={<IssuesCreation />} />
-
+					<Route path='/social' element={<SocialEngineeringPanel/>}/> 
 					<Route path="/enp" element={<EnpPanel />} />
 					<Route path="/support" element={<SupportPanel />} />
 					<Route path="/preferences" element={<PreferencePanel />} />

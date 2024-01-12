@@ -4,6 +4,7 @@ import {
 	useModal,
 	LanApplicationService,
 	Network,
+	Device,
 } from '../../../../../../data';
 import {
 	EmptyCard,
@@ -23,7 +24,7 @@ import { toast } from 'react-toastify';
 
 interface LanNetworkDataProps {
 	isLoading: boolean;
-	internalNetwork: Network[];
+	internalNetwork: Device[];
 	refetchInternalNetwork: () => void;
 }
 
@@ -80,6 +81,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 					onDone={() => {
 						props.refetchInternalNetwork();
 					}}
+					close={() => setShowModal(false)}
 				/>
 			</ModalTitleWrapper>
 
@@ -91,6 +93,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 					onDone={() => {
 						props.refetchInternalNetwork();
 					}}
+					close={() => setShowModal(false)}
 				/>
 			</ModalTitleWrapper>
 

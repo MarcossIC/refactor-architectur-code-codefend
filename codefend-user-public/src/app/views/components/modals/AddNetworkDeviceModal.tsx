@@ -31,6 +31,7 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 	const companyID = getUserdata()?.companyID;
 
 	const navigate = useNavigate();
+	const {setShowModal, showModal} = useModal()
 
 	const {
 		mainDomainId,

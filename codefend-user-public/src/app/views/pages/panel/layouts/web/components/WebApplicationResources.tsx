@@ -1,10 +1,10 @@
 import React, {
 	Fragment,
-	ReactNode,
 	useCallback,
 	useMemo,
 	useState,
 } from 'react';
+import { useNavigate } from 'react-router';
 import {
 	AddDomainModal,
 	AddSubDomainModal,
@@ -13,6 +13,7 @@ import {
 	EmptyCard,
 	PageLoader,
 	TrashIcon,
+	StatIcon,
 	ModalTitleWrapper,
 } from '../../../../../components';
 import {
@@ -26,13 +27,15 @@ interface WebResourcesProps {
 	refetch: () => void;
 	webResources: Webresources[];
 	isLoading: boolean;
+	resetScreen: () => void;
 }
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	const [selectedId, setSelectedId] = useState<string>('0');
 	const { showModal, setShowModal, showModalStr, setShowModalStr } =
 		useModal();
-	
+	const navigate = useNavigate();
+
 	const getResources = () => {
 		const resources = props.isLoading ? [] : props.webResources;
 
@@ -45,13 +48,9 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	);
 
 	const show = useCallback(() => {
-		console.log('Alo in show?');
 		setShowModal(true);
 	}, []);
-	
 	const close = useCallback(() => {
-		console.log('Alo in close?');
-
 		setShowModal(false);
 	}, []);
 
@@ -64,7 +63,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				<AddDomainModal
 					onDone={() => {
 						props.refetch();
-						setShowModal(false);
+						setShowModal(!showModal);
+						props.resetScreen();
 					}}
 					close={() => setShowModal(false)}
 				/>
@@ -77,7 +77,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				<DeletewebResource
 					id={selectedId}
 					onDone={() => {
-						window.location.reload();
+						setShowModal(!showModal);
+						props.resetScreen();
 					}}
 					close={() => setShowModal(false)}
 				/>
@@ -88,7 +89,11 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				close={close}
 				headerTitle="Add web sub-resource">
 				<AddSubDomainModal
-					onDone={() => props.refetch()}
+					onDone={() => {
+						props.refetch();
+						setShowModal(!showModal);
+						props.resetScreen();
+					}}
 					close={() => setShowModal(false)}
 					webResources={getResources()}
 				/>

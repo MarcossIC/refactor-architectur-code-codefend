@@ -1,4 +1,4 @@
-import { useAppSelector, useModal } from '../../../data';
+import { useAppSelector, useAuthState, useModal } from '../../../data';
 import { LanApplicationService } from '../../../data/services/lan.service';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { ButtonLoader, GlobeWebIcon } from '..';
 
 interface NetworkDeviceModalProps {
+	close: () => void;
+	onDone: () => void;
 	internalNetwork: {
 		id: number;
 		device_name: string;
@@ -25,12 +27,10 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 		isAddingInternalNetwork: false,
 	});
 
-	const companyID = useAppSelector(
-		(state) => state.authState.userData?.companyID,
-	);
+	const { getUserdata } = useAuthState();
+	const companyID = getUserdata()?.companyID;
 
 	const navigate = useNavigate();
-	const { showModal, setShowModal } = useModal();
 
 	const {
 		mainDomainId,
@@ -54,7 +54,6 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 
 		const requestBody = {
 			device_name: domainName,
-			//device_vendor: vendorName(),
 			device_os: vendorName,
 			device_in_address: internalIpAddress,
 			device_ex_address: externalIpAddress,
@@ -82,19 +81,21 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 
 	return (
 		<>
-			<div className="container flex items-center justify-center  mx-auto p-3 text-format">
-				<form onSubmit={handleSubmit} className="p-6">
-					<div className="relative flex items-center w-96">
-						<span className="absolute">
-							{/* <FaSolidGlobe className="w-3 h-3 mx-4 codefend-text-red" /> */}
-							<GlobeWebIcon />
+			<div className="modal flex items-center justify-center p-3 text-format">
+				<form className="flex flex-col gap-y-3">
+					<div className="form-input">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<select
 							onChange={handleOnChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300 modal_info"
+							className="log-inputs modal_info"
+							value={formData.domainName}
 							required>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								main resource
 							</option>
 							{props.internalNetwork.map((resource: any) => (
@@ -106,16 +107,20 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 							))}
 						</select>
 					</div>
-					<div className="relative flex items-center w-96 mt-4">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<select
 							onChange={handleOnChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300 modal_info"
+							className="log-inputs modal_info"
+							id="os-network-select"
+							value={formData.vendorName}
 							required>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								os / vendor
 							</option>
 							<option value="windows">windows</option>
@@ -125,58 +130,62 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 							<option value="ios">ios</option>
 						</select>
 					</div>
-					<div className="relative flex items-center w-96 mt-4">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input text">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="text"
 							onChange={handleOnChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300"
 							placeholder="hostname"
 							required
 						/>
 					</div>
 
-					<div className="relative flex items-center mt-4 w-96">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input text">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="text"
 							onChange={handleOnChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs  focus:outline-none dark:text-gray-300"
 							placeholder="internal IP"
 							required
 						/>
 					</div>
-					<div className="relative flex items-center mt-4 w-96">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input text">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="text"
 							onChange={handleOnChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs  focus:outline-none dark:text-gray-300"
 							placeholder="external IP"></input>
 					</div>
-					<div className="mt-6  flex">
+					<div className="form-buttons">
 						<button
 							type="button"
 							onClick={() => {
-								setShowModal(!showModal);
+								props.close();
 							}}
-							className="log-inputs text-gray focus:outline-none w-2/6 px-4 mr-2 py-3 text-sm tracking-wide text-white transition-colors duration-300 codefend_secondary_ac">
-							cancel
+							className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
+							Cancel
 						</button>
 						<button
 							type="submit"
-							className="log-inputs flex flex-row items-center gap-x-2 text-white focus:outline-none bg-codefend px-6 w-4/6 py-3 text-sm tracking-wide text-white transition-colors duration-300 codefend_main_ac">
+							onClick={handleSubmit}
+							className="log-inputs btn btn-primary btn-add codefend_main_ac">
 							{isAddingInternalNetwork && <ButtonLoader />}
-							add access point
+							Add access point
 						</button>
 					</div>
 				</form>

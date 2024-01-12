@@ -165,6 +165,19 @@
 	.vul-title {
 		min-width: 150px;
 	}
+	.vul-condition {
+		justify-content: flex-start;
+		max-width: 100px;
+	}
+	.trash {
+		justify-content: flex-start;
+		max-width: 50px;
+		svg,
+		path {
+			cursor: pointer;
+		}
+	}
+
 	.risk {
 		min-width: 90px;
 		flex: inherit !important;
@@ -205,8 +218,8 @@
 		flex: inherit !important;
 	}
 	.province {
-		min-width: 15.625rem;
-		max-width: 15.625rem;
+		min-width: 15.62rem;
+		max-width: 15.62rem;
 		flex: inherit !important;
 		text-transform: lowercase;
 		text-overflow: ellipsis;

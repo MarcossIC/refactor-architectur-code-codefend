@@ -1,13 +1,13 @@
 import React from 'react';
+import { CloudApp, useIssues } from '../../../../../../data';
 import {
+	PageLoader,
 	AppCardInfo,
 	IssuesPanelMobileAndCloud,
 	ProvidedTestingCredentials,
 	VulnerabilitiesStatus,
 	VulnerabilityRisk,
-} from '../../../components';
-import { CloudApp, useIssues } from '../../../../../../data';
-import { PageLoader } from '../../../../../components';
+} from '../../../../../components';
 
 interface CloudSelectedDetailsProrps {
 	selectedCloudApp: CloudApp;
@@ -29,7 +29,7 @@ export const CloudSelectedDetails: React.FC<CloudSelectedDetailsProrps> = (
 						<div className=" ">
 							<VulnerabilityRisk
 								isLoading={isLoading}
-								vulnerabilityByRisk={getIssues.issueShare ?? {}}
+								vulnerabilityByRisk={getIssues().issueShare ?? {}}
 							/>
 						</div>
 						<div className="flex flex-col flex-grow">
@@ -38,7 +38,7 @@ export const CloudSelectedDetails: React.FC<CloudSelectedDetailsProrps> = (
 								credentials={[]}
 							/>
 							<VulnerabilitiesStatus
-								vulnerabilityByShare={getIssues.issueCondition ?? {}}
+								vulnerabilityByShare={getIssues().issueCondition ?? {}}
 							/>
 						</div>
 					</div>
@@ -46,7 +46,7 @@ export const CloudSelectedDetails: React.FC<CloudSelectedDetailsProrps> = (
 					<section className="card table flex-grow ">
 						<IssuesPanelMobileAndCloud
 							isLoading={isLoading}
-							issues={getIssues.issues}
+							issues={getIssues().issues}
 							refetch={refetchAll}
 						/>
 					</section>

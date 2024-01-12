@@ -143,7 +143,7 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 									visibility: e.target.value,
 								}))
 							}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300"
+							className="log-inputs modal_info"
 							value={sourceCodeForm.visibility}
 							required>
 							<option value="" disabled>

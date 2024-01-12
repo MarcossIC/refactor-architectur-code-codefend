@@ -1,10 +1,11 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { PanelPage } from './views/pages/panel/PanelPage';
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FinishSignUpLayout from './views/pages/auth/layouts/FinishsignUp';
+import IssuesPanel from './views/pages/panel/layouts/issues/IssuesPanel';
+import IssuesCreation from './views/pages/panel/layouts/issues/IssuesCreation';
 
 const AuthPage = lazy(() => import('./views/pages/auth/AuthPage'));
 const SignInLayout = lazy(() => import('./views/pages/auth/layouts/Signin'));
@@ -37,10 +38,6 @@ const SourceCodePanel = lazy(
 
 const SocialEngineeringPanel = lazy(
 	() => import('./views/pages/panel/layouts/social/SocialEngineeringPanel'),
-);
-
-const IssuesPanel = lazy(
-	() => import('./views/pages/panel/layouts/issues/IssuesPanel'),
 );
 
 const SupportPanel = lazy(
@@ -82,11 +79,12 @@ export const AppRouter: React.FC = () => {
 					<Route path="/mobile" element={<MobileApplication />} />
 					<Route path="/cloud" element={<CloudApplicationPanel />} />
 					<Route path="/lan" element={<LanApplicationPanel />} />
-					<Route path="/enp" element={<EnpPanel />} />
 					<Route path="/source" element={<SourceCodePanel />} />
 
-					<Route path="/social" element={<SocialEngineeringPanel />} />
 					<Route path="/issues" element={<IssuesPanel />} />
+					<Route path="/create/issues" element={<IssuesCreation />} />
+
+					<Route path="/enp" element={<EnpPanel />} />
 					<Route path="/support" element={<SupportPanel />} />
 					<Route path="/preferences" element={<PreferencePanel />} />
 					<Route path="/inx" element={<InxPanel />} />

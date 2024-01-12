@@ -1,4 +1,10 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import React, {
+	Fragment,
+	ReactNode,
+	useCallback,
+	useMemo,
+	useState,
+} from 'react';
 import {
 	AddDomainModal,
 	AddSubDomainModal,
@@ -42,6 +48,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 		console.log('Alo in show?');
 		setShowModal(true);
 	}, []);
+	
 	const close = useCallback(() => {
 		console.log('Alo in close?');
 

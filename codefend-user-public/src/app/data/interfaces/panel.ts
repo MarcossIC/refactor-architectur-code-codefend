@@ -1,4 +1,4 @@
-import { ID, Monitoring, ResourceID, User } from '.';
+import { ID, Monitoring, ResourceID } from '.';
 
 export interface Company extends ID, Monitoring {
 	name: string;
@@ -169,6 +169,9 @@ export interface Network extends ResourceID, Monitoring {
 	childs?: Network[];
 }
 
+export enum ChatBoxType {
+	ISSUE,
+}
 
 export interface Device {
 	id: string;
@@ -187,11 +190,11 @@ export interface Device {
 	ppk: string;
 	resource_lan_dad: string;
 	childs?: Device[] | null;
-  }
-  
-  export interface DeviceListResponse {
+}
+
+export interface DeviceListResponse {
 	disponibles: Device[];
-	eliminados: null | any; 
+	eliminados: null | any;
 	error: string;
 	info: string;
-  }
+}

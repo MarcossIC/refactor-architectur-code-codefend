@@ -16,7 +16,9 @@ export const useAuthState = () => {
 	const dispatch = useAppDispatch();
 
 	const getUserdata = () => authState.userData;
+
 	const getAccessToken = () => authState.accessToken;
+
 	const isAuth = () => authState.isAuth;
 
 	const signInUser = async (params: LoginParams): Promise<boolean> => {

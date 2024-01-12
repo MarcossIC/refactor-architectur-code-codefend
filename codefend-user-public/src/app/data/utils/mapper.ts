@@ -1,10 +1,8 @@
-import { access } from 'fs';
 import {
 	AllIssues,
 	CloudApp,
 	Company,
 	DashboardProps,
-	IssueClass,
 	Issues,
 	IssuesCondition,
 	IssuesShare,
@@ -20,6 +18,7 @@ import {
 	formatDate,
 } from '..';
 
+/** Map @interface UserAPi => @interface User */
 export const mapLoginResponseToUser: (response: UserAPI) => User = (
 	response: UserAPI,
 ) => {
@@ -44,7 +43,8 @@ export const mapLoginResponseToUser: (response: UserAPI) => User = (
 	} as User;
 };
 
-export const mapCompanyApiToCompanyProps = (source: any) => {
+/** Map company api data => @interface Company   */
+export const mapCompanyApiToCompanyProps = (source: any): Company => {
 	return {
 		id: source.id,
 		name: source.name,
@@ -65,8 +65,10 @@ export const mapCompanyApiToCompanyProps = (source: any) => {
 		orderSize: source.profile_media,
 		isDisabled: source.eliminado === '1',
 		createdAt: source.creacion,
-	} as Company;
+	};
 };
+
+/** Map issues api data => @interface Issues */
 export const mapIssues = (source: any): Issues => {
 	return {
 		id: source.id,
@@ -85,6 +87,7 @@ export const mapIssues = (source: any): Issues => {
 		createdAt: formatDate(source.creacion),
 	} as Issues;
 };
+/** Map issue share api data => @interface IssuesShare */
 export const mapIssueShare = (source: any): IssuesShare => {
 	return {
 		total: source.issues_share.total,
@@ -95,6 +98,7 @@ export const mapIssueShare = (source: any): IssuesShare => {
 	};
 };
 
+/** Map issue condition api data => @interface IssuesCondition */
 export const mapIssuesCondition = (source: any): IssuesCondition => {
 	return {
 		total: source.issues_condicion.total,
@@ -103,6 +107,7 @@ export const mapIssuesCondition = (source: any): IssuesCondition => {
 	};
 };
 
+/** Map dashboard company api data => @interface DashboardProps */
 export const mapGetCompanyToCompanyData = (source: any): DashboardProps => {
 	return {
 		company: mapCompanyApiToCompanyProps(source.company),
@@ -138,6 +143,7 @@ export const mapGetCompanyToCompanyData = (source: any): DashboardProps => {
 	} as DashboardProps;
 };
 
+/** Map web resources api data => @interface Webresources */
 export const mapWebresourceApiToWebresource = (source: any): Webresources => {
 	return {
 		id: source.id,
@@ -173,15 +179,17 @@ export const mapWebresourceApiToWebresource = (source: any): Webresources => {
 	} as Webresources;
 };
 
-export const mapToWebresourceProps = (source: any) => {
+/** Map web resources and company api data => @interface WebapplicationProps */
+export const mapToWebresourceProps = (source: any): WebapplicationProps => {
 	return {
 		company: mapCompanyApiToCompanyProps(source.company),
 		resources: source.resources.map((resource: any) =>
 			mapWebresourceApiToWebresource(resource),
 		),
-	} as WebapplicationProps;
+	};
 };
 
+/** Map mobile app api data => @interface MobileApp */
 export const mapMobileApp = (source: any): MobileApp => {
 	return {
 		id: source.id,
@@ -201,6 +209,7 @@ export const mapMobileApp = (source: any): MobileApp => {
 	};
 };
 
+/** Map avalaible mobile apps from api => @interface MobileProps */
 export const mapMobileProps = (source: any): MobileProps => {
 	return {
 		error: source.error,
@@ -210,6 +219,7 @@ export const mapMobileProps = (source: any): MobileProps => {
 	};
 };
 
+/** Map mobile one api data => @interface MobileUnique */
 export const mobileUniqueProps = (source: any): MobileUnique => {
 	return {
 		...mapMobileApp(source.unico),
@@ -220,6 +230,7 @@ export const mobileUniqueProps = (source: any): MobileUnique => {
 	};
 };
 
+/** Map cloud app api data => @interface CloudApp */
 export const mapCloudApp = (source: any): CloudApp => {
 	return {
 		id: source.id,
@@ -233,9 +244,10 @@ export const mapCloudApp = (source: any): CloudApp => {
 		appMedia: source.media,
 		isDisabled: source.eliminado === '1',
 		createdAt: formatDate(source.creacion),
-	} as CloudApp;
+	};
 };
 
+/** Map get all issues from api => @interface AllIssues */
 export const mapAllIssues = (source: any): AllIssues => {
 	return {
 		issues: source.issues
@@ -247,6 +259,7 @@ export const mapAllIssues = (source: any): AllIssues => {
 	};
 };
 
+/** Map source code api data => @interface SourceCode */
 export const mapSourceCode = (source: any): SourceCode => {
 	return {
 		id: source.id,
@@ -259,5 +272,3 @@ export const mapSourceCode = (source: any): SourceCode => {
 		createdAt: source.creacion,
 	};
 };
-
-

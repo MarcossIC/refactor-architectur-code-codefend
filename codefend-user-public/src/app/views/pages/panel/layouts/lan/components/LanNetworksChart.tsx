@@ -1,8 +1,10 @@
+import { useMemo } from 'react';
 import {
 	ChartService,
 	ChartValueType,
 	Device,
-	Network,
+	generateIDArray,
+	isEmptyData,
 	osTypes,
 	useDoughnutChart,
 } from '../../../../../../data';
@@ -15,13 +17,23 @@ interface LanNetworksChartProps {
 }
 
 export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
-	const { chartOptions, chartData, otherMetrics, total, dataEmptyState } =
-		useDoughnutChart({
-			data: props.internalNetwork,
-			type: ChartValueType.NETWORK_OS,
-		});
+	const { chartOptions, chartData, otherMetrics, total } = useDoughnutChart({
+		data: props.internalNetwork,
+		type: ChartValueType.NETWORK_OS,
+	});
+
+	const dataEmptyState = useMemo(() => {
+		return isEmptyData(otherMetrics);
+	}, [otherMetrics]);
 
 	const { renderPercentage } = ChartService;
+
+	const lanKeys = useMemo(() => {
+		return props.isLoading
+			? []
+			: generateIDArray(Object.keys(otherMetrics).length);
+	}, [Object.keys(otherMetrics)]);
+
 	return (
 		<>
 			<div className="card risk-chart">
@@ -55,24 +67,26 @@ export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
 							</div>
 
 							<div className="row">
-								{Object.keys(otherMetrics).map((network) => (
-									<div className="item" key={network}>
-										<div className="os">
-											{osTypes.includes(network.toLowerCase())
-												? network
-												: 'Unknown'}
+								{Object.keys(otherMetrics).map(
+									(network: any, i: number) => (
+										<div className="item" key={lanKeys[i]}>
+											<div className="os">
+												{osTypes.includes(network.toLowerCase())
+													? network
+													: 'Unknown'}
+											</div>
+											<div className="count">
+												{otherMetrics[network]}
+											</div>
+											<div className="percent">
+												{renderPercentage(
+													otherMetrics[network],
+													total,
+												)}
+											</div>
 										</div>
-										<div className="count">
-											{otherMetrics[network]}
-										</div>
-										<div className="percent">
-											{renderPercentage(
-												otherMetrics[network],
-												total,
-											)}
-										</div>
-									</div>
-								))}
+									),
+								)}
 							</div>
 						</div>
 					</div>

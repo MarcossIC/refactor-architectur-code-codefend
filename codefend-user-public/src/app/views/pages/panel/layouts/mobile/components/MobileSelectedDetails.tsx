@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
-import { PageLoader } from '../../../../../components';
 import {
 	AppCardInfo,
 	ProvidedTestingCredentials,
 	VulnerabilityRisk,
 	VulnerabilitiesStatus,
 	IssuesPanelMobileAndCloud,
-} from '../../../components';
+	PageLoader,
+} from '../../../../../components';
 import {
 	IssuesCondition,
 	IssuesShare,

@@ -51,34 +51,25 @@ export const isEmptyData = (data: any) => {
 	);
 };
 
-/* Funcion para generar UUID Ramdom */
+/* Random UUID generator function  */
 export const generateID = () => crypto.randomUUID();
 
 /**
- * Genera un Array de ID's ramdoms segun una cuenta
- *
- * @param {number} count - La cantidad de IDs que se deben generar.
+ * Function generating a random "N" UUID array
  * @returns {Array<string>} - Un array de de ID.
  */
-export const generateIDArray = (count: number): string[] => {
-	return Array.from({ length: count }, () => {
+export const generateIDArray = (N: number): string[] => {
+	return Array.from({ length: N }, () => {
 		return generateID();
 	});
 };
-
+/**
+ * Clear a string of characters: "opiniones", "&nbsp;", "&Acirc;"
+ * Used to clean reviews
+ */
 export const cleanReview = (source: string) => {
 	let update = source.replace(/\bopiniones\b/gi, '');
 	update = update.replace(/&nbsp;/g, '');
 	update = update.replace(/&Acirc;/g, '');
 	return update.trim();
-};
-
-export const renderPercentage = (value: string, total: string) => {
-	if (value === '0') {
-		return '0%';
-	}
-	let percentValue =
-		((parseInt(value) / parseInt(total)) * 100).toFixed() + '%';
-
-	return percentValue;
 };

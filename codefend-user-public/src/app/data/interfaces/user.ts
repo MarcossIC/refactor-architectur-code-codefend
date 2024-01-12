@@ -1,3 +1,4 @@
+import { Monitoring } from '.';
 import { UserAPI } from './auth';
 
 // Interface para la propiedad 'user'
@@ -65,7 +66,7 @@ export interface RegFinishResponse {
 	user: UserFinishResponse;
 }
 
-export interface User {
+export interface User extends Monitoring {
 	id?: string;
 	companyID: string;
 	accessRole: string;
@@ -85,8 +86,6 @@ export interface User {
 	companyRole: string;
 	companyWeb?: string;
 	companyCountry?: string;
-	isDisabled: boolean;
-	createdAt: string;
 	exp?: number;
 }
 

@@ -2,12 +2,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
 	PageLoader,
 	EmptyScreenView,
-	ModalWrapper,
-	ConfirmModal,
 	ModalTitleWrapper,
 	AddMobileModal,
+	AppCard,
 } from '../../../../components';
-import { AppCard } from '../../components/AppCard';
 import {
 	MobileApp,
 	generateIDArray,

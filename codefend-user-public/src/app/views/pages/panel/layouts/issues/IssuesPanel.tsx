@@ -1,17 +1,67 @@
-import { EmptyScreenView } from '../../../../components';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useIssues } from '../../../../../data';
+import {
+	VulnerabilitiesStatus,
+	VulnerabilityRisk,
+} from '../../../../components';
+import { IssueReport } from './components/IssueReport';
+import { IssueResources } from './components/IssueResources';
+import '../../../../styles/table.scss';
+import './issues.scss';
 
-interface Props {}
+const IssuesPanel: React.FC = () => {
+	const [showScreen, setShowScreen] = useState(false);
+	const [reShow, setReshow] = useState(false);
+	const { getIssues, isLoading, refetchAll } = useIssues();
 
-const IssuesPanel: React.FC<Props> = (props) => {
+	useEffect(() => {
+		setShowScreen(false);
+		const timeoutId = setTimeout(() => {
+			setShowScreen(true);
+		}, 50);
+
+		return () => clearTimeout(timeoutId);
+	}, [reShow]);
+
 	return (
 		<>
-			<EmptyScreenView
-				buttonText="Add Issues"
-				title={"There's no data to display here"}
-				info={'Start by clicking on the button below'}
-				event={() => {}}
-			/>
+			<main className={`issue-list ${showScreen ? 'actived' : ''}`}>
+				<section className="left">
+					<IssueResources
+						isLoading={isLoading}
+						issues={getIssues().issues ?? []}
+						delete={(id: string) => {
+							refetchAll();
+							setReshow(!reShow);
+						}}
+					/>
+				</section>
+				<section className="right">
+					<VulnerabilityRisk
+						isLoading={isLoading}
+						vulnerabilityByRisk={getIssues().issueShare ?? {}}
+					/>
+					<VulnerabilitiesStatus
+						vulnerabilityByShare={getIssues().issueCondition ?? {}}
+					/>
+
+					<button
+						onClick={(e) => {
+							alert('Generating report');
+						}}
+						className="btn btn-primary w-full mt-4 mb-4">
+						GENERATE REPORT
+					</button>
+
+					<IssueReport
+						handleFilter={(e, issueClass) => {
+							e.preventDefault();
+						}}
+						isLoading={isLoading}
+						issuesClasses={getIssues().issueClass ?? {}}
+					/>
+				</section>
+			</main>
 		</>
 	);
 };

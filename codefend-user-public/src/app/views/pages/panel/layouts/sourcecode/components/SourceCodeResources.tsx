@@ -1,3 +1,4 @@
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { SourceCode, generateIDArray, useModal } from '../../../../../../data';
 import {
 	ConfirmModal,
@@ -7,7 +8,6 @@ import {
 	SourceCodeIcon,
 	TrashIcon
 } from '../../../../../components';
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import '../../../../../styles/table.scss';
 import { AddRepositoryModal } from '../../../../../components/modals/AddRepositoryModal';
 

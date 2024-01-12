@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { PageLoader, PeopleGroup } from '../../../../../components';
-import { Table } from '../../../../../components';
+import { PageLoader, PeopleGroup,Table } from '../../../../../components';
 
 const DashboardCollaborators: React.FC<{
 	members: any;

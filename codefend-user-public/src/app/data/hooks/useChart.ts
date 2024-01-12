@@ -62,9 +62,5 @@ export const useDoughnutChart = (value: DoughnutCharProps) => {
 		[],
 	);
 
-	const dataEmptyState = useMemo(() => {
-		return isEmptyData(otherMetrics);
-	}, [otherMetrics]);
-
-	return { chartOptions, chartData, otherMetrics, total, dataEmptyState };
+	return { chartOptions, chartData, otherMetrics, total };
 };

@@ -1,4 +1,4 @@
-import { useAppSelector, useModal } from '../../../data';
+import { useAuthState, useModal } from '../../../data';
 import { LanApplicationService } from '../../../data/services/lan.service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -14,10 +14,12 @@ interface NetworkData {
 	isAddingInternalNetwork: boolean;
 }
 
-export const AcessPointModal: React.FC<{ onDone: () => void }> = (props) => {
-	const companyID = useAppSelector(
-		(state) => state.authState.userData?.companyID,
-	);
+export const AcessPointModal: React.FC<{
+	onDone: () => void;
+	close: () => void;
+}> = (props) => {
+	const { getUserdata } = useAuthState();
+	const companyID = getUserdata()?.companyID;
 
 	const [networkData, setNetworkData] = useState<NetworkData>({
 		domainName: '',
@@ -49,7 +51,7 @@ export const AcessPointModal: React.FC<{ onDone: () => void }> = (props) => {
 		isAddingInternalNetwork,
 	} = networkData;
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
 		setNetworkData((prevData) => ({
@@ -114,18 +116,17 @@ export const AcessPointModal: React.FC<{ onDone: () => void }> = (props) => {
 
 	return (
 		<>
-			<div className="container flex items-center justify-center  mx-auto p-3 text-format">
-				<form onSubmit={handleSubmit} className="p-6">
-					<div className="relative flex items-center w-96">
+			<div className="modal flex items-center justify-center p-3 text-format">
+				<form className="flex flex-col gap-y-3">
+					<div className="form-input">
 						<span className="form-icon">
 							<div className="codefend-text-red">
 								<GlobeWebIcon />
 							</div>
 						</span>
-
 						<select
 							onChange={handleChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300"
+							className="log-inputs modal_info"
 							required>
 							<option value="" disabled selected>
 								os / vendor
@@ -137,82 +138,90 @@ export const AcessPointModal: React.FC<{ onDone: () => void }> = (props) => {
 							<option value="ios">ios</option>
 						</select>
 					</div>
-					<div className="relative flex items-center w-96 mt-4">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="text"
 							onChange={handleChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300"
 							placeholder="hostname"
 							required
 						/>
 					</div>
-					<div className="relative flex items-center w-96 mt-4">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="text"
 							onChange={handleChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300"
 							placeholder="Internal IP Address"
 							required
 						/>
 					</div>
-					<div className="relative flex items-center w-96 mt-4">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="text"
 							onChange={handleChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs focus:outline-none dark:text-gray-300"
 							placeholder="External IP Address"
 							required
 						/>
 					</div>
 
-					<div className="relative flex items-center mt-4 w-96">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="text"
 							onChange={handleChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs  focus:outline-none dark:text-gray-300"
 							placeholder="username"
 							required
 						/>
 					</div>
-					<div className="relative flex items-center mt-4 w-96">
-						<span className="absolute">
-							<GlobeWebIcon />
+					<div className="form-input">
+						<span className="form-icon">
+							<div className="codefend-text-red">
+								<GlobeWebIcon />
+							</div>
 						</span>
 
 						<input
 							type="password"
 							onChange={handleChange}
-							className="block w-full py-3 bg-white border px-11 log-inputs  focus:outline-none dark:text-gray-300"
 							placeholder="password"
 							required
 						/>
 					</div>
-					<div className="mt-6 flex">
+					<div className="form-buttons">
 						<button
 							type="button"
-							onClick={handleChange}
-							className="log-inputs text-gray focus:outline-none w-2/6 px-4 mr-2 py-3 text-sm tracking-wide text-white transition-colors duration-300 codefend_secondary_ac">
+							onClick={() => {
+								props.close();
+							}}
+							className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
 							cancel
 						</button>
 						<button
 							type="submit"
-							className="log-inputs flex flex-row items-center gap-x-2 text-white focus:outline-none bg-codefend px-6 w-4/6 py-3 text-sm tracking-wide text-white transition-colors duration-300 codefend_main_ac">
+							onClick={handleSubmit}
+							className="log-inputs btn btn-primary btn-add codefend_main_ac">
 							{isAddingInternalNetwork && <ButtonLoader />}
 							add access point
 						</button>

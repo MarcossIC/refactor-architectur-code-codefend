@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import { User, useAuthState } from '../../../../data';
+import { User, useAuthState } from '../../../data';
 
-import { ButtonLoader, GlobeWebIcon } from '../../../components';
+import { ButtonLoader, GlobeWebIcon } from '..';
 
 interface CloudQuickActionProps {
 	onDone: () => void;

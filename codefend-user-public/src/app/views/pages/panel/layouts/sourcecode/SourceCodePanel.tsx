@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuthState, useModal, useSourceCode } from '../../../../../data';
+import { useModal, useSourceCode } from '../../../../../data';
 import { SourceCodeResources } from './components/SourceCodeResources';
 import { SourceCodeChart } from './components/SourceCodeChart';
 import { SourceCodeCollab } from './components/SourceCodeCollab';

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { CloudApp, mapCloudApp, useAuthState } from '..';
-import { CloudService } from '../services/cloud.service';
+import { CloudApp, mapCloudApp, useAuthState } from '../..';
+import { CloudService } from '../../services/cloud.service';
 
 export const useCloud = () => {
 	const { getUserdata } = useAuthState();
@@ -28,39 +28,31 @@ export const useCloud = () => {
 			});
 	}, []);
 
-	/* It always runs when the page loads. */
-	useEffect(() => {
+	/* Refetch Function. */
+	const refetch = () => {
 		const companyID = getUserdata()?.companyID;
-
 		fetchWeb(companyID);
+	};
+
+	/* First fetch */
+	useEffect(() => {
+		refetch();
 	}, []);
 
-	/* Refetch Function. */
-	const refetch = useCallback(() => {
-		const companyID = getUserdata()?.companyID;
-		fetchWeb(companyID);
-	}, [getUserdata]);
-
 	/* UTILITIES. */
-	const getCloudData = useCallback(() => {
+	const getCloudData = () => {
 		return isLoading ? ([] as CloudApp[]) : cloudApp;
-	}, [isLoading, cloudApp]);
+	};
 
-	const changeSelected = useCallback(
-		(cloud: CloudApp | null) => {
-			if (cloud?.id === selectedCloud?.id) return;
+	const changeSelected = (cloud: CloudApp | null) => {
+		if (cloud?.id === selectedCloud?.id) return;
 
-			setSelectedCloudApp(cloud);
-		},
-		[selectedCloud],
-	);
+		setSelectedCloudApp(cloud);
+	};
 
-	const isActive = useCallback(
-		(id: string) => {
-			return selectedCloud?.id === id;
-		},
-		[selectedCloud],
-	);
+	const isActive = (id: string) => {
+		return selectedCloud?.id === id;
+	};
 
 	return {
 		changeSelected,

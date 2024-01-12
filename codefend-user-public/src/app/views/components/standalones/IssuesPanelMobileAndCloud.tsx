@@ -1,13 +1,8 @@
 import React, { Fragment, useCallback, useMemo } from 'react';
-import { BugIcon, EmptyCard, PageLoader } from '../../../components';
+import { BugIcon, EmptyCard, PageLoader } from '..';
 import { useNavigate } from 'react-router';
-import {
-	Issues,
-	Monitoring,
-	formatDate,
-	generateIDArray,
-} from '../../../../data';
-import '../../../styles/table.scss';
+import { Issues, generateIDArray } from '../../../data';
+import '../../styles/table.scss';
 
 interface Props {
 	isLoading: boolean;

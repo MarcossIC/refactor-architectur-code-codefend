@@ -340,3 +340,23 @@ export const SaveIcon = () => {
 		</svg>
 	);
 };
+
+export const SendIcon = () => {
+	return (
+		<svg
+			strokeWidth={0}
+			height="1em"
+			width="1em"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			stroke="currentColor"
+			strokeLinecap={'round'}
+			strokeLinejoin={'round'}
+			viewBox="0 0 24 24"
+			color="currentColor"
+			style={{ overflow: 'visible' }}>
+			<path d="M22 2 11 13"></path>
+			<path d="M22 2 15 22 11 13 2 9 22 2z"></path>
+		</svg>
+	);
+};

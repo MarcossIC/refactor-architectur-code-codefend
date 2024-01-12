@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { PageLoader } from '../../components';
+import { Loader } from '../../components';
 import { AuthServices } from '../../../data/services';
 
 const Navbar = lazy(() => import('../../components/standalones/Navbar'));
@@ -14,7 +14,7 @@ export const PanelPage: React.FC = () => {
 		<>
 			<Navbar />
 			<Sidebar />
-			<Suspense fallback={<PageLoader />}>
+			<Suspense fallback={<Loader />}>
 				<Outlet />
 			</Suspense>
 		</>

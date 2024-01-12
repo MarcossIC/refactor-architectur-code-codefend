@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useIssues } from '../../../../../data';
-import { VulnerabilitiesStatus, VulnerabilityRisk } from '../..';
+import {
+	VulnerabilitiesStatus,
+	VulnerabilityRisk,
+} from '../../../../components';
 import { IssueReport } from './components/IssueReport';
 import { IssueResources } from './components/IssueResources';
 import '../../../../styles/table.scss';
@@ -26,7 +29,7 @@ const IssuesPanel: React.FC = () => {
 				<section className="left">
 					<IssueResources
 						isLoading={isLoading}
-						issues={getIssues.issues ?? []}
+						issues={getIssues().issues ?? []}
 						delete={(id: string) => {
 							refetchAll();
 							setReshow(!reShow);
@@ -36,10 +39,10 @@ const IssuesPanel: React.FC = () => {
 				<section className="right">
 					<VulnerabilityRisk
 						isLoading={isLoading}
-						vulnerabilityByRisk={getIssues.issueShare ?? {}}
+						vulnerabilityByRisk={getIssues().issueShare ?? {}}
 					/>
 					<VulnerabilitiesStatus
-						vulnerabilityByShare={getIssues.issueCondition ?? {}}
+						vulnerabilityByShare={getIssues().issueCondition ?? {}}
 					/>
 
 					<button
@@ -55,7 +58,7 @@ const IssuesPanel: React.FC = () => {
 							e.preventDefault();
 						}}
 						isLoading={isLoading}
-						issuesClasses={getIssues.issueClass ?? {}}
+						issuesClasses={getIssues().issueClass ?? {}}
 					/>
 				</section>
 			</main>

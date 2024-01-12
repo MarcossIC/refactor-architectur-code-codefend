@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { mapSourceCode, useAuthState } from '..';
-import { SourceCodeService } from '../services/sourcecode.service';
+import { mapSourceCode, useAuthState } from '../..';
+import { SourceCodeService } from '../../services/sourcecode.service';
 import { toast } from 'react-toastify';
 
 export const useSourceCode = () => {

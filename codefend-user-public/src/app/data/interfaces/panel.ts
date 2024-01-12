@@ -1,4 +1,4 @@
-import { ID, Monitoring, ResourceID, User } from '.';
+import { ID, Monitoring, ResourceID } from '.';
 
 export interface Company extends ID, Monitoring {
 	name: string;
@@ -167,4 +167,8 @@ export interface Network extends ResourceID, Monitoring {
 	device_vendor: string;
 	device_name: string;
 	childs?: Network[];
+}
+
+export enum ChatBoxType {
+	ISSUE,
 }

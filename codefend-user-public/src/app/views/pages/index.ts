@@ -1,6 +1,5 @@
 export * from './auth';
 export * from './auth/layouts';
-export * from './panel/components';
 export * from './panel';
 export { default as Cloud } from './panel/layouts/cloud/Cloud';
 export { default as Dashboard } from './panel/layouts/dashboard/Dashboard';

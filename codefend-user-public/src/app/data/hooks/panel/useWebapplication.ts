@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { WebApplicationService } from '../services/webapplication.service';
+import { WebApplicationService } from '../../services/webapplication.service';
 import {
 	User,
 	WebapplicationProps,
 	mapToWebresourceProps,
 	useAuthState,
-} from '..';
+} from '../..';
 
 export const useWebapplication = () => {
 	const { getUserdata } = useAuthState();
@@ -14,9 +14,8 @@ export const useWebapplication = () => {
 		{} as WebapplicationProps,
 	);
 
-	const fetchWeb = useCallback(() => {
-		const user = getUserdata() as User;
-		const companyID = user?.companyID as string;
+	//GET Webresourcer from API
+	const fetchWeb = useCallback((companyID: string) => {
 		setLoading(true);
 
 		WebApplicationService.get(companyID)
@@ -26,13 +25,19 @@ export const useWebapplication = () => {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [getUserdata, setLoading]);
-
-	useEffect(() => {
-		fetchWeb();
 	}, []);
 
-	const refetch = useCallback(() => fetchWeb(), []);
+	//Refetch Data
+	const refetch = () => {
+		const user = getUserdata() as User;
+		const companyID = user?.companyID as string;
+		fetchWeb(companyID);
+	};
+
+	//First fetch
+	useEffect(() => {
+		refetch();
+	}, []);
 
 	return { webResources, isLoading, refetch };
 };

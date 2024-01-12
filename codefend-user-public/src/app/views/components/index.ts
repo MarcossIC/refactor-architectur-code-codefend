@@ -1,4 +1,6 @@
 export * from './icons';
+export * from './modals';
+export * from './standalones';
 
 export { default as ModalWrapper } from './modals/ModalWrapper';
 export { default as AddDomainModal } from './modals/AddDomainModal';
@@ -11,9 +13,3 @@ export { AddNetworkDeviceModal } from './modals/AddNetworkDeviceModal';
 export { AddCloudModal } from './modals/AddCloudModal';
 export { DeletewebResource } from './modals/DeletewebResource';
 export { AddRepositoryModal } from './modals/AddRepositoryModal';
-
-export { Table } from './standalones/Table';
-
-export * from './modals';
-export * from './standalones/Table';
-export * from './standalones';

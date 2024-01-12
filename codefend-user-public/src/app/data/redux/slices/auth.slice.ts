@@ -4,7 +4,7 @@ import {
 	registerThunk,
 	registerFinishThunk,
 } from '../thunks/auth.thunk';
-import { AuthState, User, UserAPI, getToken, getUser } from '../..';
+import { AuthState, User, getToken, getUser } from '../..';
 
 const initialState: AuthState = (() => {
 	const user = getUser();
@@ -87,7 +87,7 @@ export const authSlice = createSlice({
 			state.loading = false;
 			state.success = true;
 			state.isAuth = true;
-			state.userData = action.payload.user as User ;
+			state.userData = action.payload.user as User;
 			state.accessToken = action.payload.token as string;
 		});
 		/* state =  with errors*/

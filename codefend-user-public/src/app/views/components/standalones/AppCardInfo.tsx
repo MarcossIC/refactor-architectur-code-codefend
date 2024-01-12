@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { AppCard } from './AppCard';
-import { CloudApp, MobileApp } from '../../../../data';
+import { CloudApp, MobileApp } from '../../../data';
 
 interface AppCardInfoProps {
 	type?: string;

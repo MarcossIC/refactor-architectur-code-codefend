@@ -4,7 +4,7 @@ export const setTinyEditorContent = (id, value) => {
 };
 
 const addTinyMce = (initialValue) => {
-	if (tinyMCE.EditorManager.activeEditor !== null) {
+	if (tinyMCE.EditorManager.activeEditor) {
 		tinyMCE.remove();
 	}
 

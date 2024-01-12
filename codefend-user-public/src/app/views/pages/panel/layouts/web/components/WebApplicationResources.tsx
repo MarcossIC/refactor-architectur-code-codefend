@@ -1,12 +1,11 @@
 import React, {
 	Fragment,
-	ReactNode,
 	useCallback,
 	useMemo,
 	useState,
 } from 'react';
+import { useNavigate } from 'react-router';
 import {
-	ModalWrapper,
 	AddDomainModal,
 	AddSubDomainModal,
 	DeletewebResource,
@@ -17,7 +16,6 @@ import {
 	StatIcon,
 	ModalTitleWrapper,
 } from '../../../../../components';
-import { useNavigate } from 'react-router';
 import {
 	Resouce,
 	Webresources,
@@ -29,6 +27,7 @@ interface WebResourcesProps {
 	refetch: () => void;
 	webResources: Webresources[];
 	isLoading: boolean;
+	resetScreen: () => void;
 }
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
@@ -49,12 +48,9 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	);
 
 	const show = useCallback(() => {
-		console.log('Alo in show?');
 		setShowModal(true);
 	}, []);
 	const close = useCallback(() => {
-		console.log('Alo in close?');
-
 		setShowModal(false);
 	}, []);
 
@@ -67,7 +63,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				<AddDomainModal
 					onDone={() => {
 						props.refetch();
-						setShowModal(false);
+						setShowModal(!showModal);
+						props.resetScreen();
 					}}
 					close={() => setShowModal(false)}
 				/>
@@ -80,7 +77,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				<DeletewebResource
 					id={selectedId}
 					onDone={() => {
-						window.location.reload();
+						setShowModal(!showModal);
+						props.resetScreen();
 					}}
 					close={() => setShowModal(false)}
 				/>
@@ -91,7 +89,11 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				close={close}
 				headerTitle="Add web sub-resource">
 				<AddSubDomainModal
-					onDone={() => props.refetch()}
+					onDone={() => {
+						props.refetch();
+						setShowModal(!showModal);
+						props.resetScreen();
+					}}
 					close={() => setShowModal(false)}
 					webResources={getResources()}
 				/>

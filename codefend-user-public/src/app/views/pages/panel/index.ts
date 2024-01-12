@@ -1,5 +1,4 @@
 export * from './PanelPage';
-export * from './components';
 export { default as Cloud } from './layouts/cloud/Cloud';
 export { default as Dashboard } from './layouts/dashboard/Dashboard';
 export { default as DashboardAssets } from './layouts/dashboard/components/DashboardAssets';

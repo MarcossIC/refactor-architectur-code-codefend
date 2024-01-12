@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { IssueCreationPanel } from './components/IssueCreationPanel';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Loader } from '../../../../components';
+import IssueCreationPanel from './components/IssueCreationPanel';
+import { IssueChatDisplay } from './components/IssueChatDisplay';
 import './issues.scss';
 
 const IssuesCreation: React.FC<{}> = () => {
 	const [showScreen, setShowScreen] = useState(false);
 	const [reShow, setReshow] = useState(false);
+	const [isScriptLoad, setScriptLoaded] = useState(false);
 
 	useEffect(() => {
 		setShowScreen(false);
@@ -14,22 +17,44 @@ const IssuesCreation: React.FC<{}> = () => {
 
 		return () => clearTimeout(timeoutId);
 	}, [reShow]);
+
+	let script = useMemo(() => document.createElement('script'), []);
 	useEffect(() => {
-		const script = document.createElement('script');
-		script.src = '/public/editor/tinymce.min.js';
+		script = document.createElement('script');
+		script.src = '/src/editor-lib/visual/mce/tinymce.min.js';
 		script.async = true;
+		script.onload = () => {
+			setScriptLoaded(true);
+		};
 		document.body.appendChild(script);
+
 		return () => {
 			document.body.removeChild(script);
 		};
 	}, []);
+
 	return (
-		<main className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
-			<section className="issue">
-				<IssueCreationPanel issues={[]} />
-			</section>
-			<section className="h-full flex-grow"></section>
-		</main>
+		<>
+			{isScriptLoad ? (
+				<main
+					className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
+					<section className="issue">
+						<IssueCreationPanel issues={[]} onDone={() => {}} />
+					</section>
+					<section className="h-full flex-grow">
+						<IssueChatDisplay
+							selectedIssue={{}}
+							isLoading={false}
+							refetch={() => {}}
+						/>
+					</section>
+				</main>
+			) : (
+				<>
+					<Loader />
+				</>
+			)}
+		</>
 	);
 };
 

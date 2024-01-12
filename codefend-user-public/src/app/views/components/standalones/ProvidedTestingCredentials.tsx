@@ -1,11 +1,11 @@
 import React, { Fragment, useMemo } from 'react';
 
-import { ModalWrapper, ChartIcon, EmptyCard } from '../../../components';
+import { ModalWrapper, ChartIcon, EmptyCard } from '..';
 import { CloudQuickAction } from './CloudQuickAction';
 
 import { TestingCredentialCard } from './TestingCredentialCard';
-import { generateIDArray } from '../../../../data';
-import '../../../styles/card.scss';
+import { generateIDArray } from '../../../data';
+import '../../styles/table.scss';
 
 interface ProvidedTestingCredentialsProps {
 	refetch?: () => void;
@@ -34,9 +34,7 @@ export const ProvidedTestingCredentials: React.FC<
 								|<span>{' Add cloud actions '}</span>|
 							</div>
 
-							<CloudQuickAction
-								onDone={() => props.refetch?.()}
-							/>
+							<CloudQuickAction onDone={() => props.refetch?.()} />
 
 							<div className="helper-box"></div>
 						</div>

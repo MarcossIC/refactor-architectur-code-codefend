@@ -6,7 +6,10 @@ import DashboardAssets from './components/DashboardAssets';
 import DashboardVulnerabilities from './components/DashboardVulnerabilities';
 
 import { useDashboard } from '../../../../../data';
-import { VulnerabilityRisk, VulnerabilitiesStatus } from '../../components/';
+import {
+	VulnerabilityRisk,
+	VulnerabilitiesStatus,
+} from '../../../../components';
 import '../../../../styles/flag.scss';
 import './dashboard.scss';
 

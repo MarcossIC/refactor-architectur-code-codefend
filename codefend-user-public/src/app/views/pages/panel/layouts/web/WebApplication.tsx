@@ -9,13 +9,14 @@ import '../../../../styles/table.scss';
 import './webapplication.scss';
 
 const WebApplicationView: React.FC = () => {
+	//Custom Hook for Web panel view
 	const { webResources, isLoading, refetch } = useWebapplication();
 	const [showScreen, setShowScreen] = useState(false);
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
-	}, [showScreen]);
+	}, []);
 
 	return (
 		<main className={`webapp ${showScreen ? 'actived' : ''}`}>
@@ -24,6 +25,10 @@ const WebApplicationView: React.FC = () => {
 					isLoading={isLoading}
 					refetch={refetch}
 					webResources={webResources.resources}
+					resetScreen={() => {
+						useState(false);
+						clearTimeout(setTimeout(() => setShowScreen(true), 50));
+					}}
 				/>
 			</section>
 			<section className="right">

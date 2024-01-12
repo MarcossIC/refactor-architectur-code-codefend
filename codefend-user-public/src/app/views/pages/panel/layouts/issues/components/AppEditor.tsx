@@ -35,10 +35,14 @@ export const AppEditor: React.FC<AppEditorProps> = ({
 	};
 
 	useEffect(() => {
-		const defaultValue = Boolean(initialValue)
-			? initialValue
-			: emptyUpdateIssueText;
-		addTinyMce(defaultValue);
+		const checkTinyMCE = () => {
+			const defaultValue = Boolean(initialValue)
+				? initialValue
+				: emptyUpdateIssueText;
+			addTinyMce(defaultValue);
+		};
+
+		checkTinyMCE();
 	}, []);
 
 	useEffect(() => {

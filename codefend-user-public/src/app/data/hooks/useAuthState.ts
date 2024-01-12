@@ -10,7 +10,6 @@ import {
 	registerThunk,
 	registerFinishThunk,
 } from '../redux/thunks/auth.thunk';
-import { useCallback } from 'react';
 
 export const useAuthState = () => {
 	const authState = useAppSelector((state: any) => state.authState);

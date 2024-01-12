@@ -118,5 +118,6 @@ export const handleFetchError = (error: any) => {
 		console.log(error.response.data);
 		message && toast.error(message);
 	}
-	throw error;
+
+	return { data: error ?? {} };
 };

@@ -7,35 +7,32 @@ export const useIssues = () => {
 	const [isLoading, setLoading] = useState(true);
 	const { getUserdata } = useAuthState();
 
-	const fetchAll = useCallback(
-		(companyID: string) => {
-			setLoading(true);
-			IssueService.getAll(companyID)
-				.then((response: any) => {
-					if (response !== 'success') {
-					}
+	const fetchAll = useCallback((companyID: string) => {
+		setLoading(true);
+		IssueService.getAll(companyID)
+			.then((response: any) => {
+				if (response !== 'success') {
+				}
 
-					setIssues(mapAllIssues(response));
-				})
-				.finally(() => {
-					setLoading(false);
-				});
-		},
-		[getUserdata],
-	);
-	const refetchAll = useCallback(() => {
+				setIssues(mapAllIssues(response));
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, []);
+	const refetchAll = () => {
 		const companyID = getUserdata()?.companyID;
 		fetchAll(companyID);
-	}, [getUserdata]);
+	};
 
 	useEffect(() => {
 		refetchAll();
 	}, []);
 
-	const getIssues = useMemo(() => {
+	const getIssues = () => {
 		const issuesData = isLoading ? ({} as AllIssues) : issues;
 		return issuesData ?? {};
-	}, [isLoading, issues]);
+	};
 
 	return { getIssues, isLoading, refetchAll };
 };

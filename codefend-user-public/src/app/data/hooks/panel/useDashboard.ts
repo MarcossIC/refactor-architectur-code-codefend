@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useAuthState } from './useAuthState';
-import { DashboardService } from '../services/dashboard.service';
-import { mapGetCompanyToCompanyData } from '../utils/mapper';
-import { DashboardProps, User } from '..';
-
+import { useAuthState } from '../useAuthState';
+import { DashboardService } from '../../services/dashboard.service';
+import { mapGetCompanyToCompanyData } from '../../utils/mapper';
+import { DashboardProps, User } from '../..';
 
 export const useDashboard = () => {
 	const { getUserdata } = useAuthState();

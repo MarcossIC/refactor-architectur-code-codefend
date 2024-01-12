@@ -4,6 +4,7 @@ import {
 	EmptyScreenView,
 	ModalTitleWrapper,
 	PageLoader,
+	AppCard,
 } from '../../../../components';
 import {
 	CloudApp,
@@ -11,7 +12,6 @@ import {
 	useCloud,
 	useModal,
 } from '../../../../../data';
-import { AppCard } from '../../components';
 import { CloudSelectedDetails } from './components/CloudSelectedDetails';
 
 const CloudApplicationPanel: React.FC = () => {

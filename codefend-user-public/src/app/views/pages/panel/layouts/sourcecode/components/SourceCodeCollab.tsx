@@ -1,7 +1,7 @@
-import { SearchIcon } from '../../../../../components';
 import React from 'react';
+import { SearchIcon } from '../../../../../components';
 
-export const SourceCodeCollab = () => {
+export const SourceCodeCollab: React.FC = () => {
 	return (
 		<>
 			<div className="card only-info">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
 	LeftArrow,
 	PageLoaderOverlay,
@@ -6,25 +6,94 @@ import {
 } from '../../../../../components';
 import { useNavigate } from 'react-router';
 import { AppEditor } from './AppEditor';
-import { Issues } from '../../../../../../data';
+import {
+	IssueService,
+	Issues,
+	useAuthState,
+	useModal,
+} from '../../../../../../data';
+import { getTinyEditorContent } from '../../../../../../../editor-lib/';
+import { toast } from 'react-toastify';
 
 interface Props {
 	issues: Issues[];
+	onDone: () => void;
 }
 
-export const IssueCreationPanel: React.FC<Props> = (props) => {
+const IssueCreationPanel: React.FC<Props> = (props) => {
 	const [issueName, setIssueName] = useState('');
 	const [score, setScore] = useState('');
 	const [issueClass, setIssueClass] = useState('');
 	const [isAddingIssue, setIsAddingIssue] = useState(false);
+	const { showModal, setShowModal } = useModal();
+	const { getUserdata } = useAuthState();
 	const navigate = useNavigate();
 
-	const handleKeyDown = (event: any) => {
-		if (event.ctrlKey && (event.key === 's' || event.keyCode === 83)) {
-			event.preventDefault();
-			//handleIssueUpdate();
+	const handleIssueUpdate = useCallback(async () => {
+		// e.preventDefault();
+		const _editorContent = getTinyEditorContent('issue');
+		if (!_editorContent) {
+			toast.error('Invalid content, please add content using the editor');
+			return;
 		}
-	};
+
+		if (!score) {
+			toast.error('Invalid score');
+			return;
+		}
+
+		if (!issueName || issueName.length == 0 || issueName.length > 100) {
+			toast.error('Invalid name');
+			return;
+		}
+
+		if (
+			![
+				'web',
+				'mobile',
+				'cloud',
+				'lan',
+				'source',
+				'social',
+				'research',
+			].includes(issueClass)
+		) {
+			toast.error('Invalid issue type');
+			return;
+		}
+
+		setIsAddingIssue(true);
+
+		const requestParams = {
+			risk_score: score,
+			name: issueName,
+			resource_class: issueClass,
+			researcher_username: getUserdata()?.username,
+			main_desc: _editorContent,
+		};
+
+		IssueService.add(requestParams, '')
+			.then((response: any) => {
+				const newIssueId = response?.new_issue?.id ?? '';
+				props.onDone();
+				setShowModal(!showModal);
+				toast.success('Successfully Added Issue...');
+				if (newIssueId) {
+					navigate(`issues/${newIssueId}`);
+				}
+			})
+			.finally(() => setIsAddingIssue(false));
+	}, [issueName, score, issueClass]);
+
+	const handleKeyDown = useCallback(
+		(event: any) => {
+			if (event.ctrlKey && (event.key === 's' || event.keyCode === 83)) {
+				event.preventDefault();
+				handleIssueUpdate();
+			}
+		},
+		[handleIssueUpdate],
+	);
 
 	useEffect(() => {
 		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
@@ -63,8 +132,9 @@ export const IssueCreationPanel: React.FC<Props> = (props) => {
 							setIssueClass(e.target.value);
 						}}
 						className="  py-3 bg-white focus:outline-none"
+						value={issueClass}
 						required>
-						<option value="" disabled selected>
+						<option value="" disabled>
 							Select Class
 						</option>
 						<option value="web">web</option>
@@ -84,8 +154,9 @@ export const IssueCreationPanel: React.FC<Props> = (props) => {
 							setScore(e.target.value);
 						}}
 						className=" py-3 bg-whitefocus:outline-none "
+						value={score}
 						required>
-						<option value="" disabled selected>
+						<option value="" disabled>
 							Select Score
 						</option>
 						<option value="5">critical</option>
@@ -109,3 +180,5 @@ export const IssueCreationPanel: React.FC<Props> = (props) => {
 		</>
 	);
 };
+
+export default IssueCreationPanel;

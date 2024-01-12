@@ -8,7 +8,7 @@ import {
 	mapMobileProps,
 	mobileUniqueProps,
 	useAuthState,
-} from '..';
+} from '../..';
 
 export const useMobile = () => {
 	const { getUserdata } = useAuthState();
@@ -39,47 +39,38 @@ export const useMobile = () => {
 		refetch();
 	}, []);
 
-	const refetch = useCallback(() => {
+	const refetch = () => {
 		const user = getUserdata() as User;
 		const companyID = user?.companyID as string;
 		fetchWeb(companyID);
-	}, []);
+	};
 
-	const selectMobile = useCallback(
-		(mobile: MobileApp) => {
-			if (mobile.id === selectedMobileApp?.id) return;
+	const selectMobile = (mobile: MobileApp) => {
+		if (mobile.id === selectedMobileApp?.id) return;
 
-			setSelectedMobileApp(mobile);
-		},
-		[setSelectedMobileApp],
-	);
+		setSelectedMobileApp(mobile);
+	};
 
-	const getMobileInfo = useCallback((): MobileApp[] => {
+	const getMobileInfo = (): MobileApp[] => {
 		return isLoading
 			? ([] as MobileApp[])
 			: (mobileInfo?.available as MobileApp[]);
-	}, [isLoading, mobileInfo]);
+	};
 
-	const isCurrentMobileSelected = useCallback(
-		(id: string) => {
-			return id === selectedMobileApp?.id;
-		},
-		[selectedMobileApp],
-	);
+	const isCurrentMobileSelected = (id: string) => {
+		return id === selectedMobileApp?.id;
+	};
 
 	const isSelected = useMemo(
 		() => selectedMobileApp !== null && selectedMobileApp !== undefined,
 		[selectedMobileApp],
 	);
 
-	const changeMobile = useCallback(
-		(mobile: MobileApp, id: string) => {
-			if (selectedMobileApp && selectedMobileApp.id === id) {
-				selectMobile(mobile);
-			}
-		},
-		[selectedMobileApp],
-	);
+	const changeMobile = (mobile: MobileApp, id: string) => {
+		if (selectedMobileApp && selectedMobileApp.id === id) {
+			selectMobile(mobile);
+		}
+	};
 
 	return {
 		isLoading,

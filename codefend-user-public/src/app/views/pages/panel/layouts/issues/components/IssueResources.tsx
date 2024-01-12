@@ -63,7 +63,7 @@ export const IssueResources: React.FC<Props> = (props) => {
 					}}
 				/>
 			</ModalTitleWrapper>
-			<div className="card web-resources table">
+			<div className="card table">
 				<div className="header">
 					<div className="title">
 						<div className="icon">

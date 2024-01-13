@@ -1,18 +1,22 @@
-import { roleMap } from '../../../../../../data';
 import React, { Dispatch, SetStateAction } from 'react';
+import { ChartIcon } from '../../../../../components';
+import { roleMap } from '../../../../../../data';
 
 type MemberKey = keyof typeof roleMap;
 
 interface SocialEngineeringMembersProps {
-  isLoading: boolean;
-  members: {
-    [key: string]: number;
-  };
-  setSocialFilters: Dispatch<SetStateAction<{ department: string[]; attackVectors: string[]; }>>;
-
+	isLoading: boolean;
+	members: {
+		[key: string]: number;
+	};
+	setSocialFilters: Dispatch<
+		SetStateAction<{ department: string[]; attackVectors: string[] }>
+	>;
 }
 
-const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (props) => {
+const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
+	props,
+) => {
 	const renderMembers = () => {
 		const { total, ...members } = props.members;
 		console.log({ members });
@@ -26,7 +30,7 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (props
 
 		props.setSocialFilters((prevState) => ({
 			...prevState,
-			department: [...prevState.department, member], 
+			department: [...prevState.department, member],
 		}));
 	};
 
@@ -35,7 +39,9 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (props
 			<div className="card filtered">
 				<div className="header">
 					<div className="title">
-						<div className="icon">{/* <FaSolidChartSimple /> */}</div>
+						<div className="icon">
+							<ChartIcon />
+						</div>
 						<span>MEMBERS BY DEPARTMENTS</span>
 					</div>
 				</div>
@@ -51,7 +57,7 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (props
 									className=""
 								/>
 								<label htmlFor={member}>
-                {roleMap[member as MemberKey] ?? 'Unknown roles'}
+									{roleMap[member as MemberKey] ?? 'Unknown roles'}
 								</label>
 							</div>
 

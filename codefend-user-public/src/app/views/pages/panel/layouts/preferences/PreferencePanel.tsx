@@ -1,19 +1,53 @@
-import { EmptyScreenView } from '../../../../components';
-import React from 'react';
+import { useEffect, useState } from "react";
+import SettingOrderAndBilling from "./components/SettingOrderAndBilling";
+import SettingCollaboratorAndTeam from "./components/SettingCollaboratorAndTeam";
+import { PageLoader } from "../../../../../views/components";
+import { usePreferences } from "../../../../../data";
+import SettingCompanyInformation from "./components/SettingCompanyInformation";
+import SettingPersonalDetails from "./components/SettingPersonaDetails";
 
-interface Props {}
 
-const PreferencePanel: React.FC<Props> = (props) => {
+const PreferencePanel = () => {
+  const [showScreen, setShowScreen] = useState(false);
+  const {loading, data} = usePreferences()
+
+  const preferencesInfoData = () => {
+    const preferencesData = loading ? [] : data;
+    return preferencesData;
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowScreen(true);
+    }, 50);
+  });
+
 	return (
-		<>
-			<EmptyScreenView
-				buttonText="Add preference"
-				title={"There's no data to display here"}
-				info={'Start by clicking on the button below'}
-				event={() => {}}
-			/>
-		</>
-	);
+    <>
+      {loading ? (
+        <PageLoader />
+      ) : (
+        <>
+          <section className="left">
+            <SettingOrderAndBilling
+              isLoading={loading}
+              orders={preferencesInfoData() ?? []}
+            />
+            <SettingCollaboratorAndTeam
+              isLoading={loading}
+              members={preferencesInfoData() ?? []}
+            />
+          </section>
+          <section className="right">
+            <SettingCompanyInformation
+              companyInfo={preferencesInfoData() ?? []}
+            />
+            {/* <SettingPersonalDetails /> */}
+          </section>
+        </>
+      )}
+    </>
+  );
 };
 
 export default PreferencePanel;

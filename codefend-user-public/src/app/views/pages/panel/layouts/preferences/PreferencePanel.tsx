@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import SettingOrderAndBilling from "./components/SettingOrderAndBilling";
-import SettingCollaboratorAndTeam from "./components/SettingCollaboratorAndTeam";
-import { PageLoader } from "../../../../../views/components";
 import { usePreferences } from "../../../../../data";
+import { PageLoader } from "../../../../../views/components";
+import SettingCollaboratorAndTeam from "./components/SettingCollaboratorAndTeam";
 import SettingCompanyInformation from "./components/SettingCompanyInformation";
-import SettingPersonalDetails from "./components/SettingPersonaDetails";
+import SettingOrderAndBilling from "./components/SettingOrderAndBilling";
+//import SettingPersonalDetails from "./components/SettingPersonaDetails";
 
 
 const PreferencePanel = () => {

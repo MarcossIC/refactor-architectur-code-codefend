@@ -1,6 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import { User, companyServices, useAuthState } from '..';
 
+interface CompanyInfo {
+  name: string;
+  web: string;
+  mercado: string;
+  owner_fname: string;
+  owner_lname: string;
+  owner_email: string;
+  pais_provincia: string;
+  address: string;
+} 
+
 const getCompanyInfo = async (companyID: string) => {
   const response = await companyServices.getAll(companyID);
   const data = await response.json();
@@ -8,7 +19,7 @@ const getCompanyInfo = async (companyID: string) => {
 };
 
 export const useCompany = () => {
-  const [companyInfo, setCompanyInfo] = useState(null);
+  const [companyInfo, setCompanyInfo] = useState<CompanyInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { getUserdata } = useAuthState();

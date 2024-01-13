@@ -1,5 +1,5 @@
-import { defaultOrderBilling, formatDate } from 'app/data';
-import { EmptyCard, PageLoader } from 'app/views/components';
+import { defaultOrderBilling, formatDate } from '../../../../../../data';
+import { EmptyCard } from '../../../../../components';
 import React, { useState } from 'react';
 
 interface BillingDataProps {

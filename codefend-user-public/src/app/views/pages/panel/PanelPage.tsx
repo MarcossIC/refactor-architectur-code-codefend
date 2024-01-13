@@ -14,7 +14,7 @@ export const PanelPage: React.FC = () => {
 	if (isNotAuthenticated) AuthServices.logout2();
 	const [showModal, setShowModal] = useState(false);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		const handleChange = () => {
 			setShowModal(true);
 		};
@@ -25,7 +25,7 @@ export const PanelPage: React.FC = () => {
 			window.removeEventListener('errorState', handleChange);
 			localStorage.removeItem('error');
 		};
-	}, []);
+	}, []); */
 	return !isNotAuthenticated ? (
 		<Fragment>
 			{showModal && (

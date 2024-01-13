@@ -6,7 +6,12 @@ const ErrorConection: React.FC<{ closeModal: () => void }> = (props) => {
 	return (
 		<>
 			<ModalWrapper isErrorBox={true} action={props.closeModal}>
-				<div className="error-wrapper">
+				<div
+					className="error-wrapper"
+					onClick={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+					}}>
 					<div className="header-wrapper">
 						<ErrorIcon />
 						<h2>Connection error.</h2>

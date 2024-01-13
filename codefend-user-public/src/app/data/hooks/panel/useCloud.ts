@@ -45,7 +45,7 @@ const useCloudV2 = () => {
 export const useCloud = () => {
 	const { getUserdata } = useAuthState();
 	const [isLoading, setLoading] = useState<boolean>(false);
-	const [cloudApp, setCloudApp] = useState([{}] as CloudApp[]);
+	const [cloudApp, setCloudApp] = useState([] as CloudApp[]);
 	const [selectedCloud, setSelectedCloudApp] = useState<CloudApp | null>(null);
 
 	/* Fetch Cloud Apps */
@@ -55,8 +55,7 @@ export const useCloud = () => {
 		CloudService.getAll(companyID)
 			.then((response: any) => {
 				if (response.error !== '0') {
-					console.log('Error en useCloud');
-					throw new Error('Ha ocurrido un error');
+					return;
 				}
 				const clouds = response.disponibles.map((app: any) =>
 					mapCloudApp(app),
@@ -80,8 +79,8 @@ export const useCloud = () => {
 	}, []);
 
 	/* UTILITIES. */
-	const getCloudData = () => {
-		return isLoading ? ([] as CloudApp[]) : cloudApp;
+	const getCloudData = (): CloudApp[] => {
+		return isLoading ? [] : cloudApp;
 	};
 
 	const changeSelected = (cloud: CloudApp | null) => {

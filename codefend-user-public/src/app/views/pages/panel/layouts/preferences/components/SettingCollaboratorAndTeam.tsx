@@ -1,4 +1,4 @@
-import { EmptyCard, PageLoader } from 'app/views/components';
+import { EmptyCard, PageLoader } from '../../../../../components';
 import React from 'react';
 
 interface CollaboratorDataProps {

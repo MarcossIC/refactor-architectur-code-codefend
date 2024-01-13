@@ -1,4 +1,4 @@
-import { formatDate } from 'app/data';
+import { formatDate } from '../../../../../../data';
 import { useCompany } from '../../../../../../data/hooks/useCompany';
 
 import { EmptyCard, PageLoader } from 'app/views/components';
@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 interface CompanyDataProps {
 	orders: any[];
 	isLoading?: boolean;
-	companyInfo: any[]
+	companyInfo: any[];
 }
 
 interface CompanyInfo {
@@ -33,7 +33,9 @@ const SettingCompanyInformation: React.FC<CompanyDataProps> = (props) => {
 			owner: `${companyInfo.owner_fname} ${companyInfo.owner_lname}`,
 			email: companyInfo.owner_email,
 			location: companyInfo.pais_provincia,
-			address: `${companyInfo.address === 'non available' ? '-' : companyInfo.address}`,
+			address: `${
+				companyInfo.address === 'non available' ? '-' : companyInfo.address
+			}`,
 		};
 	};
 

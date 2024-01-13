@@ -1,6 +1,40 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { CloudApp, mapCloudApp, useAuthState } from '../..';
+import { CloudApp, mapCloudApp, useAuthState, useFetcher } from '../..';
 import { CloudService } from '../../services/cloud.service';
+
+const useCloudV2 = () => {
+	const { getUserdata } = useAuthState();
+	const mapper = (source: any) =>
+		source.disponibles.map((app: any) => mapCloudApp(app));
+	const { getData, isLoading, fetcher } = useFetcher<CloudApp[]>({
+		mapper,
+		fetchData: (args: any) => CloudService.getAll(args.companyID),
+	});
+	const [selectedCloud, setSelectedCloudApp] = useState<CloudApp | null>(null);
+	const refetch = () => {
+		const companyID = getUserdata()?.companyID as string;
+		fetcher(companyID);
+	};
+	useEffect(() => refetch(), []);
+
+	const changeSelected = (cloud: CloudApp | null) => {
+		if (cloud?.id === selectedCloud?.id) return;
+		setSelectedCloudApp(cloud);
+	};
+
+	const isActive = (id: string) => {
+		return selectedCloud?.id === id;
+	};
+
+	return {
+		changeSelected,
+		isActive,
+		getCloudData: getData,
+		selectedCloud,
+		isLoading,
+		refetch,
+	};
+};
 
 export const useCloud = () => {
 	const { getUserdata } = useAuthState();

@@ -1,8 +1,28 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AllIssues, mapAllIssues, useAuthState } from '../..';
+import { AllIssues, mapAllIssues, useAuthState, useFetcher } from '../..';
 import { IssueService } from '../../services/issues.service';
 import { getTinyEditorContent } from '../../../../editor-lib';
 import { toast } from 'react-toastify';
+
+const useIssuesV2 = () => {
+	const fetchData = (args: any) => IssueService.getAll(args.companyID);
+
+	const { getData, isLoading, fetcher, error } = useFetcher<AllIssues>({
+		mapper: mapAllIssues,
+		fetchData,
+	});
+	const { getUserdata } = useAuthState();
+	const refetchAll = () => {
+		const companyID = getUserdata()?.companyID;
+		fetcher(companyID);
+		if (error !== null) console.log({ error });
+	};
+	useEffect(() => {
+		refetchAll();
+	}, []);
+
+	return { getIssues: getData, isLoading, refetchAll };
+};
 
 export const useIssues = () => {
 	const [issues, setIssues] = useState({} as AllIssues);

@@ -2,7 +2,26 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from '../useAuthState';
 import { DashboardService } from '../../services/dashboard.service';
 import { mapGetCompanyToCompanyData } from '../../utils/mapper';
-import { DashboardProps, User } from '../..';
+import { DashboardProps, User, useFetcher } from '../..';
+
+export const useDashboardV2 = () => {
+	const fetchData = (args: any) =>
+		DashboardService.getCompanyInfo(args.companyID);
+
+	const { getData, isLoading, fetcher, error } = useFetcher<DashboardProps>({
+		mapper: mapGetCompanyToCompanyData,
+		fetchData,
+	});
+	const { getUserdata } = useAuthState();
+
+	useEffect(() => {
+		const companyID = getUserdata()?.companyID;
+		fetcher(companyID);
+		if (error !== null) console.log({ error });
+	}, []);
+
+	return { isLoading, companyData: getData() };
+};
 
 export const useDashboard = () => {
 	const { getUserdata } = useAuthState();

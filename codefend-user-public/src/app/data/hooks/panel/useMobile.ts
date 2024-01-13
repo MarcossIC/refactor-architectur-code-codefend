@@ -5,10 +5,63 @@ import {
 	MobileService,
 	MobileUnique,
 	User,
+	mapMobileAppsArray,
 	mapMobileProps,
 	mobileUniqueProps,
 	useAuthState,
+	useFetcher,
 } from '../..';
+
+const useMobileV2 = () => {
+	const { getUserdata } = useAuthState();
+	
+	const { getData, isLoading, fetcher } = useFetcher<MobileApp[]>({
+		mapper: mapMobileAppsArray,
+		fetchData: (args: any) => MobileService.getAll(args.companyID),
+	});
+
+	const refetch = () => {
+		const companyID = getUserdata()?.companyID as string;
+		fetcher(companyID);
+	};
+
+	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp | null>(
+		null,
+	);
+
+	useEffect(() => refetch(), []);
+
+	const selectMobile = (mobile: MobileApp) => {
+		if (mobile.id === selectedMobileApp?.id) return;
+		setSelectedMobileApp(mobile);
+	};
+
+	const isCurrentMobileSelected = useCallback(
+		(id: string) => {
+			return id === selectedMobileApp?.id;
+		},
+		[selectedMobileApp],
+	);
+
+	const isSelected =
+		selectedMobileApp !== null && selectedMobileApp !== undefined;
+	const changeMobile = (mobile: MobileApp) => {
+		if (isSelected && !isCurrentMobileSelected(mobile.id)) {
+			selectMobile(mobile);
+		}
+	};
+
+	return {
+		isLoading,
+		getMobileInfo: getData,
+		selectedMobileApp,
+		isCurrentMobileSelected,
+		changeMobile,
+		isSelected,
+		refetch,
+		selectMobile,
+	};
+};
 
 export const useMobile = () => {
 	const { getUserdata } = useAuthState();
@@ -66,8 +119,8 @@ export const useMobile = () => {
 		[selectedMobileApp],
 	);
 
-	const changeMobile = (mobile: MobileApp, id: string) => {
-		if (selectedMobileApp && selectedMobileApp.id === id) {
+	const changeMobile = (mobile: MobileApp) => {
+		if (selectedMobileApp && selectedMobileApp.id === mobile.id) {
 			selectMobile(mobile);
 		}
 	};

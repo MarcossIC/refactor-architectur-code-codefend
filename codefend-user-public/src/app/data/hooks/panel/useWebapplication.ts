@@ -5,7 +5,24 @@ import {
 	WebapplicationProps,
 	mapToWebresourceProps,
 	useAuthState,
+	useFetcher,
 } from '../..';
+
+const useWebApplicationV2 = () => {
+	const { getUserdata } = useAuthState();
+
+	const { getData, isLoading, fetcher } = useFetcher<WebapplicationProps>({
+		mapper: mapToWebresourceProps,
+		fetchData: (args: any) => WebApplicationService.get(args.companyID),
+	});
+	const refetch = () => {
+		const companyID = getUserdata()?.companyID as string;
+		fetcher(companyID);
+	};
+	useEffect(() => refetch(), []);
+
+	return { webResources: getData(), isLoading, refetch };
+};
 
 export const useWebapplication = () => {
 	const { getUserdata } = useAuthState();

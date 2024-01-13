@@ -218,6 +218,11 @@ export const mapMobileProps = (source: any): MobileProps => {
 			: [],
 	};
 };
+export const mapMobileAppsArray = (source: any): MobileApp[] => {
+	return source.disponibles
+		? source.disponibles.map((apps: any) => mapMobileApp(apps))
+		: [];
+};
 
 /** Map mobile one api data => @interface MobileUnique */
 export const mobileUniqueProps = (source: any): MobileUnique => {

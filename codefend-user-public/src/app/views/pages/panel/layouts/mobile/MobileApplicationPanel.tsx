@@ -54,7 +54,7 @@ const MobileApplicationPanel: React.FC = () => {
 	return (
 		<>
 			<ModalTitleWrapper
-				isActive={showModal && showModalStr === 'add_mobile'}
+				isActive={showModal}
 				headerTitle="ADD MOBILE APP"
 				close={() => setShowModal(false)}>
 				<AddMobileModal
@@ -112,7 +112,7 @@ const MobileApplicationPanel: React.FC = () => {
 																	() => setShowScreen(true),
 																	50,
 																);
-																changeMobile(mobile, id);
+																changeMobile(mobile);
 															}}
 															type={'mobile'}
 															id={mobile.id}

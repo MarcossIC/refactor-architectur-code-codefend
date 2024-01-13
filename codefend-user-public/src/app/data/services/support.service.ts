@@ -68,7 +68,7 @@ const deleteTicket = async (ticketID: string, companyID: string) => {
 	return data;
 };
 
-export const CustomerService = {
+export const CustomerSupportService = {
 	getAll,
 	getOne,
 	add,

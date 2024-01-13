@@ -11,3 +11,5 @@ export * from './lan.service';
 
 export * from './metric.service';
 export * from './enp.service';
+export * from './support.service';
+export * from './social.service';

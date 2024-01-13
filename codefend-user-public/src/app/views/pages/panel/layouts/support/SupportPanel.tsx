@@ -1,18 +1,26 @@
-import { EmptyScreenView } from '../../../../components';
 import React, { useEffect, useState } from 'react';
 import { SupportChatDisplay } from './components/SupportChatDisplay';
 import { SupportTicketList } from './components/SupportTicketList';
+import { useAllTicket } from '../../../../../data';
 
-interface Props {}
-
-const SupportPanel: React.FC<Props> = (props) => {
+const SupportPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
-	const [selectedTicket, setSelectedTicket] = useState(null);
+	const [refresh, setRefresh] = useState(false);
+	const [selectedTicket, setSelectedTicket] = useState<any | null>(null);
+	const { getTikets, isLoading, refetch } = useAllTicket();
 
 	useEffect(() => {
+		if (selectedTicket === null && !isLoading && Boolean(getTikets.length)) {
+			const _data = getTikets();
+			selectedTicket(_data);
+		}
+	}, []);
+
+	useEffect(() => {
+		refetch();
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
-	}, [showScreen]);
+	}, [refresh]);
 
 	return (
 		<>
@@ -21,13 +29,17 @@ const SupportPanel: React.FC<Props> = (props) => {
 					<SupportTicketList
 						setSelectedTicket={setSelectedTicket}
 						selectedTicket={selectedTicket}
-						isLoading={false}
-						tickets={{}}
-						refetch={() => {}}
+						isLoading={isLoading}
+						tickets={[]}
+						refetch={() => {
+							setRefresh(!refetch);
+						}}
 					/>
 				</section>
 				<section className="right">
-					{selectedTicket && <SupportChatDisplay selectedTicket={{}} />}
+					{selectedTicket && (
+						<SupportChatDisplay selectedTicket={selectedTicket} />
+					)}
 				</section>
 			</main>
 		</>

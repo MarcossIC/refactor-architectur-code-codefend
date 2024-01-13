@@ -1,9 +1,4 @@
-import React, {
-	Fragment,
-	useCallback,
-	useMemo,
-	useState,
-} from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import {
 	AddDomainModal,
@@ -15,19 +10,20 @@ import {
 	TrashIcon,
 	StatIcon,
 	ModalTitleWrapper,
+	ConfirmModal,
 } from '../../../../../components';
 import {
 	Resouce,
 	Webresources,
 	generateIDArray,
+	useDeleteWebResource,
 	useModal,
 } from '../../../../../../data';
 
 interface WebResourcesProps {
-	refetch: () => void;
+	refresh: () => void;
 	webResources: Webresources[];
 	isLoading: boolean;
-	resetScreen: () => void;
 }
 
 export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
@@ -35,6 +31,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	const { showModal, setShowModal, showModalStr, setShowModalStr } =
 		useModal();
 	const navigate = useNavigate();
+	const { handleDelete, isDeletingResource } = useDeleteWebResource();
 
 	const getResources = () => {
 		const resources = props.isLoading ? [] : props.webResources;
@@ -62,9 +59,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				headerTitle="Add web resource">
 				<AddDomainModal
 					onDone={() => {
-						props.refetch();
 						setShowModal(!showModal);
-						props.resetScreen();
+						props.refresh();
 					}}
 					close={() => setShowModal(false)}
 				/>
@@ -74,13 +70,16 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				isActive={showModal && showModalStr === 'delete_resource'}
 				close={close}
 				headerTitle="Delete web resource">
-				<DeletewebResource
-					id={selectedId}
-					onDone={() => {
-						setShowModal(!showModal);
-						props.resetScreen();
-					}}
-					close={() => setShowModal(false)}
+				<ConfirmModal
+					header=""
+					cancelText="Cancel"
+					confirmText="Delete"
+					close={close}
+					action={() =>
+						handleDelete(props.refresh, selectedId).then(() =>
+							setShowModal(!showModal),
+						)
+					}
 				/>
 			</ModalTitleWrapper>
 
@@ -90,11 +89,10 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				headerTitle="Add web sub-resource">
 				<AddSubDomainModal
 					onDone={() => {
-						props.refetch();
 						setShowModal(!showModal);
-						props.resetScreen();
+						props.refresh();
 					}}
-					close={() => setShowModal(false)}
+					close={close}
 					webResources={getResources()}
 				/>
 			</ModalTitleWrapper>

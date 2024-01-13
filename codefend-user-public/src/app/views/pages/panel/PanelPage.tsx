@@ -27,7 +27,7 @@ export const PanelPage: React.FC = () => {
 		};
 	}, []);
 	return !isNotAuthenticated ? (
-		<Fragment>
+		<>
 			{showModal && (
 				<>
 					<ErrorConection
@@ -43,7 +43,7 @@ export const PanelPage: React.FC = () => {
 			<Suspense fallback={<Loader />}>
 				<Outlet />
 			</Suspense>
-		</Fragment>
+		</>
 	) : (
 		<Navigate to="/auth/signin" />
 	);

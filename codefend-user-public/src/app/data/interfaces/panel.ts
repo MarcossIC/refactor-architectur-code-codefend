@@ -171,6 +171,7 @@ export interface Network extends ResourceID, Monitoring {
 
 export enum ChatBoxType {
 	ISSUE,
+	SUPPORT,
 }
 
 export interface Device {

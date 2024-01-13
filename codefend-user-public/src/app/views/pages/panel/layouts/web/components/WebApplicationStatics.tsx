@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChartIcon } from '../../../../../components';
-import { WebApplicationService, Webresources } from '../../../../../../data';
+import { MetricsService, Webresources } from '../../../../../../data';
 
 interface WebResourceStaticProps {
 	webResources: Webresources[];
@@ -16,7 +16,7 @@ export const WebApplicationStatics: React.FC<WebResourceStaticProps> = ({
 		return resources ?? [];
 	};
 
-	const { getCompanyMetric } = WebApplicationService;
+	const { getCompanyMetric } = MetricsService;
 
 	return (
 		<div className="card stats">
@@ -38,17 +38,13 @@ export const WebApplicationStatics: React.FC<WebResourceStaticProps> = ({
 				</div>
 				<div className="stat">
 					<div className="value">
-						<span>
-							{getCompanyMetric(getResources(), 'subDomain')}
-						</span>
+						<span>{getCompanyMetric(getResources(), 'subDomain')}</span>
 					</div>
 					<p>Subdomains</p>
 				</div>
 				<div className="stat">
 					<div className="value">
-						<span>
-							{getCompanyMetric(getResources(), 'uniqueIp')}
-						</span>
+						<span>{getCompanyMetric(getResources(), 'uniqueIp')}</span>
 					</div>
 					<p>Unique IPS</p>
 				</div>

@@ -12,23 +12,21 @@ const WebApplicationView: React.FC = () => {
 	//Custom Hook for Web panel view
 	const { webResources, isLoading, refetch } = useWebapplication();
 	const [showScreen, setShowScreen] = useState(false);
+	const [refresh, setRefresh] = useState(false);
 
 	useEffect(() => {
+		refetch();
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
-	}, []);
+	}, [refresh]);
 
 	return (
 		<main className={`webapp ${showScreen ? 'actived' : ''}`}>
 			<section className="left">
 				<WebApplicationResources
 					isLoading={isLoading}
-					refetch={refetch}
+					refresh={() => setRefresh(!refresh)}
 					webResources={webResources.resources}
-					resetScreen={() => {
-						useState(false);
-						clearTimeout(setTimeout(() => setShowScreen(true), 50));
-					}}
 				/>
 			</section>
 			<section className="right">

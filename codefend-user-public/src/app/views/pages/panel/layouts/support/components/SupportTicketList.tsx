@@ -1,4 +1,4 @@
-import { useModal } from 'app/data';
+import { useModal } from '../../../../../../data';
 import {
 	ConfirmModal,
 	EmptyCard,
@@ -13,7 +13,7 @@ interface SupportTicketListProps {
 	setSelectedTicket: any;
 	selectedTicket: any;
 	isLoading: boolean;
-	tickets: any;
+	tickets: any[];
 	refetch: any;
 }
 
@@ -24,7 +24,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 		useState(null);
 
 	const handleTicketSelection = (ticket: any) => {
-		if (props.selectedTicket()?.id === ticket.id) return;
+		if (isSelected(ticket.id)) return;
 		props.setSelectedTicket(ticket);
 	};
 	const isSelected = (id: string) => {
@@ -69,7 +69,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 						<div
 							onClick={() => {
 								setShowModal(!showModal);
-								setShowModalStr('add_mobile_app');
+								setShowModalStr('add_ticket');
 							}}>
 							Add Entry
 						</div>
@@ -85,38 +85,40 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 				</div>
 				{!props.isLoading ? (
 					<div className="rows">
-						{props.tickets.reverse().map((ticket: any, index: number) => (
-							<Fragment key={index}>
-								<div
-									onClick={() => handleTicketSelection(ticket)}
-									className={`item ${
-										isSelected(ticket.id) && 'left-marked'
-									}`}>
-									<div className="username">
-										@{ticket.userUsername}
-									</div>
-									<div className="date">{ticket.createdAt}</div>
-									<div className="vul-title">{ticket.headerCS}</div>
+						{props.tickets
+							?.reverse()
+							.map((ticket: any, index: number) => (
+								<Fragment key={index}>
 									<div
-										className={`status ${
-											ticket.condition === 'open' &&
-											'codefend-text-red'
+										onClick={() => handleTicketSelection(ticket)}
+										className={`item ${
+											isSelected(ticket.id) && 'left-marked'
 										}`}>
-										{ticket.condition}
-									</div>
+										<div className="username">
+											@{ticket.userUsername}
+										</div>
+										<div className="date">{ticket.createdAt}</div>
+										<div className="vul-title">{ticket.headerCS}</div>
+										<div
+											className={`status ${
+												ticket.condition === 'open' &&
+												'codefend-text-red'
+											}`}>
+											{ticket.condition}
+										</div>
 
-									<div
-										className="trash"
-										onClick={() => {
-											setSelectedTicketIdToDelete(ticket);
-											setShowModal(!showModal);
-											setShowModalStr('delete_resource');
-										}}>
-										<TrashIcon />
+										<div
+											className="trash"
+											onClick={() => {
+												setSelectedTicketIdToDelete(ticket);
+												setShowModal(!showModal);
+												setShowModalStr('delete_resource');
+											}}>
+											<TrashIcon />
+										</div>
 									</div>
-								</div>
-							</Fragment>
-						))}
+								</Fragment>
+							))}
 					</div>
 				) : (
 					<>

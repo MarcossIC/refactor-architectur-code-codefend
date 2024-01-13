@@ -65,7 +65,6 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 				toast.success('successfully added Sub Network...');
 			})
 			.finally(() => {
-				setShowModal(!showModal);
 				navigate(0);
 			});
 

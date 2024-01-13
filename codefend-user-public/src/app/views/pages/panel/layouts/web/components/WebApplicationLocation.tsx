@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { CircleIcon } from '../../../../../components';
 import {
-	WebApplicationService,
+	MetricsService,
 	Webresources,
 	generateIDArray,
 } from '../../../../../../data';
@@ -18,7 +18,7 @@ export const WebApplicationLocation: React.FC<{
 	);
 
 	const metrics = useMemo(
-		() => WebApplicationService.getCountryMetrics(getResources()),
+		() => MetricsService.getCountryMetrics(getResources()),
 		[getResources],
 	);
 

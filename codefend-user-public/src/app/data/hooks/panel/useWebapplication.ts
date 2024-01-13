@@ -7,6 +7,7 @@ import {
 	useAuthState,
 	useFetcher,
 } from '../..';
+import { toast } from 'react-toastify';
 
 const useWebApplicationV2 = () => {
 	const { getUserdata } = useAuthState();
@@ -51,10 +52,33 @@ export const useWebapplication = () => {
 		fetchWeb(companyID);
 	};
 
-	//First fetch
-	useEffect(() => {
-		refetch();
-	}, []);
-
 	return { webResources, isLoading, refetch };
+};
+
+export const useDeleteWebResource = () => {
+	const [isDeletingResource, setIsDeletingResource] = useState<boolean>(false);
+	const { getUserdata } = useAuthState();
+
+	const handleDelete = async (
+		onDone: () => void | null,
+		id: string,
+	): Promise<any> => {
+		setIsDeletingResource(true);
+		const companyID = getUserdata().companyID;
+		return WebApplicationService.deleteResource(id, companyID)
+			.then(({ response }) => {
+				if (response !== 'success')
+					throw new Error('An error has occurred on the server');
+
+				toast.success('Successfully Deleted Web Resource...');
+				if (onDone && onDone !== undefined) onDone();
+			})
+			.catch((error: any) => {
+				toast.error(error.message);
+				close?.();
+			})
+			.finally(() => setIsDeletingResource(false));
+	};
+
+	return { handleDelete, isDeletingResource };
 };

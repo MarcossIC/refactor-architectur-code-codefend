@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { IssueService, useAuthState } from '..';
-import { CustomerService } from '../services/support.service';
+import { CustomerSupportService } from '../services/support.service';
 
 export const useChatbox = () => {
 	const [message, setMessage] = useState('');
@@ -32,7 +32,7 @@ export const useChatbox = () => {
 		};
 		const companyID = getUserdata()?.companyID;
 		const userID = getUserdata()?.userID;
-		CustomerService.add(params, companyID, userID)
+		CustomerSupportService.add(params, companyID, userID)
 			.then((response: any) => {
 				setMessage('');
 				onDone();

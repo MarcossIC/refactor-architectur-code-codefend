@@ -54,8 +54,8 @@ export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
 	/**
 	 * Getter para recuperar el estado de forma segura en caso de que sea nulo
 	 */
-	const getData = () => {
-		const empty = Array.isArray(data) ? [] : {};
+	const getData = (): T => {
+		const empty = Array.isArray(data) ? ([] as T) : ({} as T);
 		if (isLoading) return empty;
 		return data ?? empty;
 	};

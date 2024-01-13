@@ -7,8 +7,8 @@ const useFetchEndpoints = (companyID: string) => {
 	const mapper = (source: any) => source;
 	const fetchData = (args: any) =>
 		EnpService.getEndpoints(
-			args.macAddress as string,
-			args.companyID as string,
+			args?.macAddress as string,
+			args?.companyID as string,
 		);
 
 	const { getData, isLoading, error, fetcher } = useFetcher<any>({
@@ -19,12 +19,13 @@ const useFetchEndpoints = (companyID: string) => {
 	const refetchEnd = useCallback(async () => {
 		const response = await invoke('get_mac_addr');
 		console.log({ response });
-		if (!companyID) {
+		const parsedRes = JSON.parse(response as any);
+		if (!companyID && !parsedRes) {
 			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');
 			return;
 		}
-		fetcher({ macAddress: JSON.parse(response as any), companyID });
+		fetcher({ macAddress: parsedRes, companyID });
 
 		if (error !== null) console.log({ error });
 	}, []);

@@ -1,17 +1,23 @@
+import React, { useEffect, useState } from 'react';
 import { EmptyScreenView } from '../../../../components';
-import React from 'react';
+import { InxSearchAndData } from './components/InxSearchAndData';
 
-interface Props {}
+export const InxPanel: React.FC = () => {
+	const [showScreen, setShowScreen] = useState(false);
 
-export const InxPanel: React.FC<Props> = (props) => {
+	useEffect(() => {
+		const timeoutId = setTimeout(() => setShowScreen(true), 50);
+		return () => clearTimeout(timeoutId);
+	}, [showScreen]);
+
 	return (
 		<>
-			<EmptyScreenView
-				buttonText="Add Inx"
-				title={"There's no data to display here"}
-				info={'Start by clicking on the button below'}
-				event={() => {}}
-			/>
+			<main className={`issues-list ${showScreen ? 'actived' : ''}`}>
+				<section className="left">
+					<InxSearchAndData refetch={() => {}} />
+				</section>
+				<section className="right"></section>
+			</main>
 		</>
 	);
 };

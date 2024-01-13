@@ -2,9 +2,9 @@ export * from './useAppCard';
 export * from './useAuthState';
 export * from './useChart';
 export * from './useChatbox';
-export { default as useCompany } from './useCompany';
+export * from './useCompany';
 export * from './useModal';
-
+export { usePreferences } from './panel/usePreferences';
 export * from './panel/useCloud';
 export * from './panel/useDashboard';
 export * from './panel/useIssues';

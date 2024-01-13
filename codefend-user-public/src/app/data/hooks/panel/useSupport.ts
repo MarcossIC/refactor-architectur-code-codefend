@@ -1,5 +1,6 @@
 import { CustomerSupportService } from '../../';
 import { useAuthState, useFetcher } from '..';
+import { toast } from 'react-toastify';
 
 export const useAllTicket = () => {
 	const { getUserdata } = useAuthState();
@@ -12,12 +13,13 @@ export const useAllTicket = () => {
 	});
 
 	const refetch = () => {
-		const userData = getUserdata();
-		if (!userData || !userData.companyID) {
+		const companyID = getUserdata().companyID;
+		if (!companyID) {
 			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
 			return;
 		}
-		fetcher({ companyID: userData.companyID });
+		fetcher({ companyID });
 		if (error) {
 			console.log({ error });
 		}

@@ -6,7 +6,10 @@ import { toast } from 'react-toastify';
 const useFetchEndpoints = (companyID: string) => {
 	const mapper = (source: any) => source;
 	const fetchData = (args: any) =>
-		EnpService.getEndpoints(args.macAddress, args.companyID);
+		EnpService.getEndpoints(
+			args.macAddress as string,
+			args.companyID as string,
+		);
 
 	const { getData, isLoading, error, fetcher } = useFetcher<any>({
 		mapper,
@@ -16,7 +19,11 @@ const useFetchEndpoints = (companyID: string) => {
 	const refetchEnd = useCallback(async () => {
 		const response = await invoke('get_mac_addr');
 		console.log({ response });
-
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
 		fetcher({ macAddress: JSON.parse(response as any), companyID });
 
 		if (error !== null) console.log({ error });

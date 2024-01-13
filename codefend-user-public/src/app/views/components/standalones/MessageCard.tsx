@@ -1,5 +1,4 @@
-import { formatDate, useAuthState } from '../../../data';
-import { isUserChat } from '../../../data/utils/compute';
+import { MetricsService, formatDate, useAuthState } from '../../../data';
 import React from 'react';
 
 interface Props {
@@ -11,7 +10,10 @@ interface Props {
 
 export const MessageCard: React.FC<Props> = (props) => {
 	const { getUserdata } = useAuthState();
-	const isAuthUserChat = isUserChat(props.selectedID, getUserdata());
+	const isAuthUserChat = MetricsService.isUserChat(
+		props.selectedID,
+		getUserdata(),
+	);
 
 	const title = `${isAuthUserChat ? 'You' : 'The operator'} ${
 		props.username ? `@${props.username}` : ''

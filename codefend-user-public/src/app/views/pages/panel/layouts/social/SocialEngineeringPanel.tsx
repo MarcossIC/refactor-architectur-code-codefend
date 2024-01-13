@@ -1,6 +1,8 @@
-import { useAuthState } from '../../../../../data';
-import { SocialAplicationService } from '../../../../../data/services/social.service';
-import { computedRoles } from '../../../../../data/utils/compute';
+import {
+	MetricsService,
+	useAuthState,
+	SocialAplicationService,
+} from '../../../../../data';
 import { useCallback, useEffect, useState } from 'react';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
@@ -9,7 +11,7 @@ import SocialEngineeringMembers from './components/SocialEngineeringMembers';
 const fetchSocial = async (companyID: string) => {
 	try {
 		const data = await SocialAplicationService.getAll(companyID);
-		
+
 		return data;
 	} catch (error) {
 		console.log({ error });
@@ -23,7 +25,7 @@ export interface Social {
 	member_email: string;
 	member_phone: string;
 	member_role: string;
-  total: number
+	total: number;
 }
 
 const SocialEngineeringView = () => {
@@ -57,33 +59,33 @@ const SocialEngineeringView = () => {
 		return socialData ?? [];
 	};
 
-  const handleFilter = () => {
-    const filterArray = Object.entries(socialFilters.department);
-    if (filterArray.length === 0)
-      return { filteredData: [], isFiltered: false };
-  
-    const selectedFilters = filterArray.reduce(
-      (acc: string[], [key, value]) => {
-        if (value) acc.push(key.toLowerCase());
-        return acc;
-      },
-      [],
-    );
-  
-    const socialDataList: Social[] | undefined = socialInfoData() ?? [];
-  
-    if (!socialDataList) {
-      return { filteredData: [], isFiltered: false };
-    }
-  
-    const filteredData = socialDataList.filter((datum) =>
-      selectedFilters.includes(datum.member_role.toLowerCase()),
-    );
-  
-    return { filteredData, isFiltered: selectedFilters.length !== 0 };
-  };
-  
+	const handleFilter = () => {
+		const filterArray = Object.entries(socialFilters.department);
+		if (filterArray.length === 0)
+			return { filteredData: [], isFiltered: false };
 
+		const selectedFilters = filterArray.reduce(
+			(acc: string[], [key, value]) => {
+				if (value) acc.push(key.toLowerCase());
+				return acc;
+			},
+			[],
+		);
+
+		const socialDataList: Social[] | undefined = socialInfoData() ?? [];
+
+		if (!socialDataList) {
+			return { filteredData: [], isFiltered: false };
+		}
+
+		const filteredData = socialDataList.filter((datum) =>
+			selectedFilters.includes(datum.member_role.toLowerCase()),
+		);
+
+		return { filteredData, isFiltered: selectedFilters.length !== 0 };
+	};
+
+	const { computedRoles } = MetricsService;
 	return (
 		<>
 			<main className={`social ${showScreen ? 'actived' : ''}`}>

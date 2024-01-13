@@ -14,11 +14,17 @@ const useWebApplicationV2 = () => {
 
 	const { getData, isLoading, fetcher } = useFetcher<WebapplicationProps>({
 		mapper: mapToWebresourceProps,
-		fetchData: (args: any) => WebApplicationService.get(args.companyID),
+		fetchData: (args: any) =>
+			WebApplicationService.get(args.companyID as string),
 	});
 	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
-		fetcher(companyID);
+		const companyID = getUserdata().companyID;
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
+		fetcher({ companyID });
 	};
 	useEffect(() => refetch(), []);
 
@@ -65,6 +71,11 @@ export const useDeleteWebResource = () => {
 	): Promise<any> => {
 		setIsDeletingResource(true);
 		const companyID = getUserdata().companyID;
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
 		return WebApplicationService.deleteResource(id, companyID)
 			.then(({ response }) => {
 				if (response !== 'success')

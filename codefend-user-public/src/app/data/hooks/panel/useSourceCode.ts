@@ -5,8 +5,9 @@ import { toast } from 'react-toastify';
 
 const useSourceCodeV2 = () => {
 	const { getUserdata } = useAuthState();
-	const fetchData = (args: any) => SourceCodeService.getAll(args.companyID);
-	const mapper = (source: any) =>
+	const fetchData = (args: any) =>
+		SourceCodeService.getAll(args.companyID as string);
+	const mapper = (source: any): SourceCode[] =>
 		source.disponibles.map((repo: any) => mapSourceCode(repo));
 	const { getData, isLoading, fetcher, changeFetcher, error, changeMapper } =
 		useFetcher<SourceCode[]>({ mapper, fetchData });
@@ -16,7 +17,12 @@ const useSourceCodeV2 = () => {
 			changeMapper(mapper);
 			changeFetcher(fetchData);
 		}
-		const companyID = getUserdata()?.companyID as string;
+		const companyID = getUserdata().companyID;
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
 		fetcher({ companyID });
 	};
 

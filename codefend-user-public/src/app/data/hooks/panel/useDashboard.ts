@@ -3,6 +3,7 @@ import { useAuthState } from '../useAuthState';
 import { DashboardService } from '../../services/dashboard.service';
 import { mapGetCompanyToCompanyData } from '../../utils/mapper';
 import { DashboardProps, User, useFetcher } from '../..';
+import { toast } from 'react-toastify';
 
 export const useDashboardV2 = () => {
 	const fetchData = (args: any) =>
@@ -15,8 +16,13 @@ export const useDashboardV2 = () => {
 	const { getUserdata } = useAuthState();
 
 	useEffect(() => {
-		const companyID = getUserdata()?.companyID;
-		fetcher(companyID);
+		const companyID = getUserdata().companyID;
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
+		fetcher({ companyID });
 		if (error !== null) console.log({ error });
 	}, []);
 

@@ -5,7 +5,8 @@ import { getTinyEditorContent } from '../../../../editor-lib';
 import { toast } from 'react-toastify';
 
 const useIssuesV2 = () => {
-	const fetchData = (args: any) => IssueService.getAll(args.companyID);
+	const fetchData = (args: any) =>
+		IssueService.getAll(args.companyID as string);
 
 	const { getData, isLoading, fetcher, error } = useFetcher<AllIssues>({
 		mapper: mapAllIssues,
@@ -13,8 +14,13 @@ const useIssuesV2 = () => {
 	});
 	const { getUserdata } = useAuthState();
 	const refetchAll = () => {
-		const companyID = getUserdata()?.companyID;
-		fetcher(companyID);
+		const companyID = getUserdata().companyID;
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
+		fetcher({ companyID });
 		if (error !== null) console.log({ error });
 	};
 	useEffect(() => {

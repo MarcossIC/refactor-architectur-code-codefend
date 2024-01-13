@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CloudApp, mapCloudApp, useAuthState, useFetcher } from '../..';
 import { CloudService } from '../../services/cloud.service';
+import { toast } from 'react-toastify';
 
 const useCloudV2 = () => {
 	const { getUserdata } = useAuthState();
@@ -8,12 +9,17 @@ const useCloudV2 = () => {
 		source.disponibles.map((app: any) => mapCloudApp(app));
 	const { getData, isLoading, fetcher } = useFetcher<CloudApp[]>({
 		mapper,
-		fetchData: (args: any) => CloudService.getAll(args.companyID),
+		fetchData: (args: any) => CloudService.getAll(args.companyID as string),
 	});
 	const [selectedCloud, setSelectedCloudApp] = useState<CloudApp | null>(null);
 	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
-		fetcher(companyID);
+		const companyID = getUserdata().companyID;
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
+		fetcher({ companyID });
 	};
 	useEffect(() => refetch(), []);
 

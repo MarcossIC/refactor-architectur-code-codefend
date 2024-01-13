@@ -11,18 +11,24 @@ import {
 	useAuthState,
 	useFetcher,
 } from '../..';
+import { toast } from 'react-toastify';
 
 const useMobileV2 = () => {
 	const { getUserdata } = useAuthState();
-	
+
 	const { getData, isLoading, fetcher } = useFetcher<MobileApp[]>({
 		mapper: mapMobileAppsArray,
-		fetchData: (args: any) => MobileService.getAll(args.companyID),
+		fetchData: (args: any) => MobileService.getAll(args.companyID as string),
 	});
 
 	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
-		fetcher(companyID);
+		const companyID = getUserdata().companyID;
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
+		}
+		fetcher({ companyID });
 	};
 
 	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp | null>(

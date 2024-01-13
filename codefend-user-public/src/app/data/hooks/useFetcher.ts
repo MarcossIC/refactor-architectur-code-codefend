@@ -5,6 +5,14 @@ export interface Fetcher<T> {
 	mapper: (s: any) => T;
 	fetchData: (args: any) => Promise<any>;
 }
+
+/**
+ * - data:         Status of the fetch response.
+ * - isLoading:    Indicates whether the fetch is loading or finished.
+ * - error:        A state is saved in case an error occurs.
+ * - fetcher:      Function to execute the fetch.
+ * - changeFetcher Change the fetcher to another
+ */
 export interface FetcherResult<T> {
 	data: T | null;
 	isLoading: boolean;
@@ -14,17 +22,13 @@ export interface FetcherResult<T> {
 }
 
 /**
- * Hook personalizado para realizar solicitudes de datos de manera genérica.
+ * Custom hook to make data requests in a generic way.
+ * Use JS destructuring to retrieve only what you will use
  *
- * @template T - Tipo de datos esperados en la respuesta.
- * @param {Function} mapper - Función para mapear la respuesta del servicio a otra estructura.
- * @param {Function} fetchData - Función que realiza la solicitud de datos.
+ * @template T - Type of data expected in the response.
+ * @param {Function} mapper - Function that maps the API-response to a front interface
+ * @param {Function} fetchData - Function that performs the data request.
  * @returns {FetcherResult}
- *  - data:           Estado de la respuesta del fetch.
- *  - isLoading:      Indica si el fetch esta cargando o terminado.
- *  - error:          Se guarda un estado en caso de ocurrir un error.
- *  - fetcher:        Funcion para ejecutar el fetch.
- *  - changeFetcher   Cambia el fetcher por otro
  */
 export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
 	const [data, setData] = useState<T | null>(null);
@@ -44,7 +48,7 @@ export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
 				})
 				.catch((error: Error) => {
 					setError(error);
-					return handleFetchError(error);
+					return error;
 				})
 				.finally(() => setLoading(false));
 		},
@@ -52,13 +56,13 @@ export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
 	);
 
 	/**
-	 * Getter para recuperar el estado de forma segura en caso de que sea nulo
+	 * Getter to safely retrieve state in case it is null
 	 */
-	const getData = (): T => {
+	const getData = useCallback((): T => {
 		const empty = Array.isArray(data) ? ([] as T) : ({} as T);
 		if (isLoading) return empty;
 		return data ?? empty;
-	};
+	}, [data]);
 
 	return { getData, isLoading, error, fetcher, changeFetcher, changeMapper };
 };

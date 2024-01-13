@@ -4,6 +4,7 @@ import { handleFetchError } from '..';
 export interface Fetcher<T> {
 	mapper: (s: any) => T;
 	fetchData: (args: any) => Promise<any>;
+	notSave?: boolean | null | undefined;
 }
 
 /**
@@ -30,10 +31,13 @@ export interface FetcherResult<T> {
  * @param {Function} fetchData - Function that performs the data request.
  * @returns {FetcherResult}
  */
-export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
+export const useFetcher = <T>({ mapper, fetchData, notSave }: Fetcher<T>) => {
 	const [data, setData] = useState<T | null>(null);
 	const [isLoading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<Error | null>(null);
+	const [currentNotSave, setNotSave] = useState<boolean | undefined | null>(
+		notSave,
+	);
 	const [currentFetcher, changeFetcher] =
 		useState<(args: any) => Promise<any>>(fetchData);
 	const [currentMapper, changeMapper] = useState<(s: any) => T>(mapper);
@@ -43,7 +47,9 @@ export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
 			setLoading(true);
 			return await currentFetcher(args)
 				.then((source: any) => {
-					setData(currentMapper(source));
+					if (!currentNotSave || currentNotSave === undefined)
+						setData(currentMapper(source));
+
 					setError(null);
 				})
 				.catch((error: Error) => {
@@ -52,7 +58,7 @@ export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
 				})
 				.finally(() => setLoading(false));
 		},
-		[currentFetcher, currentMapper],
+		[currentFetcher, currentMapper, currentNotSave],
 	);
 
 	/**
@@ -64,5 +70,13 @@ export const useFetcher = <T>({ mapper, fetchData }: Fetcher<T>) => {
 		return data ?? empty;
 	}, [data]);
 
-	return { getData, isLoading, error, fetcher, changeFetcher, changeMapper };
+	return {
+		getData,
+		isLoading,
+		error,
+		fetcher,
+		changeFetcher,
+		changeMapper,
+		setNotSave,
+	};
 };

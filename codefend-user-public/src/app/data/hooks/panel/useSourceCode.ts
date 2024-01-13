@@ -9,17 +9,17 @@ const useSourceCodeV2 = () => {
 		SourceCodeService.getAll(args.companyID as string);
 	const mapper = (source: any): SourceCode[] =>
 		source.disponibles.map((repo: any) => mapSourceCode(repo));
-	const { getData, isLoading, fetcher, changeFetcher, error, changeMapper } =
+
+	const { getData, isLoading, error, fetcher, changeFetcher, setNotSave } =
 		useFetcher<SourceCode[]>({ mapper, fetchData });
 
 	const refetch = (reset: boolean) => {
 		if (reset) {
-			changeMapper(mapper);
+			setNotSave(false);
 			changeFetcher(fetchData);
 		}
 		const companyID = getUserdata().companyID;
 		if (!companyID) {
-			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');
 			return;
 		}
@@ -33,7 +33,7 @@ const useSourceCodeV2 = () => {
 		changeFetcher((args: any) =>
 			SourceCodeService.delete(args.id, args.companyID),
 		);
-		changeMapper((source: any) => getData() as SourceCode[]);
+		setNotSave(true);
 		fetcher({ id, companyID })
 			.then(() => toast.success('Successfully Deleted Web Resource...'))
 			.catch(() => toast.error('An error has occurred on the server'));
@@ -43,7 +43,7 @@ const useSourceCodeV2 = () => {
 
 	const addSourceCode = (params: string) => {
 		const companyID = getUserdata().companyID;
-		changeMapper((source: any) => getData() as SourceCode[]);
+		setNotSave(true);
 		changeFetcher((args: any) =>
 			SourceCodeService.add(args.params, args.companyID),
 		);
@@ -63,7 +63,7 @@ export const useSourceCode = () => {
 	const [isLoading, setLoading] = useState(false);
 	const { getUserdata } = useAuthState();
 
-	const fetch = useCallback((companyID: string) => {
+	const fetcher = useCallback((companyID: string) => {
 		setLoading(true);
 		SourceCodeService.getAll(companyID)
 			.then((response: any) => {
@@ -80,7 +80,7 @@ export const useSourceCode = () => {
 
 	const refetch = useCallback(() => {
 		const companyID = getUserdata().companyID;
-		fetch(companyID);
+		fetcher(companyID);
 	}, [getUserdata]);
 
 	useEffect(() => {

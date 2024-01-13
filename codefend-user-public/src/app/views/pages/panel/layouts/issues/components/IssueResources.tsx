@@ -3,6 +3,7 @@ import { Issues, generateIDArray, useModal } from '../../../../../../data';
 import {
 	BugIcon,
 	ConfirmModal,
+	EmptyCard,
 	GlobeWebIcon,
 	ModalTitleWrapper,
 	PageLoader,
@@ -163,6 +164,11 @@ export const IssueResources: React.FC<Props> = (props) => {
 					)}
 				</div>
 			</div>
+			{!props.isLoading && props.issues.length === 0 && (
+				<>
+					<EmptyCard />
+				</>
+			)}
 		</>
 	);
 };

@@ -43,7 +43,7 @@ export const Endpoints: React.FC<Endpoints> = (props) => {
 						<div className="icon">
 							<EnpIcon />
 						</div>
-						<span>Detected domains and subdomains</span>
+						<span>Endpoints</span>
 					</div>
 				</div>
 

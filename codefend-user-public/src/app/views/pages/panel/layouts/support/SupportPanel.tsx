@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SupportChatDisplay } from './components/SupportChatDisplay';
 import { SupportTicketList } from './components/SupportTicketList';
 import { useAllTicket } from '../../../../../data';
+import './support.scss';
 
 const SupportPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);

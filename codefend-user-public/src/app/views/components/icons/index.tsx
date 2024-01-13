@@ -1,25 +1,20 @@
 import React from 'react';
 
-export const ChartIcon: React.FC<{}> = () => (
+export const ChartIcon: React.FC = () => (
 	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
 		strokeWidth={0}
-		stroke="currentColor"
-		color="currentColor"
-		fill="currentColor"
 		height="1em"
 		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 448 512"
+		color="currentColor"
+		fill="currentColor"
 		style={{ overflow: 'visible' }}>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"
-		/>
+		<path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48h-32c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48v160c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48h-32c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"></path>
 	</svg>
 );
 
-export const GlobeWebIcon: React.FC<{}> = () => (
+export const GlobeWebIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -33,7 +28,7 @@ export const GlobeWebIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const MobileIcon: React.FC<{}> = () => (
+export const MobileIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -47,7 +42,7 @@ export const MobileIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const CLoudIcon: React.FC<{}> = () => (
+export const CLoudIcon: React.FC = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
@@ -66,7 +61,7 @@ export const CLoudIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const LanIcon: React.FC<{}> = () => (
+export const LanIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -79,7 +74,7 @@ export const LanIcon: React.FC<{}> = () => (
 		<path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1-48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-64c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1-48 0z"></path>
 	</svg>
 );
-export const EnpIcon: React.FC<{}> = () => (
+export const EnpIcon: React.FC = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		strokeWidth={0}
@@ -93,7 +88,7 @@ export const EnpIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const SourceCodeIcon: React.FC<{}> = () => (
+export const SourceCodeIcon: React.FC = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		strokeWidth={0}
@@ -107,7 +102,7 @@ export const SourceCodeIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const PeopleGroup: React.FC<{}> = () => (
+export const PeopleGroup: React.FC = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		strokeWidth={0}
@@ -121,7 +116,7 @@ export const PeopleGroup: React.FC<{}> = () => (
 	</svg>
 );
 
-export const BugIcon: React.FC<{}> = () => (
+export const BugIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -135,7 +130,7 @@ export const BugIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const MessageIcon: React.FC<{}> = () => (
+export const MessageIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -148,7 +143,7 @@ export const MessageIcon: React.FC<{}> = () => (
 		<path d="M64 0C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"></path>
 	</svg>
 );
-export const PreferenceIcon: React.FC<{}> = () => (
+export const PreferenceIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -161,7 +156,7 @@ export const PreferenceIcon: React.FC<{}> = () => (
 		<path d="M495.9 166.6c3.2 8.7.5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4l-55.6 17.8c-8.8 2.8-18.6.3-24.5-6.8-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4c-1.1-8.4-1.7-16.9-1.7-25.5s.6-17.1 1.7-25.4l-43.3-39.4c-6.9-6.2-9.6-15.9-6.4-24.6 4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2 5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8 8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"></path>
 	</svg>
 );
-export const InxIcon: React.FC<{}> = () => (
+export const InxIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -175,7 +170,7 @@ export const InxIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const DataIcon: React.FC<{}> = () => (
+export const DataIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -189,7 +184,7 @@ export const DataIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const SearchIcon: React.FC<{}> = () => (
+export const SearchIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -203,7 +198,7 @@ export const SearchIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const LogoutIcon: React.FC<{}> = () => (
+export const LogoutIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -217,7 +212,7 @@ export const LogoutIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const CircleIcon: React.FC<{}> = () => (
+export const CircleIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -231,7 +226,7 @@ export const CircleIcon: React.FC<{}> = () => (
 	</svg>
 );
 
-export const CollaboratorsIcon: React.FC<{}> = () => (
+export const CollaboratorsIcon: React.FC = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -260,118 +255,106 @@ export const TrashIcon: React.FC<{ action?: any }> = ({ action }) => (
 	</svg>
 );
 
-export const StatIcon: React.FC = () => {
-	return (
-		<svg
-			strokeWidth={0}
-			height="1em"
-			width="1em"
-			xmlns="http://www.w3.org/2000/svg"
-			className="text-fend-red"
-			fill="none"
-			stroke="currentColor"
-			viewBox="0 0 24 24"
-			color="currentColor"
-			style={{
-				overflow: 'visible',
-				fontSize: '1.125rem',
-				lineHeight: '1.75rem',
-			}}>
-			<path
-				strokeLinecap={'round'}
-				strokeLinejoin={'round'}
-				strokeWidth={1.5}
-				d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"></path>
-		</svg>
-	);
-};
-
-export const CloseIcon: React.FC = ({}): any => {
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			strokeWidth={1.5}
-			stroke="currentColor"
-			style={{ width: '1.5rem', height: '1.5rem' }}>
-			<path
-				strokeLinecap={'round'}
-				strokeLinejoin={'round'}
-				d="M6 18 18 6M6 6l12 12"
-			/>
-		</svg>
-	);
-};
-
-export const LeftArrow = ({}) => {
-	return (
-		<svg
-			strokeWidth={0}
-			height="1em"
-			width="1em"
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 320 512"
-			color="currentColor"
-			fill="currentColor"
-			style={{ overflow: 'visible' }}>
-			<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path>
-		</svg>
-	);
-};
-
-export const SaveIcon = () => {
-	return (
-		<svg
-			strokeWidth={0}
-			height="1em"
-			width="1em"
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 448 512"
-			color="currentColor"
-			fill="currentColor"
-			style={{ overflow: 'visible' }}>
-			<path d="M48 96v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V170.5c0-4.2-1.7-8.3-4.7-11.3l33.9-33.9c12 12 18.7 28.3 18.7 45.3V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h245.5c17 0 33.3 6.7 45.3 18.7l74.5 74.5-33.9 33.9-74.6-74.4-.8-.8V184c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24V80H64c-8.8 0-16 7.2-16 16zm80-16v80h144V80H128zm32 240a64 64 0 1 1 128 0 64 64 0 1 1-128 0z"></path>
-		</svg>
-	);
-};
-
-export const SendIcon = () => {
-	return (
-		<svg
-			strokeWidth={0}
-			height="1em"
-			width="1em"
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			stroke="currentColor"
+export const StatIcon: React.FC = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		className="text-fend-red"
+		fill="none"
+		stroke="currentColor"
+		viewBox="0 0 24 24"
+		color="currentColor"
+		style={{
+			overflow: 'visible',
+			fontSize: '1.125rem',
+			lineHeight: '1.75rem',
+		}}>
+		<path
 			strokeLinecap={'round'}
 			strokeLinejoin={'round'}
-			viewBox="0 0 24 24"
-			color="currentColor"
-			style={{ overflow: 'visible' }}>
-			<path d="M22 2 11 13"></path>
-			<path d="M22 2 15 22 11 13 2 9 22 2z"></path>
-		</svg>
-	);
-};
+			strokeWidth={1.5}
+			d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"></path>
+	</svg>
+);
 
-export const ErrorIcon = () => {
-	return (
-		<svg
-			strokeWidth={0}
-			height="1em"
-			width="1em"
-			xmlns="http://www.w3.org/2000/svg"
-			className="codefend-text-red"
-			fill="currentColor"
-			viewBox="0 0 16 16"
-			color="currentColor"
-			style={{ overflow: 'visible', width: '3.5rem', height: '3.5rem' }}>
-			<path
-				fillRule="evenodd"
-				d="M7.56 1h.88l6.54 12.26-.44.74H1.44L1 13.26 7.56 1zM8 2.28 2.28 13H13.7L8 2.28zM8.625 12v-1h-1.25v1h1.25zm-1.25-2V6h1.25v4h-1.25z"
-				clipRule="evenodd"></path>
-		</svg>
-	);
-};
+export const CloseIcon: React.FC = (): any => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		viewBox="0 0 24 24"
+		strokeWidth={1.5}
+		stroke="currentColor"
+		style={{ width: '1.5rem', height: '1.5rem' }}>
+		<path
+			strokeLinecap={'round'}
+			strokeLinejoin={'round'}
+			d="M6 18 18 6M6 6l12 12"
+		/>
+	</svg>
+);
+
+export const LeftArrow: React.FC = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 320 512"
+		color="currentColor"
+		fill="currentColor"
+		style={{ overflow: 'visible' }}>
+		<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path>
+	</svg>
+);
+
+export const SaveIcon: React.FC = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 448 512"
+		color="currentColor"
+		fill="currentColor"
+		style={{ overflow: 'visible' }}>
+		<path d="M48 96v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V170.5c0-4.2-1.7-8.3-4.7-11.3l33.9-33.9c12 12 18.7 28.3 18.7 45.3V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h245.5c17 0 33.3 6.7 45.3 18.7l74.5 74.5-33.9 33.9-74.6-74.4-.8-.8V184c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24V80H64c-8.8 0-16 7.2-16 16zm80-16v80h144V80H128zm32 240a64 64 0 1 1 128 0 64 64 0 1 1-128 0z"></path>
+	</svg>
+);
+
+export const SendIcon: React.FC = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		stroke="currentColor"
+		strokeLinecap={'round'}
+		strokeLinejoin={'round'}
+		viewBox="0 0 24 24"
+		color="currentColor"
+		style={{ overflow: 'visible' }}>
+		<path d="M22 2 11 13"></path>
+		<path d="M22 2 15 22 11 13 2 9 22 2z"></path>
+	</svg>
+);
+
+export const ErrorIcon: React.FC = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		className="codefend-text-red"
+		fill="currentColor"
+		viewBox="0 0 16 16"
+		color="currentColor"
+		style={{ overflow: 'visible', width: '3.5rem', height: '3.5rem' }}>
+		<path
+			fillRule="evenodd"
+			d="M7.56 1h.88l6.54 12.26-.44.74H1.44L1 13.26 7.56 1zM8 2.28 2.28 13H13.7L8 2.28zM8.625 12v-1h-1.25v1h1.25zm-1.25-2V6h1.25v4h-1.25z"
+			clipRule="evenodd"></path>
+	</svg>
+);

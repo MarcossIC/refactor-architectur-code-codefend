@@ -1,5 +1,5 @@
-@import url(./normalize.scss);
-@import url(./_colors.scss);
+@forward 'colors';
+@forward 'normalize.scss';
 
 @tailwind base;
 @tailwind components;

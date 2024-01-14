@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { EmptyScreenView } from '../../../../components';
 import { InxSearchAndData } from './components/InxSearchAndData';
+import { InxPreviousSearches } from './components/InxPreviousSearches';
 
 export const InxPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
@@ -16,7 +17,9 @@ export const InxPanel: React.FC = () => {
 				<section className="left">
 					<InxSearchAndData refetch={() => {}} />
 				</section>
-				<section className="right"></section>
+				<section className="right">
+					<InxPreviousSearches isLoading={false} previousSearches={[]} />
+				</section>
 			</main>
 		</>
 	);

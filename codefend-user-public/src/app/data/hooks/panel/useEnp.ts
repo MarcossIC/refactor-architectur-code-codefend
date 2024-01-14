@@ -82,7 +82,7 @@ const useDeleteEndpoint = (companyID: string) => {
 // Hook principal que utiliza los hooks anteriores
 export const useEnp = () => {
 	const { getUserdata } = useAuthState();
-	const companyID = getUserdata()?.companyID;
+	const companyID = getUserdata()?.companyID as string;
 
 	const { getEndpoints, isLoading, refetchEnd } = useFetchEndpoints(companyID);
 	const { handleDelete } = useDeleteEndpoint(companyID);

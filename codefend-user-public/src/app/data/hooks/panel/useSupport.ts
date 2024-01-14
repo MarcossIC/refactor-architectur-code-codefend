@@ -13,7 +13,7 @@ export const useAllTicket = () => {
 	});
 
 	const refetch = () => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		if (!companyID) {
 			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');
@@ -46,7 +46,7 @@ export const useOneTicket = () => {
 	});
 
 	const refetch = (ticketID: string) => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		fetcher({ ticketID, companyID });
 		if (error) {
 			console.log({ error });

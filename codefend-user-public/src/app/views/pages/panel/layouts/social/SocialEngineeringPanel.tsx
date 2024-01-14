@@ -1,9 +1,9 @@
+import { useCallback, useEffect, useState } from 'react';
 import {
 	MetricsService,
 	useAuthState,
 	SocialAplicationService,
 } from '../../../../../data';
-import { useCallback, useEffect, useState } from 'react';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
 import SocialEngineeringMembers from './components/SocialEngineeringMembers';
@@ -41,9 +41,9 @@ const SocialEngineeringView = () => {
 		attackVectors: [] as string[],
 	});
 
-	const fetch = useCallback(() => {
-		const companyID = getUserdata()?.companyID;
-		fetchSocial(companyID);
+	const fetch = useCallback(async () => {
+		const companyID = getUserdata()?.companyID as string;
+		await fetchSocial(companyID);
 	}, []);
 
 	const [showScreen, setShowScreen] = useState(false);

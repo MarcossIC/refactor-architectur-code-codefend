@@ -36,7 +36,7 @@ export const useAppCard = (props: HookProps) => {
 			const action = isMobileType ? MobileService : CloudService;
 
 			return action
-				.deleteApp(id, getUserdata()?.companyID)
+				.deleteApp(id, getUserdata()?.companyID as string)
 				.then(() => {
 					toast.success(
 						`successfully deleted ${

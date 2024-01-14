@@ -34,7 +34,7 @@ export const AddCloudModal: React.FC<Props> = (props) => {
 			name: appName,
 			desc: description,
 		};
-		const company = getUserdata().companyID;
+		const company = getUserdata()?.companyID as string;
 
 		CloudService.add(requestParams, company)
 			.then(() => {

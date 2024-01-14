@@ -13,7 +13,7 @@ const useCloudV2 = () => {
 	});
 	const [selectedCloud, setSelectedCloudApp] = useState<CloudApp | null>(null);
 	const refetch = () => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		if (!companyID) {
 			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');
@@ -69,7 +69,7 @@ export const useCloud = () => {
 
 	/* Refetch Function. */
 	const refetch = () => {
-		const companyID = getUserdata()?.companyID;
+		const companyID = getUserdata()?.companyID as string;
 		fetchWeb(companyID);
 	};
 

@@ -18,7 +18,7 @@ const useSourceCodeV2 = () => {
 			setNotSave(false);
 			changeFetcher(fetchData);
 		}
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		if (!companyID) {
 			toast.error('User information was not found');
 			return;
@@ -29,7 +29,7 @@ const useSourceCodeV2 = () => {
 	useEffect(() => refetch(false), []);
 
 	const deletedResource = (id: string) => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		changeFetcher((args: any) =>
 			SourceCodeService.delete(args.id, args.companyID),
 		);
@@ -42,7 +42,7 @@ const useSourceCodeV2 = () => {
 	};
 
 	const addSourceCode = (params: string) => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		setNotSave(true);
 		changeFetcher((args: any) =>
 			SourceCodeService.add(args.params, args.companyID),
@@ -79,7 +79,7 @@ export const useSourceCode = () => {
 	}, []);
 
 	const refetch = useCallback(() => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		fetcher(companyID);
 	}, [getUserdata]);
 
@@ -94,7 +94,7 @@ export const useSourceCode = () => {
 	const deletedResource = useCallback(
 		(id: string) => {
 			setLoading(true);
-			const companyID = getUserdata().companyID;
+			const companyID = getUserdata()?.companyID as string;
 			SourceCodeService.delete(id, companyID)
 				.then((response: any) => {
 					if (!response) {
@@ -113,7 +113,7 @@ export const useSourceCode = () => {
 	const addSourceCode = useCallback(
 		(params: string) => {
 			setLoading(true);
-			const companyID = getUserdata().companyID;
+			const companyID = getUserdata()?.companyID as string;
 			console.log({ params });
 			return SourceCodeService.add(params, companyID)
 				.then((response: any) => {

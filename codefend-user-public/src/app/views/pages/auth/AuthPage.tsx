@@ -16,16 +16,14 @@ const AuthPage: React.FC = () => {
 			<div className="codefend-img-bg">
 				<Logo theme={'shadow'} />
 			</div>
-			<section className="access">
+			<section className="access flex">
 				<div className="container">
 					<div className="brand"></div>
 					<div className="forms">
 						<div className="nav">
 							<span
 								className={
-									location.pathname === '/auth/signin'
-										? 'active'
-										: ''
+									location.pathname === '/auth/signin' ? 'active' : ''
 								}>
 								<Link to="/auth/signin">access</Link>
 							</span>

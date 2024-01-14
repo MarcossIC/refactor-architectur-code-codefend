@@ -14,7 +14,7 @@ const useIssuesV2 = () => {
 	});
 	const { getUserdata } = useAuthState();
 	const refetchAll = () => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		if (!companyID) {
 			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');
@@ -50,7 +50,7 @@ export const useIssues = () => {
 	}, []);
 
 	const refetchAll = () => {
-		const companyID = getUserdata()?.companyID;
+		const companyID = getUserdata()?.companyID as string;
 		fetchAll(companyID);
 	};
 
@@ -156,7 +156,7 @@ export const useOneIssue = () => {
 	}, []);
 
 	const refetchOne = (selectedID: string) => {
-		const companyID = getUserdata()?.companyID;
+		const companyID = getUserdata()?.companyID as string;
 		fetchOne(companyID, selectedID);
 	};
 

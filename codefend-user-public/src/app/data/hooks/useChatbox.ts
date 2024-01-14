@@ -14,7 +14,7 @@ export const useChatbox = () => {
 			issue_cs_body: message,
 			issue_id: selectedID,
 		};
-		const companyID = getUserdata()?.companyID;
+		const companyID = getUserdata()?.companyID as string;
 		IssueService.addCSMessage(requestParams, companyID)
 			.then((response: any) => {
 				setMessage('');
@@ -30,8 +30,8 @@ export const useChatbox = () => {
 			cs_body: message,
 			dad_id: selectedID,
 		};
-		const companyID = getUserdata()?.companyID;
-		const userID = getUserdata()?.userID;
+		const companyID = getUserdata()?.companyID as string;
+		const userID = getUserdata()?.id as string;
 		CustomerSupportService.add(params, companyID, userID)
 			.then((response: any) => {
 				setMessage('');

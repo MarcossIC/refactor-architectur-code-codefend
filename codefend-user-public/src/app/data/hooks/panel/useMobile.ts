@@ -22,7 +22,7 @@ const useMobileV2 = () => {
 	});
 
 	const refetch = () => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		if (!companyID) {
 			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');
@@ -151,7 +151,7 @@ export const useMobileOne = (id: string) => {
 		const { getUserdata } = useAuthState();
 		const mobileInfo = getUserdata();
 		setLoading(true);
-		MobileService.getMobileByID(id, mobileInfo?.companyID)
+		MobileService.getMobileByID(id, mobileInfo?.companyID as string)
 			.then((response) => {
 				setMobile(mobileUniqueProps(response));
 			})

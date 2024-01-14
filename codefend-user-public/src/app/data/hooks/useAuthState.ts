@@ -4,6 +4,7 @@ import {
 	useAppDispatch,
 	LoginParams,
 	RegisterParams,
+	AuthState,
 } from '..';
 import {
 	loginThunk,
@@ -11,13 +12,30 @@ import {
 	registerFinishThunk,
 } from '../redux/thunks/auth.thunk';
 
+export const useUserAdmin = () => {
+	const authState = useAppSelector(
+		(state: any) => state.authState as AuthState,
+	);
+
+	const getRole = () => authState.userData?.accessRole ?? '';
+	const isAuth = () => authState.isAuth;
+	const getAccessToken = () => authState.accessToken;
+	const isAdmin = () => getRole() !== 'user';
+
+	return { isAuth, isAdmin, getAccessToken };
+};
+
 export const useAuthState = () => {
-	const authState = useAppSelector((state: any) => state.authState);
+	const authState = useAppSelector(
+		(state: any) => state.authState as AuthState,
+	);
+
 	const dispatch = useAppDispatch();
 
 	const getUserdata = () => authState.userData;
 
-	const getAccessToken = () => authState.accessToken;
+	const getAccessToken = () =>
+		authState.accessToken ? authState.accessToken : '';
 
 	const isAuth = () => authState.isAuth;
 

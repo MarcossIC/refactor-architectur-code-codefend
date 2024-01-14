@@ -35,7 +35,7 @@ const SignInLayout: React.FC = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<div className="input-group">
+			<div className="input-group ">
 				<input
 					type="email"
 					onChange={(e) =>

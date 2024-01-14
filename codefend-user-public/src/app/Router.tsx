@@ -53,6 +53,16 @@ const InxPanel = lazy(() => import('./views/pages/panel/layouts/inx/InxPanel'));
 const SnsPanel = lazy(() => import('./views/pages/panel/layouts/sns/SnsPanel'));
 
 const VdbPanel = lazy(() => import('./views/pages/panel/layouts/vdb/VdbPanel'));
+const AdminUser = lazy(
+	() => import('./views/pages/panel/layouts/admin/layouts/AdminUser'),
+);
+const AdminPage = lazy(
+	() => import('./views/pages/panel/layouts/admin/AdminPage'),
+);
+
+const AdminCompany = lazy(
+	() => import('./views/pages/panel/layouts/admin/layouts/AdminCompany'),
+);
 
 export const AppRouter: React.FC = () => {
 	return (
@@ -74,28 +84,32 @@ export const AppRouter: React.FC = () => {
 				{/* Private Routes */}
 				<Route path="/" element={<PanelPage />}>
 					<Route index element={<Dashboard />} />
-					<Route path="/dashboard" element={<Dashboard />} />
-					<Route path="/web" element={<WebApplication />} />
-					<Route path="/mobile" element={<MobileApplication />} />
-					<Route path="/cloud" element={<CloudApplicationPanel />} />
-					<Route path="/lan" element={<LanApplicationPanel />} />
-					<Route path="/source" element={<SourceCodePanel />} />
+					<Route path="dashboard" element={<Dashboard />} />
+					<Route path="web" element={<WebApplication />} />
+					<Route path="mobile" element={<MobileApplication />} />
+					<Route path="cloud" element={<CloudApplicationPanel />} />
+					<Route path="lan" element={<LanApplicationPanel />} />
+					<Route path="source" element={<SourceCodePanel />} />
 
-					<Route path="/issues" element={<IssuesPanel />} />
-					<Route path="/issues/:ref" element={<IssuesPanel />} />
-					<Route path="/create/issues" element={<IssuesCreation />} />
-					<Route path='/social' element={<SocialEngineeringPanel/>}/> 
-					<Route path="/enp" element={<EnpPanel />} />
-					<Route path="/support" element={<SupportPanel />} />
-					<Route path="/preferences" element={<PreferencePanel />} />
-					<Route path="/inx" element={<InxPanel />} />
-					<Route path="/sns" element={<SnsPanel />} />
-					<Route path="/vdb" element={<VdbPanel />} />
+					<Route path="issues" element={<IssuesPanel />} />
+					<Route path="issues/:ref" element={<IssuesPanel />} />
+					<Route path="create/issues" element={<IssuesCreation />} />
+					<Route path="social" element={<SocialEngineeringPanel />} />
+					<Route path="enp" element={<EnpPanel />} />
+					<Route path="support" element={<SupportPanel />} />
+					<Route path="preferences" element={<PreferencePanel />} />
+					<Route path="inx" element={<InxPanel />} />
+					<Route path="sns" element={<SnsPanel />} />
+					<Route path="vdb" element={<VdbPanel />} />
 
 					{/* ?? No aparece en la sidebar, si en sus rutas */}
-					<Route path="/companies" element={<></>} />
+					<Route path="companies" element={<></>} />
 				</Route>
-
+				{/* Private Routes + only admin access */}
+				<Route path="admin/*" element={<AdminPage />}>
+					<Route path="user" element={<AdminUser />} />
+					<Route path="company" element={<AdminCompany />} />
+				</Route>
 				{/* Public Routes */}
 				<Route path="/auth/*" element={<AuthPage />}>
 					<Route index element={<Navigate to="signin" replace />} />

@@ -24,7 +24,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 	const [fullDataLoading, setFullDataLoading] = useState<boolean>(false);
 	const { search } = useParams();
 	const { getUserdata } = useAuthState();
-	const companyID = getUserdata().companyID;
+	const companyID = getUserdata()?.companyID as string;
 
 	useEffect(() => {
 		if (!getUserdata()) return;

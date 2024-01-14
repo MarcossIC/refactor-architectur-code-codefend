@@ -17,7 +17,7 @@ export const useLan = () => {
 
 	const fetchLan = useCallback(() => {
 		const user = getUserdata();
-		const companyID = user?.companyID;
+		const companyID = user?.companyID as string;
 		setLoading(true);
 
 		LanApplicationService.getAll(companyID)

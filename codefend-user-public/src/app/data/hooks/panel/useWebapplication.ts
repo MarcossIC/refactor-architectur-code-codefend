@@ -18,7 +18,7 @@ const useWebApplicationV2 = () => {
 			WebApplicationService.get(args.companyID as string),
 	});
 	const refetch = () => {
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		if (!companyID) {
 			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');
@@ -70,7 +70,7 @@ export const useDeleteWebResource = () => {
 		id: string,
 	): Promise<any> => {
 		setIsDeletingResource(true);
-		const companyID = getUserdata().companyID;
+		const companyID = getUserdata()?.companyID as string;
 		if (!companyID) {
 			console.error("Error: 'companyID' no está definido en userData.");
 			toast.error('User information was not found');

@@ -19,21 +19,19 @@ interface Props {
 
 export const IssueResources: React.FC<Props> = (props) => {
 	const [selected, setSelectedId] = useState('');
-	const { showModal, showModalStr, setShowModal } = useModal();
+	const { showModal, setShowModal } = useModal();
+
 	const issuesKeys = useMemo(
 		() => (props.issues ? generateIDArray(props.issues.length) : []),
 		[props.issues],
 	);
 	const navigate = useNavigate();
-	const isValidRiskScore = useCallback(
-		(riskScore: any) => {
-			return riskScore && !isNaN(parseInt(riskScore));
-		},
-		[props.issues],
-	);
+	const isValidRiskScore = useCallback((riskScore: string) => {
+		return riskScore && !isNaN(parseInt(riskScore));
+	}, []);
 
 	const generateVulnerabilityArray = useCallback(
-		(riskScore: any) =>
+		(riskScore: string) =>
 			isValidRiskScore(riskScore)
 				? generateIDArray(parseInt(riskScore))
 				: [],

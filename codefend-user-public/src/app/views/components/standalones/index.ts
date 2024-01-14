@@ -15,3 +15,4 @@ export * from './MessageCard';
 export * from './ProvidedTestingCredentials';
 export * from './VulnerabilitiesStatus';
 export * from './VulnerabilityRisk';
+export * from './Show';

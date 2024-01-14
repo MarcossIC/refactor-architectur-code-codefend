@@ -1,36 +1,37 @@
-import { useCallback, useEffect, useState } from 'react';
-import { EnpService, handleFetchError, useAuthState, useFetcher } from '../../';
+import { useCallback, useState } from 'react';
+import { EnpService, FetchPattern, useAuthState } from '../../';
 import { invoke } from '@tauri-apps/api';
 import { toast } from 'react-toastify';
 
 const useFetchEndpoints = (companyID: string) => {
-	const mapper = (source: any) => source;
-	const fetchData = (args: any) =>
-		EnpService.getEndpoints(
-			args?.macAddress as string,
-			args?.companyID as string,
-		);
-
-	const { getData, isLoading, error, fetcher } = useFetcher<any>({
-		mapper,
-		fetchData,
+	const [{ data, error, isLoading }, dispatch] = useState<FetchPattern<any>>({
+		data: null,
+		error: null,
+		isLoading: true,
 	});
 
-	const refetchEnd = useCallback(async () => {
+	const fetchEnd = async (companyID: string, macAddress: string) => {
+		dispatch((state) => ({ ...state, isLoading: true }));
+		return EnpService.getEndpoints(macAddress, companyID)
+			.then((data) =>
+				dispatch({ data: data, error: null, isLoading: false }),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
+	};
+
+	const refetch = async () => {
 		const response = await invoke('get_mac_addr');
-		console.log({ response });
-		const parsedRes = JSON.parse(response as any);
-		if (!companyID && !parsedRes) {
-			console.error("Error: 'companyID' no está definido en userData.");
+		const macAddress = JSON.parse(response as any);
+		if (!companyID && !macAddress) {
 			toast.error('User information was not found');
 			return;
 		}
-		fetcher({ macAddress: parsedRes, companyID });
+		fetchEnd(companyID, macAddress);
+		if (error) console.log({ error });
+	};
+	const getData = () => (data ? {} : data);
 
-		if (error !== null) console.log({ error });
-	}, []);
-
-	return { getEndpoints: getData, isLoading, refetchEnd };
+	return { getEndpoints: getData, isLoading, refetch };
 };
 
 // Hook para manejar el escaneo local
@@ -84,13 +85,13 @@ export const useEnp = () => {
 	const { getUserdata } = useAuthState();
 	const companyID = getUserdata()?.companyID as string;
 
-	const { getEndpoints, isLoading, refetchEnd } = useFetchEndpoints(companyID);
+	const { getEndpoints, isLoading, refetch } = useFetchEndpoints(companyID);
 	const { handleDelete } = useDeleteEndpoint(companyID);
 
 	return {
 		getEndpoints,
 		isLoading,
 		handleDelete,
-		refetchEnd,
+		refetch,
 	};
 };

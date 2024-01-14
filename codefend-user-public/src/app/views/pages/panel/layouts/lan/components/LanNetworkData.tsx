@@ -74,7 +74,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 			</ModalTitleWrapper>
 
 			<ModalTitleWrapper
-				headerTitle="Delete LAN"
+				headerTitle="Add access point"
 				close={() => setShowModal(false)}
 				isActive={showModal && showModalStr === 'add_access_point'}>
 				<AddAccessPointModal

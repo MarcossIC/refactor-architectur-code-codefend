@@ -1,62 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { SourceCode, mapSourceCode, useAuthState, useFetcher } from '../..';
+import { SourceCode, mapSourceCode, useAuthState } from '../..';
 import { SourceCodeService } from '../../services/sourcecode.service';
 import { toast } from 'react-toastify';
-
-const useSourceCodeV2 = () => {
-	const { getUserdata } = useAuthState();
-	const fetchData = (args: any) =>
-		SourceCodeService.getAll(args.companyID as string);
-	const mapper = (source: any): SourceCode[] =>
-		source.disponibles.map((repo: any) => mapSourceCode(repo));
-
-	const { getData, isLoading, error, fetcher, changeFetcher, setNotSave } =
-		useFetcher<SourceCode[]>({ mapper, fetchData });
-
-	const refetch = (reset: boolean) => {
-		if (reset) {
-			setNotSave(false);
-			changeFetcher(fetchData);
-		}
-		const companyID = getUserdata()?.companyID as string;
-		if (!companyID) {
-			toast.error('User information was not found');
-			return;
-		}
-		fetcher({ companyID });
-	};
-
-	useEffect(() => refetch(false), []);
-
-	const deletedResource = (id: string) => {
-		const companyID = getUserdata()?.companyID as string;
-		changeFetcher((args: any) =>
-			SourceCodeService.delete(args.id, args.companyID),
-		);
-		setNotSave(true);
-		fetcher({ id, companyID })
-			.then(() => toast.success('Successfully Deleted Web Resource...'))
-			.catch(() => toast.error('An error has occurred on the server'));
-
-		if (!error) refetch(true);
-	};
-
-	const addSourceCode = (params: string) => {
-		const companyID = getUserdata()?.companyID as string;
-		setNotSave(true);
-		changeFetcher((args: any) =>
-			SourceCodeService.add(args.params, args.companyID),
-		);
-
-		fetcher({ params, companyID })
-			.then(() => toast.success('Successfully repository is added'))
-			.catch(() => toast.error('An error has occurred on the server'));
-
-		if (!error) refetch(true);
-	};
-
-	return { getSource: getData, isLoading, deletedResource, addSourceCode };
-};
 
 export const useSourceCode = () => {
 	const [sourceCode, setSource] = useState(null);

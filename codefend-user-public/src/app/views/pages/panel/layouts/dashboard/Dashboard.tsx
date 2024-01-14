@@ -5,7 +5,7 @@ import DashboardCollaborators from './components/DashboardCollaborators';
 import DashboardAssets from './components/DashboardAssets';
 import DashboardVulnerabilities from './components/DashboardVulnerabilities';
 
-import { useDashboard } from '../../../../../data';
+import { IssuesShare, useDashboard } from '../../../../../data';
 import {
 	VulnerabilityRisk,
 	VulnerabilitiesStatus,
@@ -39,7 +39,9 @@ const Dashboard: React.FC = () => {
 
 			<section className="right">
 				<VulnerabilityRisk
-					vulnerabilityByRisk={companyData.issuesShare ?? {}}
+					vulnerabilityByRisk={
+						companyData.issuesShare ?? ({} as IssuesShare)
+					}
 					isLoading={isLoading}
 				/>
 				<VulnerabilitiesStatus

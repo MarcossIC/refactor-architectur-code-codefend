@@ -15,6 +15,7 @@ const IssuesPanel: React.FC = () => {
 	const { getIssues, isLoading, refetchAll } = useIssues();
 
 	useEffect(() => {
+		refetchAll();
 		setShowScreen(false);
 		const timeoutId = setTimeout(() => {
 			setShowScreen(true);
@@ -31,7 +32,6 @@ const IssuesPanel: React.FC = () => {
 						isLoading={isLoading}
 						issues={getIssues().issues ?? []}
 						delete={(id: string) => {
-							refetchAll();
 							setReshow(!reShow);
 						}}
 					/>
@@ -39,10 +39,10 @@ const IssuesPanel: React.FC = () => {
 				<section className="right">
 					<VulnerabilityRisk
 						isLoading={isLoading}
-						vulnerabilityByRisk={getIssues().issueShare ?? {}}
+						vulnerabilityByRisk={getIssues().issueShare}
 					/>
 					<VulnerabilitiesStatus
-						vulnerabilityByShare={getIssues().issueCondition ?? {}}
+						vulnerabilityByShare={getIssues().issueCondition}
 					/>
 
 					<button
@@ -58,7 +58,7 @@ const IssuesPanel: React.FC = () => {
 							e.preventDefault();
 						}}
 						isLoading={isLoading}
-						issuesClasses={getIssues().issueClass ?? {}}
+						issuesClasses={getIssues().issueClass}
 					/>
 				</section>
 			</main>

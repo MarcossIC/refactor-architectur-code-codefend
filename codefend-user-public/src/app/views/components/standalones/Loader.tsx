@@ -32,7 +32,7 @@ export const PageLoader: React.FC = () => {
 export const PageLoaderWhite: React.FC = () => {
 	return (
 		<div className="loader loader-full">
-			<Spinner icon="small-icon" />
+			<Spinner icon="icon" />
 		</div>
 	);
 };

@@ -1,5 +1,6 @@
-import { EmptyScreenView } from '../../../../components';
 import React, { useEffect, useState } from 'react';
+import { VdbPreviousSearches } from './components/VdbPreviousSearches';
+import { VdbSearchData } from './components/VdbSearchData';
 
 interface Props {}
 
@@ -14,7 +15,14 @@ const VdbPanel: React.FC<Props> = (props) => {
 	}, [refresh]);
 	return (
 		<>
-			<main className={`support ${showScreen ? 'actived' : ''}`}></main>
+			<main className={`sb ${showScreen ? 'actived' : ''}`}>
+				<section className="left">
+					<VdbSearchData />
+				</section>
+				<section className="right">
+					<VdbPreviousSearches />
+				</section>
+			</main>
 		</>
 	);
 };

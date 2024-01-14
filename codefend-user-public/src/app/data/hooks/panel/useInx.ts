@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router';
-import { useAuthState, useFetcher, InxServices } from '../../';
+import { useAuthState, InxServices } from '../../';
 import { toast } from 'react-toastify';
 
 export const useHighlightLinesWithUrl = () => {
@@ -30,14 +30,22 @@ export const useHighlightLinesWithUrl = () => {
 	return { highlightWithUrl };
 };
 export const useInxPreviousSearch = () => {
-	const fetchData = (args: any) =>
-		InxServices.getPreviousSearches(args?.companyID as string);
-	const mapper = (source: any) => source;
-	const { isLoading, fetcher, getData } = useFetcher<any>({
-		fetchData,
-		mapper,
+	const [{ data, error, isLoading }, dispatch] = useState({
+		data: null,
+		error: null,
+		isLoading: true,
 	});
 	const { getUserdata } = useAuthState();
+
+	const fetchInitialSearch = async (companyID: string) => {
+		dispatch((state) => ({ ...state, isLoading: true }));
+
+		return InxServices.getPreviousSearches(companyID)
+			.then((data) =>
+				dispatch({ data: data, error: null, isLoading: false }),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
+	};
 
 	const refetch = () => {
 		const companyID = getUserdata()?.companyID as string;
@@ -45,33 +53,42 @@ export const useInxPreviousSearch = () => {
 			toast.error('User information was not found');
 			return;
 		}
-		fetcher({ companyID });
+		fetchInitialSearch(companyID);
 	};
+	const getData = () => (data ? {} : data);
 
 	return { previousSearches: getData(), isLoading, refetch };
 };
 
-interface IntelSearch {
-	id: string;
-	count: number;
-}
 export const useInxSearch = (companyID: string) => {
-	const fetchData = (args: any) =>
-		InxServices.initializeSearch(
-			args?.search as string,
-			args?.companyID as string,
-		);
-	const mapper = (source: any) => source.response as IntelSearch;
-	const { isLoading, fetcher, getData } = useFetcher<IntelSearch>({
-		fetchData,
-		mapper,
-	});
 	const { search } = useParams();
 	const [offset, setOffset] = useState(0);
+
+	const [{ data, error, isLoading }, dispatch] = useState({
+		data: null,
+		error: null,
+		isLoading: true,
+	});
+	const fetchInitialSearch = async () => {
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
+		dispatch((state) => ({ ...state, isLoading: true }));
+		return InxServices.initializeSearch(search as string, companyID)
+			.then((data) =>
+				dispatch({ data: data, error: null, isLoading: false }),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
+	};
 
 	const searchProc = (e: React.FormEvent) => {
 		if (e) e.preventDefault();
 		setOffset(0);
-		return fetcher({ search, companyID });
+		return fetchInitialSearch();
 	};
+
+	const getData = () => (data ? {} : data);
+
+	return { searchProc, offset, getData };
 };

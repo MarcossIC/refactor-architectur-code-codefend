@@ -1,6 +1,6 @@
 import { fetchPOST, handleFetchError } from './fetchAPI';
 
-const getAll = async (companyID: string | number) => {
+const getAll = async (companyID: string) => {
 	const { data } = (await fetchPOST({
 		params: {
 			model: 'resources/mobile',

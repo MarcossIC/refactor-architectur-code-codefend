@@ -1,37 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AllIssues, mapAllIssues, useAuthState, useFetcher } from '../..';
+import { AllIssues, mapAllIssues, useAuthState } from '../..';
 import { IssueService } from '../../services/issues.service';
 import { getTinyEditorContent } from '../../../../editor-lib';
 import { toast } from 'react-toastify';
 
-const useIssuesV2 = () => {
-	const fetchData = (args: any) =>
-		IssueService.getAll(args.companyID as string);
-
-	const { getData, isLoading, fetcher, error } = useFetcher<AllIssues>({
-		mapper: mapAllIssues,
-		fetchData,
-	});
-	const { getUserdata } = useAuthState();
-	const refetchAll = () => {
-		const companyID = getUserdata()?.companyID as string;
-		if (!companyID) {
-			console.error("Error: 'companyID' no está definido en userData.");
-			toast.error('User information was not found');
-			return;
-		}
-		fetcher({ companyID });
-		if (error !== null) console.log({ error });
-	};
-	useEffect(() => {
-		refetchAll();
-	}, []);
-
-	return { getIssues: getData, isLoading, refetchAll };
-};
-
 export const useIssues = () => {
-	const [issues, setIssues] = useState({} as AllIssues);
+	const [issues, setIssues] = useState<null | AllIssues>(null);
 	const [isLoading, setLoading] = useState(true);
 	const { getUserdata } = useAuthState();
 
@@ -41,7 +15,6 @@ export const useIssues = () => {
 			.then((response: any) => {
 				if (response !== 'success') {
 				}
-
 				setIssues(mapAllIssues(response));
 			})
 			.finally(() => {
@@ -54,13 +27,9 @@ export const useIssues = () => {
 		fetchAll(companyID);
 	};
 
-	useEffect(() => {
-		refetchAll();
-	}, []);
-
-	const getIssues = () => {
+	const getIssues = (): AllIssues => {
 		const issuesData = isLoading ? ({} as AllIssues) : issues;
-		return issuesData ?? {};
+		return issuesData ?? ({} as AllIssues);
 	};
 
 	return { getIssues, isLoading, refetchAll };

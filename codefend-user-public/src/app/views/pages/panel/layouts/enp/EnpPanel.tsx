@@ -13,14 +13,17 @@ interface Props {}
 
 export const EnpPanel: React.FC<Props> = (props) => {
 	const [showScreen, setShowScreen] = useState(false);
-	const { getEndpoints, refetchEnd, isLoading, handleDelete } = useEnp();
+	const { getEndpoints, refetch, isLoading, handleDelete } = useEnp();
 	const { getAccessToken } = useAuthState();
 	const { scanLoading, scanLocal } = useScanLocal(getAccessToken());
+	const [refresh, setRefresh] = useState(false);
 
 	useEffect(() => {
+		refetch();
+		setShowScreen(false);
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
-	}, []);
+	}, [refresh]);
 
 	return (
 		<>
@@ -29,14 +32,7 @@ export const EnpPanel: React.FC<Props> = (props) => {
 					<Endpoints
 						isLoading={isLoading}
 						onDelete={(id: string) =>
-							handleDelete(id).finally(() =>
-								refetchEnd().finally(() => {
-									setShowScreen(false);
-									clearTimeout(
-										setTimeout(() => setShowScreen(true), 100),
-									);
-								}),
-							)
+							handleDelete(id).finally(() => setRefresh(!refresh))
 						}
 						endpoints={getEndpoints() ?? []}
 					/>

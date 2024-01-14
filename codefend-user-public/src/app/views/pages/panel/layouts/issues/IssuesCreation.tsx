@@ -21,20 +21,6 @@ const IssuesCreation: React.FC<{}> = () => {
 		return () => clearTimeout(timeoutId);
 	}, [reShow]);
 
-	/*useEffect(() => {
-		const script = document.createElement('script');
-		script.src = '/src/editor-lib/visual/mce/tinymce.min.js';
-		script.async = true;
-		script.onload = () => {
-			setScriptLoaded(true);
-		};
-		document.body.appendChild(script);
-
-		return () => {
-			document.body.removeChild(script);
-		};
-	}, []);*/
-
 	return (
 		<>
 			{status === 'ready' ? (

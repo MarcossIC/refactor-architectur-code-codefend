@@ -1,46 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { CloudApp, mapCloudApp, useAuthState, useFetcher } from '../..';
+import { useCallback, useEffect, useState } from 'react';
+import { CloudApp, mapCloudApp, useAuthState } from '../..';
 import { CloudService } from '../../services/cloud.service';
 import { toast } from 'react-toastify';
-
-const useCloudV2 = () => {
-	const { getUserdata } = useAuthState();
-	const mapper = (source: any) =>
-		source.disponibles.map((app: any) => mapCloudApp(app));
-	const { getData, isLoading, fetcher } = useFetcher<CloudApp[]>({
-		mapper,
-		fetchData: (args: any) => CloudService.getAll(args.companyID as string),
-	});
-	const [selectedCloud, setSelectedCloudApp] = useState<CloudApp | null>(null);
-	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
-		if (!companyID) {
-			console.error("Error: 'companyID' no está definido en userData.");
-			toast.error('User information was not found');
-			return;
-		}
-		fetcher({ companyID });
-	};
-	useEffect(() => refetch(), []);
-
-	const changeSelected = (cloud: CloudApp | null) => {
-		if (cloud?.id === selectedCloud?.id) return;
-		setSelectedCloudApp(cloud);
-	};
-
-	const isActive = (id: string) => {
-		return selectedCloud?.id === id;
-	};
-
-	return {
-		changeSelected,
-		isActive,
-		getCloudData: getData,
-		selectedCloud,
-		isLoading,
-		refetch,
-	};
-};
 
 export const useCloud = () => {
 	const { getUserdata } = useAuthState();
@@ -69,7 +30,11 @@ export const useCloud = () => {
 
 	/* Refetch Function. */
 	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
+		const companyID = getUserdata()?.companyID;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
 		fetchWeb(companyID);
 	};
 

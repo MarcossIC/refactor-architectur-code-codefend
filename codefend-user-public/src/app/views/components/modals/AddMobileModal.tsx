@@ -8,7 +8,7 @@ interface Props {
 	close: () => void;
 }
 
-export const AddMobileModal: React.FC<Props> = (props) => {
+const AddMobileModal: React.FC<Props> = (props) => {
 	const [appName, setAppName] = useState('');
 	const [androidAddress, setAndroidAddress] = useState('');
 	const [iosAddress, setIosAddress] = useState('');
@@ -37,7 +37,11 @@ export const AddMobileModal: React.FC<Props> = (props) => {
 				setIsAddingMobile(false);
 				return;
 			}
-			MobileService.add(androidAddress, iosAddress, getUserdata()?.companyID as string)
+			MobileService.add(
+				androidAddress,
+				iosAddress,
+				getUserdata()?.companyID as string,
+			)
 				.then((response) => {
 					if (!response)
 						throw new Error('An error has occurred on the server');
@@ -116,3 +120,5 @@ export const AddMobileModal: React.FC<Props> = (props) => {
 		</>
 	);
 };
+
+export default AddMobileModal;

@@ -8,6 +8,7 @@ import {
 	PageLoader,
 } from '../../../../../components';
 import {
+	Issues,
 	IssuesCondition,
 	IssuesShare,
 	MobileApp,
@@ -63,7 +64,7 @@ export const MobileSelectedDetails: React.FC<MobileSelectedDetailsProps> = ({
 					<section className="card table">
 						<IssuesPanelMobileAndCloud
 							isLoading={isLoding}
-							issues={getMobile().issues ?? {}}
+							issues={getMobile().issues ?? ({} as Issues)}
 						/>
 					</section>
 				</>

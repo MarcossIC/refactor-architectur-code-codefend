@@ -1,35 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { WebApplicationService } from '../../services/webapplication.service';
 import {
 	User,
 	WebapplicationProps,
 	mapToWebresourceProps,
 	useAuthState,
-	useFetcher,
 } from '../..';
 import { toast } from 'react-toastify';
-
-const useWebApplicationV2 = () => {
-	const { getUserdata } = useAuthState();
-
-	const { getData, isLoading, fetcher } = useFetcher<WebapplicationProps>({
-		mapper: mapToWebresourceProps,
-		fetchData: (args: any) =>
-			WebApplicationService.get(args.companyID as string),
-	});
-	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
-		if (!companyID) {
-			console.error("Error: 'companyID' no está definido en userData.");
-			toast.error('User information was not found');
-			return;
-		}
-		fetcher({ companyID });
-	};
-	useEffect(() => refetch(), []);
-
-	return { webResources: getData(), isLoading, refetch };
-};
 
 export const useWebapplication = () => {
 	const { getUserdata } = useAuthState();

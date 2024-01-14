@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { EmptyScreenView } from '../../../../components';
 import { InxSearchAndData } from './components/InxSearchAndData';
 import { InxPreviousSearches } from './components/InxPreviousSearches';
 import { useInxPreviousSearch } from '../../../../../data';
@@ -24,7 +23,7 @@ export const InxPanel: React.FC = () => {
 				<section className="right">
 					<InxPreviousSearches
 						isLoading={isLoading}
-						previousSearches={previousSearches ?? []}
+						previousSearches={previousSearches ?? ([] as any)}
 					/>
 				</section>
 			</main>

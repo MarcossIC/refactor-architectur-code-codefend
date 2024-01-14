@@ -1,16 +1,24 @@
-import { CustomerSupportService } from '../../';
-import { useAuthState, useFetcher } from '..';
+import { CustomerSupportService, FetchPattern } from '../../';
+import { useAuthState } from '..';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 export const useAllTicket = () => {
 	const { getUserdata } = useAuthState();
-	const fetchData = (args: any) =>
-		CustomerSupportService.getAll(args?.companyID as string);
-	const mapper = (source: any) => source?.disponibles;
-	const { getData, fetcher, error, isLoading } = useFetcher<any[]>({
-		mapper,
-		fetchData,
+	const [{ data, error, isLoading }, dispatch] = useState({
+		data: null,
+		error: null,
+		isLoading: true,
 	});
+
+	const fetchAll = async (companyID: string) => {
+		dispatch((state) => ({ ...state, isLoading: true }));
+		return CustomerSupportService.getAll(companyID)
+			.then((data) =>
+				dispatch({ data: data, error: null, isLoading: false }),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
+	};
 
 	const refetch = () => {
 		const companyID = getUserdata()?.companyID as string;
@@ -19,11 +27,10 @@ export const useAllTicket = () => {
 			toast.error('User information was not found');
 			return;
 		}
-		fetcher({ companyID });
-		if (error) {
-			console.log({ error });
-		}
+		fetchAll(companyID);
+		if (error) console.log({ error });
 	};
+	const getData = () => (data ? {} : data);
 
 	return {
 		getTikets: getData,
@@ -34,24 +41,32 @@ export const useAllTicket = () => {
 
 export const useOneTicket = () => {
 	const { getUserdata } = useAuthState();
-	const fetchData = (args: any) =>
-		CustomerSupportService.getOne(
-			args.ticketID as string,
-			args.companyID as string,
-		);
-	const mapper = (source: any) => source;
-	const { getData, fetcher, error, isLoading } = useFetcher<any>({
-		mapper,
-		fetchData,
+	const [{ data, error, isLoading }, dispatch] = useState<FetchPattern<any>>({
+		data: null,
+		error: null,
+		isLoading: true,
 	});
+
+	const fetchOne = async (companyID: string, ticketID: string) => {
+		dispatch((state) => ({ ...state, isLoading: true }));
+		return CustomerSupportService.getOne(ticketID, companyID)
+			.then((data) =>
+				dispatch({ data: data, error: null, isLoading: false }),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
+	};
 
 	const refetch = (ticketID: string) => {
 		const companyID = getUserdata()?.companyID as string;
-		fetcher({ ticketID, companyID });
-		if (error) {
-			console.log({ error });
+		if (!companyID) {
+			console.error("Error: 'companyID' no está definido en userData.");
+			toast.error('User information was not found');
+			return;
 		}
+		fetchOne(companyID, ticketID);
+		if (error) console.log({ error });
 	};
+	const getData = () => (data ? {} : data);
 
 	return {
 		getOneTicket: getData,

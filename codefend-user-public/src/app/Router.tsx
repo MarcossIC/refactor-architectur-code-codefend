@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { PanelPage } from './views/pages/panel/PanelPage';
 import { ToastContainer } from 'react-toastify';
@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import FinishSignUpLayout from './views/pages/auth/layouts/FinishsignUp';
 import IssuesPanel from './views/pages/panel/layouts/issues/IssuesPanel';
 import IssuesCreation from './views/pages/panel/layouts/issues/IssuesCreation';
+import { Loader } from './views/components';
 
 const AuthPage = lazy(() => import('./views/pages/auth/AuthPage'));
 const SignInLayout = lazy(() => import('./views/pages/auth/layouts/Signin'));
@@ -64,6 +65,7 @@ const AdminCompany = lazy(
 	() => import('./views/pages/panel/layouts/admin/layouts/AdminCompany'),
 );
 
+// million-ignore
 export const AppRouter: React.FC = () => {
 	return (
 		<>
@@ -80,46 +82,48 @@ export const AppRouter: React.FC = () => {
 				theme="light"
 			/>
 
-			<Routes>
-				{/* Private Routes */}
-				<Route path="/" element={<PanelPage />}>
-					<Route index element={<Dashboard />} />
-					<Route path="dashboard" element={<Dashboard />} />
-					<Route path="web" element={<WebApplication />} />
-					<Route path="mobile" element={<MobileApplication />} />
-					<Route path="cloud" element={<CloudApplicationPanel />} />
-					<Route path="lan" element={<LanApplicationPanel />} />
-					<Route path="source" element={<SourceCodePanel />} />
+			<Suspense fallback={<Loader />}>
+				<Routes>
+					{/* Private Routes */}
+					<Route path="/" element={<PanelPage />}>
+						<Route index element={<Dashboard />} />
+						<Route path="/dashboard" element={<Dashboard />} />
+						<Route path="/web" element={<WebApplication />} />
+						<Route path="mobile" element={<MobileApplication />} />
+						<Route path="cloud" element={<CloudApplicationPanel />} />
+						<Route path="lan" element={<LanApplicationPanel />} />
+						<Route path="source" element={<SourceCodePanel />} />
 
-					<Route path="issues" element={<IssuesPanel />} />
-					<Route path="issues/:ref" element={<IssuesPanel />} />
-					<Route path="create/issues" element={<IssuesCreation />} />
-					<Route path="social" element={<SocialEngineeringPanel />} />
-					<Route path="enp" element={<EnpPanel />} />
-					<Route path="support" element={<SupportPanel />} />
-					<Route path="preferences" element={<PreferencePanel />} />
-					<Route path="inx" element={<InxPanel />} />
-					<Route path="sns" element={<SnsPanel />} />
-					<Route path="vdb" element={<VdbPanel />} />
+						<Route path="issues" element={<IssuesPanel />} />
+						<Route path="issues/:ref" element={<IssuesPanel />} />
+						<Route path="create/issues" element={<IssuesCreation />} />
+						<Route path="social" element={<SocialEngineeringPanel />} />
+						<Route path="enp" element={<EnpPanel />} />
+						<Route path="support" element={<SupportPanel />} />
+						<Route path="preferences" element={<PreferencePanel />} />
+						<Route path="inx" element={<InxPanel />} />
+						<Route path="sns" element={<SnsPanel />} />
+						<Route path="vdb" element={<VdbPanel />} />
 
-					{/* ?? No aparece en la sidebar, si en sus rutas */}
-					<Route path="companies" element={<></>} />
-				</Route>
-				{/* Private Routes + only admin access */}
-				<Route path="admin/*" element={<AdminPage />}>
-					<Route path="user" element={<AdminUser />} />
-					<Route path="company" element={<AdminCompany />} />
-				</Route>
-				{/* Public Routes */}
-				<Route path="/auth/*" element={<AuthPage />}>
-					<Route index element={<Navigate to="signin" replace />} />
-					<Route path="signin" element={<SignInLayout />} />
-					<Route path="signup" element={<SignUpLayout />} />
-					<Route path="confirmation" element={<ConfirmationSignUp />} />
+						{/* ?? No aparece en la sidebar, si en sus rutas */}
+						<Route path="companies" element={<></>} />
+					</Route>
+					{/* Private Routes + only admin access */}
+					<Route path="admin/*" element={<AdminPage />}>
+						<Route path="user" element={<AdminUser />} />
+						<Route path="company" element={<AdminCompany />} />
+					</Route>
+					{/* Public Routes */}
+					<Route path="/auth/*" element={<AuthPage />}>
+						<Route index element={<Navigate to="signin" replace />} />
+						<Route path="signin" element={<SignInLayout />} />
+						<Route path="signup" element={<SignUpLayout />} />
+						<Route path="confirmation" element={<ConfirmationSignUp />} />
 
-					<Route path="signup/:ref" element={<FinishSignUpLayout />} />
-				</Route>
-			</Routes>
+						<Route path="signup/:ref" element={<FinishSignUpLayout />} />
+					</Route>
+				</Routes>
+			</Suspense>
 		</>
 	);
 };

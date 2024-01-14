@@ -114,7 +114,7 @@
 	.server-ip,
 	.ip,
 	.os {
-		width: 150px;
+		width: 130px;
 		flex: inherit !important;
 	}
 	.location {
@@ -122,11 +122,11 @@
 		flex: inherit !important;
 	}
 	.date {
-		width: 120px;
+		width: 110px;
 		flex: inherit !important;
 	}
 	.username {
-		width: 120px;
+		width: 110px;
 		flex: inherit !important;
 	}
 	.vul-class {
@@ -138,7 +138,7 @@
 		flex: inherit !important;
 	}
 	.vul-risk {
-		width: 120px;
+		width: 110px;
 		flex: inherit !important;
 	}
 	.vul-score {
@@ -165,7 +165,7 @@
 		}
 	}
 	.vul-title {
-		min-width: 150px;
+		min-width: 100px;
 	}
 	.vul-condition {
 		justify-content: flex-start;

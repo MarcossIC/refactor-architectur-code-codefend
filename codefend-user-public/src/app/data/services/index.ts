@@ -20,3 +20,4 @@ export * from './sourcecode.service';
 export * from './support.service';
 export * from './webapplication.service';
 export * from './inx.service';
+export * from './vdb.service';

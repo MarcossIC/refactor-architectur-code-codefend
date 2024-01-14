@@ -4,70 +4,12 @@ import {
 	MobileProps,
 	MobileService,
 	MobileUnique,
-	User,
-	mapMobileAppsArray,
 	mapMobileProps,
 	mobileUniqueProps,
 	useAuthState,
-	useFetcher,
 } from '../..';
 import { toast } from 'react-toastify';
-
-const useMobileV2 = () => {
-	const { getUserdata } = useAuthState();
-
-	const { getData, isLoading, fetcher } = useFetcher<MobileApp[]>({
-		mapper: mapMobileAppsArray,
-		fetchData: (args: any) => MobileService.getAll(args.companyID as string),
-	});
-
-	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
-		if (!companyID) {
-			console.error("Error: 'companyID' no está definido en userData.");
-			toast.error('User information was not found');
-			return;
-		}
-		fetcher({ companyID });
-	};
-
-	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp | null>(
-		null,
-	);
-
-	useEffect(() => refetch(), []);
-
-	const selectMobile = (mobile: MobileApp) => {
-		if (mobile.id === selectedMobileApp?.id) return;
-		setSelectedMobileApp(mobile);
-	};
-
-	const isCurrentMobileSelected = useCallback(
-		(id: string) => {
-			return id === selectedMobileApp?.id;
-		},
-		[selectedMobileApp],
-	);
-
-	const isSelected =
-		selectedMobileApp !== null && selectedMobileApp !== undefined;
-	const changeMobile = (mobile: MobileApp) => {
-		if (isSelected && !isCurrentMobileSelected(mobile.id)) {
-			selectMobile(mobile);
-		}
-	};
-
-	return {
-		isLoading,
-		getMobileInfo: getData,
-		selectedMobileApp,
-		isCurrentMobileSelected,
-		changeMobile,
-		isSelected,
-		refetch,
-		selectMobile,
-	};
-};
+import { FetchPattern } from 'app/data/interfaces/util';
 
 export const useMobile = () => {
 	const { getUserdata } = useAuthState();
@@ -78,6 +20,13 @@ export const useMobile = () => {
 		error: '',
 		available: [],
 	} as MobileProps);
+	/*const [{ data, error, isLoading }, dispatch] = useState<
+		FetchPattern<MobileProps>
+	>({
+		data: null,
+		error: null,
+		isLoading: false,
+	});*/
 
 	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp | null>(
 		null,
@@ -94,26 +43,24 @@ export const useMobile = () => {
 			});
 	}, []);
 
-	useEffect(() => {
-		refetch();
-	}, []);
-
 	const refetch = () => {
-		const user = getUserdata() as User;
-		const companyID = user?.companyID as string;
+		const companyID = getUserdata()?.companyID;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
 		fetchWeb(companyID);
-	};
-
-	const selectMobile = (mobile: MobileApp) => {
-		if (mobile.id === selectedMobileApp?.id) return;
-
-		setSelectedMobileApp(mobile);
 	};
 
 	const getMobileInfo = (): MobileApp[] => {
 		return isLoading
 			? ([] as MobileApp[])
 			: (mobileInfo?.available as MobileApp[]);
+	};
+
+	const selectMobile = (mobile: MobileApp) => {
+		if (mobile.id === selectedMobileApp?.id) return;
+		setSelectedMobileApp(mobile);
 	};
 
 	const isCurrentMobileSelected = (id: string) => {
@@ -124,9 +71,8 @@ export const useMobile = () => {
 		() => selectedMobileApp !== null && selectedMobileApp !== undefined,
 		[selectedMobileApp],
 	);
-
 	const changeMobile = (mobile: MobileApp) => {
-		if (selectedMobileApp && selectedMobileApp.id === mobile.id) {
+		if (isSelected && !isCurrentMobileSelected(mobile.id)) {
 			selectMobile(mobile);
 		}
 	};

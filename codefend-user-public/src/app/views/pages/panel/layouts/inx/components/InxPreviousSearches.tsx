@@ -1,13 +1,19 @@
 import React from 'react';
 import { PageLoader } from '../../../../../components';
 
-interface Props {
+interface InxPreviousSearchesProps {
 	isLoading: boolean;
-	previousSearches: any;
+	previousSearches: any[];
 }
 
-export const InxPreviousSearches: React.FC<Props> = (props) => {
-	const safelyPreviousSearches = () => props.previousSearches.reverse() ?? [];
+export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
+	props,
+) => {
+	const safelyPreviousSearches = () =>
+		Array.isArray(props.previousSearches)
+			? props.previousSearches.reverse()
+			: [];
+
 	return (
 		<>
 			<div className="h-full flex flex-col ">

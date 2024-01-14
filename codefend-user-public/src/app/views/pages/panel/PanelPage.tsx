@@ -10,8 +10,8 @@ const ErrorConection = lazy(
 );
 
 export const PanelPage: React.FC = () => {
-	const isNotAuthenticated = AuthServices.verifyAuth();
-	if (isNotAuthenticated) AuthServices.logout2();
+	/*const isNotAuthenticated = AuthServices.verifyAuth();
+	if (isNotAuthenticated) AuthServices.logout2();*/
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
@@ -26,7 +26,7 @@ export const PanelPage: React.FC = () => {
 			localStorage.removeItem('error');
 		};
 	}, []);
-	return !isNotAuthenticated ? (
+	return true ? (
 		<>
 			{showModal && (
 				<>

@@ -1,17 +1,20 @@
 import { EmptyScreenView } from '../../../../components';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Props {}
 
 const VdbPanel: React.FC<Props> = (props) => {
+	const [showScreen, setShowScreen] = useState(false);
+	const [refresh, setRefresh] = useState(false);
+
+	useEffect(() => {
+		//refetch();
+		const timeoutId = setTimeout(() => setShowScreen(true), 50);
+		return () => clearTimeout(timeoutId);
+	}, [refresh]);
 	return (
 		<>
-			<EmptyScreenView
-				buttonText="Add Vdb"
-				title={"There's no data to display here"}
-				info={'Start by clicking on the button below'}
-				event={() => {}}
-			/>
+			<main className={`support ${showScreen ? 'actived' : ''}`}></main>
 		</>
 	);
 };

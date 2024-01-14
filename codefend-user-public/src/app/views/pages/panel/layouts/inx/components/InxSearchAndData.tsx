@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { handleFetchError, useAuthState } from '../../../../../../data';
+import {
+	generateIDArray,
+	handleFetchError,
+	useAuthState,
+} from '../../../../../../data';
 import {
 	InxSearchIcon,
 	PageLoader,
@@ -7,6 +11,7 @@ import {
 } from '../../../../../components';
 import { useParams } from 'react-router';
 import { InxServices } from '../../../../../../data/services/inx.service';
+import { InxPreviewIntelData } from './InxPreviewIntelData';
 
 interface InxSearchAndDataProps {
 	refetch: () => void;
@@ -161,6 +166,9 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 			});
 	};
 
+	const intelKeys = () =>
+		intelData.length !== 0 ? generateIDArray(intelData.length) : [];
+
 	return (
 		<div className="border h-5/6 pt-3">
 			{selectedResult && (
@@ -237,54 +245,13 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 			</form>
 			{!loading ? (
 				<div className="flex internal-tables flex-col overflow-auto max-h-full overflow-x-hidden">
-					{intelData.map((intel: any, index: number) => (
-						<div className="" key={index}>
-							<div className="w-full flex flex-row h-10 bg-[#f0f0f0] text-[#333]">
-								<div className="w-full red-border flex flex-row items-center px-7 ">
-									<input
-										type="checkbox"
-										checked
-										className=" checkbox-color"
-									/>
-									<span className="flex-grow ml-3">
-										{intel?.name?.slice(0, 50)}
-									</span>
-									<span className="flex-grow ml-3">
-										{intel.bucket_data}
-									</span>
-									<span className="text-[#666] text-xs">
-										{intel.date}
-									</span>
-								</div>
-								<button
-									onClick={() => {
-										procReadFile(intel);
-									}}
-									className="btn btn-primary no-border-height h-full items-center justify-center text-sm w-[5.3rem] no-padding ">
-									full data
-								</button>
-							</div>
-
-							<div className="w-full internal-tables disable-border no-border border-bottom py-2">
-								<div>
-									<div className="flex py-0.5 pl-14 pr-10">
-										<div
-											className="max-w-md"
-											dangerouslySetInnerHTML={{
-												__html: intelPreview
-													.find(
-														(preview: any) =>
-															preview.id === intel.storage_id,
-													)
-													?.preview?.replace(
-														/(\r\n|\n|\r)/g,
-														'<br>',
-													),
-											}}></div>
-									</div>
-								</div>
-							</div>
-						</div>
+					{intelData.map((intel: any, i: number) => (
+						<InxPreviewIntelData
+							intelKey={intelKeys()[i]}
+							intel={intel}
+							readFile={procReadFile}
+							intelPreview={intelPreview}
+						/>
 					))}
 					{/* <div use:intersectionObserver></div> */}
 				</div>

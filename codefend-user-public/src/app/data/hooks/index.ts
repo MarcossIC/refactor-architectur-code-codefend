@@ -16,3 +16,4 @@ export * from './panel/useWebapplication';
 export * from './panel/useLan';
 export * from './panel/useEnp';
 export * from './panel/useSupport';
+export * from './panel/useInx';

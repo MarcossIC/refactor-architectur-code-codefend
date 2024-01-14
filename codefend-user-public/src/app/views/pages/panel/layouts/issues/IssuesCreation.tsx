@@ -3,11 +3,14 @@ import { Loader } from '../../../../components';
 import IssueCreationPanel from './components/IssueCreationPanel';
 import { IssueChatDisplay } from './components/IssueChatDisplay';
 import './issues.scss';
+import { useScript, useTimeout } from 'usehooks-ts';
 
 const IssuesCreation: React.FC<{}> = () => {
 	const [showScreen, setShowScreen] = useState(false);
 	const [reShow, setReshow] = useState(false);
-	const [isScriptLoad, setScriptLoaded] = useState(false);
+	const status = useScript('/src/editor-lib/visual/mce/tinymce.min.js', {
+		removeOnUnmount: true,
+	});
 
 	useEffect(() => {
 		setShowScreen(false);
@@ -18,7 +21,7 @@ const IssuesCreation: React.FC<{}> = () => {
 		return () => clearTimeout(timeoutId);
 	}, [reShow]);
 
-	useEffect(() => {
+	/*useEffect(() => {
 		const script = document.createElement('script');
 		script.src = '/src/editor-lib/visual/mce/tinymce.min.js';
 		script.async = true;
@@ -30,11 +33,11 @@ const IssuesCreation: React.FC<{}> = () => {
 		return () => {
 			document.body.removeChild(script);
 		};
-	}, []);
+	}, []);*/
 
 	return (
 		<>
-			{isScriptLoad ? (
+			{status === 'ready' ? (
 				<main
 					className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
 					<section className="issue">

@@ -10,17 +10,6 @@ interface CompanyDataProps {
 	companyInfo: any[];
 }
 
-interface CompanyInfo {
-	name: string;
-	web: string;
-	mercado: string;
-	owner_fname: string;
-	owner_lname: string;
-	owner_email: string;
-	pais_provincia: string;
-	location: string;
-	address: string;
-}
 
 const SettingCompanyInformation: React.FC<CompanyDataProps> = (props) => {
 	const { companyInfo } = useCompany();

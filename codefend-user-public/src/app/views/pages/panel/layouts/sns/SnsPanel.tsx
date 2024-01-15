@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import SnPreviousSearches from './components/SnPreviousSearches';
 import SnsSearchAndData from './components/SnsSearchAndData';
+import './Sns.scss'
 
 interface Props {}
 

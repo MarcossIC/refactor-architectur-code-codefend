@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { usePreferences } from '../../../../../data';
-import { PageLoader } from '../../../../../views/components';
+import { PageLoader, Show } from '../../../../../views/components';
 import SettingCollaboratorAndTeam from './components/SettingCollaboratorAndTeam';
 import SettingCompanyInformation from './components/SettingCompanyInformation';
 import SettingOrderAndBilling from './components/SettingOrderAndBilling';
@@ -24,10 +24,8 @@ const PreferencePanel = () => {
 
 	return (
 		<>
-			{loading ? (
-				<PageLoader />
-			) : (
-				<>
+			<Show when={showScreen} fallback={<PageLoader />}>
+				<main className={`preferences ${showScreen ? 'actived' : ''}`}>
 					<section className="left">
 						<SettingOrderAndBilling
 							isLoading={loading}
@@ -44,8 +42,8 @@ const PreferencePanel = () => {
 						/>
 						{/* <SettingPersonalDetails /> */}
 					</section>
-				</>
-			)}
+				</main>
+			</Show>
 		</>
 	);
 };

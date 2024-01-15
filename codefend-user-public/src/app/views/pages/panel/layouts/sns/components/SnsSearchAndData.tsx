@@ -1,4 +1,4 @@
-import { PageLoader, Show } from '../../../../../../views/components';
+import { PageLoader, SearchIcon, Show } from '../../../../../../views/components';
 import { ApiHandlers, User, useAuthState } from '../../../../../../data';
 import React, { useState, useEffect } from 'react';
 
@@ -93,7 +93,7 @@ const SnsSearchAndData: React.FC = () => {
 							</select>
 
 							<button type="submit" className="btn btn-primary">
-								{/* <AiOutlineFileSearch /> */}
+								 <SearchIcon /> 
 							</button>
 						</div>
 					</form>

@@ -20,11 +20,6 @@ export const AppEditor: React.FC<AppEditorProps> = ({
 		[],
 	);
 
-	const updateIssue = () => {
-		const _editorContent = getTinyEditorContent('issue');
-		onUpdateIssue(_editorContent);
-	};
-
 	const setEditorMode = () => {
 		if (isEditable) {
 			setMode('issue', 'design');

@@ -11,6 +11,7 @@ export * from './panel/issues/useDeleteIssues';
 export * from './panel/issues/useIssues';
 export * from './panel/issues/useOneIssue';
 export * from './panel/issues/useSaveIssue';
+export * from './panel/issues/useUpdateIssue';
 export * from './panel/useMobile';
 export * from './panel/useSourceCode';
 export * from './panel/useWebapplication';

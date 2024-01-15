@@ -25,7 +25,7 @@ const IssueUpdate: React.FC<{}> = () => {
 			<main className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
 				<section className="issue">
 					<IssueUpdatePanel
-						completeIssue={getIssues() ?? {}}
+						completeIssue={getIssues()}
 						isLoading={isLoading}
 					/>
 				</section>

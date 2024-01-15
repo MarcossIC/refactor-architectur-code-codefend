@@ -25,17 +25,17 @@ const addTinyMce = (initialValue) => {
 		content_css: 'codefend',
 		image_caption: true,
 		automatic_uploads: true,
-		height: 'calc(100vh - 161px)',
+		height: 'calc(100dvh - 161px)',
 		templates: [
 			{
 				title: 'Issue A',
 				description: 'simple issue, code, no media',
-				url: '/editor/visual/mce/models/01.html',
+				url: '/editor-lib/visual/mce/models/01.html',
 			},
 			{
 				title: 'Issue B',
 				description: 'simple issue, code, no media',
-				url: '/editor/visual/mce/models/02.html',
+				url: '/editor-lib/visual/mce/models/02.html',
 			},
 		],
 	};

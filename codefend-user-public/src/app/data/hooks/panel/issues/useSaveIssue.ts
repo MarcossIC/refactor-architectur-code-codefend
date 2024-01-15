@@ -11,6 +11,14 @@ export interface SaveIssue {
 	isAddingIssue: boolean;
 }
 
+const validateNewIssue = (validate: boolean, message: string) => {
+	if (validate) {
+		toast.error(message);
+		return false;
+	}
+	return true;
+};
+
 export const useSaveIssue = () => {
 	const { getUserdata } = useAuthState();
 	const [newIssue, dispatch] = useState<SaveIssue>({
@@ -23,62 +31,45 @@ export const useSaveIssue = () => {
 
 	const fetchSave = useCallback(
 		(companyID: string) => {
-			console.log({ newIssue });
+			const _editorContent = getTinyEditorContent('issue');
+			if (
+				!validateNewIssue(
+					!_editorContent,
+					'Invalid content, please add content using the editor',
+				)
+			)
+				return;
+			if (!validateNewIssue(!newIssue.score, 'Invalid score')) return;
+
+			if (
+				!validateNewIssue(
+					!newIssue.issueName ||
+						newIssue.issueName.length == 0 ||
+						newIssue.issueName.length > 100,
+					'Invalid name',
+				)
+			)
+				return;
+			if (
+				!validateNewIssue(
+					![
+						'web',
+						'mobile',
+						'cloud',
+						'lan',
+						'source',
+						'social',
+						'research',
+					].includes(newIssue.issueClass),
+					'Invalid issue type',
+				)
+			)
+				return;
+
 			dispatch((state: SaveIssue) => ({
 				...state,
 				isAddingIssue: true,
 			}));
-			console.log({ newIssue });
-			const _editorContent = getTinyEditorContent('issue');
-			if (!_editorContent) {
-				toast.error('Invalid content, please add content using the editor');
-				dispatch((state: SaveIssue) => ({
-					...state,
-					isAddingIssue: false,
-				}));
-				return;
-			}
-
-			if (newIssue.score === null || newIssue.score === '') {
-				toast.error('Invalid score');
-				dispatch((state: SaveIssue) => ({
-					...state,
-					isAddingIssue: false,
-				}));
-				return;
-			}
-
-			if (
-				!newIssue.issueName ||
-				newIssue.issueName.length == 0 ||
-				newIssue.issueName.length > 100
-			) {
-				toast.error('Invalid name');
-				dispatch((state: SaveIssue) => ({
-					...state,
-					isAddingIssue: false,
-				}));
-				return;
-			}
-
-			if (
-				![
-					'web',
-					'mobile',
-					'cloud',
-					'lan',
-					'source',
-					'social',
-					'research',
-				].includes(newIssue.issueClass)
-			) {
-				dispatch((state: SaveIssue) => ({
-					...state,
-					isAddingIssue: false,
-				}));
-				toast.error('Invalid issue type');
-				return;
-			}
 			const params = {
 				risk_score: newIssue.score,
 				name: newIssue.issueName,

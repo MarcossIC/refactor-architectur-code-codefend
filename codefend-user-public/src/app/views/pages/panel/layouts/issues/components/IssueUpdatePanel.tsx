@@ -11,9 +11,8 @@ import { useNavigate } from 'react-router';
 import { AppEditor } from './AppEditor';
 import {
 	CompleteIssue,
-	Issues,
 	OneIssue,
-	useSaveIssue,
+	useUpdateIssue,
 } from '../../../../../../data';
 
 interface IssueUpdatePanelProps {
@@ -25,45 +24,40 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 	completeIssue,
 	isLoading,
 }) => {
-	const { newIssue, setNewIssue, save } = useSaveIssue();
-	const [isEditable, setEditable] = useState(false);
-	const [issueNameUpdate, setIssueNameUpdate] = useState('');
 	const navigate = useNavigate();
+	const { updatedIssue, dispatch, update } = useUpdateIssue();
+	const [isEditable, setEditable] = useState(false);
+	const [issueNameUpdate, setIssueNameUpdate] = useState(
+		completeIssue.issue?.name! ?? '',
+	);
+
 	const safelyIssue = (): CompleteIssue => {
-		const issue = completeIssue ? completeIssue : null;
-		const result = issue ? issue?.issue : null;
+		const result = completeIssue?.issue ? completeIssue.issue! : null;
 		return result ?? ({} as CompleteIssue);
 	};
+
 	const isEmpty = () => {
 		return safelyIssue() && 'riskScore' in safelyIssue();
 	};
 
 	const handleIssueUpdate = useCallback(() => {
-		setNewIssue((current) => ({
+		dispatch((current) => ({
 			...current,
-			isAddingIssue: true,
 			issueName: issueNameUpdate,
 			score: safelyIssue().riskScore,
 			issueClass: safelyIssue()?.resourceClass,
 		}));
-		save().then((response) => {
-			navigate(`/issues`);
+		update().then((response: any) => {
+			setEditable(false);
+			//navigate(`/issues`);
 		});
-	}, [safelyIssue, save]);
+	}, [safelyIssue, update]);
 
 	const handleKeyDown = (event: any) => {
 		if (event.ctrlKey && (event.key === 's' || event.keyCode === 83)) {
 			event.preventDefault();
 			handleIssueUpdate();
 		}
-	};
-
-	const nameText = () => {
-		if (!issueNameUpdate) return safelyIssue().name;
-
-		const isNameUpdated = issueNameUpdate !== safelyIssue().name;
-		if (isNameUpdated) return issueNameUpdate;
-		return safelyIssue().name;
 	};
 
 	useEffect(() => {
@@ -86,13 +80,13 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 					</div>
 					<Show
 						when={isEditable}
-						fallback={<div className="name flex-1">{nameText()}</div>}>
+						fallback={
+							<div className="name flex-1">{issueNameUpdate}</div>
+						}>
 						<input
 							type="string"
 							className="flex-1"
-							value={
-								issueNameUpdate ? issueNameUpdate : safelyIssue().name
-							}
+							value={issueNameUpdate}
 							onChange={(e) => setIssueNameUpdate(e.target.value)}
 						/>
 					</Show>
@@ -135,11 +129,11 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 				<div className="">
 					<AppEditor
 						isEditable={isEditable}
-						initialValue={safelyIssue().name ?? ''}
-						isIssueCreation={newIssue.isAddingIssue}
+						initialValue={safelyIssue() ?? ''}
+						isIssueCreation={updatedIssue.isAddingIssue}
 					/>
 				</div>
-				<Show when={newIssue.isAddingIssue}>
+				<Show when={updatedIssue.isAddingIssue}>
 					<PageLoaderOverlay />
 				</Show>
 			</>

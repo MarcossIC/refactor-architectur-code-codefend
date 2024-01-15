@@ -4,12 +4,14 @@ import { PageLoader } from "../../../../../views/components";
 import SettingCollaboratorAndTeam from "./components/SettingCollaboratorAndTeam";
 import SettingCompanyInformation from "./components/SettingCompanyInformation";
 import SettingOrderAndBilling from "./components/SettingOrderAndBilling";
+import '../../../../styles/flag.scss';
+import '../../../../styles/table.scss';
 //import SettingPersonalDetails from "./components/SettingPersonaDetails";
-
 
 const PreferencePanel = () => {
   const [showScreen, setShowScreen] = useState(false);
   const {loading, data} = usePreferences()
+  
 
   const preferencesInfoData = () => {
     const preferencesData = loading ? [] : data;

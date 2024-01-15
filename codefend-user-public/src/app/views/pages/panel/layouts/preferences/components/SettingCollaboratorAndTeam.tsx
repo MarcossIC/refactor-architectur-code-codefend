@@ -1,9 +1,10 @@
 import { EmptyCard, PageLoader } from '../../../../../components';
+import { CompanyInfo, Member } from '../../../../../../data';
 import React from 'react';
 
 interface CollaboratorDataProps {
 	isLoading: boolean;
-	members: any[];
+	members: CompanyInfo[]; 
 }
 
 const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
@@ -37,15 +38,15 @@ const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
 
 				<div className="rows">
 					{!props.isLoading ? (
-						props.members.map((member: any) => (
+						props.members.map((member: CompanyInfo) => (
 							<div key={member.id} className="item">
 								<div className="id">{member.id}</div>
-								<div className="full-name">{`${member.fname} ${member.lname}`}</div>
-								<div className="email">{member.email}</div>
+								<div className="full-name">{`${member.owner_fname} ${member.owner_lname}`}</div>
+								<div className="email">{member.owner_email}</div>
 								<div className="phone">
-									{member.phone ? `+${member.phone}` : '-'}
+									{member.owner_phone ? `+${member.owner_phone}` : '-'}
 								</div>
-								<div className="role">{member.role}</div>
+								<div className="role">{member.owner_role}</div>
 							</div>
 						))
 					) : (

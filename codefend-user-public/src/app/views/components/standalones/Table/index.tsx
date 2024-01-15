@@ -1,5 +1,4 @@
-import React, { Fragment, useMemo, useState } from 'react';
-import { For } from 'million/react';
+import React, { useMemo, useState } from 'react';
 import { generateIDArray } from '../../../../data';
 import { Show } from '..';
 import './table.module.scss';

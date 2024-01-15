@@ -1,6 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { For } from 'million/react';
 import { CircleIcon, SimpleSection } from '../../../../../components';
 import { CompanyResource, generateIDArray } from '../../../../../../data';
 

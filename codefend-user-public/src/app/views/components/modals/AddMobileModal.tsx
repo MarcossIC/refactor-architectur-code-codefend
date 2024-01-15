@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { MobileService, useAuthState, useModal } from '../../../data';
 import { toast } from 'react-toastify';
-import { ButtonLoader, GlobeWebIcon } from '..';
+import { ButtonLoader, GlobeWebIcon, SecondaryButton, Show } from '..';
 
 interface Props {
 	onDone: () => void;
@@ -97,21 +97,19 @@ const AddMobileModal: React.FC<Props> = (props) => {
 						/>
 					</div>
 					<div className="form-buttons">
-						<button
-							type="button"
-							disabled={isAddingMobile}
-							onClick={() => {
-								props.close();
-							}}
-							className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
-							Cancel
-						</button>
+						<SecondaryButton
+							text={'Cancel'}
+							click={(e: React.FormEvent) => props.close?.()}
+							isDisabled={isAddingMobile}
+						/>
 						<button
 							type="submit"
 							disabled={isAddingMobile}
 							onClick={handleSubmit}
 							className="log-inputs btn btn-primary btn-add codefend_main_ac">
-							{isAddingMobile && <ButtonLoader />}
+							<Show when={isAddingMobile}>
+								<ButtonLoader />
+							</Show>
 							Add mobile app
 						</button>
 					</div>

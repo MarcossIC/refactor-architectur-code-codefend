@@ -1,6 +1,6 @@
 import React from 'react';
 import { ModalWrapper } from '.';
-import { ErrorIcon } from '..';
+import { ErrorIcon, SecondaryButton } from '..';
 
 const ErrorConection: React.FC<{ closeModal: () => void }> = (props) => {
 	return (
@@ -34,14 +34,13 @@ const ErrorConection: React.FC<{ closeModal: () => void }> = (props) => {
 						We apologize for any inconvenience this may have caused.
 					</p>
 					<div className="error-buttons ">
-						<button
-							onClick={() => {
+						<SecondaryButton
+							text="Try again"
+							click={(e: any) => {
 								props.closeModal();
 								window.location.reload();
 							}}
-							className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
-							Try again
-						</button>
+						/>
 						<button className="log-inputs btn btn-primary btn-add codefend_main_ac">
 							email offline@codefend.com
 						</button>

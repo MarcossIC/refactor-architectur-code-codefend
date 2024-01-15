@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { GlobeWebIcon, ButtonLoader } from '../';
+import { GlobeWebIcon, ButtonLoader, SecondaryButton, Show } from '../';
 import { toast } from 'react-toastify';
 import { useAuthState, User, WebApplicationService } from '../../../data';
 
@@ -85,20 +85,20 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 				</div>
 
 				<div className="form-buttons">
-					<button
-						type="button"
-						disabled={isAddingDomain}
-						onClick={() => props.close?.()}
-						className="log-inputs codefend_secondary_ac btn btn-secondary btn-cancel">
-						Cancel
-					</button>
+					<SecondaryButton
+						text="Cancel"
+						click={(e: any) => props.close?.()}
+						isDisabled={isAddingDomain}
+					/>
 
 					<button
 						type="submit"
 						disabled={isAddingDomain}
 						onClick={handleSubmit}
 						className="log-inputs codefend_main_ac btn btn-primary btn-add">
-						{isAddingDomain && <ButtonLoader />}
+						<Show when={isAddingDomain}>
+							<ButtonLoader />
+						</Show>
 						Add web resource
 					</button>
 				</div>

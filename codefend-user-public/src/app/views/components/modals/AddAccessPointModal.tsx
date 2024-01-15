@@ -2,7 +2,7 @@ import { useAuthState, useModal } from '../../../data';
 import { LanApplicationService } from '../../../data/services/lan.service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { ButtonLoader, GlobeWebIcon } from '..';
+import { ButtonLoader, GlobeWebIcon, SecondaryButton, Show } from '..';
 
 interface NetworkData {
 	domainName: string;
@@ -210,19 +210,17 @@ export const AcessPointModal: React.FC<{
 						/>
 					</div>
 					<div className="form-buttons">
-						<button
-							type="button"
-							onClick={() => {
-								props.close();
-							}}
-							className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
-							cancel
-						</button>
+						<SecondaryButton
+							text={'Cancel'}
+							click={(e: React.FormEvent) => props.close()}
+						/>
 						<button
 							type="submit"
 							onClick={handleSubmit}
 							className="log-inputs btn btn-primary btn-add codefend_main_ac">
-							{isAddingInternalNetwork && <ButtonLoader />}
+							<Show when={isAddingInternalNetwork}>
+								<ButtonLoader />
+							</Show>
 							add access point
 						</button>
 					</div>

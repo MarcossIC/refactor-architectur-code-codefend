@@ -12,7 +12,6 @@ export const WebApplicationStatics: React.FC<WebResourceStaticProps> = ({
 }) => {
 	const getResources = () => {
 		const resources = isLoading ? [] : webResources;
-
 		return resources ?? [];
 	};
 

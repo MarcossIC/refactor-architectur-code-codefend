@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import million from 'million/compiler';
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-	plugins: [million.vite({ auto: true }), react()],
+	plugins: [react()],
 
 	// Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
 	// prevent vite from obscuring rust errors

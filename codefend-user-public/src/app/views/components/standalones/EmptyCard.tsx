@@ -5,7 +5,7 @@ interface EmptyCardProps {
 	info?: string;
 }
 
-const EmptyCard: React.FC<EmptyCardProps> = ({ title, info }) => {
+const EmptyCard = ({ title, info }: EmptyCardProps) => {
 	title = title ?? "There's no data to display here.";
 	info =
 		info ??
@@ -32,7 +32,6 @@ const EmptyCard: React.FC<EmptyCardProps> = ({ title, info }) => {
 								href="mailto:cs@codefend.com"
 								rel="noopener noreferrer"
 								target="_blank">
-								{' '}
 								Send email.
 							</a>
 						</p>

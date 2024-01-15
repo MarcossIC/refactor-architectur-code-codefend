@@ -1,44 +1,41 @@
 import React, { ReactNode } from 'react';
-import { ModalWrapper, StatIcon } from '..';
+import { ModalWrapper, Show, StatIcon } from '..';
 
 interface ModalTitleWrapperProps {
-	children: ReactNode;
+	children: JSX.Element;
 	headerTitle: string;
 	isActive: boolean;
 	close: () => void;
 }
 
-const ModalTitleWrapper: React.FC<ModalTitleWrapperProps> = ({
+// million-ignore
+const ModalTitleWrapper = ({
 	children,
 	headerTitle,
 	isActive,
 	close,
-}) => {
+}: ModalTitleWrapperProps) => {
 	return (
 		<>
-			{isActive ? (
-				<>
-					<ModalWrapper action={close}>
-						<div
-							className="modal-wrapper-title internal-tables disable-border"
-							onClick={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-							}}>
-							<div className="modal-header">
-								<div className="icon">
-									<StatIcon />
-								</div>
-								{headerTitle}
+			<Show when={isActive}>
+				<ModalWrapper action={close}>
+					<div
+						className="modal-wrapper-title internal-tables disable-border"
+						onClick={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+						}}>
+						<div className="modal-header">
+							<div className="icon">
+								<StatIcon />
 							</div>
-							{children}
-							<div className="modal-helper-box text-format"></div>
+							{headerTitle}
 						</div>
-					</ModalWrapper>
-				</>
-			) : (
-				<></>
-			)}
+						{children}
+						<div className="modal-helper-box text-format"></div>
+					</div>
+				</ModalWrapper>
+			</Show>
 		</>
 	);
 };

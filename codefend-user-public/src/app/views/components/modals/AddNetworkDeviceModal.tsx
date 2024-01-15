@@ -3,7 +3,7 @@ import { LanApplicationService } from '../../../data/services/lan.service';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import { ButtonLoader, GlobeWebIcon } from '..';
+import { ButtonLoader, GlobeWebIcon, SecondaryButton, Show } from '..';
 
 interface NetworkDeviceModalProps {
 	close: () => void;
@@ -31,7 +31,7 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 	const companyID = getUserdata()?.companyID;
 
 	const navigate = useNavigate();
-	const {setShowModal, showModal} = useModal()
+	const { setShowModal, showModal } = useModal();
 
 	const {
 		mainDomainId,
@@ -172,19 +172,17 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 							placeholder="external IP"></input>
 					</div>
 					<div className="form-buttons">
-						<button
-							type="button"
-							onClick={() => {
-								props.close();
-							}}
-							className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
-							Cancel
-						</button>
+						<SecondaryButton
+							text={'Cancel'}
+							click={(e: React.FormEvent) => props.close?.()}
+						/>
 						<button
 							type="submit"
 							onClick={handleSubmit}
 							className="log-inputs btn btn-primary btn-add codefend_main_ac">
-							{isAddingInternalNetwork && <ButtonLoader />}
+							<Show when={isAddingInternalNetwork}>
+								<ButtonLoader />
+							</Show>
 							Add access point
 						</button>
 					</div>

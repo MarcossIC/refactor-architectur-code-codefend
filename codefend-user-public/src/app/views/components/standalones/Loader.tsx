@@ -9,11 +9,11 @@ const Spinner: React.FC<{ icon: string }> = ({ icon }) => (
 	<aside className={`spinner ${icon}`}></aside>
 );
 
-export const ButtonLoader: React.FC = () => {
+export const ButtonLoader = () => {
 	return <div className="button-loader"></div>;
 };
 
-export const Loader: React.FC = () => {
+export const Loader = () => {
 	return (
 		<div className="loader loader-screen">
 			<Spinner icon="icon" />
@@ -21,7 +21,7 @@ export const Loader: React.FC = () => {
 	);
 };
 
-export const PageLoader: React.FC = () => {
+export const PageLoader = () => {
 	return (
 		<div className="loader loader-full">
 			<Spinner icon="small-icon" />
@@ -29,7 +29,7 @@ export const PageLoader: React.FC = () => {
 	);
 };
 
-export const PageLoaderWhite: React.FC = () => {
+export const PageLoaderWhite = () => {
 	return (
 		<div className="loader loader-full">
 			<Spinner icon="icon" />
@@ -37,7 +37,7 @@ export const PageLoaderWhite: React.FC = () => {
 	);
 };
 
-export const PageLoaderOverlay: React.FC = () => {
+export const PageLoaderOverlay = () => {
 	return (
 		<div className="loader loader-full overlay">
 			<Spinner icon="small-icon" />

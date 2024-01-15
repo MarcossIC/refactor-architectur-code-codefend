@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../data/redux/slices/auth.slice';
 import { User, clearAuth, useAppSelector, useAuthState } from '../../../data';
-import { LogoutIcon } from '..';
+import { LogoutIcon, Show } from '..';
 import '../../styles/navbar.scss';
 
 const Logo = lazy(() => import('./Logo'));
@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
 	return (
 		<>
 			<nav className="navbar">
-				{logoutModal ? (
+				<Show when={logoutModal}>
 					<div
 						onClick={() => {
 							setLogoutModal(false);
@@ -76,9 +76,7 @@ const Navbar: React.FC = () => {
 							<NavbarLogoutConfirm closed={updateModal} />
 						</div>
 					</div>
-				) : (
-					<></>
-				)}
+				</Show>
 				<div className="navbar-logo">
 					<Link to="/">
 						<span className="navbar-logo-container">

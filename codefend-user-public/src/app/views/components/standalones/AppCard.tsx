@@ -1,6 +1,6 @@
 import React from 'react';
 import { defaultMobileCloudResourceAsset, useAppCard } from '../../../data';
-import { CloseIcon, ConfirmModal, ModalWrapper } from '..';
+import { CloseIcon, ConfirmModal, ModalWrapper, Show } from '..';
 
 interface MobileAppCardProps {
 	isActive?: boolean;
@@ -51,40 +51,33 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 
 	return (
 		<>
-			{showModal && showModalStr === 'delete_confirmation' ? (
-				<>
-					<ModalWrapper
-						action={() => {
-							viewModal(false);
+			<Show when={showModal}>
+				<ModalWrapper
+					action={() => {
+						viewModal(false);
+					}}>
+					<div
+						className="web-modal-wrapper internal-tables disable-border"
+						onClick={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
 						}}>
-						<div
-							className="web-modal-wrapper internal-tables disable-border"
-							onClick={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-							}}>
-							<ConfirmModal
-								header={`Are you sure you want to delete "${name}" ?`}
-								cancelText="Cancel"
-								confirmText="Delete"
-								close={() => {
-									viewModal(false);
-								}}
-								action={() => {
-									handleDelete(id).finally(() => onDone?.(id));
-								}}
-							/>
-						</div>
-					</ModalWrapper>
-				</>
-			) : (
-				<></>
-			)}
+						<ConfirmModal
+							header={`Are you sure you want to delete "${name}" ?`}
+							cancelText="Cancel"
+							confirmText="Delete"
+							close={() => viewModal(false)}
+							action={() => handleDelete(id).finally(() => onDone?.(id))}
+						/>
+					</div>
+				</ModalWrapper>
+			</Show>
+
 			<div
 				className={`app-card ${!isDetails ? 'app-card-border' : 'pt-5'} ${
 					isActive && 'active'
 				}`}>
-				{!isDetails && (
+				<Show when={!isDetails}>
 					<button
 						className="app-delete-btn"
 						title={
@@ -97,16 +90,18 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 						}}>
 						<CloseIcon />
 					</button>
-				)}
+				</Show>
 
 				<div className="app-card-content">
 					<div className="app-card-content-img">
-						{isImage ? (
-							<img
-								src={`data:image/png;base64,${appMedia}`}
-								alt="mobile-image"
-							/>
-						) : (
+						<Show
+							when={!isImage}
+							fallback={
+								<img
+									src={`data:image/png;base64,${appMedia}`}
+									alt="mobile-image"
+								/>
+							}>
 							<img
 								src={
 									Array.from(defaultMobileCloudResourceAsset).includes(
@@ -125,30 +120,30 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 								}
 								alt="mobile-image"
 							/>
-						)}
+						</Show>
 					</div>
 					<div className="app-card-content-body">
 						<div className="app-card-title">
 							<h3 className={`${isDetails ? 'red' : 'black'}`}>
 								{isMainGoogleNetwork ? 'main google network' : name}
 							</h3>
-							{isDetails && !isMobileType ? (
+							<Show when={isDetails && !isMobileType}>
 								<span className="second-text black">
 									resource id: {id}
 								</span>
-							) : (
-								<></>
-							)}
+							</Show>
 						</div>
 						<div className="app-details text-gray">
-							{isMainGoogleNetwork ? (
-								<>
-									<span>
-										This is our main GCP network. Please handle with
-										care.
-									</span>
-								</>
-							) : (
+							<Show
+								when={!isMainGoogleNetwork}
+								fallback={
+									<>
+										<span>
+											This is our main GCP network. Please handle
+											with care.
+										</span>
+									</>
+								}>
 								<>
 									<p
 										className={`app-details-description ${
@@ -180,7 +175,7 @@ export const AppCard: React.FC<MobileAppCardProps> = ({
 										</>
 									)}
 								</>
-							)}
+							</Show>
 						</div>
 					</div>
 				</div>

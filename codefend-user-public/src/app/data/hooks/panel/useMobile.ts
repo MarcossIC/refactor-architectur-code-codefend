@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import {
 	MobileApp,
 	MobileProps,
@@ -11,36 +11,63 @@ import {
 import { toast } from 'react-toastify';
 import { FetchPattern } from 'app/data/interfaces/util';
 
+export const useSelectedMobile = () => {
+	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp | null>(
+		null,
+	);
+
+	const isCurrentMobileSelected = (id: string) => {
+		let idSelected = selectedMobileApp ? selectedMobileApp?.id : '';
+		return id === idSelected;
+	};
+
+	const isNotNull = () =>
+		selectedMobileApp !== null && selectedMobileApp !== undefined;
+
+	const changeMobile = (mobile: MobileApp) => {
+		if (mobile && !isCurrentMobileSelected(mobile.id)) {
+			setSelectedMobileApp(mobile);
+		}
+	};
+
+	useEffect(() => {
+		console.log({ selectedMobileApp });
+	}, [selectedMobileApp]);
+
+	return {
+		isNotNull,
+		isCurrentMobileSelected,
+		changeMobile,
+		selectedMobileApp,
+		setSelectedMobileApp,
+	};
+};
+
 export const useMobile = () => {
 	const { getUserdata } = useAuthState();
 
-	const [isLoading, setLoading] = useState(false);
-
-	const [mobileInfo, setCompanyMobileData] = useState<MobileProps>({
-		error: '',
-		available: [],
-	} as MobileProps);
-	/*const [{ data, error, isLoading }, dispatch] = useState<
+	const [{ data, error, isLoading }, dispatch] = useState<
 		FetchPattern<MobileProps>
 	>({
 		data: null,
 		error: null,
 		isLoading: false,
-	});*/
-
-	const [selectedMobileApp, setSelectedMobileApp] = useState<MobileApp | null>(
-		null,
-	);
+	});
 
 	const fetchWeb = useCallback((companyID: string) => {
-		setLoading(true);
+		dispatch((state: any) => ({
+			...state,
+			isLoading: true,
+		}));
 		MobileService.getAll(companyID)
-			.then((response: any) => {
-				setCompanyMobileData(mapMobileProps(response));
-			})
-			.finally(() => {
-				setLoading(false);
-			});
+			.then((response: any) =>
+				dispatch({
+					data: mapMobileProps(response),
+					error: null,
+					isLoading: false,
+				}),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
 	}, []);
 
 	const refetch = () => {
@@ -53,39 +80,14 @@ export const useMobile = () => {
 	};
 
 	const getMobileInfo = (): MobileApp[] => {
-		return isLoading
-			? ([] as MobileApp[])
-			: (mobileInfo?.available as MobileApp[]);
-	};
-
-	const selectMobile = (mobile: MobileApp) => {
-		if (mobile.id === selectedMobileApp?.id) return;
-		setSelectedMobileApp(mobile);
-	};
-
-	const isCurrentMobileSelected = (id: string) => {
-		return id === selectedMobileApp?.id;
-	};
-
-	const isSelected = useMemo(
-		() => selectedMobileApp !== null && selectedMobileApp !== undefined,
-		[selectedMobileApp],
-	);
-	const changeMobile = (mobile: MobileApp) => {
-		if (isSelected && !isCurrentMobileSelected(mobile.id)) {
-			selectMobile(mobile);
-		}
+		const _data = !isLoading ? data?.available : [];
+		return _data ?? ([] as MobileApp[]);
 	};
 
 	return {
 		isLoading,
 		getMobileInfo,
-		selectedMobileApp,
-		isCurrentMobileSelected,
-		changeMobile,
-		isSelected,
 		refetch,
-		selectMobile,
 	};
 };
 

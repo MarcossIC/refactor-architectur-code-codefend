@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import { User, useAuthState } from '../../../data';
 
-import { ButtonLoader, GlobeWebIcon } from '..';
+import { ButtonLoader, GlobeWebIcon, Show } from '..';
 
 interface CloudQuickActionProps {
 	onDone: () => void;
@@ -81,7 +81,9 @@ export const CloudQuickAction: React.FC<CloudQuickActionProps> = (props) => {
 							disabled={isAddingDomain}
 							type="button"
 							className="log-inputs add-btn bg-codefend codefend_main_ac">
-							{isAddingDomain && <ButtonLoader />}
+							<Show when={isAddingDomain}>
+								<ButtonLoader />
+							</Show>
 							add action
 						</button>
 					</div>

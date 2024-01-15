@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonLoader, GlobeWebIcon } from '..';
+import { ButtonLoader, GlobeWebIcon, SecondaryButton, Show } from '..';
 import { toast } from 'react-toastify';
 
 interface AddRepositoryModalProps {
@@ -155,19 +155,20 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 					</div>
 
 					<div className="form-buttons">
-						<button
-							disabled={sourceCodeForm.isLoading}
-							type="button"
-							onClick={() => props.close()}
-							className="log-inputs codefend_secondary_ac btn btn-secondary btn-cancel">
-							Cancel
-						</button>
+						<SecondaryButton
+							text={'Cancel'}
+							isDisabled={sourceCodeForm.isLoading}
+							click={(e: React.FormEvent) => props.close?.()}
+						/>
+
 						<button
 							type="submit"
 							disabled={sourceCodeForm.isLoading}
 							onClick={handleSubmit}
 							className="log-inputs codefend_main_ac btn btn-primary btn-add">
-							{sourceCodeForm.isLoading && <ButtonLoader />}
+							<Show when={sourceCodeForm.isLoading}>
+								<ButtonLoader />
+							</Show>
 							Add repository
 						</button>
 					</div>

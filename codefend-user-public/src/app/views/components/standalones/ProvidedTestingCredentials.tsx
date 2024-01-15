@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 
-import { ModalWrapper, ChartIcon, EmptyCard } from '..';
+import { ModalWrapper, ChartIcon, EmptyCard, SimpleSection, Show } from '..';
 import { CloudQuickAction } from './CloudQuickAction';
 
 import { TestingCredentialCard } from './TestingCredentialCard';
@@ -43,37 +43,29 @@ export const ProvidedTestingCredentials: React.FC<
 			)}
 
 			<div className="card user-list">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							<ChartIcon />
-						</div>
-						<span>provided testing credentials</span>
+				<SimpleSection
+					header="provided testing credentials"
+					icon={<ChartIcon />}>
+					<div className="list">
+						<Show
+							when={!props.isLoading && props.credentials.length !== 0}>
+							{props.credentials.map((cred: any, index: number) => (
+								<Fragment key={credentialKey[index]}>
+									<TestingCredentialCard
+										{...cred}
+										hideBorderBottom={
+											props.credentials.legth - 1 === index
+										}
+									/>
+								</Fragment>
+							))}
+						</Show>
 					</div>
-				</div>
-
-				<div className="list">
-					{!props.isLoading && props.credentials.length !== 0 ? (
-						props.credentials.map((cred: any, index: number) => (
-							<Fragment key={credentialKey[index]}>
-								<TestingCredentialCard
-									{...cred}
-									hideBorderBottom={
-										props.credentials.legth - 1 === index
-									}
-								/>
-							</Fragment>
-						))
-					) : (
-						<></>
-					)}
-				</div>
+				</SimpleSection>
 			</div>
-			{!props.isLoading && props.credentials.length === 0 ? (
+			<Show when={!props.isLoading && props.credentials.length === 0}>
 				<EmptyCard />
-			) : (
-				<></>
-			)}
+			</Show>
 		</>
 	);
 };

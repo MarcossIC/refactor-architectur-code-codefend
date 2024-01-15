@@ -1,8 +1,8 @@
-import { useAppSelector, useAuthState, useModal } from '../../../data';
+import { useAuthState } from '../../../data';
 import { SocialAplicationService } from '../../../data/services/social.service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { ButtonLoader, GlobeWebIcon } from '..';
+import { ButtonLoader, GlobeWebIcon, Show } from '..';
 
 interface SocialData {
 	fName: string;
@@ -231,7 +231,9 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 							disabled={isAddingMember}
 							onClick={handleSubmit}
 							className="log-inputs codefend_main_ac btn btn-primary btn-add">
-							{isAddingMember && <ButtonLoader />}
+							<Show when={isAddingMember}>
+								<ButtonLoader />
+							</Show>
 							Add repository
 						</button>
 					</div>

@@ -1,6 +1,8 @@
-import React, { useMemo, useState } from 'react';
-import './table.module.scss';
+import React, { Fragment, useMemo, useState } from 'react';
+import { For } from 'million/react';
 import { generateIDArray } from '../../../../data';
+import { Show } from '..';
+import './table.module.scss';
 
 enum Sort {
 	asc = 'asc',
@@ -12,6 +14,7 @@ interface TableProps {
 	columns: string[];
 }
 
+// million-ignore
 export const Table: React.FC<TableProps> = ({ data, columns }) => {
 	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
 	const [dataSort, setDataSort] = useState<string>(columns[0]);
@@ -62,19 +65,27 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 				<table>
 					<thead>
 						<tr>
-							{columns.map((keyTable: string, index: number) => (
+							{columns.map((keyTable: string, i: number) => (
 								<th
 									scope="col"
-									key={columnsID[index]}
-									id={'a' + columnsID[index]}
+									key={columnsID[i]}
+									id={'a' + columnsID[i]}
 									onClick={() => handleSort(keyTable)}>
-									{keyTable}{' '}
-									{dataSort === keyTable &&
-										sortDirection === Sort.asc &&
-										'↑'}{' '}
-									{dataSort === keyTable &&
-										sortDirection === Sort.desc &&
-										'↓'}
+									{`${keyTable} `}
+									<Show
+										when={
+											dataSort === keyTable &&
+											sortDirection === Sort.asc
+										}>
+										<>{'↑'}</>
+									</Show>
+									<Show
+										when={
+											dataSort === keyTable &&
+											sortDirection === Sort.asc
+										}>
+										<>{'↓'}</>
+									</Show>
 								</th>
 							))}
 						</tr>

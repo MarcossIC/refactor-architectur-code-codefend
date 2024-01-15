@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 import {
 	AddDomainModal,
 	AddSubDomainModal,
-	DeletewebResource,
 	GlobeWebIcon,
 	EmptyCard,
 	PageLoader,
@@ -11,6 +10,7 @@ import {
 	StatIcon,
 	ModalTitleWrapper,
 	ConfirmModal,
+	Show,
 } from '../../../../../components';
 import {
 	Resouce,
@@ -136,8 +136,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 					<div className="province">province, city</div>
 					<div className="id">actions</div>
 				</div>
-
-				{!props.isLoading ? (
+				<Show when={!props.isLoading} fallback={<PageLoader />}>
 					<div className="rows">
 						{getResources()
 							.reverse()
@@ -214,19 +213,10 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 								</Fragment>
 							))}
 					</div>
-				) : (
-					<>
-						<PageLoader />
-					</>
-				)}
-
-				{!props.isLoading && getResources().length === 0 ? (
-					<>
-						<EmptyCard />
-					</>
-				) : (
-					<></>
-				)}
+				</Show>
+				<Show when={!props.isLoading && getResources().length === 0}>
+					<EmptyCard />
+				</Show>
 			</div>
 		</>
 	);

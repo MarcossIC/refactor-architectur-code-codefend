@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
 
+// million-ignore
 interface ModalWrapper {
-	children: ReactNode;
+	children: JSX.Element;
 	isErrorBox?: boolean;
 	action?: () => void;
 }

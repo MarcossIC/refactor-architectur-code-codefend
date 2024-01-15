@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { ButtonLoader } from '..';
+import { ButtonLoader, Show } from '..';
 
-interface Props {
+interface ConfirmModalProps {
 	close: () => void;
 	action: () => void;
 
@@ -10,22 +10,20 @@ interface Props {
 	cancelText: string;
 }
 
-const ConfirmModal: React.FC<Props> = (props) => {
-	const [isConfirm, setConfirm] = useState(false);
+// million-ignore
+const ConfirmModal = (props: ConfirmModalProps) => {
+	const [isConfirm, setConfirm] = useState<boolean>(false);
 
 	const handleSubmit = useCallback(
-		(e: React.FormEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
+		(e: any) => {
 			setConfirm(true);
 			props.action();
 		},
 		[props.action],
 	);
 	const handleClose = useCallback(
-		(e: React.FormEvent) => {
-			e.preventDefault();
-			e.stopPropagation();
+		(e: any) => {
+			console.log('algo ?');
 			props.close();
 		},
 		[props.close],
@@ -52,7 +50,9 @@ const ConfirmModal: React.FC<Props> = (props) => {
 						disabled={isConfirm}
 						onClick={handleSubmit}
 						className="log-inputs btn btn-primary btn-add codefend_main_ac">
-						{isConfirm && <ButtonLoader />}
+						<Show when={isConfirm}>
+							<ButtonLoader />
+						</Show>
 						{props.confirmText}
 					</button>
 				</div>

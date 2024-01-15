@@ -3,6 +3,8 @@ import {
 	BugIcon,
 	EmptyCard,
 	PageLoader,
+	Show,
+	SimpleSection,
 	Table,
 } from '../../../../../components';
 import { Issues } from '../../../../../../data';
@@ -53,32 +55,22 @@ const DashboardVulnerabilities: React.FC<{
 				}) as TopVulnerability,
 		);
 	}, [topVulnerabilities]);
-	console.log('vul:', { dataTable });
 
 	return (
 		<div className="card">
 			<div>
-				{!isLoading ? (
-					<>
-						<div className="header">
-							<div className="title">
-								<div className="icon">
-									<BugIcon />
-								</div>
-								<span>Top priority vulnerabilities</span>
-							</div>
-						</div>
+				<SimpleSection
+					header="Top priority vulnerabilities"
+					icon={<BugIcon />}>
+					<Show when={!isLoading} fallback={<PageLoader />}>
 						<div className="table-wrapper">
 							<Table data={dataTable} columns={keys} />
 						</div>
-					</>
-				) : (
-					<>
-						<PageLoader />
-					</>
-				)}
-
-				{!isLoading && topVulnerabilities.length === 0 && <EmptyCard />}
+					</Show>
+				</SimpleSection>
+				<Show when={!isLoading && topVulnerabilities.length === 0}>
+					<EmptyCard />
+				</Show>
 			</div>
 		</div>
 	);

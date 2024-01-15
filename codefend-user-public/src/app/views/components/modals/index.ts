@@ -4,6 +4,5 @@ export * from './AddMobileModal';
 export * from './AddNetworkDeviceModal';
 export { default as AddSubDomainModal } from './AddSubDomainModal';
 export { default as ConfirmModal } from './ConfirmModal';
-export * from './DeleteWebResource';
 export { default as ModalTitleWrapper } from './ModalTitleWrapper';
 export { default as ModalWrapper } from './ModalWrapper';

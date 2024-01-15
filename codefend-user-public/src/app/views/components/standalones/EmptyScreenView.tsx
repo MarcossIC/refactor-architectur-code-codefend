@@ -7,12 +7,12 @@ interface EmptyScreenProps {
 	event?: () => void;
 }
 
-const EmptyScreenView: React.FC<EmptyScreenProps> = ({
+const EmptyScreenView = ({
 	title,
 	info,
 	buttonText,
 	event,
-}) => {
+}: EmptyScreenProps) => {
 	return (
 		<div className="empty-screen empty-card">
 			<div className="empty-container">

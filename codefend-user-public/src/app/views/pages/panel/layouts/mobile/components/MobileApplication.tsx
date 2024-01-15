@@ -1,51 +1,71 @@
-import React, { useEffect, useMemo } from 'react';
+import React, {
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
 import { MobileSelectedDetails } from '../..';
-import { AppCard, EmptyScreenView } from '../../../../../components';
-import { MobileApp, generateIDArray, useMobile } from '../../../../../../data';
+import { AppCard, EmptyScreenView, Show } from '../../../../../components';
+import {
+	MobileApp,
+	generateIDArray,
+	useSelectedMobile,
+} from '../../../../../../data';
+import SelectedMobile from '../selectedContext';
 
 interface MobileApplicationProps {
 	openModal: () => void;
 	refresh: () => void;
+	mobileInfo: MobileApp[];
+	isLoading: boolean;
 }
 
 export const MobileApplication: React.FC<MobileApplicationProps> = ({
 	openModal,
 	refresh,
+	mobileInfo,
+	isLoading,
 }) => {
 	const {
-		getMobileInfo,
 		selectedMobileApp,
+		setSelectedMobileApp,
 		isCurrentMobileSelected,
 		changeMobile,
-		isSelected,
-		refetch,
-		selectMobile,
-	} = useMobile();
+		isNotNull,
+	} = useSelectedMobile();
 
+	const [update, dispath] = useState(false);
 	const mobileKeys = useMemo(() => {
-		const mobileInfo = getMobileInfo();
 		return mobileInfo ? generateIDArray(mobileInfo.length) : [];
-	}, [getMobileInfo]);
+	}, [mobileInfo]);
 
-	useEffect(() => refetch(), []);
+	const selectMobile = (mobile: MobileApp) => {
+		console.log('1  alo?');
+
+		if (isNotNull() && isCurrentMobileSelected(mobile.id)) return;
+		console.log('2   alo?');
+		setSelectedMobileApp(mobile);
+	};
+
 	useEffect(() => {
-		if (!isSelected && Boolean(getMobileInfo().length)) {
-			selectMobile(getMobileInfo()[0]);
+		if (selectedMobileApp === null) {
+			changeMobile(mobileInfo[0]);
 		}
-	}, [getMobileInfo()]);
+	}, [selectedMobileApp]);
 
 	return (
-		<>
-			{!Boolean(getMobileInfo().length) ? (
-				<>
+		<SelectedMobile.Provider value={selectedMobileApp}>
+			<Show
+				when={mobileInfo && mobileInfo.length !== 0}
+				fallback={
 					<EmptyScreenView
 						buttonText="Add Mobile"
 						title={"There's no data to display here"}
 						info={'Start by clicking on the button below'}
 						event={() => {}}
 					/>
-				</>
-			) : (
+				}>
 				<>
 					<section className="left">
 						<div className="add-button">
@@ -55,15 +75,21 @@ export const MobileApplication: React.FC<MobileApplicationProps> = ({
 						</div>
 
 						<div className="list">
-							{getMobileInfo().map((mobile: MobileApp, i: number) => (
+							{mobileInfo?.map((mobile: MobileApp, i: number) => (
 								<div
 									key={mobileKeys[i]}
 									className="app-info"
-									onClick={() => selectMobile(mobile)}>
+									onClick={(e: React.FormEvent) => {
+										e.preventDefault();
+										selectMobile(mobile);
+									}}>
 									<>
 										<AppCard
 											isActive={isCurrentMobileSelected(mobile.id)}
-											onDone={(id: string) => refresh()}
+											onDone={(id: string) => {
+												refresh();
+												dispath(!update);
+											}}
 											type={'mobile'}
 											id={mobile.id}
 											appMedia={mobile.appMedia}
@@ -80,16 +106,12 @@ export const MobileApplication: React.FC<MobileApplicationProps> = ({
 					</section>
 
 					<section className="right">
-						{isSelected && (
-							<>
-								<MobileSelectedDetails
-									selectedMobileApp={selectedMobileApp!}
-								/>
-							</>
-						)}
+						<Show when={isNotNull()}>
+							<MobileSelectedDetails />
+						</Show>
 					</section>
 				</>
-			)}
-		</>
+			</Show>
+		</SelectedMobile.Provider>
 	);
 };

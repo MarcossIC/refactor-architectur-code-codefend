@@ -2,8 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchIcon } from '../../../../../components';
 
-
-const DashboardSearchbar: React.FC = () => {
+const DashboardSearchbar = () => {
 	const [searchValue, setSearchValue] = useState('');
 	const [searchClass, setSearchClass] = useState('');
 	const navigate = useNavigate();

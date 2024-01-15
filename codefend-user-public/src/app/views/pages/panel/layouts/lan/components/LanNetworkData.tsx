@@ -8,11 +8,8 @@ import {
 } from '../../../../../../data';
 import {
 	EmptyCard,
-	ModalWrapper,
 	PageLoader,
 	AddAccessPointModal,
-	AddNetworkDeviceModal,
-	DeletewebResource,
 	ModalTitleWrapper,
 	TrashIcon,
 	LanIcon,

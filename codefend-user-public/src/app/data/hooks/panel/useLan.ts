@@ -21,8 +21,8 @@ export const useLan = () => {
 		setLoading(true);
 
 		LanApplicationService.getAll(companyID)
-			.then((response: any) => {
-				setNetworks(response.disponibles);
+			.then((response: LanProps) => {
+				setNetworks(response.networks);
 				setInfo(response.info);
 				setError(response.error);
 			})

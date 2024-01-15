@@ -4,25 +4,16 @@ import {
 	PageLoader,
 } from '../../../../../../views/components';
 
-import { roleMap, useModal } from '../../../../../../data';
+import { Member, roleMap, useModal } from '../../../../../../data';
 import AddSocialModal from '../../../../../components/modals/AddSocialModal';
 
-interface Social {
-  id: string;
-  member_fname: string;
-  member_lname: string;
-  member_email: string;
-  member_phone: string;
-  member_role: string;
-}
-
-interface socialProps{
+interface SocialProps{
   refetch: () => void,
   isLoading: boolean,
-  socials: Social[];
+  socials: Member[];
 }
 
-const SocialEngineering = (props: socialProps) => {
+const SocialEngineering: React.FC<SocialProps> = (props) => {
 	const { showModal, setShowModal, setShowModalStr, showModalStr } =
 		useModal();
 
@@ -80,7 +71,7 @@ const SocialEngineering = (props: socialProps) => {
 						{props.socials
 							.slice()
 							.reverse()
-							.map((social: any) => (
+							.map((social: Member) => (
 								<div key={social.id} className="item">
 									<div className="id">{social.id}</div>
 									<div className="full-name">
@@ -88,9 +79,9 @@ const SocialEngineering = (props: socialProps) => {
 									</div>
 									<div className="email">{social.member_email}</div>
 									<div className="phone">{social.member_phone}</div>
-									<div className="role">
+							{/* 		<div className="role">
 										{mapRole(social.member_role)}
-									</div>
+									</div> */}
 								</div>
 							))}
 					</div>

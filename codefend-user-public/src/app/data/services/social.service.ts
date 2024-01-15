@@ -9,7 +9,7 @@ const getAll = async (companyID: string) => {
 				company_id: companyID,
 			},
 		});
-    console.log({ socialsInfo: data });
+    console.log({ socialInfo: data });
 		return data;
 	} catch (error) {
 		console.error('Error: ', error);

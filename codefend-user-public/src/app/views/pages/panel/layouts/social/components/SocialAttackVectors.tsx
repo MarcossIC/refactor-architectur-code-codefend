@@ -1,15 +1,25 @@
 import { defaultSocialAttackVectors } from '../../../../../../data';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface SocialAttackVectorsProps {
   defaultSocialAttackVectors?: Record<string, 'enabled' | 'disabled'>;
 }
 
 const SocialAttackVectors: React.FC<SocialAttackVectorsProps> = (props) => {
-  const attackVectors =
-    props.defaultSocialAttackVectors || defaultSocialAttackVectors;
+  const [attackVectorState, setAttackVectorState] = useState(
+    props.defaultSocialAttackVectors || defaultSocialAttackVectors
+  );
 
-	
+  const handleCheckboxChange = (attack: string) => {
+    setAttackVectorState((prevAttackVectors) => {
+      const updatedState = { ...prevAttackVectors };
+      updatedState[attack as keyof typeof updatedState] =
+        prevAttackVectors[attack as keyof typeof updatedState] === 'enabled'
+          ? 'disabled'
+          : 'enabled';
+      return updatedState;
+    });
+  };
 
   return (
     <>
@@ -21,18 +31,23 @@ const SocialAttackVectors: React.FC<SocialAttackVectorsProps> = (props) => {
           </div>
         </div>
         <div className="content filters">
-          {Object.keys(attackVectors).map((attack: string) => (
+          {Object.keys(attackVectorState).map((attack: string) => (
             <div className="filter" key={attack}>
               <div className="check">
                 <input
                   type="checkbox"
-                  checked={attackVectors[attack as keyof typeof attackVectors] === 'enabled'}
-                  className=" checkbox-color"
-									/* onChange={}  falta y hay que agregar esto*/
+                  checked={
+                    attackVectorState[attack as keyof typeof attackVectorState] ===
+                    'enabled'
+                  }
+                  className="checkbox-color"
+                  onChange={() => handleCheckboxChange(attack)}
                 />
                 <span>{attack}</span>
               </div>
-              <span>{attackVectors![attack as keyof typeof attackVectors]}</span>
+              <span>
+                {attackVectorState[attack as keyof typeof attackVectorState]}
+              </span>
             </div>
           ))}
         </div>

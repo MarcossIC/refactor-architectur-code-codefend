@@ -11,5 +11,6 @@ export const Show: React.FC<ShowProps> = ({ when, fallback, children }) => {
 		() => (when ? children : fallback ?? <></>),
 		[when, fallback],
 	);
+
 	return <>{content}</>;
 };

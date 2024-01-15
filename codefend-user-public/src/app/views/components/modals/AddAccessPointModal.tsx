@@ -116,7 +116,7 @@ export const AcessPointModal: React.FC<{
 
 	return (
 		<>
-			<div className="modal flex items-center justify-center p-3 text-format">
+			<div className="modal text-format">
 				<form className="flex flex-col gap-y-3">
 					<div className="form-input">
 						<span className="form-icon">

@@ -1,28 +1,29 @@
 import {
 	EmptyCard,
+	ModalTitleWrapper,
 	ModalWrapper,
 	PageLoader,
+	PeopleGroup,
+	Show,
 } from '../../../../../../views/components';
 
-import { roleMap, useModal } from '../../../../../../data';
+import {
+	Member,
+	MemberV2,
+	SuperMember,
+	roleMap,
+	useModal,
+} from '../../../../../../data';
 import AddSocialModal from '../../../../../components/modals/AddSocialModal';
+import { useMemo } from 'react';
 
-interface Social {
-  id: string;
-  member_fname: string;
-  member_lname: string;
-  member_email: string;
-  member_phone: string;
-  member_role: string;
+interface SocialProps {
+	refetch: () => void;
+	isLoading: boolean;
+	socials: MemberV2[];
 }
 
-interface socialProps{
-  refetch: () => void,
-  isLoading: boolean,
-  socials: Social[];
-}
-
-const SocialEngineering = (props: socialProps) => {
+const SocialEngineering: React.FC<SocialProps> = (props) => {
 	const { showModal, setShowModal, setShowModalStr, showModalStr } =
 		useModal();
 
@@ -31,29 +32,27 @@ const SocialEngineering = (props: socialProps) => {
 	const mapRole = (role: DepartmentMappingKey) =>
 		roleMap[role] || 'Unknown Role';
 
+	const safelyPreviousSearches = () =>
+		Array.isArray(props.socials) ? props.socials.slice().reverse() : [];
+
 	return (
 		<>
-			{showModal && showModalStr === 'add_member' && (
-				<ModalWrapper>
-					<div className="w-full w-96 internal-tables disable-border">
-						<div className="modal-header">
-							{/* <HiOutlineBars3BottomLeft className="text-lg mr-2 text-fend-red" /> */}
-							<span className="text-sm">Add a new member</span>
-						</div>
-						<AddSocialModal
-							onDone={() => {
-								props.refetch();
-							}}
-						/>
-						<div className="container flex items-center justify-center  mx-auto p-3 text-format"></div>
-					</div>
-				</ModalWrapper>
-			)}
+			<ModalTitleWrapper
+				isActive={showModal && showModalStr === 'add_member'}
+				close={() => setShowModal(false)}
+				headerTitle="Add a new member">
+				<AddSocialModal
+					onDone={() => props.refetch()}
+					close={() => setShowModal(false)}
+				/>
+			</ModalTitleWrapper>
 
 			<div className="card table flex-grow">
 				<div className="header">
 					<div className="title">
-						<div className="icon">{/* <FaSolidPeopleGroup /> */}</div>
+						<div className="icon">
+							<PeopleGroup />
+						</div>
 						<span>Social Engineering</span>
 					</div>
 					<div className="actions">
@@ -74,34 +73,27 @@ const SocialEngineering = (props: socialProps) => {
 					<div className="phone">phone</div>
 					<div className="role">role</div>
 				</div>
-
-				{!props.isLoading ? (
+				<Show when={!props.isLoading} fallback={<PageLoader />}>
 					<div className="rows">
-						{props.socials
-							.slice()
-							.reverse()
-							.map((social: any) => (
-								<div key={social.id} className="item">
-									<div className="id">{social.id}</div>
-									<div className="full-name">
-										{social.member_fname} {social.member_lname}
-									</div>
-									<div className="email">{social.member_email}</div>
-									<div className="phone">{social.member_phone}</div>
-									<div className="role">
-										{mapRole(social.member_role)}
-									</div>
+						{safelyPreviousSearches().map((social: MemberV2) => (
+							<div key={social.id} className="item">
+								<div className="id">{social.id}</div>
+								<div className="full-name">
+									{social.member_fname} {social.member_lname}
 								</div>
-							))}
+								<div className="email">{social.member_email}</div>
+								<div className="phone">{social.member_phone}</div>
+								{/* 		<div className="role">
+										{mapRole(social.member_role)}
+									</div> */}
+							</div>
+						))}
 					</div>
-				) : (
-					<PageLoader />
-				)}
+				</Show>
 			</div>
-
-			{!props.isLoading && props.socials.length === 0 ? (
+			<Show when={!props.isLoading && props.socials.length === 0}>
 				<EmptyCard />
-			) : null}
+			</Show>
 		</>
 	);
 };

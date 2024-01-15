@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
 	useAppSelector,
 	useModal,
 	LanApplicationService,
-	Network,
 	Device,
+	generateIDArray,
+	useAuthState,
 } from '../../../../../../data';
 import {
 	EmptyCard,
@@ -14,6 +15,7 @@ import {
 	TrashIcon,
 	LanIcon,
 	ConfirmModal,
+	Show,
 } from '../../../../../components';
 
 import { useNavigate } from 'react-router';
@@ -26,9 +28,9 @@ interface LanNetworkDataProps {
 }
 
 export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
-	const companiID = useAppSelector(
-		(state) => state.authState.userData?.companyID,
-	);
+	const { getUserdata } = useAuthState();
+	const companyID = getUserdata()?.companyID;
+
 	const { showModal, setShowModal, setShowModalStr, showModalStr } =
 		useModal();
 
@@ -37,12 +39,11 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 	>(null);
 
 	const [isDeletingLan, setIsDeletingLan] = useState<boolean>(false);
-
 	const navigate = useNavigate();
 
 	const handleDelete = () => {
 		setIsDeletingLan(true);
-		LanApplicationService.delete(selectedLanIdToDelete!, companiID!)
+		LanApplicationService.delete(selectedLanIdToDelete!, companyID!)
 			.then(() => {
 				navigate(0);
 				setShowModal(!showModal);
@@ -52,6 +53,12 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 				setIsDeletingLan(false);
 			});
 	};
+
+	const internalKeys = useMemo(() => {
+		return props.internalNetwork
+			? generateIDArray(props.internalNetwork.length)
+			: [];
+	}, [props.internalNetwork]);
 
 	return (
 		<>
@@ -128,11 +135,10 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 					<div className="hostname">hostname</div>
 					<div className="id">actions</div>
 				</div>
-
-				{!props.isLoading ? (
+				<Show when={!props.isLoading} fallback={<PageLoader />}>
 					<div className="rows">
-						{props.internalNetwork.map((network) => (
-							<React.Fragment key={network.id}>
+						{props.internalNetwork.map((network: Device, i: number) => (
+							<React.Fragment key={internalKeys[i]}>
 								<div className="item left-marked">
 									<div className="id">{network.id}</div>
 									<div className="ip">{network.device_in_address}</div>
@@ -152,7 +158,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 									</div>
 								</div>
 
-								{network.childs!.map((subNetwork) => (
+								{network.childs?.map((subNetwork: Device) => (
 									<div className="item" key={subNetwork.id}>
 										<div className="id">{subNetwork.id}</div>
 										<div className="ip lined">
@@ -194,13 +200,11 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 							</React.Fragment>
 						))}
 					</div>
-				) : (
-					<PageLoader />
-				)}
+				</Show>
 			</div>
-			{!props.isLoading && props.internalNetwork.length === 0 && (
+			<Show when={!props.isLoading && props.internalNetwork.length === 0}>
 				<EmptyCard />
-			)}
+			</Show>
 		</>
 	);
 };

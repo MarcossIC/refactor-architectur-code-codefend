@@ -1,9 +1,10 @@
-import { EmptyCard, PageLoader } from '../../../../../components';
+import { EmptyCard, PageLoader, Show } from '../../../../../components';
+import { Company, CompanyInfo, Member } from '../../../../../../data';
 import React from 'react';
 
 interface CollaboratorDataProps {
 	isLoading: boolean;
-	members: any[];
+	members: Company[];
 }
 
 const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
@@ -16,14 +17,7 @@ const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
 						<span>COLLABORATORS AND TEAM MEMBERS</span>
 					</div>
 					<div className="actions">
-						<div
-						// onClick={() => {
-						//   setShowModal(!showModal());
-						//   setShowModalStr("add_member");
-						// }}
-						>
-							ADD NEW MEMBER
-						</div>
+						<div>ADD NEW MEMBER</div>
 					</div>
 				</div>
 
@@ -36,24 +30,30 @@ const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
 				</div>
 
 				<div className="rows">
-					{!props.isLoading ? (
-						props.members.map((member: any) => (
-							<div key={member.id} className="item">
-								<div className="id">{member.id}</div>
-								<div className="full-name">{`${member.fname} ${member.lname}`}</div>
-								<div className="email">{member.email}</div>
-								<div className="phone">
-									{member.phone ? `+${member.phone}` : '-'}
+					<Show when={!props.isLoading} fallback={<PageLoader />}>
+						<>
+							{props.members.map((member: Company) => (
+								<div key={member.id} className="item">
+									<div className="id">{member.id}</div>
+									<div className="full-name">{`${member.ownerName} ${member.ownerLastname}`}</div>
+									<div className="email">{member.ownerName}</div>
+									<div className="phone">
+										<Show
+											when={Boolean(member.ownerPhone)}
+											fallback={<>-</>}>
+											<>+${member.ownerPhone}</>
+										</Show>
+									</div>
+									<div className="role">{member.ownerRole}</div>
 								</div>
-								<div className="role">{member.role}</div>
-							</div>
-						))
-					) : (
-						<PageLoader />
-					)}
+							))}
+						</>
+					</Show>
 				</div>
 			</div>
-			{!props.isLoading && props.members.length === 0 && <EmptyCard />}
+			<Show when={!props.isLoading && props.members.length === 0}>
+				<EmptyCard />
+			</Show>
 		</>
 	);
 };

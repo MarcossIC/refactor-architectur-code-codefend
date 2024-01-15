@@ -81,7 +81,7 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 									<Show
 										when={
 											dataSort === keyTable &&
-											sortDirection === Sort.asc
+											sortDirection === Sort.desc
 										}>
 										<>{'↓'}</>
 									</Show>

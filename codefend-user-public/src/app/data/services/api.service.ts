@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useAuthState } from '..';
+import { fetchGET } from '.';
 var host = import.meta.env.VITE_SERVER_HOST;
 
 export const ApiHandlers = {
@@ -37,4 +37,38 @@ export const ApiHandlers = {
 				return false;
 			});
 	},
-};
+
+	initializeIntelData: async(data: any[], companyID: string) => {
+    return fetchGET({
+        params: {
+            model: "offensive/inx",
+            ac: "get_id",
+            company_id: companyID
+        },
+        body: data
+    })
+    .then((res: any) => {
+      return JSON.parse(res.data);
+    })
+    .catch((err: any) => {
+      console.log(err);
+    })
+  },
+
+	initializeSnsData: async(data:any, companyID: string) => {
+    return fetchGET({
+        params: {
+            model: "offensive/sns",
+            ac: "search",
+            company_id: companyID,
+            ...data
+        }
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}

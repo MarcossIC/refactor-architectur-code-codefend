@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { ChartIcon } from '../../../../../components';
+import { ChartIcon, Show, SimpleSection } from '../../../../../components';
 import { roleMap } from '../../../../../../data';
 
 type MemberKey = keyof typeof roleMap;
@@ -37,47 +37,48 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
 	return (
 		<>
 			<div className="card filtered">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							<ChartIcon />
-						</div>
-						<span>MEMBERS BY DEPARTMENTS</span>
-					</div>
-				</div>
-				<div className="content filters">
-					{Object.keys(renderMembers().members).map((member: string) => (
-						<div className="filter" key={member}>
-							<div className="check">
-								<input
-									id={member}
-									type="checkbox"
-									disabled={props.members[member] == 0}
-									onChange={(e) => handleDepartmentFilter(e, member)}
-									className=""
-								/>
-								<label htmlFor={member}>
-									{roleMap[member as MemberKey] ?? 'Unknown roles'}
-								</label>
-							</div>
+				<SimpleSection header="Members by departments" icon={<ChartIcon />}>
+					<div className="content filters">
+						{Object.keys(renderMembers().members).map(
+							(member: string) => (
+								<div className="filter" key={member}>
+									<div className="check">
+										<input
+											id={member}
+											type="checkbox"
+											disabled={props.members[member] == 0}
+											onChange={(e) =>
+												handleDepartmentFilter(e, member)
+											}
+											className=""
+										/>
+										<label htmlFor={member}>
+											{roleMap[member as MemberKey] ??
+												'Unknown roles'}
+										</label>
+									</div>
 
-							<div className="value">
-								{props.members[member] == 0 ? (
-									<img
-										src="/codefend/people-inactive-icon.svg"
-										alt="bug-icon"
-									/>
-								) : (
-									<img
-										src="/codefend/people-active-icon.svg"
-										alt="bug-icon"
-									/>
-								)}
-								<span>{props.members[member]} members</span>
-							</div>
-						</div>
-					))}
-				</div>
+									<div className="value">
+										<Show
+											when={props.members[member] == 0}
+											fallback={
+												<img
+													src="/codefend/people-active-icon.svg"
+													alt="bug-icon"
+												/>
+											}>
+											<img
+												src="/codefend/people-inactive-icon.svg"
+												alt="bug-icon"
+											/>
+										</Show>
+										<span>{props.members[member]} members</span>
+									</div>
+								</div>
+							),
+						)}
+					</div>
+				</SimpleSection>
 			</div>
 		</>
 	);

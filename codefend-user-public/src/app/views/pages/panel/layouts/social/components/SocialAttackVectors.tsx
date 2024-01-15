@@ -1,48 +1,58 @@
-import React from 'react';
+import { ChartIcon, SimpleSection } from '../../../../../components';
 import { defaultSocialAttackVectors } from '../../../../../../data';
-import { ChartIcon } from '../../../../../components';
+import React, { useState } from 'react';
 
 interface SocialAttackVectorsProps {
 	defaultSocialAttackVectors?: Record<string, 'enabled' | 'disabled'>;
 }
 
 const SocialAttackVectors: React.FC<SocialAttackVectorsProps> = (props) => {
-	const attackVectors =
-		props.defaultSocialAttackVectors || defaultSocialAttackVectors;
+	const [attackVectorState, setAttackVectorState] = useState(
+		props.defaultSocialAttackVectors || defaultSocialAttackVectors,
+	);
+
+	const handleCheckboxChange = (attack: string) => {
+		setAttackVectorState((prevAttackVectors) => {
+			const updatedState = { ...prevAttackVectors };
+			updatedState[attack as keyof typeof updatedState] =
+				prevAttackVectors[attack as keyof typeof updatedState] === 'enabled'
+					? 'disabled'
+					: 'enabled';
+			return updatedState;
+		});
+	};
 
 	return (
 		<>
 			<div className="card filtered">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							<ChartIcon />
-						</div>
-						<span>ATTACK VECTORS</span>
-					</div>
-				</div>
-				<div className="content filters">
-					{Object.keys(attackVectors).map((attack: string) => (
-						<div className="filter" key={attack}>
-							<div className="check">
-								<input
-									type="checkbox"
-									checked={
-										attackVectors[
-											attack as keyof typeof attackVectors
-										] === 'enabled'
+				<SimpleSection header="Attak vectors" icon={<ChartIcon />}>
+					<div className="content filters">
+						{Object.keys(attackVectorState).map((attack: string) => (
+							<div className="filter" key={attack}>
+								<div className="check">
+									<input
+										type="checkbox"
+										checked={
+											attackVectorState[
+												attack as keyof typeof attackVectorState
+											] === 'enabled'
+										}
+										className="checkbox-color"
+										onChange={() => handleCheckboxChange(attack)}
+									/>
+									<span>{attack}</span>
+								</div>
+								<span>
+									{
+										attackVectorState[
+											attack as keyof typeof attackVectorState
+										]
 									}
-									className=" checkbox-color"
-									/* onChange={}  falta y hay que agregar esto*/
-								/>
-								<span>{attack}</span>
+								</span>
 							</div>
-							<span>
-								{attackVectors![attack as keyof typeof attackVectors]}
-							</span>
-						</div>
-					))}
-				</div>
+						))}
+					</div>
+				</SimpleSection>
 			</div>
 		</>
 	);

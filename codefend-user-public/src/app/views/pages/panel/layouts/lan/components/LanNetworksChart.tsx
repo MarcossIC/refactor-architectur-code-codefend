@@ -50,7 +50,7 @@ export const LanNetworksChart: React.FC<LanNetworksChartProps> = (props) => {
 					<PageLoader />
 				)}
 
-				{!dataEmptyState ? (
+				{dataEmptyState ? (
 					<div className="content">
 						<EmptyCard />
 					</div>

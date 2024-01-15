@@ -1,33 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from '..';
-import { PreferenceServices } from '../../services'
-import { User } from 'app/data';
+import { PreferenceServices } from '../../services';
+import { Company, User, mapCompany } from '../../';
 
 export const usePreferences = () => {
-    const { getUserdata } = useAuthState();
+	const { getUserdata } = useAuthState();
 
-		const [loading, setLoading] = useState<boolean>(false);
-		const [data, setData] = useState<any[]>([]);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [data, setData] = useState<Company[]>([]);
 
-		const fetchLan = useCallback(async () => {
-			const user = getUserdata() as User;
-			const companyID = user?.companyID;
-			setLoading(true);
+	const fetchLan = useCallback(() => {
+		const user = getUserdata() as User;
+		const companyID = user?.companyID;
+		setLoading(true);
 
-			const data = await PreferenceServices.getAll(companyID)
-				.then((response:any) => {
-					setData(response)
-				})
-				.finally(() => {
-					setLoading(false)
-				})
-		}, [getUserdata])
+		PreferenceServices.getAll(companyID)
+			.then((response: any) => {
+				setData([mapCompany(response.company)]);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	}, [getUserdata]);
 
-		useEffect(() => {
-			fetchLan();
-		}, []);
+	useEffect(() => {
+		fetchLan();
+	}, []);
 
-		const refetch = useCallback(() => fetchLan(), []);
+	const refetch = useCallback(() => fetchLan(), []);
 
-		return {loading, data, refetch}
-}
+	return { loading, data, refetch };
+};

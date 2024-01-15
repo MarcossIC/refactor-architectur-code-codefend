@@ -2,7 +2,7 @@ import { useAuthState } from '../../../data';
 import { SocialAplicationService } from '../../../data/services/social.service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { ButtonLoader, GlobeWebIcon, Show } from '..';
+import { ButtonLoader, GlobeWebIcon, SecondaryButton, Show } from '..';
 
 interface SocialData {
 	fName: string;
@@ -15,13 +15,12 @@ interface SocialData {
 
 interface Props {
 	onDone: () => void;
-	close?: () => void;
+	close: () => void;
 }
 
 export const MobileAppModal: React.FC<Props> = (props) => {
 	const { getUserdata } = useAuthState();
 	const companyID = getUserdata()?.companyID;
-
 	const [socialData, setSocialData] = useState<SocialData>({
 		fName: '',
 		lName: '',
@@ -31,12 +30,10 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 
 		isAddingMember: false,
 	});
-
 	const { fName, isAddingMember, lName, mail, phone, role } = socialData;
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-
 		setSocialData((prevData) => ({ ...prevData, isAddingMember: true }));
 
 		if (!fName || fName.length == 0 || fName.length > 40) {
@@ -219,13 +216,11 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 						</select>
 					</div>
 					<div className="form-buttons">
-						<button
-							type="button"
-							disabled={isAddingMember}
-							onClick={() => props.close?.()}
-							className="log-inputs codefend_secondary_ac btn btn-secondary btn-cancel">
-							Cancel
-						</button>
+						<SecondaryButton
+							isDisabled={isAddingMember}
+							text="Cancel"
+							click={() => props.close()}
+						/>
 						<button
 							type="submit"
 							disabled={isAddingMember}

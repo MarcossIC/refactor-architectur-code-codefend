@@ -28,7 +28,7 @@ const IssuesCreation: React.FC<{}> = () => {
 				<section className="h-full flex-grow">
 					<IssueChatDisplay
 						isLoading={false}
-						selectedIssue={{}}
+						selectedIssue={null}
 						refetch={() => {}}
 					/>
 				</section>

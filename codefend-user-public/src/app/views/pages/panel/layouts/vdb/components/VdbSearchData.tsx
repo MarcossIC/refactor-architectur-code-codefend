@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { generateIDArray, useInitialVdb } from '../../../../../../data';
-import { BugIcon, EnpIcon, PageLoader, Table } from '../../../../../components';
+import {
+	BugIcon,
+	EnpIcon,
+	PageLoader,
+	Show,
+	Table,
+} from '../../../../../components';
 
 export const VdbSearchData: React.FC = () => {
 	const { getVdb, refetch, isLoading, searchData, handleChange } =
@@ -34,48 +40,42 @@ export const VdbSearchData: React.FC = () => {
 					</form>
 				</div>
 			</div>
-			{Boolean(safelyVdbData().length) && (
-				<>
-					{!isLoading ? (
-						<>
-							<div className="mx-3">
-								<div className="header">
-									<div className="title">
-										<div className="icon">
-											<BugIcon />
-										</div>
-										<span>Search vulnerabilities</span>
+			<Show when={Boolean(safelyVdbData().length)}>
+				<Show when={!isLoading} fallback={<PageLoader />}>
+					<>
+						<div className="mx-3">
+							<div className="header">
+								<div className="title">
+									<div className="icon">
+										<BugIcon />
 									</div>
-									<select
-										onChange={(e) => {
-											console.log({ e });
-											setSortBy(e.target.value);
-											setSelectedNow(true);
-										}}
-										className="hidden md:inline bg-transparent ml-10">
-										<option value="" selected disabled>
-											Sort by
-										</option>
-										<option value="creacion">published</option>
-										<option value="score">score</option>
-										<option value="risk">risk</option>
-										<option value="vdb id">vdb id</option>
-									</select>
-									<div className="actions"></div>
+									<span>Search vulnerabilities</span>
 								</div>
-								<Table
-									data={getVdb()}
-									columns={Array.from(columns)}></Table>
+								<select
+									onChange={(e) => {
+										console.log({ e });
+										setSortBy(e.target.value);
+										setSelectedNow(true);
+									}}
+									className="hidden md:inline bg-transparent ml-10">
+									<option value="" selected disabled>
+										Sort by
+									</option>
+									<option value="creacion">published</option>
+									<option value="score">score</option>
+									<option value="risk">risk</option>
+									<option value="vdb id">vdb id</option>
+								</select>
+								<div className="actions"></div>
 							</div>
-						</>
-					) : (
-						<>
-							<PageLoader />
-						</>
-					)}
-				</>
-			)}
-			{!isLoading ? (
+							<Table
+								data={getVdb()}
+								columns={Array.from(columns)}></Table>
+						</div>
+					</>
+				</Show>
+			</Show>
+			<Show when={!isLoading} fallback={<PageLoader />}>
 				<div className="content">
 					{safelyVdbData().map((vuln: any, i: number) => (
 						<div className="search-result" key={vdbKeys[i]}>
@@ -85,11 +85,7 @@ export const VdbSearchData: React.FC = () => {
 						</div>
 					))}
 				</div>
-			) : (
-				<>
-					<PageLoader />
-				</>
-			)}
+			</Show>
 		</>
 	);
 };

@@ -18,7 +18,7 @@ const getOne = async (lanId: string | number, companyID: number) => {
 				model: 'resources/lan',
 				ac: 'view_one',
 				id: lanId,
-				company: companyID,
+				company_id: companyID,
 			},
 		});
 		return data;

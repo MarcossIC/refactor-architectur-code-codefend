@@ -1,35 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
+	Member,
+	MemberV2,
 	MetricsService,
-	useAuthState,
-	SocialAplicationService,
+	useSocial,
 } from '../../../../../data';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
 import SocialEngineeringMembers from './components/SocialEngineeringMembers';
 
-const fetchSocial = async (companyID: string) => {
-	try {
-		const data = await SocialAplicationService.getAll(companyID);
-
-		return data;
-	} catch (error) {
-		console.log({ error });
-	}
-};
-
-export interface Social {
-	id: string;
-	member_fname: string;
-	member_lname: string;
-	member_email: string;
-	member_phone: string;
-	member_role: string;
-	total: number;
-}
-
 const SocialEngineeringView = () => {
-	const { getUserdata } = useAuthState();
+	const { members, refetch, loading } = useSocial();
+	const [showScreen, setShowScreen] = useState(false);
 
 	const [social, setSocial] = useState({
 		loading: true,
@@ -41,18 +23,13 @@ const SocialEngineeringView = () => {
 		attackVectors: [] as string[],
 	});
 
-	const fetch = useCallback(async () => {
-		const companyID = getUserdata()?.companyID as string;
-		await fetchSocial(companyID);
-	}, []);
-
-	const [showScreen, setShowScreen] = useState(false);
-
 	useEffect(() => {
+		refetch();
+		setShowScreen(false);
 		setTimeout(() => {
 			setShowScreen(true);
 		}, 50);
-	});
+	}, []);
 
 	const socialInfoData = () => {
 		const socialData = social.loading ? [] : social.data;
@@ -63,7 +40,6 @@ const SocialEngineeringView = () => {
 		const filterArray = Object.entries(socialFilters.department);
 		if (filterArray.length === 0)
 			return { filteredData: [], isFiltered: false };
-
 		const selectedFilters = filterArray.reduce(
 			(acc: string[], [key, value]) => {
 				if (value) acc.push(key.toLowerCase());
@@ -72,38 +48,42 @@ const SocialEngineeringView = () => {
 			[],
 		);
 
-		const socialDataList: Social[] | undefined = socialInfoData() ?? [];
+		const socialDataList: Member[] | undefined = socialInfoData() ?? [];
 
 		if (!socialDataList) {
 			return { filteredData: [], isFiltered: false };
 		}
 
-		const filteredData = socialDataList.filter((datum) =>
+		const filteredData = socialDataList.filter((datum: any) =>
 			selectedFilters.includes(datum.member_role.toLowerCase()),
 		);
 
 		return { filteredData, isFiltered: selectedFilters.length !== 0 };
 	};
 
+	const selectedFilters = handleFilter().filteredData.reduce(
+		(acc: string[], [key, value]: any) => {
+			if (value) acc.push(key.toLowerCase());
+			return acc;
+		},
+		[],
+	);
 	const { computedRoles } = MetricsService;
+
 	return (
 		<>
 			<main className={`social ${showScreen ? 'actived' : ''}`}>
 				<section className="left">
 					<SocialEngineering
-						refetch={fetch}
-						isLoading={social.loading}
-						socials={
-							handleFilter().isFiltered
-								? handleFilter().filteredData
-								: socialInfoData() ?? []
-						}
+						refetch={refetch}
+						isLoading={loading}
+						socials={members!}
 					/>
 				</section>
 				<section className="right">
 					<SocialEngineeringMembers
 						isLoading={social.loading}
-						members={computedRoles(socialInfoData() as Social[]) ?? []}
+						members={computedRoles(socialInfoData() as MemberV2[]) ?? []}
 						setSocialFilters={setSocialFilters}
 					/>
 					<SocialAttackVectors />

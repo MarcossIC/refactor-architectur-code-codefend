@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Device, LanApplicationService, useAuthState } from '../..';
+import {
+	Device,
+	FetchPattern,
+	LanApplicationService,
+	useAuthState,
+} from '../..';
+import { toast } from 'react-toastify';
 
 export interface LanProps {
 	loading: boolean;
@@ -10,32 +16,40 @@ export interface LanProps {
 
 export const useLan = () => {
 	const { getUserdata } = useAuthState();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [networks, setNetworks] = useState<Device[]>([]);
-	const [error, setError] = useState<string | null>(null);
-	const [info, setInfo] = useState<string | null>(null);
-
-	const fetchLan = useCallback(() => {
-		const user = getUserdata();
-		const companyID = user?.companyID as string;
-		setLoading(true);
+	const [{ data, error, isLoading }, dispatch] = useState<
+		FetchPattern<Device[]>
+	>({
+		data: null,
+		error: null,
+		isLoading: false,
+	});
+	/* Fetch Cloud Apps */
+	const fetchLan = useCallback((companyID: string) => {
+		dispatch((state: any) => ({
+			...state,
+			isLoading: true,
+		}));
 
 		LanApplicationService.getAll(companyID)
 			.then((response: any) => {
-				setNetworks(response.disponibles);
-				setInfo(response.info);
-				setError(response.error);
+				dispatch({
+					data: response.disponibles,
+					error: null,
+					isLoading: false,
+				});
 			})
-			.finally(() => {
-				setLoading(false);
-			});
-	}, [getUserdata]);
-
-	useEffect(() => {
-		fetchLan();
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
 	}, []);
 
-	const refetch = useCallback(() => fetchLan(), []);
+	/* Refetch Function. */
+	const refetch = () => {
+		const companyID = getUserdata()?.companyID;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
+		fetchLan(companyID);
+	};
 
-	return { loading, networks, error, info, refetch };
+	return { loading: isLoading, networks: data, error, refetch };
 };

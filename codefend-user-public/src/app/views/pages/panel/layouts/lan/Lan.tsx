@@ -3,21 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
 import { toast } from 'react-toastify';
 import { Device, useLan } from '../../../../../data';
-import { PageLoaderWhite } from '../../../../../views/components';
+import { PageLoaderWhite, Show } from '../../../../../views/components';
 import { LanNetworkData } from './components/LanNetworkData';
 import { LanNetworksChart } from './components/LanNetworksChart';
 import '../../../../styles/flag.scss';
 import '../../../../styles/table.scss';
 
 const LanPage: React.FC = () => {
-	const { networks, loading, refetch } = useLan();
-
+	const { loading, networks, refetch } = useLan();
+	const [showScreen, setShowScreen] = useState(false);
+	const [control, refresh] = useState(false);
 	const [scanLoading, setScanLoading] = useState(false);
-
-	const [internalNetwork, setInternalNetwork] = useState({
-		loading: true,
-		data: [] as Device[],
-	});
 
 	const scanLocal = async () => {
 		setScanLoading(true);
@@ -44,21 +40,21 @@ const LanPage: React.FC = () => {
 			});
 	};
 
-	const internalNetworkDataInfo = () => {
-		const internalNetworkData = loading ? [] : networks;
+	const internalNetworkDataInfo = (): Device[] => {
+		const internalNetworkData = !loading ? networks : [];
+		console.log({ internalNetworkData });
 		return internalNetworkData ?? [];
 	};
 
-	const [showScreen, setShowScreen] = useState(false);
-
 	useEffect(() => {
 		refetch();
+		setShowScreen(false);
 		const timeoutId = setTimeout(() => {
 			setShowScreen(true);
 		}, 50);
 
 		return () => clearTimeout(timeoutId);
-	}, []);
+	}, [control]);
 
 	return (
 		<>
@@ -66,7 +62,7 @@ const LanPage: React.FC = () => {
 				<section className="left">
 					<LanNetworkData
 						isLoading={loading}
-						refetchInternalNetwork={refetch}
+						refetchInternalNetwork={() => refresh(!control)}
 						internalNetwork={internalNetworkDataInfo()}
 					/>
 				</section>
@@ -77,11 +73,11 @@ const LanPage: React.FC = () => {
 						internalNetwork={internalNetworkDataInfo()}
 					/>
 					<button
-						onClick={() => {
-							scanLocal();
-						}}
-						className="btn btn-primary full-w mt-4">
-						{scanLoading ? <PageLoaderWhite /> : 'REQUEST SCAN'}
+						onClick={() => scanLocal()}
+						className="btn btn-primary w-full mt-4">
+						<Show when={scanLoading} fallback={<>{'REQUEST SCAN'}</>}>
+							<PageLoaderWhite />
+						</Show>
 					</button>
 				</section>
 			</main>

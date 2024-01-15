@@ -1,4 +1,4 @@
-import { fetchPOST } from '.';
+import { fetchGET, fetchPOST } from '.';
 
 const getAll = async (companyID: string) => {
 	try {
@@ -9,6 +9,7 @@ const getAll = async (companyID: string) => {
 				company_id: companyID,
 			},
 		});
+    console.log({ socialsInfo: data });
 		return data;
 	} catch (error) {
 		console.error('Error: ', error);
@@ -16,9 +17,9 @@ const getAll = async (companyID: string) => {
 	}
 };
 
-const getOne = async (socialID: string, companyID: string) => {
+const getOne = async (companyID: string) => {
 	try {
-		const { data } = await fetchPOST({
+		const { data } = await fetchGET({
 			params: {
 				model: 'resource/se',
 				ac: 'view_one',

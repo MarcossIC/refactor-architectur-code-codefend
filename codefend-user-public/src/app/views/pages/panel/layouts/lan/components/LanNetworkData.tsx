@@ -155,7 +155,7 @@ export const LanNetworkData: React.FC<LanNetworkDataProps> = (props) => {
 									</div>
 								</div>
 
-								{network.childs!.map((subNetwork) => (
+								{network.childs?.map((subNetwork) => (
 									<div className="item" key={subNetwork.id}>
 										<div className="id">{subNetwork.id}</div>
 										<div className="ip lined">

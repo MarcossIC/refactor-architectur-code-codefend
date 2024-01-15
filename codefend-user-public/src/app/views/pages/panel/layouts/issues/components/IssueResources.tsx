@@ -164,7 +164,9 @@ export const IssueResources: React.FC<Props> = (props) => {
 										</div>
 										<div className="trash">
 											<TrashIcon
-												action={() => {
+												action={(e: React.FormEvent) => {
+													e.preventDefault();
+													e.stopPropagation();
 													setSelectedId(issue.id);
 													setShowModal(!showModal);
 												}}

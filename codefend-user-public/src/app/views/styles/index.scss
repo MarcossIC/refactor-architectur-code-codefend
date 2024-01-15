@@ -143,19 +143,3 @@ main.cloud {
 		padding-inline-end: 1rem;
 	}
 }
-
-///////////////////////////////////////////////////////////////////
-// editor tiny
-//////////////////////////////////////////////////////////////////
-.tox-tinymce {
-	border-radius: 0%;
-}
-.tox-sidebar-wrap {
-}
-.tox-editor-header {
-	display: none !important;
-
-	&.editable {
-		display: grid !important;
-	}
-}

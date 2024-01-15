@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import IssueCreationPanel from '../components/IssueCreationPanel';
 import { IssueChatDisplay } from '../components/IssueChatDisplay';
 

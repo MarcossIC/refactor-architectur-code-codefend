@@ -1,12 +1,14 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import {
 	LeftArrow,
 	PageLoaderOverlay,
+	PencilIcon,
 	SaveIcon,
+	Show,
 } from '../../../../../components';
 import { useNavigate } from 'react-router';
 import { AppEditor } from './AppEditor';
-import { Issues, useSaveIssue } from '../../../../../../data';
+import { Issues, SaveIssue, useSaveIssue } from '../../../../../../data';
 
 interface IssueCreationPanelProps {
 	issues: Issues[];
@@ -15,18 +17,19 @@ interface IssueCreationPanelProps {
 }
 
 const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
-	const { newIssue, setNewIssue, save } = useSaveIssue();
+	const { newIssue, dispatch, save } = useSaveIssue();
+	const [isEditable, setEditable] = useState(false);
 	const navigate = useNavigate();
 
 	const handleIssueUpdate = () => {
-		save().then((response) => {
+		if (!isEditable) return;
+		save().then((response: any) => {
 			if (props.onDone) props.onDone();
-
-			navigate(`/issues/${response?.newIssue}`);
+			//navigate(`/issues`);
 		});
 	};
 
-	const handleKeyDown = useCallback(
+	/*const handleKeyDown = useCallback(
 		(event: any) => {
 			if (event.ctrlKey && (event.key === 's' || event.keyCode === 83)) {
 				event.preventDefault();
@@ -35,7 +38,6 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 		},
 		[handleIssueUpdate],
 	);
-
 	useEffect(() => {
 		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
 		if (!iframe) return;
@@ -45,8 +47,17 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 		return () => {
 			contentWindow!.removeEventListener('keydown', handleKeyDown);
 		};
-	}, []);
+	}, []);*/
 
+	const handleChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+	) => {
+		const { name, value } = e.target;
+		dispatch((state: SaveIssue) => ({
+			...state,
+			[name]: value,
+		}));
+	};
 	return (
 		<>
 			<div className="header">
@@ -54,19 +65,24 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 					<LeftArrow />
 				</div>
 				<input
-					className="w-[90%] h-full"
+					className="w-[90%] h-full flex-1"
 					placeholder="Add Issue title here..."
+					name="issueName"
 					value={newIssue.issueName}
-					onChange={(e) =>
-						setNewIssue((current) => ({
-							...current,
-							issueName: e.target.value,
-						}))
-					}
+					onChange={handleChange}
 				/>
 
-				<div onClick={() => {}} className={`save on`}>
-					<SaveIcon />
+				<div className="flex !p-0">
+					<div
+						className={`edit edit_btn  ${isEditable ? 'on' : 'off'}`}
+						onClick={() => setEditable(!isEditable)}>
+						<PencilIcon />
+					</div>
+					<div
+						className={`save edit_btn ${isEditable ? 'on' : 'off'}`}
+						onClick={() => handleIssueUpdate()}>
+						<SaveIcon />
+					</div>
 				</div>
 			</div>
 
@@ -74,14 +90,10 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 				<div className="flex items-center">
 					<p>Class:</p>
 					<select
-						onChange={(e) =>
-							setNewIssue((current) => ({
-								...current,
-								issueClass: e.target.value,
-							}))
-						}
+						onChange={handleChange}
 						className="  py-3 bg-white focus:outline-none"
 						value={newIssue.issueClass}
+						name="issueClass"
 						required>
 						<option value="" disabled>
 							Select Class
@@ -99,14 +111,10 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 				<div className="flex items-center">
 					<p>Risk score:</p>
 					<select
-						onChange={(e) => {
-							setNewIssue((current) => ({
-								...current,
-								score: e.target.value,
-							}));
-						}}
+						onChange={handleChange}
 						className=" py-3 bg-whitefocus:outline-none "
 						value={newIssue.score}
+						name="score"
 						required>
 						<option value="" disabled>
 							Select Score
@@ -123,12 +131,13 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 			<div className="">
 				<AppEditor
 					initialValue={props.issues ?? ''}
-					isEditable={true}
+					isEditable={isEditable}
 					isIssueCreation
 				/>
 			</div>
-
-			{newIssue.isAddingIssue && <PageLoaderOverlay />}
+			<Show when={newIssue.isAddingIssue}>
+				<PageLoaderOverlay />
+			</Show>
 		</>
 	);
 };

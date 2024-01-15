@@ -235,7 +235,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 				<button
 					type="submit"
 					onClick={procSearch}
-					className="btn btn-primary no-border-height w-14 items-center justify-center">
+					className="btn btn-primary">
 					<img
 						className="w-3.5 h-3.5"
 						src="/codefend/icon-spy.png"

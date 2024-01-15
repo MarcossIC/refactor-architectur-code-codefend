@@ -1,145 +1,45 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import {
-	EmptyScreenView,
-	ModalTitleWrapper,
-	PageLoader,
-	AppCard,
-} from '../../../../components';
-import {
-	CloudApp,
-	generateIDArray,
-	useCloud,
-	useModal,
-} from '../../../../../data';
-import { CloudSelectedDetails } from './components/CloudSelectedDetails';
+import React, { useEffect, useState } from 'react';
+import { ModalTitleWrapper, Show } from '../../../../components';
+import { useCloud, useModal } from '../../../../../data';
 import { AddCloudModal } from '../../../../components/modals/AddCloudModal';
+import { CloudApplication } from './components/CloudApplication';
 
 const CloudApplicationPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState<boolean>(false);
-	const {
-		changeSelected,
-		selectedCloud,
-		isActive,
-		getCloudData,
-		isLoading,
-		refetch,
-	} = useCloud();
-
-	const { setShowModal, setShowModalStr, showModal, showModalStr } =
-		useModal();
+	const [control, refresh] = useState<boolean>(false);
+	const { isLoading, getCloudInfo, refetch } = useCloud();
+	const { setShowModal, showModal } = useModal();
 
 	useEffect(() => {
-		setTimeout(() => setShowScreen(true), 50);
-	}, [showScreen]);
-
-	const cloudKeys = useMemo(() => {
-		const mobileInfo = getCloudData();
-		return mobileInfo ? generateIDArray(mobileInfo.length) : [];
-	}, [getCloudData]);
-
-	useEffect(() => {
-		if (!isLoading && !selectedCloud && Boolean(getCloudData().length)) {
-			changeSelected(getCloudData()[0]);
-		}
-	}, [getCloudData()]);
+		setShowScreen(false);
+		refetch();
+		setShowModal(false);
+		const timeoutId = setTimeout(() => setShowScreen(true), 50);
+		return () => clearTimeout(timeoutId);
+	}, [control]);
 
 	return (
 		<>
 			<ModalTitleWrapper
-				isActive={showModal && showModalStr === 'add_cloud'}
+				isActive={showModal}
 				headerTitle="Add Cloud"
 				close={() => setShowModal(false)}>
 				<AddCloudModal
 					close={() => setShowModal(false)}
 					onDone={() => {
 						setShowModal(false);
-						setShowScreen(false);
-						refetch();
-						setTimeout(() => setShowScreen(true), 50);
+						refresh(!control);
 					}}
 				/>
 			</ModalTitleWrapper>
 			<main className={`mobile cloud ${showScreen ? 'actived' : ''}`}>
-				{!isLoading ? (
-					<>
-						{!Boolean(getCloudData().length) ? (
-							<EmptyScreenView
-								buttonText="Add Cloud"
-								title={"There's no data to display here"}
-								info={'Start by clicking on the button below'}
-								event={() => {}}
-							/>
-						) : (
-							<>
-								<section className="left">
-									<div className="add-button">
-										<button
-											onClick={(e: React.FormEvent) => {
-												setShowModal(true);
-												setShowModalStr('add_cloud');
-											}}
-											className="btn btn-primary">
-											ADD CLOUD
-										</button>
-									</div>
-
-									<div className="list">
-										{getCloudData().map(
-											(app: CloudApp, index: number) => (
-												<div
-													className="app-info"
-													key={cloudKeys[index]}
-													onClick={() => {
-														changeSelected(app);
-													}}>
-													<AppCard
-														isActive={isActive(app.id)}
-														onDone={(id: string) => {
-															setShowScreen(false);
-															refetch();
-															setTimeout(
-																() => setShowScreen(true),
-																50,
-															);
-
-															if (
-																selectedCloud &&
-																isActive(id)
-															) {
-																changeSelected(null);
-															}
-														}}
-														id={app.id}
-														type="cloud"
-														name={app.appName}
-														appMedia={app.appMedia}
-														appDesc={app.appDesc}
-														cloudProvider={app.cloudProvider}
-													/>
-												</div>
-											),
-										)}
-									</div>
-								</section>
-								<section className="right">
-									{selectedCloud ? (
-										<>
-											<CloudSelectedDetails
-												selectedCloudApp={selectedCloud}
-											/>
-										</>
-									) : (
-										<></>
-									)}
-								</section>
-							</>
-						)}
-					</>
-				) : (
-					<>
-						<PageLoader />
-					</>
-				)}
+				<Show when={!isLoading}>
+					<CloudApplication
+						openModal={() => setShowModal(!showModal)}
+						refresh={() => refresh(!control)}
+						cloudData={getCloudInfo()}
+					/>
+				</Show>
 			</main>
 		</>
 	);

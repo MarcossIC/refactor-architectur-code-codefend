@@ -30,10 +30,6 @@ export const useSelectedMobile = () => {
 		}
 	};
 
-	useEffect(() => {
-		console.log({ selectedMobileApp });
-	}, [selectedMobileApp]);
-
 	return {
 		isNotNull,
 		isCurrentMobileSelected,

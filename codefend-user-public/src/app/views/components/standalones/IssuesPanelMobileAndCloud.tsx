@@ -12,12 +12,13 @@ interface Props {
 
 export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 	const navigate = useNavigate();
-
-	const formatIssues = useMemo(() => {
+	console.log({ issue: props.issues });
+	const formatIssues = useMemo((): Issues[] => {
 		if (!Array.isArray(props.issues)) return [props.issues] as Issues[];
 
-		return props.issues as Issues[];
+		return props.issues;
 	}, [props.issues]);
+	console.log({ formatIssue: formatIssues });
 
 	const isValidRiskScore = useCallback(
 		(riskScore: any) => {
@@ -42,13 +43,11 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 		[isValidRiskScore],
 	);
 
-	const issuesKeys = useMemo(
+	const issuesKeys = useCallback(
 		() =>
 			formatIssues.length !== 0 ? generateIDArray(formatIssues.length) : [],
 		[formatIssues],
 	);
-
-	console.log({ formatIssue: formatIssues[0] });
 
 	return (
 		<SimpleSection
@@ -70,8 +69,8 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 
 				<Show when={!props.isLoading} fallback={<PageLoader />}>
 					<div className="rows">
-						{formatIssues.map((vulnerability: Issues, index: number) => (
-							<Fragment key={issuesKeys[index]}>
+						{formatIssues.map((vulnerability: Issues, i: number) => (
+							<Fragment key={issuesKeys()[i]}>
 								<div
 									className="item"
 									onClick={(e: React.FormEvent) => {

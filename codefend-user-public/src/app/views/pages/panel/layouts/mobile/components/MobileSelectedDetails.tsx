@@ -22,6 +22,7 @@ export const MobileSelectedDetails = () => {
 	const getSelected = selectedMobileApp
 		? selectedMobileApp
 		: ({} as MobileApp);
+
 	const getSelectedMobileAppId = useCallback(
 		() => (selectedMobileApp ? selectedMobileApp.id : ''),
 		[],

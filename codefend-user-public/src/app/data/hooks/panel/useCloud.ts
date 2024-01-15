@@ -1,31 +1,64 @@
 import { useCallback, useEffect, useState } from 'react';
-import { CloudApp, mapCloudApp, useAuthState } from '../..';
+import {
+	CloudApp,
+	FetchPattern,
+	MobileProps,
+	mapCloudApp,
+	useAuthState,
+} from '../..';
 import { CloudService } from '../../services/cloud.service';
 import { toast } from 'react-toastify';
 
+export const useSelectedCloud = () => {
+	const [selectedCloud, dispatchCloud] = useState<CloudApp | null>(null);
+
+	const isCurrentCloudSelected = (id: string) => {
+		let idSelected = selectedCloud ? selectedCloud?.id : '';
+		return id === idSelected;
+	};
+
+	const isNotNull = () =>
+		selectedCloud !== null && selectedCloud !== undefined;
+
+	const changeCloud = (mobile: CloudApp) => {
+		if (mobile && !isCurrentCloudSelected(mobile.id)) {
+			dispatchCloud(mobile);
+		}
+	};
+
+	return {
+		isNotNull,
+		isCurrentCloudSelected,
+		changeCloud,
+		selectedCloud,
+		dispatchCloud,
+	};
+};
 export const useCloud = () => {
 	const { getUserdata } = useAuthState();
-	const [isLoading, setLoading] = useState<boolean>(false);
-	const [cloudApp, setCloudApp] = useState([] as CloudApp[]);
-	const [selectedCloud, setSelectedCloudApp] = useState<CloudApp | null>(null);
-
+	const [{ data, error, isLoading }, dispatch] = useState<
+		FetchPattern<CloudApp[]>
+	>({
+		data: null,
+		error: null,
+		isLoading: false,
+	});
 	/* Fetch Cloud Apps */
-	const fetchWeb = useCallback((companyID: string) => {
-		setLoading(true);
+	const fetchAll = useCallback((companyID: string) => {
+		dispatch((state: any) => ({
+			...state,
+			isLoading: true,
+		}));
 
 		CloudService.getAll(companyID)
-			.then((response: any) => {
-				if (response.error !== '0') {
-					return;
-				}
-				const clouds = response.disponibles.map((app: any) =>
-					mapCloudApp(app),
-				) as CloudApp[];
-				setCloudApp(clouds);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
+			.then((response: any) =>
+				dispatch({
+					data: response.disponibles.map((app: any) => mapCloudApp(app)),
+					error: null,
+					isLoading: false,
+				}),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
 	}, []);
 
 	/* Refetch Function. */
@@ -35,34 +68,17 @@ export const useCloud = () => {
 			toast.error('User information was not found');
 			return;
 		}
-		fetchWeb(companyID);
+		fetchAll(companyID);
 	};
-
-	/* First fetch */
-	useEffect(() => {
-		refetch();
-	}, []);
 
 	/* UTILITIES. */
-	const getCloudData = (): CloudApp[] => {
-		return isLoading ? [] : cloudApp;
-	};
-
-	const changeSelected = (cloud: CloudApp | null) => {
-		if (cloud?.id === selectedCloud?.id) return;
-
-		setSelectedCloudApp(cloud);
-	};
-
-	const isActive = (id: string) => {
-		return selectedCloud?.id === id;
+	const getCloudInfo = (): CloudApp[] => {
+		const _data = !isLoading ? data : [];
+		return _data ?? ([] as CloudApp[]);
 	};
 
 	return {
-		changeSelected,
-		isActive,
-		getCloudData,
-		selectedCloud,
+		getCloudInfo,
 		isLoading,
 		refetch,
 	};

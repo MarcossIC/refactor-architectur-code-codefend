@@ -1,34 +1,46 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AllIssues, mapAllIssues, useAuthState } from '../..';
+import { AllIssues, FetchPattern, mapAllIssues, useAuthState } from '../..';
 import { IssueService } from '../../services/issues.service';
 import { getTinyEditorContent } from '../../../../editor-lib';
 import { toast } from 'react-toastify';
 
 export const useIssues = () => {
-	const [issues, setIssues] = useState<null | AllIssues>(null);
-	const [isLoading, setLoading] = useState(true);
 	const { getUserdata } = useAuthState();
+	const [{ data, error, isLoading }, dispatch] = useState<
+		FetchPattern<AllIssues>
+	>({
+		data: null,
+		error: null,
+		isLoading: false,
+	});
 
 	const fetchAll = useCallback((companyID: string) => {
-		setLoading(true);
+		dispatch((state: any) => ({
+			...state,
+			isLoading: true,
+		}));
 		IssueService.getAll(companyID)
-			.then((response: any) => {
-				if (response !== 'success') {
-				}
-				setIssues(mapAllIssues(response));
-			})
-			.finally(() => {
-				setLoading(false);
-			});
+			.then((response: any) =>
+				dispatch({
+					data: mapAllIssues(response),
+					error: null,
+					isLoading: false,
+				}),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
 	}, []);
 
 	const refetchAll = () => {
-		const companyID = getUserdata()?.companyID as string;
+		const companyID = getUserdata()?.companyID;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
 		fetchAll(companyID);
 	};
 
 	const getIssues = (): AllIssues => {
-		const issuesData = isLoading ? ({} as AllIssues) : issues;
+		const issuesData = isLoading ? ({} as AllIssues) : data;
 		return issuesData ?? ({} as AllIssues);
 	};
 

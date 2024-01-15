@@ -41,10 +41,7 @@ export const MobileApplication: React.FC<MobileApplicationProps> = ({
 	}, [mobileInfo]);
 
 	const selectMobile = (mobile: MobileApp) => {
-		console.log('1  alo?');
-
 		if (isNotNull() && isCurrentMobileSelected(mobile.id)) return;
-		console.log('2   alo?');
 		setSelectedMobileApp(mobile);
 	};
 
@@ -88,7 +85,7 @@ export const MobileApplication: React.FC<MobileApplicationProps> = ({
 											isActive={isCurrentMobileSelected(mobile.id)}
 											onDone={(id: string) => {
 												refresh();
-												dispath(!update);
+												setSelectedMobileApp(null);
 											}}
 											type={'mobile'}
 											id={mobile.id}

@@ -19,14 +19,13 @@ const AddMobileModal: React.FC<Props> = (props) => {
 		(e: React.FormEvent) => {
 			e.preventDefault();
 			setIsAddingMobile(true);
-
-			if (androidAddress.length > 150) {
+			if (androidAddress.length > 165) {
 				toast.error('Invalid android address');
 				setIsAddingMobile(false);
 				return;
 			}
 
-			if (iosAddress.length > 150) {
+			if (iosAddress.length > 165) {
 				toast.error('Invalid ios address');
 				setIsAddingMobile(false);
 				return;

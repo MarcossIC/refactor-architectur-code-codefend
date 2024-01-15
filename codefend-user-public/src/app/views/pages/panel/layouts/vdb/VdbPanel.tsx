@@ -26,12 +26,7 @@ const VdbPanel: React.FC<Props> = (props) => {
 					</Masonry>
 				</section>
 				<section className="right">
-					<Masonry
-						breakpointCols={3}
-						className="my-masonry-grid"
-						columnClassName="my-masonry-grid_column">
-						<VdbPreviousSearches />
-					</Masonry>
+					<VdbPreviousSearches />
 				</section>
 			</main>
 		</>

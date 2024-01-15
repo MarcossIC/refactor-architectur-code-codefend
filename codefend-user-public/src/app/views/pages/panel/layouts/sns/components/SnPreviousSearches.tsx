@@ -1,9 +1,7 @@
-import { PageLoader } from '../../../../../../views/components';
+import { PageLoader, Show } from '../../../../../../views/components';
 import React from 'react';
 
-
-
-const SnPreviousSearches: React.FC<{ isLoading?: boolean}> = (props) => {
+const SnPreviousSearches: React.FC<{ isLoading?: boolean }> = (props) => {
 	return (
 		<>
 			<div className="h-full flex flex-col ">
@@ -15,7 +13,7 @@ const SnPreviousSearches: React.FC<{ isLoading?: boolean}> = (props) => {
 								PREVIOUS SEARCHES
 							</p>
 						</div>
-						{!props.isLoading ? (
+						<Show when={!props.isLoading} fallback={<PageLoader />}>
 							<div className="flex px-8 py-2 full-height overflow-auto">
 								<div className="w-full">
 									<div className="flex p-3 text-format">
@@ -32,9 +30,7 @@ const SnPreviousSearches: React.FC<{ isLoading?: boolean}> = (props) => {
 									</div>
 								</div>
 							</div>
-						) : (
-							<PageLoader />
-						)}
+						</Show>
 					</div>
 				</div>
 				<button

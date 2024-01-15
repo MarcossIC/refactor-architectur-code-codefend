@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChartIcon } from '..';
+import { ChartIcon, SimpleSection } from '..';
 
 import { IssuesCondition } from '../../../data';
 
@@ -14,44 +14,38 @@ export const VulnerabilitiesStatus: React.FC<{
 			open: props.vulnerabilityByShare.open ?? 0,
 		};
 	};
+	const navigate = useNavigate();
 
 	return (
 		<div className="card stats">
-			<div className="header">
-				<div className="title">
-					<div className="icon">
-						<ChartIcon />
+			<SimpleSection header="Vulnerabilities by status" icon={<ChartIcon />}>
+				<div
+					onClick={() => {
+						navigate('/issues');
+					}}
+					className="content">
+					<div className="stat">
+						<div className="value">
+							<span className="text-fend-red">
+								{renderMetrics().open}
+							</span>
+							{`/${renderMetrics().total}`}
+						</div>
+						<p className="text-fend-red">Open issues</p>
 					</div>
-					<span>Vulnerabilities by status</span>
-				</div>
-				<div className="actions"></div>
-			</div>
-
-			<div
-				onClick={() => {
-					const navigate = useNavigate();
-					navigate('/issues');
-				}}
-				className="content">
-				<div className="stat">
-					<div className="value">
-						<span className="text-fend-red">{renderMetrics().open}</span>
-						{`/${renderMetrics().total}`}
+					<div className="stat">
+						<div className="value">
+							<span>{renderMetrics().fixed}</span>
+							{`/${renderMetrics().total}`}
+						</div>
+						<p>Fixed issues</p>
 					</div>
-					<p className="text-fend-red">Open issues</p>
-				</div>
-				<div className="stat">
-					<div className="value">
-						<span>{renderMetrics().fixed}</span>
-						{`/${renderMetrics().total}`}
+					<div className="stat">
+						<div className="value">{renderMetrics().total}</div>
+						<p>Total issues</p>
 					</div>
-					<p>Fixed issues</p>
 				</div>
-				<div className="stat">
-					<div className="value">{renderMetrics().total}</div>
-					<p>Total issues</p>
-				</div>
-			</div>
+			</SimpleSection>
 		</div>
 	);
 };

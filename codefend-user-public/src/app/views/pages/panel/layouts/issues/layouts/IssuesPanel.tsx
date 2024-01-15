@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useIssues } from '../../../../../data';
+import { useIssues } from '../../../../../../data';
 import {
 	VulnerabilitiesStatus,
 	VulnerabilityRisk,
-} from '../../../../components';
-import { IssueReport } from './components/IssueReport';
-import { IssueResources } from './components/IssueResources';
-import '../../../../styles/table.scss';
-import './issues.scss';
+} from '../../../../../components';
+import { IssueReport } from '../components/IssueReport';
+import { IssueResources } from '../components/IssueResources';
+import { useLocation } from 'react-router';
+import { useUpdateEffect } from 'usehooks-ts';
 
 const IssuesPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
-	const [reShow, setReshow] = useState(false);
+	const [control, refresh] = useState(false);
 	const { getIssues, isLoading, refetchAll } = useIssues();
 
 	useEffect(() => {
@@ -19,10 +19,20 @@ const IssuesPanel: React.FC = () => {
 		setShowScreen(false);
 		const timeoutId = setTimeout(() => {
 			setShowScreen(true);
-		}, 50);
+		}, 75);
 
 		return () => clearTimeout(timeoutId);
-	}, [reShow]);
+	}, [control]);
+
+	/* 	
+	//Run the effect to refresh when changing the route 
+	// (It would be used to navigate VulnerabilityStatus)
+	const location = useLocation();
+	useUpdateEffect(() => {
+		console.log({ path: location.pathname });
+		refresh(!control);
+	}, [location]);
+	*/
 
 	return (
 		<>
@@ -30,19 +40,17 @@ const IssuesPanel: React.FC = () => {
 				<section className="left">
 					<IssueResources
 						isLoading={isLoading}
-						issues={getIssues().issues ?? []}
-						delete={(id: string) => {
-							setReshow(!reShow);
-						}}
+						issues={getIssues()?.issues ?? []}
+						refresh={() => refresh(!control)}
 					/>
 				</section>
 				<section className="right">
 					<VulnerabilityRisk
 						isLoading={isLoading}
-						vulnerabilityByRisk={getIssues().issueShare}
+						vulnerabilityByRisk={getIssues()?.issueShare ?? {}}
 					/>
 					<VulnerabilitiesStatus
-						vulnerabilityByShare={getIssues().issueCondition}
+						vulnerabilityByShare={getIssues()?.issueCondition ?? {}}
 					/>
 
 					<button
@@ -54,11 +62,9 @@ const IssuesPanel: React.FC = () => {
 					</button>
 
 					<IssueReport
-						handleFilter={(e, issueClass) => {
-							e.preventDefault();
-						}}
+						handleFilter={(e, issueClass) => e.preventDefault()}
 						isLoading={isLoading}
-						issuesClasses={getIssues().issueClass}
+						issuesClasses={getIssues()?.issueClass ?? {}}
 					/>
 				</section>
 			</main>

@@ -1,5 +1,10 @@
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
-import { Issues, generateIDArray, useModal } from '../../../../../../data';
+import {
+	Issues,
+	generateIDArray,
+	useDeleteIssue,
+	useModal,
+} from '../../../../../../data';
 import {
 	BugIcon,
 	ConfirmModal,
@@ -7,6 +12,7 @@ import {
 	GlobeWebIcon,
 	ModalTitleWrapper,
 	PageLoader,
+	Show,
 	TrashIcon,
 } from '../../../../../components';
 import { useNavigate } from 'react-router';
@@ -14,18 +20,20 @@ import { useNavigate } from 'react-router';
 interface Props {
 	isLoading: boolean;
 	issues: Issues[];
-	delete: (id: string) => void;
+	refresh: () => void;
 }
 
 export const IssueResources: React.FC<Props> = (props) => {
 	const [selected, setSelectedId] = useState('');
 	const { showModal, setShowModal } = useModal();
+	const { handleDelete } = useDeleteIssue();
+	const navigate = useNavigate();
 
 	const issuesKeys = useMemo(
 		() => (props.issues ? generateIDArray(props.issues.length) : []),
 		[props.issues],
 	);
-	const navigate = useNavigate();
+
 	const isValidRiskScore = useCallback((riskScore: string) => {
 		return riskScore && !isNaN(parseInt(riskScore));
 	}, []);
@@ -39,9 +47,9 @@ export const IssueResources: React.FC<Props> = (props) => {
 	);
 
 	const generateLimitedArray = useCallback(
-		(riskScore: any) =>
+		(riskScore: string) =>
 			isValidRiskScore(riskScore)
-				? [...generateIDArray(Math.max(0, 5 - riskScore))]
+				? [...generateIDArray(Math.max(0, 5 - parseInt(riskScore)))]
 				: [...generateIDArray(5)],
 		[isValidRiskScore],
 	);
@@ -58,7 +66,10 @@ export const IssueResources: React.FC<Props> = (props) => {
 					header=""
 					close={() => setShowModal(false)}
 					action={() => {
-						setShowModal(false);
+						handleDelete(selected)?.then(() => {
+							setShowModal(false);
+							props.refresh();
+						});
 					}}
 				/>
 			</ModalTitleWrapper>
@@ -74,7 +85,7 @@ export const IssueResources: React.FC<Props> = (props) => {
 						<div
 							className=""
 							onClick={() => {
-								navigate('/create/issues');
+								navigate('/issues/create');
 							}}>
 							Add finding
 						</div>
@@ -93,80 +104,82 @@ export const IssueResources: React.FC<Props> = (props) => {
 				</div>
 
 				<div className="rows">
-					{!props.isLoading ? (
-						props.issues.map((issue: Issues, index: number) => (
-							<Fragment key={issuesKeys[index]}>
-								<div className="item">
-									<div className="date" title={issue.createdAt}>
-										{issue.createdAt}
-									</div>
-
+					<Show when={!props.isLoading} fallback={<PageLoader />}>
+						<>
+							{props.issues.map((issue: Issues, i: number) => (
+								<Fragment key={issuesKeys[i]}>
 									<div
-										className="username"
-										title={issue.researcherUsername}>
-										{issue.researcherUsername}
-									</div>
-									<div
-										className="vul-class"
-										title={issue.resourceClass}>
-										{issue.resourceClass}
-									</div>
+										className="item"
+										onClick={(e: React.FormEvent) => {
+											navigate(`/issues/update/${issue.id}`);
+											e.preventDefault();
+											e.stopPropagation();
+										}}>
+										<div className="date" title={issue.createdAt}>
+											{issue.createdAt}
+										</div>
 
-									<div className="vul-risk" title={issue.riskLevel}>
-										{issue.riskLevel}
-									</div>
-									<div className="vul-score flex no-border-bottom">
-										<span className="mt-2" title={issue.riskScore}>
-											{issue.riskScore}
-										</span>
+										<div
+											className="username"
+											title={issue.researcherUsername}>
+											{issue.researcherUsername}
+										</div>
+										<div
+											className="vul-class"
+											title={issue.resourceClass}>
+											{issue.resourceClass}
+										</div>
 
-										<span className="mr-1"></span>
-										{generateVulnerabilityArray(issue.riskScore).map(
-											(scoreKey: string) => (
+										<div className="vul-risk" title={issue.riskLevel}>
+											{issue.riskLevel}
+										</div>
+										<div className="vul-score flex no-border-bottom">
+											<span className="mt-2" title={issue.riskScore}>
+												{issue.riskScore}
+											</span>
+
+											<span className="mr-1"></span>
+											{generateVulnerabilityArray(
+												issue.riskScore,
+											).map((scoreKey: string) => (
 												<span
 													key={scoreKey}
 													className="w-2 h-2 ml-0.5 mt-2 red-border rounded-full codefend-bg-red"></span>
-											),
-										)}
-										{generateLimitedArray(issue.riskScore).map(
-											(scoreKey: string) => (
-												<span
-													key={scoreKey}
-													className="w-2 h-2 ml-0.5 mt-2 codefend-border-red rounded-full"></span>
-											),
-										)}
+											))}
+											{generateLimitedArray(issue.riskScore).map(
+												(scoreKey: string) => (
+													<span
+														key={scoreKey}
+														className="w-2 h-2 ml-0.5 mt-2 codefend-border-red rounded-full"></span>
+												),
+											)}
+										</div>
+										<div className="vul-title" title={issue.name}>
+											{issue.name}
+										</div>
+										<div
+											className="vul-condition"
+											title={issue.condition}>
+											{issue.condition}
+										</div>
+										<div className="trash">
+											<TrashIcon
+												action={() => {
+													setSelectedId(issue.id);
+													setShowModal(!showModal);
+												}}
+											/>
+										</div>
 									</div>
-									<div className="vul-title" title={issue.name}>
-										{issue.name}
-									</div>
-									<div
-										className="vul-condition"
-										title={issue.condition}>
-										{issue.condition}
-									</div>
-									<div className="trash">
-										<TrashIcon
-											action={() => {
-												setSelectedId(issue.id);
-												setShowModal(!showModal);
-											}}
-										/>
-									</div>
-								</div>
-							</Fragment>
-						))
-					) : (
-						<>
-							<PageLoader />
+								</Fragment>
+							))}
 						</>
-					)}
+					</Show>
 				</div>
 			</div>
-			{!props.isLoading && props.issues.length === 0 && (
-				<>
-					<EmptyCard />
-				</>
-			)}
+			<Show when={!props.isLoading && props.issues.length === 0}>
+				<EmptyCard />
+			</Show>
 		</>
 	);
 };

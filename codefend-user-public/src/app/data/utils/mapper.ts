@@ -9,6 +9,7 @@ import {
 	MobileApp,
 	MobileProps,
 	MobileUnique,
+	OneIssue,
 	SourceCode,
 	User,
 	UserAPI,
@@ -44,7 +45,7 @@ export const mapLoginResponseToUser: (response: UserAPI) => User = (
 };
 
 /** Map company api data => @interface Company   */
-export const mapCompanyApiToCompanyProps = (source: any): Company => {
+export const mapCompany = (source: any): Company => {
 	return {
 		id: source.id,
 		name: source.name,
@@ -90,11 +91,12 @@ export const mapIssues = (source: any): Issues => {
 /** Map issue share api data => @interface IssuesShare */
 export const mapIssueShare = (source: any): IssuesShare => {
 	return {
-		total: source.issues_share.total,
 		critical: source.issues_share.critical,
 		elevated: source.issues_share.elevated,
 		medium: source.issues_share.medium,
 		low: source.issues_share.low,
+		intel: source.issues_share.intel,
+		total: source.issues_share.total,
 	};
 };
 
@@ -110,7 +112,7 @@ export const mapIssuesCondition = (source: any): IssuesCondition => {
 /** Map dashboard company api data => @interface DashboardProps */
 export const mapGetCompanyToCompanyData = (source: any): DashboardProps => {
 	return {
-		company: mapCompanyApiToCompanyProps(source.company),
+		company: mapCompany(source.company),
 		issues: source.issues
 			? source.issues.map((issue: any) => mapIssues(issue))
 			: [],
@@ -182,7 +184,7 @@ export const mapWebresourceApiToWebresource = (source: any): Webresources => {
 /** Map web resources and company api data => @interface WebapplicationProps */
 export const mapToWebresourceProps = (source: any): WebapplicationProps => {
 	return {
-		company: mapCompanyApiToCompanyProps(source.company),
+		company: mapCompany(source.company),
 		resources: source.resources.map((resource: any) =>
 			mapWebresourceApiToWebresource(resource),
 		),
@@ -275,5 +277,16 @@ export const mapSourceCode = (source: any): SourceCode => {
 		sourceCode: source.source_code,
 		isDisabled: source.eliminado === '1',
 		createdAt: source.creacion,
+	};
+};
+
+export const mapOneIssue = (source: any): OneIssue => {
+	return {
+		company: mapCompany(source.company),
+		issue: {
+			...mapIssues(source.issue),
+			content: source.issue.issue,
+			cs: source.issue.cs,
+		},
 	};
 };

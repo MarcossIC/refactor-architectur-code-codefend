@@ -1,5 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AllIssues, FetchPattern, mapAllIssues, useAuthState } from '../..';
+import {
+	AllIssues,
+	FetchPattern,
+	OneIssue,
+	mapAllIssues,
+	mapOneIssue,
+	useAuthState,
+} from '../..';
 import { IssueService } from '../../services/issues.service';
 import { getTinyEditorContent } from '../../../../editor-lib';
 import { toast } from 'react-toastify';
@@ -118,33 +125,65 @@ export const useSaveIssue = () => {
 };
 
 export const useOneIssue = () => {
-	const [issues, setIssues] = useState({} as any);
-	const [isLoading, setLoading] = useState(true);
 	const { getUserdata } = useAuthState();
+	const [{ data, error, isLoading }, dispatch] = useState<
+		FetchPattern<OneIssue>
+	>({
+		data: null,
+		error: null,
+		isLoading: false,
+	});
 
 	const fetchOne = useCallback((companyID: string, selectedID: string) => {
-		setLoading(true);
+		dispatch((state: any) => ({
+			...state,
+			isLoading: true,
+		}));
 		IssueService.getOne(selectedID, companyID)
-			.then((response: any) => {
-				if (response !== 'success') {
-				}
-				console.log({ response });
-				setIssues(mapAllIssues(response));
-			})
-			.finally(() => {
-				setLoading(false);
-			});
+			.then((response: any) =>
+				dispatch({
+					data: mapOneIssue(response),
+					error: null,
+					isLoading: false,
+				}),
+			)
+			.catch((error) => dispatch({ data: null, error, isLoading: false }));
 	}, []);
 
 	const refetchOne = (selectedID: string) => {
-		const companyID = getUserdata()?.companyID as string;
+		const companyID = getUserdata()?.companyID;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
 		fetchOne(companyID, selectedID);
 	};
 
-	const getIssues = () => {
-		const issuesData = isLoading ? ({} as any) : issues;
-		return issuesData ?? {};
+	const getIssues = (): OneIssue => {
+		const empty = { issue: null, company: null } as OneIssue;
+		const issuesData = isLoading ? empty : data;
+		return issuesData ?? empty;
 	};
 
 	return { getIssues, isLoading, refetchOne };
+};
+
+export const useDeleteIssue = () => {
+	const { getUserdata } = useAuthState();
+	const fetchDelete = (issueId: string, companyID: string) => {
+		return IssueService.delete(issueId, companyID);
+	};
+
+	const handleDelete = (deletedIssueId: string) => {
+		const companyID = getUserdata()?.companyID;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
+		return fetchDelete(deletedIssueId, companyID).then(() =>
+			toast.success('Successfully deleted Issue...'),
+		);
+	};
+
+	return { handleDelete };
 };

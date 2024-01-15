@@ -4,9 +4,10 @@ import { PanelPage } from './views/pages/panel/PanelPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FinishSignUpLayout from './views/pages/auth/layouts/FinishsignUp';
-import IssuesPanel from './views/pages/panel/layouts/issues/IssuesPanel';
-import IssuesCreation from './views/pages/panel/layouts/issues/IssuesCreation';
+import IssuesPanel from './views/pages/panel/layouts/issues/layouts/IssuesPanel';
+import IssuesCreation from './views/pages/panel/layouts/issues/layouts/IssuesCreation';
 import { Loader } from './views/components';
+import IssueUpdate from './views/pages/panel/layouts/issues/layouts/IssuesUpdate';
 
 const AuthPage = lazy(() => import('./views/pages/auth/AuthPage'));
 const SignInLayout = lazy(() => import('./views/pages/auth/layouts/Signin'));
@@ -65,6 +66,10 @@ const AdminCompany = lazy(
 	() => import('./views/pages/panel/layouts/admin/layouts/AdminCompany'),
 );
 
+const IssuePage = lazy(
+	() => import('./views/pages/panel/layouts/issues/IssuePage'),
+);
+
 // million-ignore
 export const AppRouter: React.FC = () => {
 	return (
@@ -85,16 +90,15 @@ export const AppRouter: React.FC = () => {
 			<Suspense fallback={<Loader />}>
 				<Routes>
 					{/* Private Routes */}
-					<Route path="/" element={<PanelPage />}>
+					<Route path="/*" element={<PanelPage />}>
 						<Route index element={<Dashboard />} />
-						<Route path="/dashboard" element={<Dashboard />} />
-						<Route path="/web" element={<WebApplication />} />
+						<Route path="dashboard" element={<Dashboard />} />
+						<Route path="web" element={<WebApplication />} />
 						<Route path="mobile" element={<MobileApplication />} />
 						<Route path="cloud" element={<CloudApplicationPanel />} />
 						<Route path="lan" element={<LanApplicationPanel />} />
 						<Route path="source" element={<SourceCodePanel />} />
 
-						<Route path="issues" element={<IssuesPanel />} />
 						<Route path="issues/:ref" element={<IssuesPanel />} />
 						<Route path="create/issues" element={<IssuesCreation />} />
 						<Route path="social" element={<SocialEngineeringPanel />} />
@@ -105,11 +109,18 @@ export const AppRouter: React.FC = () => {
 						<Route path="sns" element={<SnsPanel />} />
 						<Route path="vdb" element={<VdbPanel />} />
 
+						<Route path="issues/*" element={<IssuePage />}>
+							<Route index element={<IssuesPanel />} />
+							<Route path="create" element={<IssuesCreation />} />
+							<Route path="update/:id" element={<IssueUpdate />} />
+						</Route>
+
 						{/* ?? No aparece en la sidebar, si en sus rutas */}
 						<Route path="companies" element={<></>} />
 					</Route>
 					{/* Private Routes + only admin access */}
 					<Route path="admin/*" element={<AdminPage />}>
+						<Route index element={<Navigate to="user" replace />} />
 						<Route path="user" element={<AdminUser />} />
 						<Route path="company" element={<AdminCompany />} />
 					</Route>

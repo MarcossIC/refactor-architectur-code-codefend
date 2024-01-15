@@ -1,62 +1,57 @@
 import React, { useCallback } from 'react';
-import { ChatBoxType } from '../../../../../../data';
+import { ChatBoxType, CompleteIssue } from '../../../../../../data';
 import {
 	MessageIcon,
 	PageLoader,
 	MessageCard,
 	ChatBox,
+	Show,
+	SimpleSection,
 } from '../../../../../components';
 
 interface Props {
 	isLoading: boolean;
-	selectedIssue: any;
+	selectedIssue: CompleteIssue | null;
 	refetch: () => void;
 }
-export const IssueChatDisplay: React.FC<Props> = (props) => {
+export const IssueChatDisplay: React.FC<Props> = ({
+	isLoading,
+	selectedIssue,
+	refetch,
+}) => {
 	const getIssue = useCallback(() => {
-		return props.selectedIssue.cs ?? [];
-	}, [props.selectedIssue]);
+		return selectedIssue?.cs ?? [];
+	}, [selectedIssue]);
 	return (
-		<>
-			<div className="card messages opacity-70 z-10 pointer-events-none animate-pulse">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							<MessageIcon />
-						</div>
-						<span>customer support</span>
+		<div className="card messages">
+			<SimpleSection header="Customer support" icon={<MessageIcon />}>
+				<>
+					<div className="content">
+						<Show when={!isLoading} fallback={<PageLoader />}>
+							<>
+								<div
+									className={`messages-wrapper ${
+										getIssue().length > 3 && 'item'
+									}`}>
+									{getIssue().map((message: any) => (
+										<>
+											<MessageCard
+												body={message.body}
+												{...message}
+											/>
+										</>
+									))}
+								</div>
+							</>
+						</Show>
 					</div>
-				</div>
-
-				<div className="content">
-					{!props.isLoading ? (
-						<>
-							<div
-								className={`messages-wrapper ${
-									getIssue().length > 3 && 'item'
-								}`}>
-								{getIssue().map((message: any) => (
-									<>
-										<MessageCard
-											body={message.issue_cs_body}
-											{...message}
-										/>
-									</>
-								))}
-							</div>
-						</>
-					) : (
-						<>
-							<PageLoader />
-						</>
-					)}
-				</div>
-				<ChatBox
-					type={ChatBoxType.ISSUE}
-					selectedID={props.selectedIssue.id}
-					onDone={props.refetch}
-				/>
-			</div>
-		</>
+					<ChatBox
+						type={ChatBoxType.ISSUE}
+						selectedID={selectedIssue?.id ?? ''}
+						onDone={refetch}
+					/>
+				</>
+			</SimpleSection>
+		</div>
 	);
 };

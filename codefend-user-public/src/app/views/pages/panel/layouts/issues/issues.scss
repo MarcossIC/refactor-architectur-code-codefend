@@ -42,6 +42,16 @@ section.issue {
 			transition: all 0.2s;
 			color: var(--text-color-alt2);
 
+			&_btn {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex: 1 1;
+				height: 100%;
+				width: 45px;
+				padding: 0;
+			}
+
 			&.on {
 				color: #ffffff;
 				background-color: #000000;
@@ -55,6 +65,7 @@ section.issue {
 				background-color: #f3f3f3;
 			}
 		}
+
 		.save {
 			border-right: none;
 			transition: all 0.2s;
@@ -101,4 +112,10 @@ section.issue {
 			}
 		}
 	}
+}
+
+.icon-container {
+	width: 100%;
+	background-color: #fff;
+	color: #fff;
 }

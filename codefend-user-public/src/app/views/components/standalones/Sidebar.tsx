@@ -23,7 +23,7 @@ const isActivePath = (verifyPath: string) => {
 	const currentPath = location.pathname;
 
 	if (currentPath === '/' && verifyPath === '/dashboard') return 'active';
-	return currentPath === verifyPath ? 'active' : '';
+	return currentPath.startsWith(verifyPath) ? 'active' : '';
 };
 
 const AdminSidebar: React.FC = () => {
@@ -57,10 +57,7 @@ const Sidebar: React.FC = () => {
 				<GlobeWebIcon />
 			</Link>
 
-			<Link
-				title="Mobile"
-				to="/mobile"
-				className={isActivePath('/mobile')}>
+			<Link title="Mobile" to="/mobile" className={isActivePath('/mobile')}>
 				<MobileIcon />
 			</Link>
 
@@ -90,10 +87,7 @@ const Sidebar: React.FC = () => {
 				<PeopleGroup />
 			</Link>
 
-			<Link
-				title="Issues"
-				to="/issues"
-				className={isActivePath('/issues')}>
+			<Link title="Issues" to="/issues" className={isActivePath('/issues')}>
 				<BugIcon />
 			</Link>
 

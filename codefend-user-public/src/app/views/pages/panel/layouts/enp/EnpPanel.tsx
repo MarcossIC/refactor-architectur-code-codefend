@@ -5,7 +5,7 @@ import {
 	useAuthState,
 	useScanLocal,
 } from '../../../../../data';
-import { EmptyScreenView, PageLoaderWhite } from '../../../../components';
+import { EmptyScreenView, PageLoaderWhite, Show } from '../../../../components';
 import React, { useEffect, useState } from 'react';
 import { Endpoints } from './components/Endpoints';
 
@@ -13,11 +13,13 @@ interface Props {}
 
 export const EnpPanel: React.FC<Props> = (props) => {
 	const [showScreen, setShowScreen] = useState(false);
-	const { getEndpoints, refetch, isLoading, handleDelete } = useEnp();
 	const { getAccessToken } = useAuthState();
+	const { getEndpoints, refetch, isLoading, handleDelete } = useEnp();
 	const { scanLoading, scanLocal } = useScanLocal(getAccessToken());
 	const [refresh, setRefresh] = useState(false);
 
+	console.log({ get: getEndpoints() });
+	console.log({ VOOL: Boolean('data' in getEndpoints()) });
 	useEffect(() => {
 		refetch();
 		setShowScreen(false);
@@ -34,14 +36,20 @@ export const EnpPanel: React.FC<Props> = (props) => {
 						onDelete={(id: string) =>
 							handleDelete(id).finally(() => setRefresh(!refresh))
 						}
-						endpoints={getEndpoints() ?? []}
+						endpoints={
+							Boolean('data' in getEndpoints())
+								? getEndpoints().data
+								: []
+						}
 					/>
 				</section>
 				<section className="right">
 					<button
 						onClick={(e) => scanLocal()}
 						className="btn btn-primary w-full">
-						{scanLoading ? <PageLoaderWhite /> : <></>}
+						<Show when={scanLoading}>
+							<PageLoaderWhite />
+						</Show>
 						REQUEST SCAN
 					</button>
 				</section>

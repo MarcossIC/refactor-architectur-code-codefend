@@ -4,13 +4,15 @@ import {
 	EnpIcon,
 	ModalTitleWrapper,
 	PageLoader,
+	Show,
+	SimpleSection,
 	TrashIcon,
 } from '../../../../../components';
 import React, { Fragment, useMemo, useState } from 'react';
 
 interface Endpoints {
 	isLoading: boolean;
-	endpoints: any;
+	endpoints: any[];
 	onDelete: (id: string) => void;
 }
 
@@ -38,53 +40,47 @@ export const Endpoints: React.FC<Endpoints> = (props) => {
 				/>
 			</ModalTitleWrapper>
 			<div className="card table">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							<EnpIcon />
-						</div>
-						<span>Endpoints</span>
-					</div>
-				</div>
-
-				<div className="columns-name">
-					<div className="id">id</div>
-					<div className="hostname">name</div>
-					<div className="ip">vendor</div>
-					<div className="os">version</div>
-					<div className="ip">type</div>
-					<div className="id">actions</div>
-				</div>
-
-				{props.isLoading ? (
-					<div className="rows">
-						{props.endpoints[0].apps.map(
-							(endpoint: any, index: number) => (
-								<Fragment key={endpointKeys[index]}>
-									<div className="item left-marked">
-										<div className="id">{endpoint.id}</div>
-										<div className="hostname">{endpoint.Name}</div>
-										<div className="ip">{endpoint.Vendor}</div>
-										<div className="os">{endpoint.Version}</div>
-										<div className="ip">{endpoint.Type}</div>
-										<div
-											className="id cursor-pointer p-3 flex"
-											onClick={() => {
-												setSelectedLanIdToDelete(endpoint?.id);
-												setShowModal(!showModal);
-											}}>
-											<TrashIcon />
-										</div>
-									</div>
-								</Fragment>
-							),
-						)}
-					</div>
-				) : (
+				<SimpleSection header="Endpoints" icon={<EnpIcon />}>
 					<>
-						<PageLoader />
+						<div className="columns-name">
+							<div className="id">id</div>
+							<div className="hostname">name</div>
+							<div className="ip">vendor</div>
+							<div className="os">version</div>
+							<div className="ip">type</div>
+							<div className="id">actions</div>
+						</div>
+						<Show when={!props.isLoading} fallback={<PageLoader />}>
+							<div className="rows">
+								{props.endpoints[0]?.apps.map(
+									(endpoint: any, index: number) => (
+										<Fragment key={endpointKeys[index]}>
+											<div className="item left-marked">
+												<div className="id">{endpoint.id}</div>
+												<div className="hostname">
+													{endpoint.Name}
+												</div>
+												<div className="ip">{endpoint.Vendor}</div>
+												<div className="os">{endpoint.Version}</div>
+												<div className="ip">{endpoint.Type}</div>
+												<div
+													className="id cursor-pointer p-3 flex"
+													onClick={() => {
+														setSelectedLanIdToDelete(
+															endpoint?.id,
+														);
+														setShowModal(!showModal);
+													}}>
+													<TrashIcon />
+												</div>
+											</div>
+										</Fragment>
+									),
+								)}
+							</div>
+						</Show>
 					</>
-				)}
+				</SimpleSection>
 			</div>
 		</>
 	);

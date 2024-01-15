@@ -28,9 +28,12 @@ const useFetchEndpoints = (companyID: string) => {
 		}
 		fetchEnd(companyID, macAddress);
 	};
-	const getData = () => (data ? {} : data);
+	const getEndpoints = () => {
+		const endData = isLoading ? ({} as any) : data;
+		return endData ?? {};
+	};
 
-	return { getEndpoints: getData, isLoading, refetch };
+	return { getEndpoints, isLoading, refetch };
 };
 
 // Hook para manejar el escaneo local

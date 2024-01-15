@@ -27,12 +27,9 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 	const navigate = useNavigate();
 	const { updatedIssue, dispatch, update } = useUpdateIssue();
 	const [isEditable, setEditable] = useState(false);
-	const [issueNameUpdate, setIssueNameUpdate] = useState(
-		completeIssue.issue?.name! ?? '',
-	);
 
 	const safelyIssue = (): CompleteIssue => {
-		const result = completeIssue?.issue ? completeIssue.issue! : null;
+		const result = completeIssue.issue ? completeIssue.issue : null;
 		return result ?? ({} as CompleteIssue);
 	};
 
@@ -59,8 +56,12 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 			handleIssueUpdate();
 		}
 	};
-
+	const [issueNameUpdate, setIssueNameUpdate] = useState('');
 	useEffect(() => {
+		setIssueNameUpdate(completeIssue.issue?.name!);
+		console.log({ completeIssue });
+		console.log({ issueNameUpdate });
+
 		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
 		if (!iframe) return;
 		const contentWindow = iframe.contentWindow;

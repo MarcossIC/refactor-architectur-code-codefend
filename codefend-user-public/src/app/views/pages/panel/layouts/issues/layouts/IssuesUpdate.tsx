@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useOneIssue } from '../../../../../../data';
 import { IssueChatDisplay } from '../components/IssueChatDisplay';
 import { useParams } from 'react-router';
 import IssueUpdatePanel from '../components/IssueUpdatePanel';
+import { PageLoader, Show } from '../../../../../components';
 
 const IssueUpdate: React.FC<{}> = () => {
 	const { getIssues, isLoading, refetchOne } = useOneIssue();
@@ -15,7 +16,7 @@ const IssueUpdate: React.FC<{}> = () => {
 		setShowScreen(false);
 		const timeoutId = setTimeout(() => {
 			setShowScreen(true);
-		}, 50);
+		}, 75);
 
 		return () => clearTimeout(timeoutId);
 	}, [control]);
@@ -23,19 +24,23 @@ const IssueUpdate: React.FC<{}> = () => {
 	return (
 		<>
 			<main className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
-				<section className="issue">
-					<IssueUpdatePanel
-						completeIssue={getIssues()}
-						isLoading={isLoading}
-					/>
-				</section>
-				<section className="h-full flex-grow">
-					<IssueChatDisplay
-						isLoading={isLoading}
-						selectedIssue={getIssues().issue}
-						refetch={() => refresh(!control)}
-					/>
-				</section>
+				<Show when={showScreen} fallback={<PageLoader />}>
+					<>
+						<section className="issue">
+							<IssueUpdatePanel
+								completeIssue={getIssues()}
+								isLoading={isLoading}
+							/>
+						</section>
+						<section className="h-full flex-grow">
+							<IssueChatDisplay
+								isLoading={isLoading}
+								selectedIssue={getIssues().issue}
+								refetch={() => refresh(!control)}
+							/>
+						</section>
+					</>
+				</Show>
 			</main>
 		</>
 	);

@@ -27,7 +27,6 @@ const useFetchEndpoints = (companyID: string) => {
 			return;
 		}
 		fetchEnd(companyID, macAddress);
-		if (error) console.log({ error });
 	};
 	const getData = () => (data ? {} : data);
 

@@ -64,7 +64,6 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 			source_code: sourceCode,
 			is_public: visibility === 'public' ? 'yes' : 'no',
 		};
-		console.log({ requestParams });
 		props.onDone(requestParams);
 	};
 

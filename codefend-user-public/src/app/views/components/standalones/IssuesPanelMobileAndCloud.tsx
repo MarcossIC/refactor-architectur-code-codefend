@@ -12,13 +12,11 @@ interface Props {
 
 export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 	const navigate = useNavigate();
-	console.log({ issue: props.issues });
 	const formatIssues = useMemo((): Issues[] => {
 		if (!Array.isArray(props.issues)) return [props.issues] as Issues[];
 
 		return props.issues;
 	}, [props.issues]);
-	console.log({ formatIssue: formatIssues });
 
 	const isValidRiskScore = useCallback(
 		(riskScore: any) => {

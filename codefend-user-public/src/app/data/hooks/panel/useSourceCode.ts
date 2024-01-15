@@ -59,7 +59,6 @@ export const useSourceCode = () => {
 		(params: string) => {
 			setLoading(true);
 			const companyID = getUserdata()?.companyID as string;
-			console.log({ params });
 			return SourceCodeService.add(params, companyID)
 				.then((response: any) => {
 					if (!response) {

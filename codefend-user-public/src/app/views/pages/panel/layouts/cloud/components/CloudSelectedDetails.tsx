@@ -21,7 +21,6 @@ export const CloudSelectedDetails = () => {
 	);
 	const { getIssues, isLoading, refetchAll } = useIssues();
 	useEffect(() => refetchAll(), []);
-	console.log({ issueAf: getIssues() });
 	return (
 		<Show when={!isLoading} fallback={<PageLoader />}>
 			<>

@@ -17,9 +17,7 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 	const { getUserdata } = useAuthState();
 
 	const handleChange = (e: React.ChangeEvent) => {
-		console.log(subdomainDetection);
 		setSubdomainDetection(!subdomainDetection);
-		console.log(subdomainDetection);
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {

@@ -56,6 +56,17 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 		); // Reemplaza 'filtro' con el valor del filtro deseado
 	}, [rows, selectedField]);
 
+	const rowsColKey = useMemo(() => generateIDArray(columns.length), [columns]);
+
+	const getRowValue = (row: any, column: string) => {
+		if (column.startsWith('phone')) return row['phone'];
+		if (column === 'issue title') return row['issueTitle'];
+		if (column === 'role') return row['companyRole'];
+		if (column === 'role') return row['companyRole'];
+
+		return row[column];
+	};
+
 	return (
 		<>
 			<div className="table__title__header"></div>
@@ -93,8 +104,10 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 						{rows.map((row: any, rowIndex: number) => (
 							<tr key={rowsID[rowIndex]}>
 								{columns.map((column: string, colIndex: number) => (
-									<td key={colIndex} title={row[column.toLowerCase()]}>
-										{row[column.toLowerCase()]}
+									<td
+										key={rowsColKey[colIndex]}
+										title={row[column.toLowerCase()]}>
+										{getRowValue(row, column.toLowerCase())}
 									</td>
 								))}
 							</tr>

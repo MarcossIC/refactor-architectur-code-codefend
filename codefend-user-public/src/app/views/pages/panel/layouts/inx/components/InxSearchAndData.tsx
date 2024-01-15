@@ -8,6 +8,7 @@ import {
 	InxSearchIcon,
 	PageLoader,
 	PageLoaderOverlay,
+	Show,
 } from '../../../../../components';
 import { useParams } from 'react-router';
 import { InxServices } from '../../../../../../data/services/inx.service';
@@ -171,7 +172,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 
 	return (
 		<div className="border h-5/6 pt-3">
-			{selectedResult && (
+			<Show when={selectedResult}>
 				<>
 					<div className="fixed left-0 top-0 h-full w-full bg-gray-500 bg-opacity-25 overflow-y-hidden overflow-x-hidden outline-none">
 						<div className="pointer-events-none relative w-auto translate-y-[50px] transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px] min-[992px]:max-w-[800px] min-[1200px]:max-w-[1140px]">
@@ -221,7 +222,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 						</div>
 					</div>
 				</>
-			)}
+			</Show>
 
 			<form className="flex flex-row h-9 mb-4 px-3">
 				<input
@@ -243,7 +244,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 					/>
 				</button>
 			</form>
-			{!loading ? (
+			<Show when={!loading} fallback={<PageLoader />}>
 				<div className="flex internal-tables flex-col overflow-auto max-h-full overflow-x-hidden">
 					{intelData.map((intel: any, i: number) => (
 						<InxPreviewIntelData
@@ -253,12 +254,11 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 							intelPreview={intelPreview}
 						/>
 					))}
-					{/* <div use:intersectionObserver></div> */}
 				</div>
-			) : (
-				<PageLoader />
-			)}
-			{fullDataLoading && <PageLoaderOverlay />}
+			</Show>
+			<Show when={fullDataLoading}>
+				<PageLoaderOverlay />
+			</Show>
 		</div>
 	);
 };

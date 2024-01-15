@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageLoader } from '../../../../../components';
+import { PageLoader, Show } from '../../../../../components';
 
 interface InxPreviousSearchesProps {
 	isLoading: boolean;
@@ -25,7 +25,7 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 								PREVIOUS SEARCHES
 							</p>
 						</div>
-						{!props.isLoading ? (
+						<Show when={!props.isLoading} fallback={<PageLoader />}>
 							<>
 								<div className="flex px-8 py-2 internal-tables-scroll full-height overflow-auto ">
 									<div className="w-full">
@@ -56,11 +56,7 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 									</div>
 								</div>
 							</>
-						) : (
-							<>
-								<PageLoader />
-							</>
-						)}
+						</Show>
 					</div>
 				</div>
 				<button

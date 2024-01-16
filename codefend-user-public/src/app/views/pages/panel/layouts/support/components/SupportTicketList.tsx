@@ -1,35 +1,46 @@
-import { useModal } from '../../../../../../data';
+import React, { Fragment, useContext, useMemo, useState } from 'react';
+import {
+	SupportProps,
+	generateIDArray,
+	useModal,
+} from '../../../../../../data';
 import {
 	ConfirmModal,
 	EmptyCard,
 	MessageIcon,
 	ModalTitleWrapper,
 	PageLoader,
+	Show,
 	TrashIcon,
 } from '../../../../../components';
-import React, { Fragment, useState } from 'react';
+import SelectedTicket from '../supportProvider';
 
 interface SupportTicketListProps {
-	setSelectedTicket: any;
-	selectedTicket: any;
+	setSelectedTicket: (state: any) => void;
 	isLoading: boolean;
-	tickets: any[];
-	refetch: any;
+	tickets: SupportProps[];
+	refetch: () => void;
 }
 
 export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 	const { showModal, showModalStr, setShowModal, setShowModalStr } =
 		useModal();
 	const [selectedTicketIdToDelete, setSelectedTicketIdToDelete] =
-		useState(null);
+		useState<SupportProps | null>(null);
+	const selectedTicket = useContext(SelectedTicket);
 
 	const handleTicketSelection = (ticket: any) => {
 		if (isSelected(ticket.id)) return;
 		props.setSelectedTicket(ticket);
 	};
 	const isSelected = (id: string) => {
-		return props.selectedTicket()?.id === id;
+		return selectedTicket?.id === id;
 	};
+
+	const supportKeys = useMemo(() => {
+		return props.tickets ? generateIDArray(props.tickets.length) : [];
+	}, [props.tickets]);
+
 	return (
 		<>
 			<ModalTitleWrapper
@@ -83,12 +94,12 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 					<div className="status">status</div>
 					<div className="id">actions</div>
 				</div>
-				{!props.isLoading ? (
+				<Show when={!props.isLoading} fallback={<PageLoader />}>
 					<div className="rows">
 						{props.tickets
-							?.reverse()
-							.map((ticket: any, index: number) => (
-								<Fragment key={index}>
+							.reverse()
+							.map((ticket: SupportProps, i: number) => (
+								<Fragment key={supportKeys[i]}>
 									<div
 										onClick={() => handleTicketSelection(ticket)}
 										className={`item ${
@@ -98,7 +109,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 											@{ticket.userUsername}
 										</div>
 										<div className="date">{ticket.createdAt}</div>
-										<div className="vul-title">{ticket.headerCS}</div>
+										<div className="vul-title">{ticket.csHeader}</div>
 										<div
 											className={`status ${
 												ticket.condition === 'open' &&
@@ -120,14 +131,11 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 								</Fragment>
 							))}
 					</div>
-				) : (
-					<>
-						<PageLoader />
-					</>
-				)}
+				</Show>
 			</div>
-
-			{!(!props.isLoading && props.tickets.length === 0) ?? <EmptyCard />}
+			<Show when={!props.isLoading && props.tickets.length === 0}>
+				<EmptyCard />
+			</Show>
 		</>
 	);
 };

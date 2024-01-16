@@ -264,8 +264,7 @@ export interface SocialProps {
 	issues_condicion: IssuesCondition;
 }
 
-export interface CompanyInfo {
-	id: string;
+export interface CompanyInfo extends ID {
 	name: string;
 	web: string;
 	mercado: string;
@@ -286,6 +285,19 @@ export interface CompanyInfo {
 	creacion: string;
 }
 
+export interface SupportProps extends ResourceID, Monitoring {
+	dadID: string;
+	userID: string;
+	userEmail: string;
+	userUsername: string;
+	csHeader: string;
+	csBody: string;
+	condition: string;
+}
+
+export interface TicketUnique extends SupportProps {
+	childs: SupportProps[];
+}
 /* 
 "session": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxMDkiLCJleHAiOjE3MDU2MjUyNTd9.HivlkCsh5vAtxgWis5yA7B0rxmF14utrN13OaemyRlw",
     "user": {

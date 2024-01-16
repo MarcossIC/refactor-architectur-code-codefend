@@ -1,6 +1,7 @@
-import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
+import React, { Fragment, useContext, useEffect, useMemo } from 'react';
 import {
 	ChatBoxType,
+	SupportProps,
 	generateIDArray,
 	useOneTicket,
 } from '../../../../../../data';
@@ -9,21 +10,30 @@ import {
 	MessageCard,
 	MessageIcon,
 	PageLoader,
+	Show,
+	SimpleSection,
 } from '../../../../../components';
+import SelectedTicket from '../supportProvider';
 
-interface SupportChatDisplayProps {
-	selectedTicket: any;
-}
+interface SupportChatDisplayProps {}
 
-export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = (
-	props,
-) => {
+export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = () => {
 	const { getOneTicket, isLoading, refetch } = useOneTicket();
+	const selectedTicket = useContext(SelectedTicket);
 
-	useEffect(() => refetch(props.selectedTicket.id), []);
+	useEffect(() => {
+		console.log({ selectedTicket });
+		if (selectedTicket) {
+			refetch(selectedTicket.id);
+		}
+	}, [selectedTicket]);
 
-	const selectedTicket = () => props.selectedTicket ?? { csHeader: '' };
-	const childTicket = useCallback(() => getOneTicket().childs ?? [], []);
+	const ticketSelected = () =>
+		'csHeader' in selectedTicket!
+			? selectedTicket
+			: ({ csHeader: '' } as SupportProps);
+
+	const childTicket = (): SupportProps[] => getOneTicket()?.childs ?? [];
 
 	const ticketKeys = useMemo(() => {
 		return childTicket() ? generateIDArray(childTicket().length) : [];
@@ -32,50 +42,45 @@ export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = (
 	return (
 		<>
 			<div className="card messages">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							<MessageIcon />
-						</div>
-						<span>{selectedTicket().csHeader}</span>
-					</div>
-				</div>
-				<div className="content">
-					{!isLoading ? (
-						<>
-							<div
-								className={`messages-wrapper ${
-									getOneTicket()?.childs?.length > 3 && 'item'
-								}`}>
-								<MessageCard
-									selectedID={selectedTicket()?.id ?? ''}
-									body={selectedTicket().body ?? {}}
-									username={selectedTicket()?.username ?? ''}
-									createdAt={selectedTicket()?.createdAt ?? ''}
-								/>
+				<SimpleSection
+					header={ticketSelected().csHeader}
+					icon={<MessageIcon />}>
+					<div className="content">
+						<Show when={!isLoading} fallback={<PageLoader />}>
+							<>
+								<div
+									className={`messages-wrapper ${
+										childTicket().length > 3 && 'item'
+									}`}>
+									<MessageCard
+										selectedID={ticketSelected().csHeader ?? ''}
+										body={ticketSelected()?.csBody! ?? {}}
+										username={ticketSelected()?.userUsername! ?? ''}
+										createdAt={ticketSelected()?.createdAt! ?? ''}
+									/>
 
-								{childTicket().map((ticket: any, i: number) => {
-									<Fragment key={ticketKeys[i]}>
-										<MessageCard
-											selectedID={ticket?.id ?? ''}
-											body={ticket.body ?? {}}
-											username={ticket?.username ?? ''}
-											createdAt={ticket?.createdAt ?? ''}
-										/>
-									</Fragment>;
-								})}
-							</div>
-						</>
-					) : (
-						<>
-							<PageLoader />
-						</>
-					)}
-				</div>
+									{childTicket().map(
+										(ticket: SupportProps, i: number) => (
+											<Fragment key={ticketKeys[i]}>
+												<MessageCard
+													selectedID={ticket.userID ?? ''}
+													body={ticket.csBody ?? ''}
+													username={ticket.userUsername ?? ''}
+													createdAt={ticket.createdAt ?? ''}
+												/>
+											</Fragment>
+										),
+									)}
+								</div>
+							</>
+						</Show>
+					</div>
+				</SimpleSection>
+
 				<ChatBox
 					type={ChatBoxType.SUPPORT}
-					onDone={() => refetch(selectedTicket()?.id)}
-					selectedID={selectedTicket()?.id}
+					onDone={() => refetch(ticketSelected().id!)}
+					selectedID={ticketSelected().id!}
 				/>
 			</div>
 		</>

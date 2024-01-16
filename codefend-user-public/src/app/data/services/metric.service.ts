@@ -61,11 +61,10 @@ const computeSourceCodeMetrics = (source: any) => {
 /** verify if auth User Chat */
 const isUserChat = (id: any, user: User | null) => {
 	if (!id) return false;
-	if(!user) return false;
-	
+	if (!user) return false;
+
 	const userId = user.id;
-	// console.log({ userId, id });
-	return userId == id;
+	return userId === id;
 };
 
 /** compute social roles */

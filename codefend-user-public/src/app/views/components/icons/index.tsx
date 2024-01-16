@@ -325,10 +325,9 @@ export const SaveIcon: React.FC = () => (
 
 export const SendIcon: React.FC = () => (
 	<svg
-		strokeWidth={0}
+		strokeWidth={2}
 		height="1em"
 		width="1em"
-		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
 		stroke="currentColor"
 		strokeLinecap={'round'}

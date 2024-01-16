@@ -16,6 +16,7 @@ export const ChatBox: React.FC<Props> = (props) => {
 		handleIssueSubmit,
 		handleSupportSubmit,
 	} = useChatbox();
+
 	const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const handleSubmit = (e: React.FormEvent) => {
@@ -37,7 +38,7 @@ export const ChatBox: React.FC<Props> = (props) => {
 				handleSubmit(e);
 			}
 		};
-		textAreaRef.current?.addEventListener('keypress', handleEnter);
+		textAreaRef.current.addEventListener('keypress', handleEnter);
 		return () => {
 			textAreaRef.current?.removeEventListener('keypress', handleEnter);
 		};
@@ -68,9 +69,7 @@ export const ChatBox: React.FC<Props> = (props) => {
 					<textarea
 						ref={textAreaRef}
 						value={message}
-						onChange={(e) => {
-							setMessage(e.target.value);
-						}}
+						onChange={(e) => setMessage(e.target.value)}
 						placeholder="add a new comment here..."
 						name="textArea"
 						className="w-full h-full outline-none bg-transparent resize-none"

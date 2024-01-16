@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { SupportChatDisplay } from './components/SupportChatDisplay';
 import { SupportTicketList } from './components/SupportTicketList';
-import { useAllTicket } from '../../../../../data';
+import { SupportProps, useAllTicket } from '../../../../../data';
+import { Show } from '../../../../components';
 import './support.scss';
+import SelectedTicket from './supportProvider';
 
 const SupportPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
 	const [refresh, setRefresh] = useState(false);
-	const [selectedTicket, setSelectedTicket] = useState<any | null>(null);
+	const [selectedTicket, setSelectedTicket] = useState<SupportProps | null>(
+		null,
+	);
 	const { getTikets, isLoading, refetch } = useAllTicket();
 
 	useEffect(() => {
-		if (selectedTicket === null && !isLoading && Boolean(getTikets.length)) {
+		if (
+			selectedTicket === null &&
+			!isLoading &&
+			Boolean(getTikets().length)
+		) {
 			const _data = getTikets();
-			selectedTicket(_data);
+			setSelectedTicket(_data[0]!);
 		}
-	}, []);
+	}, [getTikets(), isLoading]);
 
 	useEffect(() => {
 		refetch();
@@ -24,26 +32,27 @@ const SupportPanel: React.FC = () => {
 	}, [refresh]);
 
 	return (
-		<>
+		<SelectedTicket.Provider value={selectedTicket}>
 			<main className={`support ${showScreen ? 'actived' : ''}`}>
 				<section className="left">
 					<SupportTicketList
-						setSelectedTicket={setSelectedTicket}
-						selectedTicket={selectedTicket}
+						setSelectedTicket={(ticket: SupportProps) =>
+							setSelectedTicket(ticket)
+						}
 						isLoading={isLoading}
-						tickets={[]}
+						tickets={getTikets() ?? []}
 						refetch={() => {
 							setRefresh(!refetch);
 						}}
 					/>
 				</section>
 				<section className="right">
-					{selectedTicket && (
-						<SupportChatDisplay selectedTicket={selectedTicket} />
-					)}
+					<Show when={selectedTicket !== null}>
+						<SupportChatDisplay />
+					</Show>
 				</section>
 			</main>
-		</>
+		</SelectedTicket.Provider>
 	);
 };
 

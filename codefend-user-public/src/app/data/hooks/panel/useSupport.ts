@@ -1,4 +1,11 @@
-import { CustomerSupportService, FetchPattern } from '../../';
+import {
+	CustomerSupportService,
+	FetchPattern,
+	SupportProps,
+	TicketUnique,
+	mapSupportProps,
+	mapTicketUnique,
+} from '../../';
 import { useAuthState } from '..';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
@@ -15,7 +22,13 @@ export const useAllTicket = () => {
 		dispatch((state) => ({ ...state, isLoading: true }));
 		return CustomerSupportService.getAll(companyID)
 			.then((data) =>
-				dispatch({ data: data, error: null, isLoading: false }),
+				dispatch({
+					data: data.disponibles
+						.map((dis: any) => mapSupportProps(dis))
+						.reverse(),
+					error: null,
+					isLoading: false,
+				}),
 			)
 			.catch((error) => dispatch({ data: null, error, isLoading: false }));
 	};
@@ -30,10 +43,13 @@ export const useAllTicket = () => {
 		fetchAll(companyID);
 		if (error) console.log({ error });
 	};
-	const getData = () => (data ? {} : data);
+	const getTikets = (): SupportProps[] => {
+		const ticket = isLoading ? ([] as SupportProps[]) : data;
+		return ticket ?? [];
+	};
 
 	return {
-		getTikets: getData,
+		getTikets,
 		isLoading,
 		refetch,
 	};
@@ -41,7 +57,9 @@ export const useAllTicket = () => {
 
 export const useOneTicket = () => {
 	const { getUserdata } = useAuthState();
-	const [{ data, error, isLoading }, dispatch] = useState<FetchPattern<any>>({
+	const [{ data, error, isLoading }, dispatch] = useState<
+		FetchPattern<TicketUnique>
+	>({
 		data: null,
 		error: null,
 		isLoading: true,
@@ -50,8 +68,12 @@ export const useOneTicket = () => {
 	const fetchOne = async (companyID: string, ticketID: string) => {
 		dispatch((state) => ({ ...state, isLoading: true }));
 		return CustomerSupportService.getOne(ticketID, companyID)
-			.then((data) =>
-				dispatch({ data: data, error: null, isLoading: false }),
+			.then((response) =>
+				dispatch({
+					data: mapTicketUnique(response),
+					error: null,
+					isLoading: false,
+				}),
 			)
 			.catch((error) => dispatch({ data: null, error, isLoading: false }));
 	};
@@ -66,10 +88,12 @@ export const useOneTicket = () => {
 		fetchOne(companyID, ticketID);
 		if (error) console.log({ error });
 	};
-	const getData = () => (data ? {} : data);
+	const getOneTicket = (): TicketUnique => {
+		return isLoading ? ({} as TicketUnique) : data ?? ({} as TicketUnique);
+	};
 
 	return {
-		getOneTicket: getData,
+		getOneTicket,
 		refetch,
 		isLoading,
 	};

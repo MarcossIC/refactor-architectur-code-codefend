@@ -11,6 +11,8 @@ import {
 	MobileUnique,
 	OneIssue,
 	SourceCode,
+	SupportProps,
+	TicketUnique,
 	User,
 	UserAPI,
 	WebapplicationProps,
@@ -288,5 +290,28 @@ export const mapOneIssue = (source: any): OneIssue => {
 			content: source.issue.issue,
 			cs: source.issue.cs,
 		},
+	};
+};
+
+export const mapSupportProps = (source: any): SupportProps => {
+	return {
+		id: source.id,
+		companyID: source.company_id,
+		dadID: source.dad_id,
+		userID: source.user_id,
+		userEmail: source.user_email,
+		userUsername: source.user_username,
+		csHeader: source.cs_header,
+		csBody: source.cs_body,
+		condition: source.condicion,
+		createdAt: formatDate(source.creacion),
+		isDisabled: source.eliminado == '1',
+	};
+};
+
+export const mapTicketUnique = (source: any): TicketUnique => {
+	return {
+		...mapSupportProps(source.unico),
+		childs: source.unico.childs.map((child: any) => mapSupportProps(child)),
 	};
 };

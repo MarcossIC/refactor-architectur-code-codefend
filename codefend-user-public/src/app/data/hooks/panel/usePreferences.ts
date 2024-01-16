@@ -100,6 +100,7 @@ export const usePreferences = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [company, setCompany] = useState<Company[]>([]);
 	const [members, setMembers] = useState<MemberInfo[]>([])
+  const [orders, serOrders] = useState<any[]>([])
 
 	const fetchLan = useCallback(() => {
 		const user = getUserdata() as User;
@@ -107,9 +108,10 @@ export const usePreferences = () => {
 		setLoading(true);
 
 		PreferenceServices.getAll(companyID)
-			.then((response: ApiResponse) => {
+			.then((response: any) => {
 				setCompany([mapCompany(response.company)]);
-				setMembers(response.members)
+				setMembers(response.company_members);
+        serOrders(response.company_orders)
 			})
 			.finally(() => {
 				setLoading(false);
@@ -122,5 +124,5 @@ export const usePreferences = () => {
 
 	const refetch = useCallback(() => fetchLan(), []);
 
-	return { loading, company, members, refetch };
+	return { loading, company, members, refetch, orders };
 };

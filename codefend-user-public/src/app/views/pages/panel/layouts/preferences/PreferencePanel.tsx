@@ -10,8 +10,8 @@ import SettingPersonalDetails from './components/SettingPersonaDetails';
 
 const PreferencePanel = () => {
 	const [showScreen, setShowScreen] = useState(false);
-	const { loading, company, members } = usePreferences();
-
+	const { loading, company, members, orders } = usePreferences();
+	
 	
 	useEffect(() => {
 		setTimeout(() => {
@@ -26,7 +26,7 @@ const PreferencePanel = () => {
 					<section className="left">
 						<SettingOrderAndBilling
 							isLoading={loading}
-							orders={company ?? []}
+							orders={orders ?? []}
 						/>
 						<SettingCollaboratorAndTeam
 							isLoading={loading}
@@ -35,7 +35,7 @@ const PreferencePanel = () => {
 					</section>
 					<section className="right">
 						<SettingCompanyInformation
-							companyInfo={company}
+							companyInfo={company ?? []}
 						/>
 						 <SettingPersonalDetails /> 
 					</section>

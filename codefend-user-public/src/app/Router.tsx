@@ -99,8 +99,6 @@ export const AppRouter: React.FC = () => {
 						<Route path="lan" element={<LanApplicationPanel />} />
 						<Route path="source" element={<SourceCodePanel />} />
 
-						<Route path="issues/:ref" element={<IssuesPanel />} />
-						<Route path="create/issues" element={<IssuesCreation />} />
 						<Route path="social" element={<SocialEngineeringPanel />} />
 						<Route path="enp" element={<EnpPanel />} />
 						<Route path="support" element={<SupportPanel />} />
@@ -114,9 +112,6 @@ export const AppRouter: React.FC = () => {
 							<Route path="create" element={<IssuesCreation />} />
 							<Route path="update/:id" element={<IssueUpdate />} />
 						</Route>
-
-						{/* ?? No aparece en la sidebar, si en sus rutas */}
-						<Route path="companies" element={<></>} />
 					</Route>
 					{/* Private Routes + only admin access */}
 					<Route path="admin/*" element={<AdminPage />}>

@@ -60,7 +60,7 @@ export const MobileApplication: React.FC<MobileApplicationProps> = ({
 						buttonText="Add Mobile"
 						title={"There's no data to display here"}
 						info={'Start by clicking on the button below'}
-						event={() => {}}
+						event={openModal}
 					/>
 				}>
 				<>

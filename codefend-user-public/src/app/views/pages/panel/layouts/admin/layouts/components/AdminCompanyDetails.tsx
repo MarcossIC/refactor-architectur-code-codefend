@@ -34,14 +34,6 @@ const createEmptyUser = (): UserData => ({
 	read_array: [],
 });
 
-const createEmptyCompany = (): CompanyData => ({
-	id: '',
-	name: '',
-	canRead: false,
-	canWrite: false,
-	write_array: [],
-	read_array: [],
-});
 
 const AdminCompanyDetails: React.FC = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
@@ -49,7 +41,7 @@ const AdminCompanyDetails: React.FC = () => {
 	const [filterUsers, setFilterUsers] = useState<UserData[]>([]);
 	const [companyUsers, setCompanyUsers] = useState<any[]>([]);
 	const [selectedUser, setSelectedUser] = useState<UserData>(createEmptyUser());
-	const [companyStore, setCompanyStore] = useState<CompanyData | null>(createEmptyCompany());
+	const [companyStore, setCompanyStore] = useState<CompanyData | null>(null);
 
 	useEffect(() => {
 		if (companyStore!.id) {

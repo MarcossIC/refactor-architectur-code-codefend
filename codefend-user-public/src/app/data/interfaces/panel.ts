@@ -84,7 +84,15 @@ export interface Issues extends ResourceID, Monitoring {
 }
 export interface CompleteIssue extends Issues {
 	content: string;
-	cs: null | any[];
+	cs: null | IssueMessage[];
+}
+
+export interface IssueMessage extends ResourceID, Monitoring {
+	issueID: string;
+	userID: string;
+	userUsername: string;
+	userCompany: string;
+	body: string;
 }
 
 export interface DashboardProps {

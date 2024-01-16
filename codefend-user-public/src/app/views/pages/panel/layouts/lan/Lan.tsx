@@ -2,7 +2,7 @@
 import { invoke } from '@tauri-apps/api/tauri';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import {  useLan } from '../../../../../data';
+import { useLan } from '../../../../../data';
 import { PageLoaderWhite } from '../../../../../views/components';
 import '../../../../styles/flag.scss';
 import '../../../../styles/table.scss';
@@ -19,8 +19,6 @@ const LanPage: React.FC = () => {
 		return invoke('scan_local')
 			.then((res: any) => {
 				const parsedRes = JSON.parse(res);
-
-				console.log(parsedRes);
 
 				if (parsedRes.success) {
 					setScanLoading(false);

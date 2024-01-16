@@ -18,8 +18,6 @@ export const EnpPanel: React.FC<Props> = (props) => {
 	const { scanLoading, scanLocal } = useScanLocal(getAccessToken());
 	const [refresh, setRefresh] = useState(false);
 
-	console.log({ get: getEndpoints() });
-	console.log({ VOOL: Boolean('data' in getEndpoints()) });
 	useEffect(() => {
 		refetch();
 		setShowScreen(false);

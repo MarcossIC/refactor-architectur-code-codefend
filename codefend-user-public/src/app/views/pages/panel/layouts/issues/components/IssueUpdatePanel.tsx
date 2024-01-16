@@ -12,6 +12,7 @@ import { AppEditor } from './AppEditor';
 import {
 	CompleteIssue,
 	OneIssue,
+	UpdateIssue,
 	useUpdateIssue,
 } from '../../../../../../data';
 
@@ -24,30 +25,31 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 	completeIssue,
 	isLoading,
 }) => {
-	const navigate = useNavigate();
-	const { updatedIssue, dispatch, update } = useUpdateIssue();
-	const [isEditable, setEditable] = useState(false);
-
 	const safelyIssue = (): CompleteIssue => {
 		const result = completeIssue.issue ? completeIssue.issue : null;
 		return result ?? ({} as CompleteIssue);
 	};
+
+	const navigate = useNavigate();
+	const { updatedIssue, dispatch, update } = useUpdateIssue();
+	const [issueNameUpdate, setIssueNameUpdate] = useState(
+		safelyIssue().name ?? '',
+	);
+	const [isEditable, setEditable] = useState(false);
 
 	const isEmpty = () => {
 		return safelyIssue() && 'riskScore' in safelyIssue();
 	};
 
 	const handleIssueUpdate = useCallback(() => {
-		dispatch((current) => ({
-			...current,
-			issueName: issueNameUpdate,
-			score: safelyIssue().riskScore,
-			issueClass: safelyIssue()?.resourceClass,
-		}));
-		update().then((response: any) => {
-			setEditable(false);
-			//navigate(`/issues`);
-		});
+		update()
+			.then((response: any) => {
+				console.log({ v2: response });
+				setEditable(false);
+			})
+			.finally(() => {
+				navigate(`/issues`);
+			});
 	}, [safelyIssue, update]);
 
 	const handleKeyDown = (event: any) => {
@@ -56,12 +58,7 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 			handleIssueUpdate();
 		}
 	};
-	const [issueNameUpdate, setIssueNameUpdate] = useState('');
 	useEffect(() => {
-		setIssueNameUpdate(completeIssue.issue?.name!);
-		console.log({ completeIssue });
-		console.log({ issueNameUpdate });
-
 		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
 		if (!iframe) return;
 		const contentWindow = iframe.contentWindow;
@@ -71,6 +68,17 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 			contentWindow!.removeEventListener('keydown', handleKeyDown);
 		};
 	}, []);
+
+	useEffect(
+		() =>
+			dispatch((state: UpdateIssue) => ({
+				...state,
+				id: safelyIssue().id,
+				issueName: safelyIssue().name,
+				score: safelyIssue().riskScore,
+			})),
+		[safelyIssue()],
+	);
 
 	return (
 		<Show when={!isLoading} fallback={<PageLoader />}>
@@ -82,13 +90,18 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 					<Show
 						when={isEditable}
 						fallback={
-							<div className="name flex-1">{issueNameUpdate}</div>
+							<div className="name flex-1">{updatedIssue.issueName}</div>
 						}>
 						<input
 							type="string"
 							className="flex-1"
-							value={issueNameUpdate}
-							onChange={(e) => setIssueNameUpdate(e.target.value)}
+							value={updatedIssue.issueName}
+							onChange={(e) =>
+								dispatch((state: UpdateIssue) => ({
+									...state,
+									issueName: e.target.value,
+								}))
+							}
 						/>
 					</Show>
 					<div className="flex !p-0">

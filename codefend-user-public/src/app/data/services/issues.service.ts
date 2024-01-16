@@ -60,6 +60,9 @@ const modify = async (params: any, companyID: string) => {
 		body: {
 			...params,
 		},
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		},
 	}).catch((error: any) => handleFetchError(error))) as any;
 
 	return data;

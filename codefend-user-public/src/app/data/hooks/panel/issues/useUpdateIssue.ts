@@ -8,7 +8,7 @@ export interface UpdateIssue {
 	issueName: string;
 	score: string;
 
-	isAddingIssue: false;
+	isAddingIssue: boolean;
 }
 
 const validateNewIssue = (validate: boolean, message: string) => {
@@ -31,7 +31,6 @@ export const useUpdateIssue = () => {
 
 	const fetchSave = useCallback(
 		(companyID: string) => {
-			console.log({ updatedIssue });
 			const _editorContent = getTinyEditorContent('issue');
 			if (
 				!validateNewIssue(
@@ -41,21 +40,24 @@ export const useUpdateIssue = () => {
 			)
 				return;
 
-			dispatch((state: any) => ({
+			dispatch((state: UpdateIssue) => ({
 				...state,
 				isAddingIssue: true,
 			}));
-
 			const params = {
 				id: updatedIssue.id,
 				main_desc: _editorContent,
 				name: updatedIssue.issueName,
 				risk_score: updatedIssue.score,
 			};
+
 			return IssueService.modify(params, companyID)
 				.then((response: any) => {
-					if (response.response === 'error')
-						throw new Error(response.message);
+					console.log({ response });
+					if (response.response === 'error' || response.isAnError)
+						throw new Error(
+							response.message ?? 'An unexpected error has occurred',
+						);
 
 					toast.success('Successfully Added Issue...');
 					return { updatedIssue };
@@ -64,7 +66,7 @@ export const useUpdateIssue = () => {
 					toast.error(error.message);
 				})
 				.finally(() =>
-					dispatch((state: any) => ({
+					dispatch((state: UpdateIssue) => ({
 						...state,
 						isAddingIssue: false,
 					})),
@@ -79,6 +81,7 @@ export const useUpdateIssue = () => {
 			toast.error('User information was not found');
 			return;
 		}
+
 		return fetchSave(companyID);
 	};
 

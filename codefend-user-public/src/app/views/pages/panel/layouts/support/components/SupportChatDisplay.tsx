@@ -22,7 +22,6 @@ export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = () => {
 	const selectedTicket = useContext(SelectedTicket);
 
 	useEffect(() => {
-		console.log({ selectedTicket });
 		if (selectedTicket) {
 			refetch(selectedTicket.id);
 		}

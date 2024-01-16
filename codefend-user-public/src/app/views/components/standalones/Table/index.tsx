@@ -79,7 +79,6 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 								<th
 									scope="col"
 									key={columnsID[i]}
-									id={'a' + columnsID[i]}
 									onClick={() => handleSort(keyTable)}>
 									{`${keyTable} `}
 									<Show

@@ -23,7 +23,6 @@ const ConfirmModal = (props: ConfirmModalProps) => {
 	);
 	const handleClose = useCallback(
 		(e: any) => {
-			console.log('algo ?');
 			props.close();
 		},
 		[props.close],

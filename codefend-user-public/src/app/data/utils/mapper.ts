@@ -3,6 +3,7 @@ import {
 	CloudApp,
 	Company,
 	DashboardProps,
+	IssueMessage,
 	Issues,
 	IssuesCondition,
 	IssuesShare,
@@ -282,13 +283,29 @@ export const mapSourceCode = (source: any): SourceCode => {
 	};
 };
 
+export const mapIssueCS = (source: any): IssueMessage => {
+	return {
+		id: source.id,
+		companyID: source.company_id,
+		issueID: source.issue_id,
+		userID: source.user_id,
+		userUsername: source.user_username,
+		userCompany: source.user_company,
+		body: source.issue_cs_body,
+		isDisabled: source.eliminado === '1',
+		createdAt: formatDate(source.creacion),
+	};
+};
+
 export const mapOneIssue = (source: any): OneIssue => {
 	return {
 		company: mapCompany(source.company),
 		issue: {
 			...mapIssues(source.issue),
 			content: source.issue.issue,
-			cs: source.issue.cs,
+			cs: source.issue.cs
+				? source.issue.cs.map((cs: any) => mapIssueCS(cs))
+				: null,
 		},
 	};
 };

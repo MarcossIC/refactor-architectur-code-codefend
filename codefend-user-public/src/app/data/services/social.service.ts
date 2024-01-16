@@ -9,7 +9,6 @@ const getAll = async (companyID: string) => {
 				company_id: companyID,
 			},
 		});
-    console.log({ socialInfo: data });
 		return data;
 	} catch (error) {
 		console.error('Error: ', error);
@@ -56,19 +55,19 @@ const deleteOne = async (companyID: string) => {
 			params: {
 				model: 'resource/se',
 				ac: 'del',
-				company_id: companyID
-			}
-		})
-		return data
+				company_id: companyID,
+			},
+		});
+		return data;
 	} catch (error) {
 		console.error('Error: ', error);
 		return { success: false };
 	}
-}
+};
 
 export const SocialAplicationService = {
 	add,
 	deleteOne,
 	getOne,
-	getAll
-}
+	getAll,
+};

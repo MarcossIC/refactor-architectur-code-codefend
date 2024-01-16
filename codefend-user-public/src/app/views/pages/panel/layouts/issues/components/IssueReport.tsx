@@ -1,5 +1,5 @@
 import { IssueClass, generateIDArray } from '../../../../../../data';
-import { ChartIcon } from '../../../../../components';
+import { ChartIcon, Show, SimpleSection } from '../../../../../components';
 import React, { Fragment, useMemo } from 'react';
 
 interface Props {
@@ -22,46 +22,46 @@ export const IssueReport: React.FC<Props> = (props) => {
 	return (
 		<>
 			<div className="card filtered">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							<ChartIcon />
-						</div>
-						<span>FILTER AND GENERATE REPORT</span>
-					</div>
-				</div>
+				<SimpleSection
+					header="FILTER AND GENERATE REPORT"
+					icon={<ChartIcon />}>
+					<div className="content filters">
+						{filterIssues.map((issue: any, i: number) => (
+							<Fragment key={filterKeys[i]}>
+								<div className="filter">
+									<div className="check">
+										<input
+											id={'a' + filterKeys[i]}
+											type="checkbox"
+											disabled={filterIssues[issue] === '0'}
+											onChange={(e) => props.handleFilter(e, issue)}
+										/>
+										<label htmlFor={'a' + filterKeys[i]}>
+											{issue}
+										</label>
+									</div>
+									<div className="value">
+										<Show
+											when={filterIssues[issue] == '0'}
+											fallback={
+												<img
+													src="/codefend/issues-bug-icon.svg"
+													alt="bug-icon"
+												/>
+											}>
+											<img
+												src="/codefend/issues-bug-grey.svg"
+												alt="bug-icon"
+											/>
+										</Show>
 
-				<div className="content filters">
-					{filterIssues.map((issue: any, index: number) => (
-						<Fragment key={filterKeys[index]}>
-							<div className="filter">
-								<div className="check">
-									<input
-										id={issue}
-										type="checkbox"
-										disabled={filterIssues[issue] == '0'}
-										onChange={(e) => props.handleFilter(e, issue)}
-									/>
-									<label htmlFor={issue}>{issue}</label>
+										<span>{filterIssues[issue]}</span>
+									</div>
 								</div>
-								<div className="value">
-									{filterIssues[issue] == '0' ? (
-										<img
-											src="/codefend/issues-bug-grey.svg"
-											alt="bug-icon"
-										/>
-									) : (
-										<img
-											src="/codefend/issues-bug-icon.svg"
-											alt="bug-icon"
-										/>
-									)}
-									<span>{filterIssues[issue]}</span>
-								</div>
-							</div>
-						</Fragment>
-					))}
-				</div>
+							</Fragment>
+						))}
+					</div>
+				</SimpleSection>
 			</div>
 		</>
 	);

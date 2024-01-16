@@ -1,5 +1,10 @@
-import React, { useCallback } from 'react';
-import { ChatBoxType, CompleteIssue } from '../../../../../../data';
+import React, { Fragment, useCallback, useMemo } from 'react';
+import {
+	ChatBoxType,
+	CompleteIssue,
+	IssueMessage,
+	generateIDArray,
+} from '../../../../../../data';
 import {
 	MessageIcon,
 	PageLoader,
@@ -19,30 +24,39 @@ export const IssueChatDisplay: React.FC<Props> = ({
 	selectedIssue,
 	refetch,
 }) => {
-	const getIssue = useCallback(() => {
+	const getIssue = useCallback((): IssueMessage[] => {
 		return selectedIssue?.cs ?? [];
 	}, [selectedIssue]);
+
+	const messageKeys = useMemo(
+		(): string[] =>
+			Boolean(getIssue().length)
+				? generateIDArray(getIssue().length)
+				: ([] as string[]),
+		[getIssue],
+	);
+
 	return (
 		<div className="card messages">
 			<SimpleSection header="Customer support" icon={<MessageIcon />}>
 				<>
 					<div className="content">
 						<Show when={!isLoading} fallback={<PageLoader />}>
-							<>
-								<div
-									className={`messages-wrapper ${
-										getIssue().length > 3 && 'item'
-									}`}>
-									{getIssue().map((message: any) => (
-										<>
-											<MessageCard
-												body={message.body}
-												{...message}
-											/>
-										</>
-									))}
-								</div>
-							</>
+							<div
+								className={`messages-wrapper ${
+									getIssue().length > 3 && 'item'
+								}`}>
+								{getIssue().map((message: IssueMessage, i: number) => (
+									<Fragment key={messageKeys[i]}>
+										<MessageCard
+											body={message.body}
+											selectedID={message.userID}
+											createdAt={message.createdAt}
+											username={message.userUsername}
+										/>
+									</Fragment>
+								))}
+							</div>
 						</Show>
 					</div>
 					<ChatBox

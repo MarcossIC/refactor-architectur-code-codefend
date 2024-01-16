@@ -2,27 +2,66 @@ import { ApiHandlers } from 'app/data';
 import { Show } from 'app/views/components';
 import React, { useEffect, useState } from 'react';
 
+interface CompanyData {
+	id: string;
+	name: string;
+	web?: string;
+	country?: string;
+	city?:string;
+	size?:string;
+	address?: string;
+	canRead: boolean;
+	canWrite: boolean;
+	write_array: string[];
+	read_array: string[];
+}
+
+interface UserData {
+	id: string;
+	name: string;
+	canRead: boolean;
+	canWrite: boolean;
+	write_array: string[];
+	read_array: string[];
+}
+
+const createEmptyUser = (): UserData => ({
+	id: '',
+	name: '',
+	canRead: false,
+	canWrite: false,
+	write_array: [],
+	read_array: [],
+});
+
+const createEmptyCompany = (): CompanyData => ({
+	id: '',
+	name: '',
+	canRead: false,
+	canWrite: false,
+	write_array: [],
+	read_array: [],
+});
+
 const AdminCompanyDetails: React.FC = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
-	const [usersToShow, setUsersToShow] = useState([]);
-	const [filterUsers, setFilterUsers] = useState([]);
-	const [companyUsers, setCompanyUsers] = useState([]);
-	const [selectedUser, setSelectedUser] = useState(null);
-	const [companyStore, setCompanyStore] = useState(null);
+	const [usersToShow, setUsersToShow] = useState<UserData[]>([]);
+	const [filterUsers, setFilterUsers] = useState<UserData[]>([]);
+	const [companyUsers, setCompanyUsers] = useState<any[]>([]);
+	const [selectedUser, setSelectedUser] = useState<UserData>(createEmptyUser());
+	const [companyStore, setCompanyStore] = useState<CompanyData | null>(createEmptyCompany());
 
 	useEffect(() => {
-		if (companyStore) {
+		if (companyStore!.id) {
 			ApiHandlers.getPanelUsers().then((res: any) => {
-				const usersMapped = res.data.map((user: any) => {
-					return {
-						id: user.id,
-						name: user.name + ' ' + user.surname,
-						canRead: user.read_array.includes(companyStore.id),
-						canWrite: user.write_array.includes(companyStore.id),
-						write_array: user.write_array,
-						read_array: user.read_array,
-					};
-				});
+				const usersMapped = res.data.map((user: any) => ({
+					id: user.id,
+					name: user.name + ' ' + user.surname,
+					canRead: user.read_array.includes(companyStore!.id),
+					canWrite: user.write_array.includes(companyStore!.id),
+					write_array: user.write_array,
+					read_array: user.read_array,
+				}));
 
 				setUsersToShow(usersMapped);
 			});
@@ -39,8 +78,8 @@ const AdminCompanyDetails: React.FC = () => {
 			}
 			if (
 				item.name.includes(value) &&
-				!item.read_array.includes(companyStore.id) &&
-				!item.write_array.includes(companyStore.id)
+				!item.read_array.includes(companyStore!.id) &&
+				!item.write_array.includes(companyStore!.id)
 			) {
 				count++;
 				return true;
@@ -50,17 +89,20 @@ const AdminCompanyDetails: React.FC = () => {
 
 		setFilterUsers(filteredArray);
 	};
+
 	const handleAddUser = (e: any) => {
 		e.preventDefault();
 
-		const requestBody = {
-			userId: selectedUser.id,
-			companyId: companyStore.id,
-			canWrite: selectedUser.canWrite,
-			canRead: selectedUser.canRead,
-		};
+		if (selectedUser.id && companyStore!.id) {
+			const requestBody = {
+				userId: selectedUser.id,
+				companyId: companyStore!.id,
+				canWrite: selectedUser.canWrite,
+				canRead: selectedUser.canRead,
+			};
 
-		return ApiHandlers.addUserCompany(requestBody);
+			ApiHandlers.addUserCompany(requestBody);
+		}
 	};
 
 	return (
@@ -94,7 +136,7 @@ const AdminCompanyDetails: React.FC = () => {
 												fallback={
 													<span
 														onClick={() => {
-															setSelectedUser(null);
+															setSelectedUser(null!);
 														}}
 														className="block w-full py-3 px-11 log-inputs cursor-pointer dark:text-gray-300 text-xs">
 														{selectedUser.name}
@@ -103,78 +145,73 @@ const AdminCompanyDetails: React.FC = () => {
 												<input
 													type="text"
 													onKeyUp={(e) => {
-														handleInputChange(e.target.value);
-													}}
+														if (e.target instanceof HTMLInputElement) {
+															handleInputChange(e.target.value);
+														}
+													}}													
 													className="block w-full py-3 bg-white px-11 log-inputs dark:text-gray-300"
 													placeholder="User name"></input>
 											</Show>
 										</div>
-										<For each={filterUsers}>
-											{(user: any) => (
-												<div className="relative flex items-center">
-													<span
-														onClick={() => {
-															setSelectedUser(user),
-																setFilterUsers([]);
-														}}
-														className="block w-full py-3 px-11 log-inputs cursor-pointer dark:text-gray-300 text-xs">
-														{user.name}
-													</span>
-												</div>
-											)}
-										</For>
-										<Show when={selectedUser}>
-											<div className="flex items-center">
-												<input
-													id="link-checkbox"
-													type="checkbox"
-													checked={selectedUser.canRead}
+										{filterUsers.map((user) => (
+											<div
+												key={user.id}
+												className="relative flex items-center">
+												<span
 													onClick={() => {
-														setSelectedUser({
-															id: selectedUser.id,
-															name: selectedUser.name,
-															canRead: !selectedUser.canRead,
-															canWrite: selectedUser.canWrite,
-														});
-														setSelectedUser(...selectedUser, {
-															canRead: !selectedUser.canRead,
-														});
+														setSelectedUser(user);
+														setFilterUsers([]);
 													}}
-													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-												<label
-													for="link-checkbox"
-													className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-													Read permission
-												</label>
+													className="block w-full py-3 px-11 log-inputs cursor-pointer dark:text-gray-300 text-xs">
+													{user.name}
+												</span>
 											</div>
-											<div className="flex items-center">
-												<input
-													id="link-checkbox"
-													type="checkbox"
-													checked={selectedUser.canWrite}
-													onClick={() => {
-														setSelectedUser({
-															id: selectedUser.id,
-															name: selectedUser.name,
-															canRead: selectedUser.canRead,
-															canWrite: !selectedUser.canWrite,
-														});
-														setSelectedUser(...selectedUser, {
-															canWrite: !selectedUser.canWrite,
-														});
-													}}
-													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-												<label
-													for="link-checkbox"
-													className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-													Write permission
-												</label>
+										))}
+
+										<Show when={selectedUser.canRead}>
+											<div>
+												<div className="flex items-center">
+													<input
+														id="link-checkbox"
+														type="checkbox"
+														checked={selectedUser.canRead}
+														onChange={() => {
+															setSelectedUser((prevUser) => ({
+																...prevUser,
+																canRead: !prevUser.canRead,
+															}));
+														}}
+														className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+													<label
+														htmlFor="link-checkbox"
+														className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+														Read permission
+													</label>
+												</div>
+												<div className="flex items-center">
+													<input
+														id="link-checkbox"
+														type="checkbox"
+														checked={selectedUser.canWrite}
+														onClick={() => {
+															setSelectedUser((prevUser) => ({
+																...prevUser,
+																canWrite: !prevUser.canWrite,
+															}));
+														}}
+														className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+													<label
+														htmlFor="link-checkbox"
+														className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+														Write permission
+													</label>
+												</div>
 											</div>
 										</Show>
 										<div className="mt-6 internal-tables flex">
 											<button
 												onClick={() => {
-													setShowModal(!showModal());
+													setShowModal(!showModal);
 												}}
 												className="log-inputs w-2/6 px-4 mr-2 py-3 text-sm tracking-wide text-white transition-colors duration-300">
 												cancel
@@ -195,7 +232,7 @@ const AdminCompanyDetails: React.FC = () => {
 				</div>
 			</Show>
 			<Show
-				when={companyStore}
+				when={companyStore!.canRead}
 				fallback={
 					<div className="w-full internal-tables mt-4">
 						<div className="p-3 pl-8 internal-tables-active">
@@ -208,63 +245,67 @@ const AdminCompanyDetails: React.FC = () => {
 						</div>
 					</div>
 				}>
-				<div className="w-full internal-tables mt-4">
-					<div className="p-3 pl-8 internal-tables-active">
-						<p className="text-small text-left font-bold title-format">
-							Company details
-						</p>
+				<div>
+					<div className="w-full internal-tables mt-4">
+						<div className="p-3 pl-8 internal-tables-active">
+							<p className="text-small text-left font-bold title-format">
+								Company details
+							</p>
+						</div>
+						<div className="flex pl-8 text-format cursor-pointer">
+							<p className="text-base pt-3 pb-3">{`name: ${companyStore!.name}`}</p>
+						</div>
+						<div className="flex pl-8 text-format cursor-pointer">
+							<p className="text-base pt-3 pb-3">{`website: ${companyStore!.web}`}</p>
+						</div>
+						<div className="flex pl-8 text-format cursor-pointer">
+							<p className="text-base pt-3 pb-3">{`country: ${companyStore!.country}`}</p>
+						</div>
+						<div className="flex pl-8 text-format cursor-pointer">
+							<p className="text-base pt-3 pb-3">{`city: ${companyStore!.city}`}</p>
+						</div>
+						<div className="flex pl-8 text-format cursor-pointer">
+							<p className="text-base pt-3 pb-3">{`address: ${companyStore!.address}`}</p>
+						</div>
+						<div className="flex pl-8 text-format cursor-pointer">
+							<p className="text-base pt-3 pb-3">{`size: ${companyStore!.size}`}</p>
+						</div>
 					</div>
-					<div className="flex pl-8 text-format cursor-pointer">
-						<p className="text-base pt-3 pb-3">{`name: ${companyStore.name}`}</p>
+					<div className="w-full internal-tables mt-4 max-h-80 overflow-y-scroll">
+						<div className="p-3 pl-8 internal-tables-active flex">
+							<p className="text-small text-left font-bold title-format border-r pr-2">
+								Company members
+							</p>
+							<p
+								onClick={() => {
+									setShowModal(!showModal);
+								}}
+								className="text-small text-left font-bold title-format border-r px-2 underline cursor-pointer codefend-text-red">
+								Add member
+							</p>
+						</div>
+						<div className="flex p-3 pl-8 text-format">
+							<p className="text-base w-1/12">id</p>
+							<p className="text-base w-6/12">full name</p>
+							<p className="text-base w-2/12">role</p>
+							<p className="text-base w-2/12">permissions</p>
+						</div>
 					</div>
-					<div className="flex pl-8 text-format cursor-pointer">
-						<p className="text-base pt-3 pb-3">{`website: ${companyStore.web}`}</p>
-					</div>
-					<div className="flex pl-8 text-format cursor-pointer">
-						<p className="text-base pt-3 pb-3">{`country: ${companyStore.country}`}</p>
-					</div>
-					<div className="flex pl-8 text-format cursor-pointer">
-						<p className="text-base pt-3 pb-3">{`city: ${companyStore.city}`}</p>
-					</div>
-					<div className="flex pl-8 text-format cursor-pointer">
-						<p className="text-base pt-3 pb-3">{`address: ${companyStore.address}`}</p>
-					</div>
-					<div className="flex pl-8 text-format cursor-pointer">
-						<p className="text-base pt-3 pb-3">{`size: ${companyStore.size}`}</p>
-					</div>
-				</div>
-				<div className="w-full internal-tables mt-4 max-h-80 overflow-y-scroll">
-					<div className="p-3 pl-8 internal-tables-active flex">
-						<p className="text-small text-left font-bold title-format border-r pr-2">
-							Company members
-						</p>
-						<p
-							onClick={() => {
-								setShowModal(!showModal);
-							}}
-							className="text-small text-left font-bold title-format border-r px-2 underline cursor-pointer codefend-text-red">
-							Add member
-						</p>
-					</div>
-					<div className="flex p-3 pl-8 text-format">
-						<p className="text-base w-1/12">id</p>
-						<p className="text-base w-6/12">full name</p>
-						<p className="text-base w-2/12">role</p>
-						<p className="text-base w-2/12">permissions</p>
-					</div>
-					<Show when={usersToShow}>
-						{usersToShow()
-							.filter((user: any) =>
-								user.read_array.includes(companyStore.id),
-							)
-							.map((user: any) => {
-								return (
+					<Show when={usersToShow[0].canRead}>
+						<>
+							{usersToShow
+								.filter((user: any) =>
+									user.read_array.includes(companyStore!.id),
+								)
+								.map((user: any) => (
 									<div
 										onClick={() => {
 											setSelectedUser(user);
 											setShowModal(!showModal);
 										}}
-										className="flex pl-8 text-format cursor-pointer">
+										className="flex pl-8 text-format cursor-pointer"
+										key={user.id} // Asegúrate de agregar una clave única para cada elemento en el array.
+									>
 										<p className="text-base w-1/12 pt-3 pb-3">
 											{user.id}
 										</p>
@@ -273,11 +314,11 @@ const AdminCompanyDetails: React.FC = () => {
 										</p>
 										<p className="text-base w-2/12 pt-3 pb-3"> - </p>
 										<p className="text-base w-2/12 pt-3 pb-3">{`Can write: ${user.write_array.includes(
-											companyStore.id,
+											companyStore!.id,
 										)}`}</p>
 									</div>
-								);
-							})}
+								))}
+						</>
 					</Show>
 				</div>
 			</Show>

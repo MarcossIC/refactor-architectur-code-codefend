@@ -106,7 +106,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 									<button
 										onClick={() => setSelectedResult(null)}
 										type="button"
-										className="box-intelSelected rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none">
+										className="btn btn no-border-height w-14 items-center justify-center">
 										<InxSearchIcon />
 									</button>
 								</div>
@@ -162,7 +162,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 				<button
 					type="submit"
 					onClick={procSearch}
-					className="btn btn-primary">
+					className="btn btn-primary no-border-height w-14 items-center justify-center">
 					<img
 						className="w-3.5 h-3.5"
 						src="/codefend/icon-spy.png"

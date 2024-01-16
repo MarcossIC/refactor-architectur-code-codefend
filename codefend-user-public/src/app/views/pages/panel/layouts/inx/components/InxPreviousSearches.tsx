@@ -25,18 +25,50 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 
 	return (
 		<>
-			<div className="h-full flex flex-col ">
-				<div className="h-[76%] overflow-hidden">
-					<div className="w-full internal-tables h-full ">
-						<div className="py-3 px-5 internal-tables-active flex flex-row items-center gap-x-3.5 ">
-							<PreviousMessage />
-							<p className="text-small text-left font-bold title-format">
-								PREVIOUS SEARCHES
-							</p>
+			<div className="previous-search">
+				<div className="card table ">
+					<div className="header">
+						<div className="title">
+							<div className="icon">
+								<PreviousMessage />
+							</div>
+							<span>PREVIOUS SEARCHES</span>
 						</div>
+					</div>
+
+					<div className="columns-name">
+						<div className="column">username</div>
+						<div className="column">search</div>
+					</div>
+
+					<div className="rows">
 						<Show when={!props.isLoading} fallback={<PageLoader />}>
 							<>
-								<div className="flex px-8 py-2 internal-tables-scroll full-height overflow-auto ">
+								{safelyPreviousSearches().map(
+									(searchData: PreviusSearch, i: number) => (
+										<div
+											className="flex px-3 py-1 text-format text-black"
+											key={previusKeys[i]}>
+											<section className="flex w-full items-center">
+												<p className="w-2/4">
+													{searchData.username}
+												</p>
+												<p className="text-base w-2/4">
+													{searchData.info.split('queries:')[1] ??
+														'--'}
+												</p>
+											</section>
+										</div>
+									),
+								)}
+							</>
+						</Show>
+					</div>
+
+					{/* <div className="w-full h-full internal-tables">
+						<Show when={!props.isLoading} fallback={<PageLoader />}>
+							<>
+								<div className="flex px-8 py-2 internal-tables-scroll h-full !max-h-dvh overflow-auto ">
 									<div className="w-full">
 										<div className="flex p-3 text-format">
 											<section className="flex w-full">
@@ -66,7 +98,7 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 								</div>
 							</>
 						</Show>
-					</div>
+					</div>*/}
 				</div>
 				<button
 					onClick={(e) => {

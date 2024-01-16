@@ -14,6 +14,8 @@ import {
 	PreferenceIcon,
 	InxIcon,
 	DataIcon,
+	AdminUser,
+	AdminCompany,
 } from '../icons';
 
 import '../../styles/sidebar.scss';
@@ -33,11 +35,11 @@ const AdminSidebar: React.FC = () => {
 				title="Admin Panel"
 				to="/admin/panel"
 				className={isActivePath('/admin/panel')}>
-				<ChartIcon />
+				<AdminUser />
 			</Link>
 
 			<Link to="/admin/company" className={isActivePath('/admin/panel')}>
-				<ChartIcon />
+				<AdminCompany />
 			</Link>
 		</>
 	);

@@ -93,7 +93,7 @@ const SnsSearchAndData: React.FC = () => {
 							</select>
 
 							<button type="submit" className="btn btn-primary">
-								 <SearchIcon /> 
+								<SearchIcon/>
 							</button>
 						</div>
 					</form>

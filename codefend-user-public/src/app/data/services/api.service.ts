@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchGET } from '.';
+import { fetchGET, fetchPOST } from '.';
 var host = import.meta.env.VITE_SERVER_HOST;
 
 export const ApiHandlers = {
@@ -20,6 +20,23 @@ export const ApiHandlers = {
 			});
 	},
 
+	getPanelUsers: async () => {
+    return axios({
+      method: "get",
+      url: host + "/v1/approval/getuserlist",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+    })
+      .then((users) => {
+        return users;
+      })
+      .catch(() => {
+        return false;
+      });
+  },
+
 	createCompanyHandler: async (data: any) => {
 		return axios({
 			method: 'post',
@@ -37,6 +54,59 @@ export const ApiHandlers = {
 				return false;
 			});
 	},
+
+	addUserCompany: async (data:any) => {
+    return axios({
+      method: "post",
+      url: host + "/v1/approval/addusercompany",
+      data: data,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+    })
+      .then(() => {
+        return true;
+      })
+      .catch(() => {
+        return false;
+      });
+  },
+
+	approveUser: async (data: any) => {
+    return axios({
+      method: "post",
+      url: host + "/v1/approval/userapproval",
+      data: data,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+    })
+      .then(() => {
+        return true;
+      })
+      .catch(() => {
+        return false;
+      });
+  },
+
+	getPanelUsersApproval: async () =>{
+    return axios({
+      method: "get",
+      url: host + "/v1/approval/getusers",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+    })
+      .then((users) => {
+        return users;
+      })
+      .catch(() => {
+        return false;
+      });
+  },
 
 	initializeIntelData: async(data: any[], companyID: string) => {
     return fetchGET({
@@ -56,7 +126,7 @@ export const ApiHandlers = {
   },
 
 	initializeSnsData: async(data:any, companyID: string) => {
-    return fetchGET({
+    return fetchPOST({
         params: {
             model: "offensive/sns",
             ac: "search",

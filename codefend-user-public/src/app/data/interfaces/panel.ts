@@ -306,7 +306,24 @@ export interface SupportProps extends ResourceID, Monitoring {
 export interface TicketUnique extends SupportProps {
 	childs: SupportProps[];
 }
+
+export interface PreviusSearch extends ResourceID, Monitoring {
+	userID: string;
+	username: string;
+	model: string;
+	info: string;
+	addressRA: string;
+	addressHCI: string;
+	addressHXFF: string;
+	userCountry: string;
+	userCountryCode: string;
+	userCountryProvince: string;
+	userCountryCity: string;
+	userUA: string;
+	condition: string;
+}
 /* 
+
 "session": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxMDkiLCJleHAiOjE3MDU2MjUyNTd9.HivlkCsh5vAtxgWis5yA7B0rxmF14utrN13OaemyRlw",
     "user": {
         "id": "109",

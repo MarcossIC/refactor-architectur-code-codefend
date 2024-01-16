@@ -1,9 +1,10 @@
-import React from 'react';
-import { PageLoader, Show } from '../../../../../components';
+import React, { useMemo } from 'react';
+import { PageLoader, PreviousMessage, Show } from '../../../../../components';
+import { PreviusSearch, generateIDArray } from '../../../../../../data';
 
 interface InxPreviousSearchesProps {
 	isLoading: boolean;
-	previousSearches: any[];
+	previousSearches: PreviusSearch[];
 }
 
 export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
@@ -14,13 +15,21 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 			? props.previousSearches.reverse()
 			: [];
 
+	const previusKeys = useMemo(
+		() =>
+			Boolean(safelyPreviousSearches.length)
+				? generateIDArray(safelyPreviousSearches().length)
+				: [],
+		[props.previousSearches],
+	);
+
 	return (
 		<>
 			<div className="h-full flex flex-col ">
 				<div className="h-[76%] overflow-hidden">
 					<div className="w-full internal-tables h-full ">
 						<div className="py-3 px-5 internal-tables-active flex flex-row items-center gap-x-3.5 ">
-							{/* <RiLogosWechatFill className="codefend-text-red w-6 h-6" /> */}
+							<PreviousMessage />
 							<p className="text-small text-left font-bold title-format">
 								PREVIOUS SEARCHES
 							</p>
@@ -36,16 +45,16 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 											</section>
 										</div>
 										{safelyPreviousSearches().map(
-											(info: any, index: number) => (
+											(searchData: PreviusSearch, i: number) => (
 												<div
 													className="flex px-3 py-1 text-format"
-													key={index}>
+													key={previusKeys[i]}>
 													<section className="flex w-full items-center">
 														<p className="w-2/4">
-															{info.username}
+															{searchData.username}
 														</p>
 														<p className="text-base w-2/4">
-															{info.informacion.split(
+															{searchData.info.split(
 																'queries:',
 															)[1] ?? '--'}
 														</p>

@@ -1,4 +1,4 @@
-import { InxServices } from '../../';
+import { InxServices } from '../../../';
 import { useState } from 'react';
 
 export interface IntelSelected {
@@ -7,7 +7,7 @@ export interface IntelSelected {
 	fileType: string;
 }
 
-export const useIntelReadFile = () => {
+export const useInxReadFile = () => {
 	const [fullDataLoading, setFullDataLoading] = useState<boolean>(false);
 	const [selectedResult, setSelectedResult] = useState<IntelSelected | null>(
 		null,

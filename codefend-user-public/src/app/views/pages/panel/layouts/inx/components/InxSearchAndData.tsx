@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
 	generateIDArray,
-	handleFetchError,
 	useAuthState,
+	useHighlightLinesWithUrl,
+	useIntelPreview,
+	useIntelSearch,
+	useInitialSearch,
+	useInxReadFile,
 } from '../../../../../../data';
 import {
 	InxSearchIcon,
@@ -10,8 +14,6 @@ import {
 	PageLoaderOverlay,
 	Show,
 } from '../../../../../components';
-import { useParams } from 'react-router';
-import { InxServices } from '../../../../../../data/services/inx.service';
 import { InxPreviewIntelData } from './InxPreviewIntelData';
 
 interface InxSearchAndDataProps {
@@ -19,152 +21,71 @@ interface InxSearchAndDataProps {
 }
 
 export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
-	const [searchData, setSearchData] = useState<string>('');
-	const [selectedResult, setSelectedResult] = useState<any | null>(null);
-	const [intelId, setIntelId] = useState<string>('');
-	const [intelData, setIntelData] = useState<any[]>([]);
-	const [intelPreview, setIntelPreview] = useState<any[]>([]);
-	const [loading, setLoading] = useState<boolean>(false);
-	const [offset, setOffset] = useState<number>(0);
-	const [count, setCount] = useState<number>(0);
-	const [fullDataLoading, setFullDataLoading] = useState<boolean>(false);
-	const { search } = useParams();
+	const { highlightWithUrl } = useHighlightLinesWithUrl();
 	const { getUserdata } = useAuthState();
-	const companyID = getUserdata()?.companyID as string;
+	const { getData, setSearchData, refetchInitial } = useInitialSearch();
+	const { intelData, refetchIntelData, setIntelData } = useIntelSearch();
+	const { intelPreview, refetchPreview } = useIntelPreview();
+	const { fullDataLoading, selectedResult, setSelectedResult, readFile } =
+		useInxReadFile();
 
 	useEffect(() => {
-		if (!getUserdata()) return;
-
-		if (search) {
-			setSearchData(search);
-			procSearch();
-		}
+		procSearch();
 	}, []);
 
-	const highlightLinesWithUrlContext = (
-		inputText: string,
-		urlToFilter: string,
-		contextLines: number = 3,
-	) => {
-		return inputText
-			.split('\n')
-			.map((line, index, lines) =>
-				line.includes(urlToFilter)
-					? [
-							...lines
-								.slice(Math.max(0, index - contextLines), index)
-								.map((l) => `${l}<br>`),
-							`<b>${line}</b><br>`,
-							...lines
-								.slice(index + 1, index + 1 + contextLines)
-								.map((l) => `${l}<br>`),
-							`<hr class="w-24 h-1 bg-gray-100 border-0 rounded md:my-2 dark:bg-white">`,
-						].join('')
-					: line,
-			)
-			.join('\n');
-	};
-
-	const procSearch = (e?: React.FormEvent) => {
-		if (e) {
-			e.preventDefault();
-		}
-		setLoading(true);
-		setIntelData([]);
-		setOffset(0);
-
-		InxServices.initializeSearch(searchData, companyID)
-			.then((res: any) => {
-				setIntelId(res.response.id);
-				setCount(res.response.count);
-
-				return procIntelSearch();
-			})
-			.catch((err: Error) => {
-				handleFetchError(err);
-			})
-			.finally(() => {
-				setLoading(false);
-			});
-	};
-
-	const procIntelSearch = () => {
-		const params = { id: intelId, offset: offset };
-		return InxServices.search(params, companyID)
-			.then((res: any) => {
-				const intelResult = res.response.map((intel: any) => {
-					intel.preview = '';
-					return intel;
-				});
-				const intelProc = intelData.concat(intelResult);
-				setIntelData(intelProc);
-				props.refetch();
-				setOffset(offset + intelResult.length);
-				processAllIntelData(intelResult);
-			})
-			.catch((err) => {});
-	};
-
-	const procMoreResults = () => {
-		if (!loading) return procIntelSearch();
-		return [];
-	};
-	const time = (ms: any) => {
+	const delay = (ms: number) => {
 		return new Promise((resolve) => {
 			setTimeout(resolve, ms);
 		});
 	};
 
-	const processPreview = (intel: any) => {
-		const params = {
-			sid: intel.storage_id,
-			bid: intel.bucket_id,
-			mid: intel.media_id,
-		};
-		return InxServices.preview(params, companyID).then((res) => {
-			console.log(res);
-			if (!res.preview) return;
-			const intelPreviewData = intelPreview;
-			intelPreviewData.push({
-				id: intel.storage_id,
-				preview: res.preview,
-			});
-			setIntelPreview(intelPreviewData);
-			let intelDataP = intelData;
-			setIntelData([]);
-			return setIntelData(intelDataP);
+	const procSearch = (e?: React.FormEvent) => {
+		if (e) e.preventDefault();
+		refetchInitial(getUserdata()?.companyID!)?.then(() => {
+			return procIntelSearch();
+		});
+	};
+
+	const procIntelSearch = () => {
+		return refetchIntelData(
+			getData().intelID,
+			getData().offSet,
+			getUserdata()?.companyID!,
+		).then((res: any) => {
+			console.log({ resInIntelSearch: res });
+			props.refetch();
+			setSearchData((state) => ({ ...state, offSet: getData().offSet }));
+			//processAllIntelData(intelResult);
 		});
 	};
 
 	const processAllIntelData = async (inputData: any) => {
 		for (const intel of inputData) {
+			const params = {
+				sid: intel.storage_id,
+				bid: intel.bucket_id,
+				mid: intel.media_id,
+			};
 			processPreview(intel);
 		}
-		await time(4000);
-		if (offset < count) {
-			setLoading(false);
-		}
+		await delay(4000);
+	};
+
+	const processPreview = (params: any) => {
+		return refetchPreview(params, getUserdata()?.companyID!)?.then(() => {
+			const initial = intelData;
+			setIntelData([]);
+			setIntelData(initial);
+		});
+	};
+
+	const procMoreResults = () => {
+		if (!getData().isLoading) return procIntelSearch();
+		return [];
 	};
 
 	const procReadFile = (intel: any) => {
-		setFullDataLoading(true);
-		const params = {
-			sid: intel.storage_id,
-			bid: intel.bucket_id,
-		};
-		InxServices.read(params, companyID)
-			.then((res: any) => {
-				if (res.intel) {
-					setSelectedResult({
-						intelSelected: res.intel as any,
-						file_name: intel.name,
-						file_type: intel.bucket_data,
-					});
-				}
-			})
-			.finally(() => {
-				setFullDataLoading(false);
-			});
+		readFile(intel, getUserdata()?.companyID!);
 	};
 
 	const intelKeys = () =>
@@ -172,15 +93,15 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 
 	return (
 		<div className="border h-5/6 pt-3">
-			<Show when={selectedResult}>
+			<Show when={selectedResult !== null}>
 				<>
 					<div className="fixed left-0 top-0 h-full w-full bg-gray-500 bg-opacity-25 overflow-y-hidden overflow-x-hidden outline-none">
 						<div className="pointer-events-none relative w-auto translate-y-[50px] transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px] min-[992px]:max-w-[800px] min-[1200px]:max-w-[1140px]">
 							<div className="pointer-events-auto relative flex w-full flex-col border-none bg-white bg-clip-padding text-black dark:text-current shadow-lg outline-none dark:bg-neutral-600 ">
 								<div className="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
 									<h5 className="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200">
-										{selectedResult.file_name},{' '}
-										{selectedResult.file_type}
+										{selectedResult?.fileName},{' '}
+										{selectedResult?.fileType}
 									</h5>
 									<button
 										onClick={() => setSelectedResult(null)}
@@ -198,9 +119,9 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 									<div
 										className="max-w-md text-xs break-words"
 										dangerouslySetInnerHTML={{
-											__html: highlightLinesWithUrlContext(
-												selectedResult.intelSelected,
-												searchData,
+											__html: highlightWithUrl(
+												selectedResult?.intelSelected,
+												getData().search,
 											),
 										}}></div>
 
@@ -212,7 +133,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 									<div
 										className="max-w-md text-xs break-words"
 										dangerouslySetInnerHTML={{
-											__html: selectedResult.intelSelected.replace(
+											__html: selectedResult?.intelSelected.replace(
 												/(\r\n|\n|\r)/g,
 												'<br>',
 											),
@@ -227,8 +148,13 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 			<form className="flex flex-row h-9 mb-4 px-3">
 				<input
 					type="text"
-					value={searchData}
-					onChange={(e) => setSearchData(e.target.value)}
+					value={getData().search}
+					onChange={(e) =>
+						setSearchData((state) => ({
+							...state,
+							search: e.target.value,
+						}))
+					}
 					placeholder="Search"
 					className="px-6 w-full h-full"
 					required
@@ -244,7 +170,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 					/>
 				</button>
 			</form>
-			<Show when={!loading} fallback={<PageLoader />}>
+			<Show when={!getData().isLoading} fallback={<PageLoader />}>
 				<div className="flex internal-tables flex-col overflow-auto max-h-full overflow-x-hidden">
 					{intelData.map((intel: any, i: number) => (
 						<InxPreviewIntelData

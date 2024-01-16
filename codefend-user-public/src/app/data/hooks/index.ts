@@ -20,5 +20,12 @@ export * from './panel/useLan';
 export * from './panel/useEnp';
 export * from './panel/useSupport';
 export * from './panel/useSocial';
-export * from './panel/useInx';
 export * from './panel/useVdb';
+
+//export * from './panel/useInx';
+export * from './panel/inx/useHighlightLinesWithUrl';
+export * from './panel/inx/useInxReadFile';
+export * from './panel/inx/useInxPreviousSearch';
+export * from './panel/inx/useInitialSearch';
+export * from './panel/inx/useIntelPreview';
+export * from './panel/inx/useIntelSearch';

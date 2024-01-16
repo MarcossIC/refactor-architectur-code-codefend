@@ -11,6 +11,7 @@ import {
 	MobileProps,
 	MobileUnique,
 	OneIssue,
+	PreviusSearch,
 	SourceCode,
 	SupportProps,
 	TicketUnique,
@@ -330,5 +331,34 @@ export const mapTicketUnique = (source: any): TicketUnique => {
 	return {
 		...mapSupportProps(source.unico),
 		childs: source.unico.childs.map((child: any) => mapSupportProps(child)),
+	};
+};
+
+export const mapPreviusSearch = (source: any): PreviusSearch => {
+	return {
+		id: source.id,
+		companyID: source.company_id,
+		userID: source.user_id,
+		username: source.username,
+		model: source.model,
+		info: source.informacion,
+		addressRA: source.address_ra,
+		addressHCI: source.address_hci,
+		addressHXFF: source.address_hxff,
+		userCountry: source.user_pais,
+		userCountryCode: source.user_pais_code,
+		userCountryProvince: source.user_pais_provincia,
+		userCountryCity: source.user_pais_ciudad,
+		userUA: source.user_ua,
+		condition: source.condicion,
+		isDisabled: source.eliminado === '1',
+		createdAt: formatDate(source.creacion),
+	};
+};
+
+export const mapIntelData = (source: any) => {
+	return {
+		...source,
+		preview: '',
 	};
 };

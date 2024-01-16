@@ -35,7 +35,7 @@ const PreferencePanel = () => {
 					</section>
 					<section className="right">
 						<SettingCompanyInformation
-							companyInfo={company ?? []}
+							companyInfo={company}
 						/>
 						 <SettingPersonalDetails /> 
 					</section>

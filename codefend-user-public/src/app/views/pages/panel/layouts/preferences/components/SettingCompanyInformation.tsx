@@ -1,15 +1,16 @@
+import { CompanyInfo, usePreferences } from '../../../../../../data';
 import { useCompany } from '../../../../../../data/hooks/useCompany';
 import React from 'react';
 
 interface CompanyDataProps {
-  companyInfo: any[]; // ¿Este prop se usa realmente? Puede ser innecesario si usas useCompany
+  companyInfo: CompanyInfo | '';
 }
 
 const SettingCompanyInformation: React.FC<CompanyDataProps> = () => {
-  const { companyInfo } = useCompany() || null;
+  const { company } = usePreferences();
 
   const getCompanyData = () => {
-    if (!companyInfo) {
+    if (!company) {
       return {
         name: '',
         web: '',
@@ -22,13 +23,13 @@ const SettingCompanyInformation: React.FC<CompanyDataProps> = () => {
     }
 
     return {
-      name: companyInfo.name,
-      web: companyInfo.web,
-      mercado: companyInfo.mercado,
-      owner: `${companyInfo.owner_fname} ${companyInfo.owner_lname}`,
-      email: companyInfo.owner_email,
-      location: companyInfo.pais_provincia,
-      address: `${companyInfo.address === 'non available' ? '-' : companyInfo.address}`,
+      name: company.owner_fname,
+      web: company.web,
+      mercado: company.mercado,
+      owner: `${company.owner_fname} ${company.owner_lname}`,
+      email: company.owner_email,
+      location: company.pais_provincia,
+      address: `${company.address === 'non available' ? '-' : company.address}`,
     };
   };
 

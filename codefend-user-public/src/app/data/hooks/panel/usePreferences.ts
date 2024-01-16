@@ -98,7 +98,7 @@ export const usePreferences = () => {
 	const { getUserdata } = useAuthState();
 
 	const [loading, setLoading] = useState<boolean>(false);
-	const [company, setCompany] = useState<Company[]>([]);
+	const [company, setCompany] = useState<CompanyInfo | ''>('');
 	const [members, setMembers] = useState<MemberInfo[]>([])
   const [orders, serOrders] = useState<any[]>([])
 
@@ -109,7 +109,8 @@ export const usePreferences = () => {
 
 		PreferenceServices.getAll(companyID)
 			.then((response: any) => {
-				setCompany([mapCompany(response.company)]);
+        console.log(response)
+				setCompany(response.company);
 				setMembers(response.company_members);
         serOrders(response.company_orders)
 			})

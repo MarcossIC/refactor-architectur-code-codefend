@@ -2,15 +2,6 @@
 	import { ApiHandlers, User, useAuthState } from '../../../../../../data';
 	import React, { useState, useEffect } from 'react';
 
-	interface SubIntel {
-		[key: string]: unknown;
-	}
-
-	interface IntelDataItem {
-		name: string;
-		value: SubIntel[];
-	}
-
 	interface PersonInfo {
 		name: string;
 		email?: string;
@@ -30,6 +21,7 @@
 		birthdate?: string;
 		regdate?: string;
 		uid?: string;
+		[key: string]: any;
 	}
 
 	interface ApiResponse {
@@ -38,21 +30,6 @@
 		results: Record<string, PersonInfo[]>;
 	}
 
-	interface SearchQuery {
-		keyword: string;
-	}
-
-	interface SearchResponse {
-		response: ApiResponse;
-		keyword: string;
-	}
-
-	interface sClas {
-		email: string;
-		username: string;
-		password: string;
-		fullname: string;
-	}
 
 	const SnsSearchAndData: React.FC = () => {
 		const [searchData, setSearchData] = useState('');
@@ -108,7 +85,7 @@
 						res.data.response.results,
 					).map(([key, value]) => {
 						const name = key.split('_').slice(1, -2).join('_');
-						return { name, value: value as SubIntel[] };
+						return { name, value: value as PersonInfo[] };
 					});
 					setIntelData(arrayOfObjects);
 				})
@@ -162,7 +139,7 @@
 								</div>
 								<div className="info">
 									{intel?.value.map(
-										(subIntel: SubIntel, subIndex: number) => (
+										(subIntel: PersonInfo, subIndex: number) => (
 											<div
 												key={subIndex}
 												className="text"

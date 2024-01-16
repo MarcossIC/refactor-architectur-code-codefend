@@ -1,86 +1,87 @@
-import { formatDate } from '../../../../../../data';
+import { defaultPersonalDetails } from '../../../../../../data';
 import { useCompany } from '../../../../../../data/hooks/useCompany';
 
-import { EmptyCard, PageLoader } from 'app/views/components';
+import {  Show } from '../../../../../../views/components';
 import React, { useState } from 'react';
 
-interface CompanyDataProps {
-	orders: any[];
-	isLoading?: boolean;
-	companyInfo: any[];
-}
+const SettingPersonalDetails: React.FC = (props) => {
+	const [personalDetails, setPersonalDetails] = useState(
+    defaultPersonalDetails
+  );
 
-
-const SettingCompanyInformation: React.FC<CompanyDataProps> = (props) => {
 	const { companyInfo } = useCompany();
 
-	const getCompanyData = (companyInfo: any) => {
-		return {
-			name: companyInfo.name,
-			web: companyInfo.web,
-			mercado: companyInfo.mercado,
-			owner: `${companyInfo.owner_fname} ${companyInfo.owner_lname}`,
-			email: companyInfo.owner_email,
-			location: companyInfo.pais_provincia,
-			address: `${
-				companyInfo.address === 'non available' ? '-' : companyInfo.address
-			}`,
+	const userInfo = () => {
+    if (!companyInfo) {
+      return {
+        email: '',
+        fname: '',
+        mercado: '',
+        owner: '',
+        location: '',
+        address: '',
+      };
+    }
+
+			return {
+				email:companyInfo.owner_email,
+				firstname: companyInfo.owner_fname,
+				lastname: companyInfo.owner_lname,
+				phone: companyInfo.owner_phone,
+				role: companyInfo.owner_role,
+				photo_media: companyInfo.profile_media,
+			};
 		};
-	};
 
 	return (
 		<>
-			<div className="card table">
-				<div className="header">
-					<div className="title">
-						<div className="icon">
-							{/* <RiUserFacesUserSettingsFill /> */}
-						</div>
-						<span>ORDERS & BILLING DETAILS</span>
+			<div className=" personal-details w-full internal-tables mt-6 ">
+				<div className="py-3 px-5 internal-tables-active flex flex-row items-center gap-x-6 ">
+					<p className="text-small text-left font-bold title-format">
+						YOUR PERSONAL DETAILS
+					</p>
+					<p className="text-small text-left font-bold title-format border-x-[1.5px]  px-6 underline cursor-pointer title-format codefend-text-red">
+						UPDATE
+					</p>
+				</div>
+				<div className="flex flex-row gap-x-7 items-center px-8 py-2">
+					<section className="flex  mb-20">
+						<Show
+							when={Boolean(userInfo().photo_media)}
+							fallback={
+								<img
+									src="/codefend/user-icon-gray.svg"
+									className="w-16 h-16"
+									alt="default-profile-icon"
+								/>
+							}>
+							<div className="w-16 h-16 rounded-full profile-picture-wrapper">
+								<img
+									src={userInfo().photo_media ?? ''}
+									alt="profile-picture"
+									className=" rounded-full overflow-hidden"
+								/>
+							</div>
+						</Show>
+					</section>
+					<div className="w-full mb-20">
+						{personalDetails.map((detail: any) => (
+							<div
+								key={detail.title}
+								className="flex px-3 py-1 text-format">
+								<section className="flex w-full items-center">
+									<p className="w-1/2">{detail.title}</p>
+								{/* 	<p className="text-base w-1/2">
+										{userInfo[detail.title]}
+									</p> */}
+								</section>
+							</div>
+						))}
 					</div>
 				</div>
-
-				<div className="columns-name">
-					<div className="date">date</div>
-					<div className="full-name">order</div>
-					<div className="duration">duration</div>
-					<div className="price">price</div>
-					<div className="price">discount</div>
-					<div className="price">final price</div>
-					<div className="status">status</div>
-				</div>
-
-				<div className="rows">
-					{!props.isLoading ? (
-						props.orders.length > 0 ? (
-							props.orders.map((order: any) => (
-								<div key={order.order_id} className="item">
-									<div className="date">
-										{formatDate(order?.creacion ?? new Date())}
-									</div>
-									<div className="full-name">{order.order_desc}</div>
-									<div className="duration">{order.order_plazo}</div>
-									<div className="price">${order.order_price}</div>
-									<div className="price">
-										{order.order_price_disc}%
-									</div>
-									<div className="price">
-										${order.order_price_final}
-									</div>
-									<div className="status">{order.order_paid}</div>
-								</div>
-							))
-						) : (
-							<EmptyCard />
-						)
-					) : (
-						<PageLoader />
-					)}
-				</div>
 			</div>
-			{!props.isLoading && props.orders.length === 0 ? <EmptyCard /> : null}
 		</>
 	);
 };
 
-export default SettingCompanyInformation;
+export default SettingPersonalDetails;

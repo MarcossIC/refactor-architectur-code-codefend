@@ -1,5 +1,5 @@
 import { defaultOrderBilling, formatDate } from '../../../../../../data';
-import { EmptyCard, PageLoader } from '../../../../../components';
+import { EmptyCard, PageLoader, PreferenceIcon } from '../../../../../components';
 
 import React, { useState } from 'react';
 
@@ -17,7 +17,7 @@ const SettingOrderAndBilling: React.FC<BillingDataProps> = (props) => {
 				<div className="header">
 					<div className="title">
 						<div className="icon">
-							{/* <RiUserFacesUserSettingsFill /> */}
+							<PreferenceIcon/>
 						</div>
 						<span>ORDERS & BILLING DETAILS</span>
 					</div>

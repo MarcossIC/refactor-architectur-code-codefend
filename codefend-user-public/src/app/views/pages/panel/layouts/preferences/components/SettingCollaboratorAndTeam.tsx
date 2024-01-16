@@ -4,7 +4,7 @@ import React from 'react';
 
 interface CollaboratorDataProps {
 	isLoading: boolean;
-	members: Company[];
+	members: Member[];
 }
 
 const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
@@ -32,19 +32,19 @@ const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
 				<div className="rows">
 					<Show when={!props.isLoading} fallback={<PageLoader />}>
 						<>
-							{props.members.map((member: Company) => (
+							{props.members.map((member: Member) => (
 								<div key={member.id} className="item">
 									<div className="id">{member.id}</div>
-									<div className="full-name">{`${member.ownerName} ${member.ownerLastname}`}</div>
-									<div className="email">{member.ownerName}</div>
+									<div className="full-name">{`${member.fname} ${member.lname}`}</div>
+									<div className="email">{member.fname}</div>
 									<div className="phone">
 										<Show
-											when={Boolean(member.ownerPhone)}
+											when={Boolean(!member.eliminado)}
 											fallback={<>-</>}>
-											<>+${member.ownerPhone}</>
+											<>+${member.phone}</>
 										</Show>
 									</div>
-									<div className="role">{member.ownerRole}</div>
+									<div className="role">{member.role}</div>
 								</div>
 							))}
 						</>

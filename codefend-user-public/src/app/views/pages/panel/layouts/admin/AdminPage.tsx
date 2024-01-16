@@ -14,7 +14,7 @@ const AdminPage: React.FC = () => {
 		isAdmin() && getAccessToken() !== null && !isNotAuthenticated;
 	return (
 		<>
-			{userHaveAccess ? (
+			{!userHaveAccess ? (
 				<>
 					<Suspense fallback={<Loader />}>
 						<Outlet />

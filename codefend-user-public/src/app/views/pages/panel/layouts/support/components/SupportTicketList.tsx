@@ -3,6 +3,7 @@ import {
 	SupportProps,
 	generateIDArray,
 	useModal,
+	useTicketDelete,
 } from '../../../../../../data';
 import {
 	ConfirmModal,
@@ -12,6 +13,7 @@ import {
 	PageLoader,
 	Show,
 	TrashIcon,
+	AddTicketModal,
 } from '../../../../../components';
 import SelectedTicket from '../supportProvider';
 
@@ -19,16 +21,15 @@ interface SupportTicketListProps {
 	setSelectedTicket: (state: any) => void;
 	isLoading: boolean;
 	tickets: SupportProps[];
-	refetch: () => void;
+	refresh: () => void;
 }
 
 export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 	const { showModal, showModalStr, setShowModal, setShowModalStr } =
 		useModal();
-	const [selectedTicketIdToDelete, setSelectedTicketIdToDelete] =
-		useState<SupportProps | null>(null);
+	const [selectedID, setSelectedTicketIdToDelete] = useState<string>('');
 	const selectedTicket = useContext(SelectedTicket);
-
+	const { deletTicket } = useTicketDelete();
 	const handleTicketSelection = (ticket: any) => {
 		if (isSelected(ticket.id)) return;
 		props.setSelectedTicket(ticket);
@@ -41,18 +42,25 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 		return props.tickets ? generateIDArray(props.tickets.length) : [];
 	}, [props.tickets]);
 
+	const handleDelete = () => {
+		deletTicket(selectedID)?.then(() => {
+			setShowModal(!showModal);
+			props.refresh();
+		});
+	};
+
 	return (
 		<>
 			<ModalTitleWrapper
 				headerTitle="Add ticket"
 				isActive={showModal && showModalStr === 'add_ticket'}
 				close={() => setShowModal(!showModal)}>
-				<ConfirmModal
-					header=""
-					cancelText="Cancel"
-					confirmText="Delete"
+				<AddTicketModal
 					close={() => setShowModal(!showModal)}
-					action={() => {}}
+					onDone={() => {
+						setShowModal(!showModal);
+						props.refresh();
+					}}
 				/>
 			</ModalTitleWrapper>
 
@@ -65,7 +73,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 					cancelText="Cancel"
 					confirmText="Delete"
 					close={() => setShowModal(!showModal)}
-					action={() => {}}
+					action={() => handleDelete()}
 				/>
 			</ModalTitleWrapper>
 			<div className="card table">
@@ -121,7 +129,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 										<div
 											className="trash"
 											onClick={() => {
-												setSelectedTicketIdToDelete(ticket);
+												setSelectedTicketIdToDelete(ticket.id);
 												setShowModal(!showModal);
 												setShowModalStr('delete_resource');
 											}}>

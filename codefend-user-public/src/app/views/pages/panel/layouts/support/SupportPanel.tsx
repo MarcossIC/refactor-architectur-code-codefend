@@ -8,7 +8,7 @@ import SelectedTicket from './supportProvider';
 
 const SupportPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
-	const [refresh, setRefresh] = useState(false);
+	const [control, refresh] = useState(false);
 	const [selectedTicket, setSelectedTicket] = useState<SupportProps | null>(
 		null,
 	);
@@ -29,7 +29,7 @@ const SupportPanel: React.FC = () => {
 		refetch();
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
-	}, [refresh]);
+	}, [control]);
 
 	return (
 		<SelectedTicket.Provider value={selectedTicket}>
@@ -41,8 +41,8 @@ const SupportPanel: React.FC = () => {
 						}
 						isLoading={isLoading}
 						tickets={getTikets() ?? []}
-						refetch={() => {
-							setRefresh(!refetch);
+						refresh={() => {
+							refresh(!control);
 						}}
 					/>
 				</section>

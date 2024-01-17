@@ -11,14 +11,21 @@ import {
 export const VdbSearchData: React.FC = () => {
 	const { getVdb, refetch, isLoading, searchData, handleChange } =
 		useInitialVdb();
+
 	const [sortBy, setSortBy] = useState('');
+
 	const [selectedNow, setSelectedNow] = useState(false);
+
 	const safelyVdbData = () => (Array.isArray(getVdb()) ? getVdb() ?? [] : []);
+
 	useEffect(() => {
 		refetch();
 	}, []);
 
-	const vdbKeys = useMemo(() => generateIDArray(getVdb().length), [getVdb()]);
+	const vdbKeys = useMemo(
+		() => generateIDArray(safelyVdbData().length),
+		[safelyVdbData()],
+	);
 
 	const columns = new Set(['creacion', 'id', 'cve', 'title', 'score', 'risk']);
 	return (
@@ -31,7 +38,7 @@ export const VdbSearchData: React.FC = () => {
 							value={searchData}
 							onChange={handleChange}
 							placeholder="Enter a program name (e.g. Mozilla Firefox)"
-							className="text"
+							className="text flex-1"
 							required
 						/>
 						<button type="submit" className="btn btn-primary">
@@ -69,7 +76,7 @@ export const VdbSearchData: React.FC = () => {
 								<div className="actions"></div>
 							</div>
 							<Table
-								data={getVdb()}
+								data={safelyVdbData()}
 								columns={Array.from(columns)}></Table>
 						</div>
 					</>

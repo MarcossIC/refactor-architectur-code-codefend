@@ -20,7 +20,7 @@ const VdbPanel: React.FC<Props> = (props) => {
 				<section className="left">
 					<Masonry
 						breakpointCols={3}
-						className="my-masonry-grid"
+						className="my-masonry-grid bg-transparent"
 						columnClassName="my-masonry-grid_column">
 						<VdbSearchData />
 					</Masonry>

@@ -1,6 +1,6 @@
 import {
 	PageLoader,
-	SearchIcon,
+	SnsSearchIcon,
 	Show,
 } from '../../../../../../views/components';
 import { ApiHandlers, User, useAuthState } from '../../../../../../data';
@@ -126,7 +126,7 @@ const SnsSearchAndData: React.FC = () => {
 							</select>
 
 							<button type="submit" className="btn btn-primary">
-								<SearchIcon />
+								<SnsSearchIcon />
 							</button>
 						</div>
 					</form>

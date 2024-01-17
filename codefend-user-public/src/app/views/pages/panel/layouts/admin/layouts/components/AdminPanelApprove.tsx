@@ -1,4 +1,4 @@
-import { ApiHandlers } from 'app/data';
+import { ApiHandlers } from '../../../../../../../data';
 import React, { useEffect, useState } from 'react';
 
 const AdminPanelApprove: React.FC = () => {
@@ -16,10 +16,20 @@ const AdminPanelApprove: React.FC = () => {
 	};
 
 	useEffect(() => {
-		ApiHandlers.getPanelUsersApproval().then((res: any) => {
-			setPendingUsers(res.data);
-		});
+		ApiHandlers.getPanelUsersApproval()
+			.then((res: any) => {
+				console.log(res);
+				if (res === false) {
+					console.error("Error fetching panel users approval.");
+				} else {
+					setPendingUsers(res.data);
+				}
+			})
+			.catch((error) => {
+				console.error("Error fetching panel users approval.", error);
+			});
 	}, []);
+	
 
 	return (
 		<>

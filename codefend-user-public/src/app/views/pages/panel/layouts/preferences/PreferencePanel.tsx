@@ -6,16 +6,13 @@ import SettingCompanyInformation from './components/SettingCompanyInformation';
 import SettingOrderAndBilling from './components/SettingOrderAndBilling';
 import '../../../../styles/flag.scss';
 import '../../../../styles/table.scss';
+import SettingPersonalDetails from './components/SettingPersonaDetails';
 
 const PreferencePanel = () => {
 	const [showScreen, setShowScreen] = useState(false);
-	const { loading, data } = usePreferences();
-
-	const preferencesInfoData = () => {
-		const preferencesData = loading ? [] : data;
-		return preferencesData;
-	};
-
+	const { loading, company, members, orders } = usePreferences();
+	
+	
 	useEffect(() => {
 		setTimeout(() => {
 			setShowScreen(true);
@@ -29,18 +26,18 @@ const PreferencePanel = () => {
 					<section className="left">
 						<SettingOrderAndBilling
 							isLoading={loading}
-							orders={preferencesInfoData() ?? []}
+							orders={orders ?? []}
 						/>
 						<SettingCollaboratorAndTeam
 							isLoading={loading}
-							members={preferencesInfoData() ?? []}
+							members={members ?? []}
 						/>
 					</section>
 					<section className="right">
 						<SettingCompanyInformation
-							companyInfo={preferencesInfoData() ?? []}
+							companyInfo={company}
 						/>
-						{/* <SettingPersonalDetails /> */}
+						 <SettingPersonalDetails /> 
 					</section>
 				</main>
 			</Show>

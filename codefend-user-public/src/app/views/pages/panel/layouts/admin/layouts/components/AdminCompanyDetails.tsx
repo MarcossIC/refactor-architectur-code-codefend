@@ -1,5 +1,5 @@
-import { ApiHandlers } from 'app/data';
-import { Show } from 'app/views/components';
+import { ApiHandlers } from '../../../../../../../data';
+import { Show } from '../../../../../../../views/components';
 import React, { useEffect, useState } from 'react';
 
 interface CompanyData {

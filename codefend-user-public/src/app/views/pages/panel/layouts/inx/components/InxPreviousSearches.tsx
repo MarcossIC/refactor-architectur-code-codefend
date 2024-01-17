@@ -26,7 +26,7 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 	return (
 		<>
 			<div className="previous-search">
-				<div className="card table ">
+				<div className="card table inx">
 					<div className="header">
 						<div className="title">
 							<div className="icon">

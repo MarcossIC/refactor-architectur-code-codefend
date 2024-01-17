@@ -2,30 +2,5 @@ main.issues-list {
 	max-height: 100dvh;
 	.right {
 		width: 35%;
-		.previous-search {
-			height: 100%;
-			display: flex;
-			flex: 1 1;
-			flex-direction: column;
-
-			.card {
-				&.table {
-					max-height: 75dvh;
-
-					.columns-name {
-						.column {
-							font-size: 1rem /* 16px */;
-							line-height: 1.5rem /* 24px */;
-							width: 50%;
-						}
-					}
-
-					.rows {
-						max-height: 64dvh;
-						overflow: auto;
-					}
-				}
-			}
-		}
 	}
 }

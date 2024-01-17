@@ -42,7 +42,10 @@ const SocialEngineering: React.FC<SocialProps> = (props) => {
 				close={() => setShowModal(false)}
 				headerTitle="Add a new member">
 				<AddSocialModal
-					onDone={() => props.refetch()}
+					onDone={() => {
+						props.refetch();
+						setShowModal(false);
+					}}
 					close={() => setShowModal(false)}
 				/>
 			</ModalTitleWrapper>

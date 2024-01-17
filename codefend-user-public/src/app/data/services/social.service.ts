@@ -20,7 +20,7 @@ const getOne = async (companyID: string) => {
 	try {
 		const { data } = await fetchGET({
 			params: {
-				model: 'resource/se',
+				model: 'resources/se',
 				ac: 'view_one',
 				company_id: companyID,
 			},
@@ -36,7 +36,7 @@ const add = async (params: any, companyID: string) => {
 	try {
 		const { data } = await fetchPOST({
 			params: {
-				model: 'resource/se',
+				model: 'resources/se',
 				ac: 'add',
 				company_id: companyID,
 				...params,
@@ -53,7 +53,7 @@ const deleteOne = async (companyID: string) => {
 	try {
 		const { data } = await fetchPOST({
 			params: {
-				model: 'resource/se',
+				model: 'resources/se',
 				ac: 'del',
 				company_id: companyID,
 			},

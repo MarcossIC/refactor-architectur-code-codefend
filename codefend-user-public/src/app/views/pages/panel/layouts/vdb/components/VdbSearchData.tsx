@@ -2,8 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { generateIDArray, useInitialVdb } from '../../../../../../data';
 import {
 	BugIcon,
-	EnpIcon,
+	ScanSearchIcon,
 	PageLoader,
+	SearchBar,
 	Show,
 	Table,
 } from '../../../../../components';
@@ -30,22 +31,14 @@ export const VdbSearchData: React.FC = () => {
 	const columns = new Set(['creacion', 'id', 'cve', 'title', 'score', 'risk']);
 	return (
 		<>
-			<div className="search-bar">
-				<div className="search-item">
-					<form onSubmit={refetch} className="">
-						<input
-							type="text"
-							value={searchData}
-							onChange={handleChange}
-							placeholder="Enter a program name (e.g. Mozilla Firefox)"
-							className="text flex-1"
-							required
-						/>
-						<button type="submit" className="btn btn-primary">
-							<EnpIcon />
-						</button>
-					</form>
-				</div>
+			<div className="search-bar-container">
+				<SearchBar
+					inputValue={searchData}
+					placeHolder="Enter a program name (e.g. Mozilla Firefox)"
+					handleChange={handleChange}
+					handleSubmit={refetch}
+					searchIcon={<ScanSearchIcon isButton />}
+				/>
 			</div>
 			<Show when={Boolean(safelyVdbData().length)}>
 				<Show when={!isLoading} fallback={<PageLoader />}>

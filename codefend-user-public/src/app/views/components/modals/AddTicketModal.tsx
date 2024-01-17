@@ -49,7 +49,7 @@ export const AddTicketModal: React.FC<AddTicketModalProps> = (props) => {
 					<div className="form-input p-1">
 						<span className="form-icon top-[15%] left-0">
 							<div className="codefend-text-red">
-								<PencilIcon />
+								<PencilIcon isButton />
 							</div>
 						</span>
 

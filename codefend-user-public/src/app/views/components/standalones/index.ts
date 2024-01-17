@@ -18,3 +18,4 @@ export * from './VulnerabilityRisk';
 export * from './Show';
 export * from './SimpleSection';
 export * from './SecondaryButton';
+export * from './SearchBar';

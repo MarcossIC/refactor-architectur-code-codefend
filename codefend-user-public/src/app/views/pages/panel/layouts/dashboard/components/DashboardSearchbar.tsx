@@ -15,7 +15,7 @@ const DashboardSearchbar = () => {
 	);
 
 	return (
-		<div className="searchs-bar">
+		<div className="search-bar">
 			<div className="search-items">
 				<form onSubmit={navigateSns}>
 					<input
@@ -48,7 +48,7 @@ const DashboardSearchbar = () => {
 					<button
 						type="submit"
 						className="btn btn-primary no-border-height search-button">
-						<SearchIcon />
+						<SearchIcon isButton />
 					</button>
 				</form>
 			</div>

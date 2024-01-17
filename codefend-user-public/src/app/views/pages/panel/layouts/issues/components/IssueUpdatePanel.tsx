@@ -108,12 +108,12 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 						<div
 							className={`edit edit_btn  ${isEditable ? 'on' : 'off'}`}
 							onClick={() => setEditable(!isEditable)}>
-							<PencilIcon />
+							<PencilIcon isButton />
 						</div>
 						<div
 							className={`save edit_btn ${isEditable ? 'on' : 'off'}`}
 							onClick={() => handleIssueUpdate()}>
-							<SaveIcon />
+							<SaveIcon isButton />
 						</div>
 					</div>
 				</div>

@@ -1,10 +1,12 @@
 import {
 	PageLoader,
-	SnsSearchIcon,
+	ScanSearchIcon,
+	SearchBar,
 	Show,
 } from '../../../../../../views/components';
 import { ApiHandlers, User, useAuthState } from '../../../../../../data';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useLocation, useParams } from 'react-router';
 
 interface PersonInfo {
 	name: string;
@@ -35,8 +37,11 @@ interface ApiResponse {
 }
 
 const SnsSearchAndData: React.FC = () => {
-	const [searchData, setSearchData] = useState('');
-	const [searchClass, setSearchClass] = useState<string>('');
+	const query = new URLSearchParams(useLocation().search);
+	const [searchData, setSearchData] = useState(query.get('search') ?? '');
+	const [searchClass, setSearchClass] = useState<string>(
+		query.get('class') ?? '',
+	);
 	const [intelData, setIntelData] = useState<any[]>([]);
 	const [loading, setLoading] = useState(false);
 
@@ -47,7 +52,6 @@ const SnsSearchAndData: React.FC = () => {
 
 	useEffect(() => {
 		if (!getUserdata()) return;
-
 		if (searchData) {
 			setSearchData(searchData);
 			procSearch();
@@ -55,18 +59,7 @@ const SnsSearchAndData: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!user) return;
-		const urlParams = new URLSearchParams(window.location.search);
-		if (urlParams.get('search')) {
-			setSearchData(urlParams.get('search') || '');
-		}
-		if (urlParams.get('class')) {
-			setSearchClass(urlParams.get('class') || '');
-		}
-
-		if (searchClass && searchData) {
-			procSearch(undefined!);
-		}
+		if (searchClass && searchData) procSearch(undefined!);
 	}, []);
 
 	const procSearch = (e?: React.FormEvent): any => {
@@ -98,40 +91,29 @@ const SnsSearchAndData: React.FC = () => {
 				setLoading(false);
 			});
 	};
+	const selectBarOptions = {
+		options: { email: 'email', password: 'password', name: 'full name' },
+		placeHolder: 'chose a class',
+		value: searchClass,
+		change: (e: any) => setSearchClass(e.target.value),
+	};
 
 	return (
 		<>
-			<div className="search-bar">
-				<div className="search-item">
-					<form onSubmit={procSearch}>
-						<input
-							type="text"
-							value={searchData}
-							onChange={(e) => setSearchData(e.target.value)}
-							placeholder="Search"
-							className="text"
-							required
-						/>
-						<div className="drop">
-							<select
-								className="select"
-								value={searchClass}
-								onChange={(e) => setSearchClass(e.target.value)}>
-								<option value="email" selected>
-									email
-								</option>
-								<option value="username">username</option>
-								<option value="password">password</option>
-								<option value="name">full name</option>
-							</select>
-
-							<button type="submit" className="btn btn-primary">
-								<SnsSearchIcon />
-							</button>
-						</div>
-					</form>
-				</div>
+			<div className="search-bar-container">
+				<SearchBar
+					handleChange={(e: ChangeEvent<HTMLInputElement>) =>
+						setSearchData(e.target.value)
+					}
+					placeHolder="Search"
+					inputValue={searchData}
+					handleSubmit={procSearch}
+					searchIcon={<ScanSearchIcon isButton />}
+					isActiveSelect
+					selectOptions={selectBarOptions}
+				/>
 			</div>
+
 			<Show when={!loading} fallback={<PageLoader />}>
 				<div>
 					{intelData.map((intel, index) => (

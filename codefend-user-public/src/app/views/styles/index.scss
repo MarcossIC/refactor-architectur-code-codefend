@@ -86,7 +86,8 @@ main.lan,
 main.social,
 main.issues-list,
 main.source-code,
-main.preferences {
+main.preferences,
+main.sb {
 	.left {
 		width: 70%;
 	}
@@ -105,98 +106,6 @@ main.preferences {
 		}
 	}
 }
-///////////////////////////////////////////////////////////////////
-// sb
-//////////////////////////////////////////////////////////////////
-main.sb {
-	.left {
-		width: 70%;
-		border: 1px solid var(--color-border);
-		// border-right: 1px solid var(--color-border);
-		margin-bottom: -10px;
-
-		.search-bar {
-			display: flex;
-			justify-content: space-between;
-			.search-item {
-				display: flex;
-				width: 100%;
-				padding: 10px;
-
-				form {
-					display: flex;
-					width: 100%;
-					justify-content: space-between;
-					border: 1px solid var(--color-border);
-					// border-bottom: 1px solid var(--color-border);
-
-					.text {
-						border: none;
-						border-right: 1px solid var(--color-border);
-						flex: 1;
-					}
-
-					.drop {
-						display: flex;
-						// width: 250px;
-						// flex: .3;
-						column-gap: 20px;
-						// border: 1px solid var(--color-border);
-
-						select {
-							flex: 0.8;
-							padding-left: 10px;
-							width: 220px;
-							text-align: center;
-						}
-
-						button {
-							flex: 0.2;
-							padding: 0 5px;
-						}
-					}
-				}
-			}
-		}
-
-		.content {
-			flex-wrap: wrap;
-			gap: 20px;
-			display: flex;
-			padding: 10px;
-			overflow-y: auto;
-			height: 100%;
-		}
-
-		.search-result {
-			flex: 1 1 230px;
-			border: 1px solid var(--color-border);
-
-			.header {
-				padding: 10px 20px;
-				background-color: var(--header-title-bkg);
-				.title {
-					color: var(--text-color-alt2);
-				}
-			}
-
-			.info {
-				color: var(--text-color);
-				padding: 20px;
-				overflow-wrap: anywhere;
-
-				.text {
-					width: 100%;
-					height: 100%;
-				}
-			}
-		}
-	}
-	.right {
-		width: 30%;
-	}
-}
-
 main.mobile,
 main.cloud {
 	.left {
@@ -246,6 +155,76 @@ main.cloud {
 }
 
 ///////////////////////////////////////////////////////////////////
+// SEARCH BAR
+///////////////////////////////////////////////////////////////////
+.search-bar-container {
+	margin: 0.625rem;
+}
+
+.search-bar {
+	display: flex;
+	justify-content: flex-start;
+	height: 43px;
+	margin-bottom: 10px;
+
+	&-wrapper {
+		width: 100%;
+
+		.only-btn {
+			flex: 1 1 93%;
+		}
+
+		.with-select {
+			flex: 1 1 78%;
+		}
+
+		&-form {
+			width: 100%;
+			display: flex;
+			height: 100%;
+
+			margin-block-end: 1rem;
+
+			.search-input {
+				display: flex;
+				padding-inline: 1.5rem;
+				width: 100%;
+				height: 100%;
+				background-color: var(--input-background);
+				color: var(--input-font-color) !important;
+				border: 1px solid var(--color-border);
+				font-size: 0.95rem;
+				letter-spacing: 0.2px;
+				cursor: text;
+			}
+
+			.search-select {
+				flex: 1 1 15%;
+				border: 1px solid var(--color-border);
+				height: 100%;
+
+				display: flex;
+				font-size: 1rem /* 14px */;
+				line-height: 1.25rem /* 20px */;
+				padding: 0.625rem /* 10px */;
+			}
+
+			.search-button {
+				flex: 1 1 7%;
+				height: 100%;
+				border-start-start-radius: 0px;
+				border-end-start-radius: 0px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: none;
+				padding: 0px;
+			}
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////
 // editor tiny
 //////////////////////////////////////////////////////////////////
 .tox-tinymce {
@@ -260,4 +239,13 @@ main.cloud {
 	&.editable {
 		display: grid !important;
 	}
+}
+//////////////////////////////////////////////////////////////////
+// MASSONRY
+//////////////////////////////////////////////////////////////////
+/* Style your items */
+.my-masonry-grid_column > div {
+	/* change div to reference your elements you put in <Masonry> */
+	background: transparent;
+	margin-bottom: 30px;
 }

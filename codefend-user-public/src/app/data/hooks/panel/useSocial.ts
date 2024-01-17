@@ -23,7 +23,8 @@ export const useSocial = () => {
 	const fetchSocial = async (companyID: string) => {
 		dispatch((state) => ({ ...state, isLoading: true }));
 		return SocialAplicationService.getAll(companyID)
-			.then((response) => {
+			.then((response: any) => {
+			
 				dispatch({
 					data: response.disponibles,
 					error: null,

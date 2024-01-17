@@ -83,7 +83,7 @@ const SocialEngineeringView = () => {
 				<section className="right">
 					<SocialEngineeringMembers
 						isLoading={social.loading}
-						members={computedRoles(socialInfoData() as MemberV2[]) ?? []}
+						members={members ?? []}
 						setSocialFilters={setSocialFilters}
 					/>
 					<SocialAttackVectors />

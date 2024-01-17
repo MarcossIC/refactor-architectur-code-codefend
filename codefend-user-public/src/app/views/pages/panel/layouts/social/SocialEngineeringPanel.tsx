@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
 	Member,
-	MemberV2,
 	MetricsService,
 	useSocial,
 } from '../../../../../data';
@@ -77,7 +76,7 @@ const SocialEngineeringView = () => {
 					<SocialEngineering
 						refetch={refetch}
 						isLoading={loading}
-						socials={members!}
+						socials={members ?? []}
 					/>
 				</section>
 				<section className="right">

@@ -1,4 +1,4 @@
-import { User, Webresources } from '..';
+import { MemberV2, User, Webresources } from '..';
 
 /** Compute InternalNetwork OS And Count */
 const computeInternalNetworkOSAndCount = (internalNetwork: any) => {
@@ -68,9 +68,9 @@ const isUserChat = (id: any, user: User | null) => {
 };
 
 /** compute social roles */
-const computedRoles = (socials: any) => {
+const computedRoles = (socials: MemberV2[]) => {
 	if (!socials) return {};
-	return socials.reduce((acc: any, social: any) => {
+	return socials.reduce((acc: any, social: MemberV2) => {
 		if (acc[social.member_role]) {
 			acc[social.member_role]++;
 		} else {

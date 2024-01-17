@@ -1,10 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useAuthState } from '..';
 import {
 	FetchPattern,
-	SuperMember,
 	SocialAplicationService,
-	SocialRoles,
 	MemberV2,
 } from '../../../data';
 import { toast } from 'react-toastify';
@@ -42,6 +40,5 @@ export const useSocial = () => {
 		}
 		fetchSocial(companyID);
 	}, [getUserdata]);
-	console.log({ data });
 	return { members: data, loading: isLoading, error, info, refetch };
 };

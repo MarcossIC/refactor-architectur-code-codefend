@@ -6,11 +6,11 @@ export const useIntelSearch = () => {
 	const [intelData, setIntelData] = useState<any[]>([]);
 
 	const refetchIntelData = async (
-		intelID: string,
-		offSet: number,
+		id: string,
+		offset: number,
 		companyID: string,
 	) => {
-		return InxServices.search({ intelID, offSet }, companyID)
+		return InxServices.search({ id, offset }, companyID)
 			.then((res: any) => {
 				if (res.error == '1') {
 					throw new Error('An unexpected error has occurred');

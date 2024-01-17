@@ -3,7 +3,6 @@ use mdns_sd::{ServiceDaemon, ServiceEvent};
 use std::path::PathBuf;
 use std::io;
 //use std::net::IpAddr;
-use tauri::Builder;
 use std::os::windows::process::CommandExt;
 use winapi::um::winbase::CREATE_NO_WINDOW;
 //use std::fs::{self};
@@ -14,19 +13,16 @@ use local_ip_address;
 use tokio::fs;
 use reqwest;
 mod parser;
- 
+
 // GLOBAL VARIABLES
 const SHOULD_UPLOAD: bool = true;
 
-    #[tauri::command]
-    fn main() {
-        Builder::default()
-        .invoke_handler(
-            tauri::generate_handler![scan_local],
-        )
-            .run(tauri::generate_context!())
-            .expect("error while running tauri application");
-    }
+fn main() {
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![scan_local])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
 
 
     // SCAN_LOCAL WINDOWS EXEC

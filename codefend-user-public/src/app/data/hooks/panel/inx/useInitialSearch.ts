@@ -35,14 +35,16 @@ export const useInitialSearch = () => {
 		}));
 
 		return InxServices.initializeSearch(dataSearch.search, companyID)
-			.then((res: any) =>
+			.then((res: any) => {
+				if (res.error == '1')
+					throw new Error('An unexpected error has occurred');
 				setSearchData((state: SearchResult) => ({
 					...state,
 					intelID: res.response.id ?? '',
 					count: res.response.count ?? 0,
 					isLoading: false,
-				})),
-			)
+				}));
+			})
 			.catch((error) =>
 				setSearchData((state: SearchResult) => ({
 					...state,

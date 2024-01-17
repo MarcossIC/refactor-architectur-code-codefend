@@ -41,13 +41,13 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 						<div className="column">search</div>
 					</div>
 
-					<div className="rows">
+					<div className="rows internal-tables ">
 						<Show when={!props.isLoading} fallback={<PageLoader />}>
 							<>
 								{safelyPreviousSearches().map(
 									(searchData: PreviusSearch, i: number) => (
 										<div
-											className="flex px-3 py-1 text-format text-black"
+											className="flex px-3 py-1 text-format text-gray-400"
 											key={previusKeys[i]}>
 											<section className="flex w-full items-center">
 												<p className="w-2/4">
@@ -64,41 +64,6 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 							</>
 						</Show>
 					</div>
-
-					{/* <div className="w-full h-full internal-tables">
-						<Show when={!props.isLoading} fallback={<PageLoader />}>
-							<>
-								<div className="flex px-8 py-2 internal-tables-scroll h-full !max-h-dvh overflow-auto ">
-									<div className="w-full">
-										<div className="flex p-3 text-format">
-											<section className="flex w-full">
-												<p className="text-base w-2/4">username:</p>
-												<p className="text-base w-2/4">search</p>
-											</section>
-										</div>
-										{safelyPreviousSearches().map(
-											(searchData: PreviusSearch, i: number) => (
-												<div
-													className="flex px-3 py-1 text-format"
-													key={previusKeys[i]}>
-													<section className="flex w-full items-center">
-														<p className="w-2/4">
-															{searchData.username}
-														</p>
-														<p className="text-base w-2/4">
-															{searchData.info.split(
-																'queries:',
-															)[1] ?? '--'}
-														</p>
-													</section>
-												</div>
-											),
-										)}
-									</div>
-								</div>
-							</>
-						</Show>
-					</div>*/}
 				</div>
 				<button
 					onClick={(e) => {

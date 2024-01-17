@@ -64,7 +64,7 @@ export const MobileSelectedDetails = () => {
 				<section className="card table">
 					<IssuesPanelMobileAndCloud
 						isLoading={isLoding}
-						issues={getMobile().issues ?? ({} as Issues)}
+						issues={getMobile().issues ?? ([] as Issues[])}
 					/>
 				</section>
 			</>

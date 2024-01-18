@@ -107,112 +107,6 @@ export const defaultPreviousSearches = [
 	{ username: 'nick@codefend.com', search: 'codefend.com' },
 ];
 
-export const defaultSupportTicket = [
-	{
-		author: '@hemsleek',
-		published: new Date('12/06/2023'),
-		title: 'flickering on web mobile persist',
-		status: 'open',
-	},
-	{
-		author: '@chris',
-		published: new Date('12/09/2023'),
-		title: 'lorem ipsum',
-		status: 'closed',
-	},
-	{
-		author: '@fede',
-		published: new Date('8/09/2023'),
-		title: 'implementation de nuevo firewall',
-		status: 'open',
-	},
-
-	{
-		author: '@ignacio',
-		published: new Date('10/10/2023'),
-		title: 'Authentication de dos factores',
-		status: 'open',
-	},
-	{
-		author: '@hemsleek',
-		published: new Date('12/06/2023'),
-		title: 'flickering on web mobile persist',
-		status: 'open',
-	},
-	{
-		author: '@chris',
-		published: new Date('8/03/2023'),
-		title: 'lorem ipsum',
-		status: 'closed',
-	},
-	{
-		author: '@fede',
-		published: new Date('12/09/2023'),
-		title: 'implementation de nuevo firewall',
-		status: 'open',
-	},
-	{
-		author: '@hemsleek',
-		published: new Date('12/06/2023'),
-		title: 'flickering on web mobile persist',
-		status: 'open',
-	},
-	{
-		author: '@chris',
-		published: new Date('11/07/2023'),
-		title: 'lorem ipsum',
-		status: 'closed',
-	},
-	{
-		author: '@fede',
-		published: new Date('12/05/2023'),
-		title: 'implementation de nuevo firewall',
-		status: 'open',
-	},
-	{
-		author: '@hemsleek',
-		published: new Date('12/06/2023'),
-		title: 'flickering on web mobile persist',
-		status: 'open',
-	},
-	{
-		author: '@chris',
-		published: new Date('10/05/2023'),
-		title: 'lorem ipsum',
-		status: 'closed',
-	},
-	{
-		author: '@fede',
-		published: new Date('07/04/2023'),
-		title: 'implementation de nuevo firewall',
-		status: 'open',
-	},
-	{
-		author: '@chris',
-		published: new Date('10/05/2023'),
-		title: 'lorem ipsum',
-		status: 'closed',
-	},
-	{
-		author: '@fede',
-		published: new Date('07/04/2023'),
-		title: 'implementation de nuevo firewall',
-		status: 'open',
-	},
-	{
-		author: '@chris',
-		published: new Date('10/05/2023'),
-		title: 'lorem ipsum',
-		status: 'closed',
-	},
-	{
-		author: '@fede',
-		published: new Date('07/04/2023'),
-		title: 'implementation de nuevo firewall',
-		status: 'open',
-	},
-];
-
 export const defaultSocialAttackVectors = {
 	'email attacks': 'enabled',
 	'telecom attacks': 'enabled',
@@ -251,8 +145,6 @@ export const languageTypes = new Set([
 	'Clojure',
 	'f#',
 ]);
-
-export const publicRoutes = ['/auth/signin', '/auth/signup'];
 
 export const defaultMobileCloudCredentials = [
 	{
@@ -311,4 +203,14 @@ export const companySizesList = [
 	{ label: '5000-9999', value: '5000-9999' },
 	{ label: '10000-19999', value: '10000-19999' },
 	{ label: '2000', value: '2000' },
+];
+
+export const topVulnerabilitiesColumn = [
+	'published',
+	'author',
+	'class',
+	'risk',
+	'score',
+	'issue title',
+	'status',
 ];

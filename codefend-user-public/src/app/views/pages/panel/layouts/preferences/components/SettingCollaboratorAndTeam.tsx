@@ -1,5 +1,5 @@
 import { EmptyCard, PageLoader, Show } from '../../../../../components';
-import {  Member } from '../../../../../../data';
+import { Member } from '../../../../../../data';
 import React from 'react';
 
 interface CollaboratorDataProps {
@@ -38,9 +38,7 @@ const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
 									<div className="full-name">{`${member.fname} ${member.lname}`}</div>
 									<div className="email">{member.email}</div>
 									<div className="phone">
-										<Show
-											when={!member.eliminado}
-											fallback={<>-</>}>
+										<Show when={!member.eliminado} fallback={<>-</>}>
 											<>+${member.phone}</>
 										</Show>
 									</div>
@@ -51,7 +49,7 @@ const SettingCollaboratorAndTeam: React.FC<CollaboratorDataProps> = (props) => {
 					</Show>
 				</div>
 			</div>
-			<Show when={!props.isLoading && props.members.length === 0}>
+			<Show when={!props.isLoading && !Boolean(props.members.length)}>
 				<EmptyCard />
 			</Show>
 		</>

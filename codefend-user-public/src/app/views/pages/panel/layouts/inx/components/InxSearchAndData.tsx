@@ -9,9 +9,11 @@ import {
 	useInxReadFile,
 } from '../../../../../../data';
 import {
-	InxSearchIcon,
+	CloseIcon,
 	PageLoader,
 	PageLoaderOverlay,
+	SearchBar,
+	SearchIcon,
 	Show,
 } from '../../../../../components';
 import { InxPreviewIntelData } from './InxPreviewIntelData';
@@ -92,7 +94,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 		intelData.length !== 0 ? generateIDArray(intelData.length) : [];
 
 	return (
-		<div className="border h-5/6 pt-3">
+		<div className="border h-5/6">
 			<Show when={selectedResult !== null}>
 				<>
 					<div className="fixed left-0 top-0 h-full w-full bg-gray-500 bg-opacity-25 overflow-y-hidden overflow-x-hidden outline-none">
@@ -106,8 +108,8 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 									<button
 										onClick={() => setSelectedResult(null)}
 										type="button"
-										className="box-intelSelected rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none">
-										<InxSearchIcon />
+										className="btn btn no-border-height w-14 items-center justify-center">
+										<CloseIcon />
 									</button>
 								</div>
 
@@ -144,32 +146,21 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 					</div>
 				</>
 			</Show>
-
-			<form className="flex flex-row h-9 mb-4 px-3">
-				<input
-					type="text"
-					value={getData().search}
-					onChange={(e) =>
+			<div className="search-bar-container">
+				<SearchBar
+					inputValue={getData().search}
+					placeHolder="Search"
+					handleChange={(e: any) =>
 						setSearchData((state) => ({
 							...state,
 							search: e.target.value,
 						}))
 					}
-					placeholder="Search"
-					className="px-6 w-full h-full"
-					required
+					handleSubmit={procSearch}
+					searchIcon={<SearchIcon isButton />}
 				/>
-				<button
-					type="submit"
-					onClick={procSearch}
-					className="btn btn-primary">
-					<img
-						className="w-3.5 h-3.5"
-						src="/codefend/icon-spy.png"
-						alt="icon-spy"
-					/>
-				</button>
-			</form>
+			</div>
+
 			<Show when={!getData().isLoading} fallback={<PageLoader />}>
 				<div className="flex internal-tables flex-col overflow-auto max-h-full overflow-x-hidden">
 					{intelData.map((intel: any, i: number) => (

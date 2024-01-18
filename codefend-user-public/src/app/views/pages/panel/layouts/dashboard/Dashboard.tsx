@@ -14,10 +14,12 @@ import '../../../../styles/flag.scss';
 import './dashboard.scss';
 
 const Dashboard = () => {
-	const { isLoading, companyData } = useDashboard();
+	const { isLoading, companyData, refetch } = useDashboard();
 	const [showScreen, setShowScreen] = useState(false);
 
 	useEffect(() => {
+		refetch();
+		setShowScreen(false);
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
 	}, [showScreen]);

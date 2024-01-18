@@ -127,8 +127,9 @@ export const AcessPointModal: React.FC<{
 						<select
 							onChange={handleChange}
 							className="log-inputs modal_info"
+							value={networkData.vendorName}
 							required>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								os / vendor
 							</option>
 							<option value="windows">windows</option>

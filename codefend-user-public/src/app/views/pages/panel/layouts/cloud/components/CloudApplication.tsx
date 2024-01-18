@@ -49,7 +49,7 @@ export const CloudApplication = ({
 			changeCloud(cloudData[0]);
 		}
 	}, [selectedCloud]);
-	
+
 	return (
 		<SelectedCloud.Provider value={selectedCloud}>
 			<Show
@@ -59,7 +59,7 @@ export const CloudApplication = ({
 						buttonText="Add Cloud"
 						title={"There's no data to display here"}
 						info={'Start by clicking on the button below'}
-						event={() => {}}
+						event={() => openModal()}
 					/>
 				}>
 				<>

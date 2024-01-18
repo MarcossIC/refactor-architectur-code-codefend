@@ -2,8 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { generateIDArray, useInitialVdb } from '../../../../../../data';
 import {
 	BugIcon,
-	EnpIcon,
+	ScanSearchIcon,
 	PageLoader,
+	SearchBar,
 	Show,
 	Table,
 } from '../../../../../components';
@@ -11,34 +12,33 @@ import {
 export const VdbSearchData: React.FC = () => {
 	const { getVdb, refetch, isLoading, searchData, handleChange } =
 		useInitialVdb();
+
 	const [sortBy, setSortBy] = useState('');
+
 	const [selectedNow, setSelectedNow] = useState(false);
+
 	const safelyVdbData = () => (Array.isArray(getVdb()) ? getVdb() ?? [] : []);
+
 	useEffect(() => {
 		refetch();
 	}, []);
 
-	const vdbKeys = useMemo(() => generateIDArray(getVdb().length), [getVdb()]);
+	const vdbKeys = useMemo(
+		() => generateIDArray(safelyVdbData().length),
+		[safelyVdbData()],
+	);
 
 	const columns = new Set(['creacion', 'id', 'cve', 'title', 'score', 'risk']);
 	return (
 		<>
-			<div className="search-bar">
-				<div className="search-item">
-					<form onSubmit={refetch} className="">
-						<input
-							type="text"
-							value={searchData}
-							onChange={handleChange}
-							placeholder="Enter a program name (e.g. Mozilla Firefox)"
-							className="text"
-							required
-						/>
-						<button type="submit" className="btn btn-primary">
-							<EnpIcon />
-						</button>
-					</form>
-				</div>
+			<div className="search-bar-container">
+				<SearchBar
+					inputValue={searchData}
+					placeHolder="Enter a program name (e.g. Mozilla Firefox)"
+					handleChange={handleChange}
+					handleSubmit={refetch}
+					searchIcon={<ScanSearchIcon isButton />}
+				/>
 			</div>
 			<Show when={Boolean(safelyVdbData().length)}>
 				<Show when={!isLoading} fallback={<PageLoader />}>
@@ -69,7 +69,7 @@ export const VdbSearchData: React.FC = () => {
 								<div className="actions"></div>
 							</div>
 							<Table
-								data={getVdb()}
+								data={safelyVdbData()}
 								columns={Array.from(columns)}></Table>
 						</div>
 					</>

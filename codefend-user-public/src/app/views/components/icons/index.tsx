@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ChartIcon: React.FC = () => (
+export const ChartIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -14,7 +14,7 @@ export const ChartIcon: React.FC = () => (
 	</svg>
 );
 
-export const GlobeWebIcon: React.FC = () => (
+export const GlobeWebIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -28,7 +28,7 @@ export const GlobeWebIcon: React.FC = () => (
 	</svg>
 );
 
-export const MobileIcon: React.FC = () => (
+export const MobileIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -42,7 +42,7 @@ export const MobileIcon: React.FC = () => (
 	</svg>
 );
 
-export const CLoudIcon: React.FC = () => (
+export const CLoudIcon = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
@@ -61,7 +61,7 @@ export const CLoudIcon: React.FC = () => (
 	</svg>
 );
 
-export const LanIcon: React.FC = () => (
+export const LanIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -74,7 +74,7 @@ export const LanIcon: React.FC = () => (
 		<path d="M64 32C28.7 32 0 60.7 0 96v64c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm48 24a24 24 0 1 1 48 0 24 24 0 1 1-48 0zM64 288c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-64c0-35.3-28.7-64-64-64H64zm280 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm56 24a24 24 0 1 1 48 0 24 24 0 1 1-48 0z"></path>
 	</svg>
 );
-export const EnpIcon: React.FC = () => (
+export const EnpIcon = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		strokeWidth={0}
@@ -88,7 +88,7 @@ export const EnpIcon: React.FC = () => (
 	</svg>
 );
 
-export const SourceCodeIcon: React.FC = () => (
+export const SourceCodeIcon = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		strokeWidth={0}
@@ -102,7 +102,7 @@ export const SourceCodeIcon: React.FC = () => (
 	</svg>
 );
 
-export const PeopleGroup: React.FC = () => (
+export const PeopleGroup = () => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		strokeWidth={0}
@@ -116,7 +116,7 @@ export const PeopleGroup: React.FC = () => (
 	</svg>
 );
 
-export const BugIcon: React.FC = () => (
+export const BugIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -130,7 +130,7 @@ export const BugIcon: React.FC = () => (
 	</svg>
 );
 
-export const MessageIcon: React.FC = () => (
+export const MessageIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -143,7 +143,7 @@ export const MessageIcon: React.FC = () => (
 		<path d="M64 0C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v80c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5L309.3 416H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64z"></path>
 	</svg>
 );
-export const PreferenceIcon: React.FC = () => (
+export const PreferenceIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -156,7 +156,7 @@ export const PreferenceIcon: React.FC = () => (
 		<path d="M495.9 166.6c3.2 8.7.5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4l-55.6 17.8c-8.8 2.8-18.6.3-24.5-6.8-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4c-1.1-8.4-1.7-16.9-1.7-25.5s.6-17.1 1.7-25.4l-43.3-39.4c-6.9-6.2-9.6-15.9-6.4-24.6 4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2 5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8 8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"></path>
 	</svg>
 );
-export const InxIcon: React.FC = () => (
+export const InxIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -170,7 +170,7 @@ export const InxIcon: React.FC = () => (
 	</svg>
 );
 
-export const DataIcon: React.FC = () => (
+export const DataIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -184,21 +184,26 @@ export const DataIcon: React.FC = () => (
 	</svg>
 );
 
-export const SearchIcon: React.FC = () => (
+export const SearchIcon = ({ isButton }: { isButton?: boolean }) => (
 	<svg
 		strokeWidth={0}
-		height="1em"
-		width="1em"
+		height="1.3em"
+		width="1.3em"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
 		color="currentColor"
 		fill="currentColor"
-		style={{ overflow: 'visible' }}>
-		<path d="M416 208c0 45.9-14.9 88.3-40 122.7l126.6 126.7c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
+		style={{
+			overflow: 'visible',
+			cursor: !isButton ? 'default' : 'pointer',
+		}}>
+		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
+			d="M416 208c0 45.9-14.9 88.3-40 122.7l126.6 126.7c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
 	</svg>
 );
 
-export const LogoutIcon: React.FC = () => (
+export const LogoutIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -212,7 +217,7 @@ export const LogoutIcon: React.FC = () => (
 	</svg>
 );
 
-export const CircleIcon: React.FC = () => (
+export const CircleIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -226,7 +231,7 @@ export const CircleIcon: React.FC = () => (
 	</svg>
 );
 
-export const CollaboratorsIcon: React.FC = () => (
+export const CollaboratorsIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -255,7 +260,7 @@ export const TrashIcon: React.FC<{ action?: any }> = ({ action }) => (
 	</svg>
 );
 
-export const StatIcon: React.FC = () => (
+export const StatIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -279,15 +284,25 @@ export const StatIcon: React.FC = () => (
 	</svg>
 );
 
-export const CloseIcon: React.FC = (): any => (
+export const CloseIcon: React.FC = ({
+	isButton,
+}: {
+	isButton?: boolean;
+}): any => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
 		viewBox="0 0 24 24"
 		strokeWidth={1.5}
 		stroke="currentColor"
-		style={{ width: '1.5rem', height: '1.5rem' }}>
+		style={{
+			overflow: 'visible',
+			width: '1.5rem',
+			height: '1.5rem',
+			cursor: !isButton ? 'default' : 'pointer',
+		}}>
 		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
 			strokeLinecap={'round'}
 			strokeLinejoin={'round'}
 			d="M6 18 18 6M6 6l12 12"
@@ -295,7 +310,7 @@ export const CloseIcon: React.FC = (): any => (
 	</svg>
 );
 
-export const LeftArrow: React.FC = () => (
+export const LeftArrow: React.FC = ({ isButton }: { isButton?: boolean }) => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -304,12 +319,17 @@ export const LeftArrow: React.FC = () => (
 		viewBox="0 0 320 512"
 		color="currentColor"
 		fill="currentColor"
-		style={{ overflow: 'visible' }}>
-		<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path>
+		style={{
+			overflow: 'visible',
+			cursor: !isButton ? 'default' : 'pointer',
+		}}>
+		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
+			d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path>
 	</svg>
 );
 
-export const SaveIcon: React.FC = () => (
+export const SaveIcon = ({ isButton }: { isButton?: boolean }) => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -318,12 +338,17 @@ export const SaveIcon: React.FC = () => (
 		viewBox="0 0 448 512"
 		color="currentColor"
 		fill="currentColor"
-		style={{ overflow: 'visible' }}>
-		<path d="M48 96v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V170.5c0-4.2-1.7-8.3-4.7-11.3l33.9-33.9c12 12 18.7 28.3 18.7 45.3V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h245.5c17 0 33.3 6.7 45.3 18.7l74.5 74.5-33.9 33.9-74.6-74.4-.8-.8V184c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24V80H64c-8.8 0-16 7.2-16 16zm80-16v80h144V80H128zm32 240a64 64 0 1 1 128 0 64 64 0 1 1-128 0z"></path>
+		style={{
+			overflow: 'visible',
+			cursor: !isButton ? 'default' : 'pointer',
+		}}>
+		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
+			d="M48 96v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V170.5c0-4.2-1.7-8.3-4.7-11.3l33.9-33.9c12 12 18.7 28.3 18.7 45.3V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64h245.5c17 0 33.3 6.7 45.3 18.7l74.5 74.5-33.9 33.9-74.6-74.4-.8-.8V184c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24V80H64c-8.8 0-16 7.2-16 16zm80-16v80h144V80H128zm32 240a64 64 0 1 1 128 0 64 64 0 1 1-128 0z"></path>
 	</svg>
 );
 
-export const SendIcon: React.FC = () => (
+export const SendIcon: React.FC = ({ isButton }: { isButton?: boolean }) => (
 	<svg
 		strokeWidth={2}
 		height="1em"
@@ -334,13 +359,16 @@ export const SendIcon: React.FC = () => (
 		strokeLinejoin={'round'}
 		viewBox="0 0 24 24"
 		color="currentColor"
-		style={{ overflow: 'visible' }}>
+		style={{
+			overflow: 'visible',
+			cursor: !isButton ? 'default' : 'pointer',
+		}}>
 		<path d="M22 2 11 13"></path>
 		<path d="M22 2 15 22 11 13 2 9 22 2z"></path>
 	</svg>
 );
 
-export const ErrorIcon: React.FC = () => (
+export const ErrorIcon = () => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -358,22 +386,6 @@ export const ErrorIcon: React.FC = () => (
 	</svg>
 );
 
-export const InxSearchIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		style={{ overflow: 'visible', width: '1.5rem', height: '1.5rem' }}>
-		<path
-			strokeLinecap={'round'}
-			strokeLinejoin={'round'}
-			d="M6 18L18 6M6 6l12 12"
-		/>
-	</svg>
-);
-
 export const VdbIcon = () => (
 	<svg
 		strokeWidth={0}
@@ -388,7 +400,7 @@ export const VdbIcon = () => (
 	</svg>
 );
 
-export const PencilIcon = () => (
+export const PencilIcon = ({ isButton }: { isButton?: boolean }) => (
 	<svg
 		strokeWidth={0}
 		height="1em"
@@ -397,8 +409,13 @@ export const PencilIcon = () => (
 		viewBox="0 0 512 512"
 		color="currentColor"
 		fill="currentColor"
-		style={{ overflow: 'visible' }}>
-		<path d="m410.3 231 11.3-11.3-33.9-33.9-62.1-62.1-33.9-33.9-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2l199.2-199.2 22.6-22.7zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9l-78.2 23 23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7l-14.4 14.5-22.6 22.6-11.4 11.3 33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5l-39.3-39.4c-25-25-65.5-25-90.5 0zm-47.4 168-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+		style={{
+			overflow: 'visible',
+			cursor: !isButton ? 'default' : 'pointer',
+		}}>
+		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
+			d="m410.3 231 11.3-11.3-33.9-33.9-62.1-62.1-33.9-33.9-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2l199.2-199.2 22.6-22.7zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9l-78.2 23 23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7l-14.4 14.5-22.6 22.6-11.4 11.3 33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5l-39.3-39.4c-25-25-65.5-25-90.5 0zm-47.4 168-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
 	</svg>
 );
 
@@ -418,10 +435,49 @@ export const PreviousMessage = () => (
 	</svg>
 );
 
-export const AdminUser = ()=>(
-	<svg strokeWidth={0} height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" color="currentColor" fill="currentColor" style={{ overflow: 'visible' }}><path d="M64 80c-8.8 0-16 7.2-16 16v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm200 248v-64h-64c-13.3 0-24-10.7-24-24s10.7-24 24-24h64v-64c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24h-64v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path></svg>
+export const AdminUser = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 448 512"
+		color="currentColor"
+		fill="currentColor"
+		style={{ overflow: 'visible' }}>
+		<path d="M64 80c-8.8 0-16 7.2-16 16v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm200 248v-64h-64c-13.3 0-24-10.7-24-24s10.7-24 24-24h64v-64c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24h-64v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
+	</svg>
 );
 
-export const AdminCompany = ()=>(
-<svg strokeWidth={0} height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" color="currentColor" fill="currentColor" style={{ overflow: 'visible' }}><path d="M64 48c-8.8 0-16 7.2-16 16v384c0 8.8 7.2 16 16 16h80v-64c0-26.5 21.5-48 48-48s48 21.5 48 48v64h80c8.8 0 16-7.2 16-16V64c0-8.8-7.2-16-16-16H64zM0 64C0 28.7 28.7 0 64 0h256c35.3 0 64 28.7 64 64v384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm88 40c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48zm144-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48c0-8.8 7.2-16 16-16zM88 232c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48zm144-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48c0-8.8 7.2-16 16-16z"></path></svg>
+export const AdminCompany = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 384 512"
+		color="currentColor"
+		fill="currentColor"
+		style={{ overflow: 'visible' }}>
+		<path d="M64 48c-8.8 0-16 7.2-16 16v384c0 8.8 7.2 16 16 16h80v-64c0-26.5 21.5-48 48-48s48 21.5 48 48v64h80c8.8 0 16-7.2 16-16V64c0-8.8-7.2-16-16-16H64zM0 64C0 28.7 28.7 0 64 0h256c35.3 0 64 28.7 64 64v384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm88 40c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48zm144-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48c0-8.8 7.2-16 16-16zM88 232c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48zm144-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-48c0-8.8 7.2-16 16-16z"></path>
+	</svg>
+);
+
+export const ScanSearchIcon = ({ isButton }: { isButton?: boolean }) => (
+	<svg
+		strokeWidth={0}
+		height="1.3em"
+		width="1.3em"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 1024 1024"
+		color="currentColor"
+		fill="currentColor"
+		style={{
+			overflow: 'visible',
+			cursor: !isButton ? 'default' : 'pointer',
+		}}>
+		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
+			d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 0 0 0-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>
+	</svg>
 );

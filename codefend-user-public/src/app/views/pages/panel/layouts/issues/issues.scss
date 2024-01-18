@@ -43,6 +43,7 @@ section.issue {
 			color: var(--text-color-alt2);
 
 			&_btn {
+				cursor: pointer;
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -67,6 +68,7 @@ section.issue {
 		}
 
 		.save {
+			cursor: pointer;
 			border-right: none;
 			transition: all 0.2s;
 			color: var(--text-color-alt2);

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from '../useAuthState';
 import { DashboardService } from '../../services/dashboard.service';
 import { mapGetCompanyToCompanyData } from '../../utils/mapper';
 import { DashboardProps, User } from '../..';
+import { toast } from 'react-toastify';
 
 export const useDashboard = () => {
 	const { getUserdata } = useAuthState();
@@ -10,12 +11,8 @@ export const useDashboard = () => {
 	const [companyData, setCompanyResources] = useState<DashboardProps>(
 		{} as DashboardProps,
 	);
-
-	useEffect(() => {
-		const user = getUserdata() as User;
-		const companyID = user?.companyID as string;
+	const fetchWeb = useCallback((companyID: string) => {
 		setLoading(true);
-		setCompanyResources({} as DashboardProps);
 
 		DashboardService.getCompanyInfo(companyID)
 			.then((response) => {
@@ -25,5 +22,16 @@ export const useDashboard = () => {
 				setLoading(false);
 			});
 	}, []);
-	return { isLoading, companyData };
+
+	const refetch = () => {
+		const companyID = getUserdata()?.companyID as string;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
+		setCompanyResources({} as DashboardProps);
+		fetchWeb(companyID);
+	};
+
+	return { isLoading, companyData, refetch };
 };

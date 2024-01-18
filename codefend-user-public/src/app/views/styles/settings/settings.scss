@@ -64,7 +64,6 @@ body {
 	min-height: 100dvh;
 	min-width: 100dvw;
 	touch-action: manipulation;
-	direction: ltr;
 	background-color: var(--bkg-main);
 	color: var(--color-main);
 }
@@ -93,7 +92,7 @@ input,
 .modal_info,
 .text-format p,
 .title-format {
-	font-size: 0.85rem;
+	font-size: 0.875rem;
 }
 
 h2 {

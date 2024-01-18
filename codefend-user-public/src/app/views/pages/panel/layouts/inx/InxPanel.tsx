@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { InxSearchAndData } from './components/InxSearchAndData';
 import { InxPreviousSearches } from './components/InxPreviousSearches';
 import { useInxPreviousSearch } from '../../../../../data';
+import './inx.scss';
 
 export const InxPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);

@@ -8,7 +8,7 @@ import {
 } from '../../';
 import { useAuthState } from '..';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export const useAllTicket = () => {
 	const { getUserdata } = useAuthState();
@@ -99,6 +99,62 @@ export const useOneTicket = () => {
 	};
 };
 
-export const useDeleteTicket = () => {
-	return;
+export const useAddTicket = () => {
+	const [title, setTitle] = useState('');
+	const [shortDescription, setShortDescription] = useState('');
+	const [isAddingTicket, setIsAddingTicket] = useState(false);
+	const { getUserdata } = useAuthState();
+
+	const fetcheDelete = async (
+		params: any,
+		userID: string,
+		companyID: string,
+	) => {
+		setIsAddingTicket(true);
+		return CustomerSupportService.add(params, userID, companyID)
+			.then(() => {
+				toast.success('Successfully Added Ticket...');
+			})
+			.finally(() => {
+				setIsAddingTicket(false);
+			});
+	};
+
+	const addTicket = () => {
+		const companyID = getUserdata()?.companyID;
+		const userID = getUserdata()?.id;
+		if (!companyID || !userID) {
+			toast.error('User information was not found');
+			return;
+		}
+		const params = {
+			condicion: 'open',
+			cs_header: title,
+			cs_body: shortDescription,
+		};
+		return fetcheDelete(params, userID, companyID);
+	};
+
+	return { title, isAddingTicket, setShortDescription, setTitle, addTicket };
+};
+
+export const useTicketDelete = () => {
+	const { getUserdata } = useAuthState();
+	const fetchDelete = useCallback(
+		async (ticketID: string, companyID: string) => {
+			return CustomerSupportService.delete(ticketID, companyID);
+		},
+		[],
+	);
+
+	const deletTicket = (ticketID: string) => {
+		const companyID = getUserdata()?.companyID;
+		if (!companyID) {
+			toast.error('User information was not found');
+			return;
+		}
+		return fetchDelete(ticketID, companyID);
+	};
+
+	return { deletTicket };
 };

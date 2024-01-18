@@ -13,7 +13,10 @@ interface Props {
 export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 	const navigate = useNavigate();
 	const formatIssues = useMemo((): Issues[] => {
-		if (!Array.isArray(props.issues)) return [props.issues] as Issues[];
+		if (!Array.isArray(props.issues))
+			return !Boolean(Object.keys(props.issues).length)
+				? []
+				: [props.issues];
 
 		return props.issues;
 	}, [props.issues]);
@@ -47,6 +50,8 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 		[formatIssues],
 	);
 
+	console.log({ formatIssues });
+
 	return (
 		<SimpleSection
 			header="Resource related vulnerabilities & records"
@@ -74,9 +79,7 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 									onClick={(e: React.FormEvent) => {
 										e.preventDefault();
 										e.stopPropagation();
-										navigate(
-											`/issues/${vulnerability.id}_${vulnerability.name}_${vulnerability.riskLevel}`,
-										);
+										navigate(`/issues/update/${vulnerability.id}`);
 									}}>
 									<div className="date">{vulnerability.createdAt}</div>
 									<div className="username">
@@ -114,7 +117,7 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 						))}
 					</div>
 				</Show>
-				<Show when={!props.isLoading && formatIssues.length === 0}>
+				<Show when={!props.isLoading && !Boolean(formatIssues.length)}>
 					<EmptyCard />
 				</Show>
 			</>

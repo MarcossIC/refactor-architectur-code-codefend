@@ -204,3 +204,13 @@ export const companySizesList = [
 	{ label: '10000-19999', value: '10000-19999' },
 	{ label: '2000', value: '2000' },
 ];
+
+export const topVulnerabilitiesColumn = [
+	'published',
+	'author',
+	'class',
+	'risk',
+	'score',
+	'issue title',
+	'status',
+];

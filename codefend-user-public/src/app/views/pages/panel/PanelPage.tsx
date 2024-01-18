@@ -1,7 +1,7 @@
-import React, { Fragment, lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { Loader } from '../../components';
-import { AuthServices, useAppSelector } from '../../../data';
+import { Loader, Show } from '../../components';
+import { AuthServices } from '../../../data';
 
 const Navbar = lazy(() => import('../../components/standalones/Navbar'));
 const Sidebar = lazy(() => import('../../components/standalones/Sidebar'));
@@ -15,10 +15,7 @@ export const PanelPage: React.FC = () => {
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
-		const handleChange = () => {
-			setShowModal(true);
-		};
-
+		const handleChange = () => setShowModal(true);
 		window.addEventListener('errorState', handleChange);
 
 		return () => {
@@ -26,25 +23,30 @@ export const PanelPage: React.FC = () => {
 			localStorage.removeItem('error');
 		};
 	}, []);
-	return !isNotAuthenticated ? (
-		<>
-			{showModal && (
-				<>
+	return (
+		<Show
+			when={!isNotAuthenticated}
+			fallback={<Navigate to="/auth/signin" />}>
+			<>
+				<Show when={showModal}>
 					<ErrorConection
 						closeModal={() => {
 							setShowModal(false);
 							localStorage.removeItem('error');
 						}}
 					/>
-				</>
-			)}
-			<Navbar />
-			<Sidebar />
-			<Suspense fallback={<Loader />}>
-				<Outlet />
-			</Suspense>
-		</>
-	) : (
-		<Navigate to="/auth/signin" />
+				</Show>
+
+				<Suspense>
+					<Navbar />
+				</Suspense>
+				<Suspense>
+					<Sidebar />
+				</Suspense>
+				<Suspense fallback={<Loader />}>
+					<Outlet />
+				</Suspense>
+			</>
+		</Show>
 	);
 };

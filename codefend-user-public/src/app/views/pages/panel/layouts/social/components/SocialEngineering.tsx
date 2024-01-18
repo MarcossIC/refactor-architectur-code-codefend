@@ -27,11 +27,11 @@ const SocialEngineering: React.FC<SocialProps> = (props) => {
 	const { showModal, setShowModal, setShowModalStr, showModalStr } =
 		useModal();
 
-	type DepartmentMappingKey = keyof typeof roleMap;
+	/* type DepartmentMappingKey = keyof typeof roleMap;
 
 	const mapRole = (role: DepartmentMappingKey) =>
 		roleMap[role] || 'Unknown Role';
-
+ */
 	const safelyPreviousSearches = () =>
 		Array.isArray(props.socials) ? props.socials.slice().reverse() : [];
 

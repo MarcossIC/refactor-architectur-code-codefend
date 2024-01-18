@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
 	Member,
 	MetricsService,
@@ -6,7 +6,7 @@ import {
 } from '../../../../../data';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
-import SocialEngineeringMembers from './components/SocialEngineeringMembers';
+import SocialEngineeringMembers, { Filter } from './components/SocialEngineeringMembers';
 
 const SocialEngineeringView = () => {
 	const { members, refetch, loading } = useSocial();
@@ -21,6 +21,24 @@ const SocialEngineeringView = () => {
 		department: [] as string[],
 		attackVectors: [] as string[],
 	});
+
+	const [filters, setFilter] = useState<Record<string, Filter>>({
+    role: null,
+    plataforma: null,
+  });
+
+  const matches = useMemo(() => {
+    const filterToApply = Object.values(filters).filter(Boolean!);
+    let filteredMembers = members;
+
+    for (const filter of filterToApply) {
+		
+				filteredMembers = filteredMembers!.filter(filter as (value: any) => boolean);
+			}
+    return filteredMembers;
+  }, [members, filters]);
+
+  
 
 	useEffect(() => {
 		refetch();
@@ -76,14 +94,16 @@ const SocialEngineeringView = () => {
 					<SocialEngineering
 						refetch={refetch}
 						isLoading={loading}
-						socials={members ?? []}
+						socials={matches!}
 					/>
 				</section>
 				<section className="right">
 					<SocialEngineeringMembers
 						isLoading={social.loading}
 						members={members ?? []}
-						setSocialFilters={setSocialFilters}
+						onChanges={(filter: Filter) =>
+							setFilter((filters) => ({ ...filters, role: filter }))
+						}
 					/>
 					<SocialAttackVectors />
 				</section>

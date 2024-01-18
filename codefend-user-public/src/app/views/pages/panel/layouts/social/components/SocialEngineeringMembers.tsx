@@ -1,21 +1,56 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { ChartIcon, Show, SimpleSection } from '../../../../../components';
 import { MemberV2, roleMap } from '../../../../../../data';
 
 type MemberKey = keyof typeof roleMap;
-
+export type Filter = null | ((member_role: string) => boolean);
 
 interface SocialEngineeringMembersProps {
 	isLoading: boolean;
 	members: MemberV2[];
-	setSocialFilters: Dispatch<
+	onChanges: (filter: Filter) => void;
+	/* setSocialFilters: Dispatch<
 		SetStateAction<{ department: string[]; attackVectors: string[] }>
-	>;
+	>; */
 }
 
 const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
-	{members, setSocialFilters},
+	{members, onChanges},
 ) => {
+	const [selectedRoles, setSelectedRoles] = useState<Set<string>>(new Set());
+
+	const generos = useMemo(() => {
+    const buffer: Set<string> = new Set();
+
+      members.forEach((member) => {
+        buffer.add(member.member_role.toString());
+      });
+
+    return Array.from(buffer);
+  }, [members]);
+
+	const handleChange = useCallback(
+    (role: string, isChecked: boolean) => {
+      const newSelectedRoles = new Set(selectedRoles);
+
+      if (isChecked) {
+        newSelectedRoles.add(role);
+      } else {
+        newSelectedRoles.delete(role);
+      }
+
+      setSelectedRoles(newSelectedRoles);
+
+      // Actualización de la función onChange
+      onChanges(
+        newSelectedRoles.size
+          ? (role: string) => newSelectedRoles.has(role.toString())
+          : null
+      );
+    },
+    [selectedRoles, onChanges]
+  );
+
 
 	const renderMembersByRole = () => {
     const membersByRole = members.reduce((acc: Record<string, number>, member) => {
@@ -26,8 +61,10 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
 
     return membersByRole;
   };
+
+
 	
-	const handleDepartmentFilter = (e: any, memberId: string) => {
+	/* const handleDepartmentFilter = (e: any, memberId: string) => {
 		const member = members.find((m) => m.id === memberId);
 		console.log({ member });
 		if (!member) return;
@@ -36,20 +73,20 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
 			...prevState,
 			department: [...prevState.department, member],
 		}));
-	}; 
+	};  */
 
 	return (
 		<>
 			<div className="card filtered">
 				<SimpleSection header="Members by departments" icon={<ChartIcon />}>
 					<div className="content filters">
-						{Object.entries(renderMembersByRole()).map(([member, value]) => (
+						{Object.entries(generos).map(([member, value]) => (
 							<div className="filter" key={member}>
 								<div className="check">
 									<input
 										id={member}
 										type="checkbox"
-										onChange={(e) => handleDepartmentFilter(e, member)}
+										onChange={(e) => handleChange(member, e.target.checked)}
 										className=""
 									/>
 									<label htmlFor={member}>

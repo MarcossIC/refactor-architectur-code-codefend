@@ -22,7 +22,7 @@ const Dashboard = () => {
 		setShowScreen(false);
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
-	}, [showScreen]);
+	}, []);
 
 	return (
 		<main className={`dashboard ${showScreen ? 'actived' : ''}`}>

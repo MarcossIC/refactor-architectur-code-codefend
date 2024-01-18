@@ -1,8 +1,9 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { ChartIcon, Show, SimpleSection } from '../../../../../components';
 import { MemberV2, roleMap } from '../../../../../../data';
 
 type MemberKey = keyof typeof roleMap;
+
 
 interface SocialEngineeringMembersProps {
 	isLoading: boolean;
@@ -13,44 +14,42 @@ interface SocialEngineeringMembersProps {
 }
 
 const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
-	props,
+	{members, setSocialFilters},
 ) => {
-	
-	const renderMembers = () => {
-		const members = props.members.reduce((acc, member: MemberV2) => {
-			acc[member.member_role as MemberKey] = member;
-			return acc;
-		}, {} as Record<MemberKey, MemberV2>);
-		
-		console.log({ members });
-		return members;
-	};
-	
 
-	/* const handleDepartmentFilter = (e: any, member: any) => {
-		const memberValue = props.members[member];
-		console.log({ memberValue });
-		if (memberValue == 0) return;
+	const renderMembersByRole = () => {
+    const membersByRole = members.reduce((acc: Record<string, number>, member) => {
+      const role = member.member_role as MemberKey;
+      acc[role] = (acc[role] || 0) + 1;
+      return acc;
+    }, {} as Record<MemberKey, number>);
 
-		props.setSocialFilters((prevState) => ({
+    return membersByRole;
+  };
+	
+	const handleDepartmentFilter = (e: any, memberId: string) => {
+		const member = members.find((m) => m.id === memberId);
+		console.log({ member });
+		if (!member) return;
+	
+		setSocialFilters((prevState: any) => ({
 			...prevState,
 			department: [...prevState.department, member],
 		}));
-	};
- */
+	}; 
 
 	return (
 		<>
 			<div className="card filtered">
 				<SimpleSection header="Members by departments" icon={<ChartIcon />}>
 					<div className="content filters">
-						{Object.entries(renderMembers()).map(([member, value]) => (
+						{Object.entries(renderMembersByRole()).map(([member, value]) => (
 							<div className="filter" key={member}>
 								<div className="check">
 									<input
 										id={member}
 										type="checkbox"
-										onChange={(e) => {}}
+										onChange={(e) => handleDepartmentFilter(e, member)}
 										className=""
 									/>
 									<label htmlFor={member}>
@@ -59,7 +58,7 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
 								</div>
 								<div className="value">
 									<Show
-										when={props.members.length === 0}
+										when={members.length === 0}
 										fallback={
 											<img
 												src="/codefend/people-active-icon.svg"
@@ -71,7 +70,7 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
 											alt="bug-icon"
 										/>
 									</Show>
-									{/* <span>{value.members.length} members</span> */}
+									<span>{members.length} members</span> 
 								</div>
 							</div>
 						))}

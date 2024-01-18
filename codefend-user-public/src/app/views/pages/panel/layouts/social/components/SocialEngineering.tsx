@@ -86,9 +86,9 @@ const SocialEngineering: React.FC<SocialProps> = (props) => {
 								</div>
 								<div className="email">{social.member_email}</div>
 								<div className="phone">{social.member_phone}</div>
-								{/* 		<div className="role">
-										{mapRole(social.member_role)}
-									</div> */}
+								<div className="role">
+									{social.member_role}
+								</div>
 							</div>
 						))}
 					</div>

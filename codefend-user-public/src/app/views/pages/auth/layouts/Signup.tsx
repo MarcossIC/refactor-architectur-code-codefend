@@ -210,7 +210,7 @@ const SignUpLayout: React.FC = () => {
 					<option value="" disabled>
 						Select your country
 					</option>
-					{countries.map((country) => (
+					{Array.from(countries).map((country) => (
 						<option key={country.value} value={country.value}>
 							{country.label}
 						</option>

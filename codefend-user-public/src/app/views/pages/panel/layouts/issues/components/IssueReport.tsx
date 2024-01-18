@@ -5,7 +5,7 @@ import React, { Fragment, useMemo } from 'react';
 interface Props {
 	isLoading: boolean;
 	issuesClasses: IssueClass;
-	handleFilter: (e: React.FormEvent, issueClass: any) => void;
+	handleFilter: (issueClass: string) => void;
 }
 
 export const IssueReport: React.FC<Props> = (props) => {
@@ -26,23 +26,31 @@ export const IssueReport: React.FC<Props> = (props) => {
 					header="FILTER AND GENERATE REPORT"
 					icon={<ChartIcon />}>
 					<div className="content filters">
-						{filterIssues.map((issue: any, i: number) => (
+						{filterIssues.map((issueClass: string, i: number) => (
 							<Fragment key={filterKeys[i]}>
 								<div className="filter">
 									<div className="check">
 										<input
-											id={'a' + filterKeys[i]}
 											type="checkbox"
-											disabled={filterIssues[issue] === '0'}
-											onChange={(e) => props.handleFilter(e, issue)}
+											id={'a' + filterKeys[i]}
+											disabled={
+												props.issuesClasses[
+													issueClass as keyof typeof props.issuesClasses
+												] == '0'
+											}
+											onChange={() => props.handleFilter(issueClass)}
 										/>
 										<label htmlFor={'a' + filterKeys[i]}>
-											{issue}
+											{issueClass}
 										</label>
 									</div>
 									<div className="value">
 										<Show
-											when={filterIssues[issue] == '0'}
+											when={
+												props.issuesClasses[
+													issueClass as keyof typeof props.issuesClasses
+												] == '0'
+											}
 											fallback={
 												<img
 													src="/codefend/issues-bug-icon.svg"
@@ -55,7 +63,13 @@ export const IssueReport: React.FC<Props> = (props) => {
 											/>
 										</Show>
 
-										<span>{filterIssues[issue]}</span>
+										<span>
+											{
+												props.issuesClasses[
+													issueClass as keyof typeof props.issuesClasses
+												]
+											}
+										</span>
 									</div>
 								</div>
 							</Fragment>

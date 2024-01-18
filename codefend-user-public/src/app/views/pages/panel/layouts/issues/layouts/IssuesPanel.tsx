@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useIssues } from '../../../../../../data';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Issues, useIssues } from '../../../../../../data';
 import {
 	VulnerabilitiesStatus,
 	VulnerabilityRisk,
@@ -12,6 +12,7 @@ import { useUpdateEffect } from 'usehooks-ts';
 const IssuesPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
 	const [control, refresh] = useState(false);
+	const [filters, setFilters] = useState<Set<string>>(new Set([]));
 	const { getIssues, isLoading, refetchAll } = useIssues();
 
 	useEffect(() => {
@@ -29,18 +30,40 @@ const IssuesPanel: React.FC = () => {
 	// (It would be used to navigate VulnerabilityStatus)
 	const location = useLocation();
 	useUpdateEffect(() => {
-		console.log({ path: location.pathname });
 		refresh(!control);
 	}, [location]);
 	*/
+	const handleIssuesFilter = useMemo(() => {
+		const isFiltered = filters.size !== 0;
+		if (!isFiltered) return { isFiltered };
 
+		const filteredData = getIssues()?.issues.filter((issue: Issues) =>
+			filters.has(issue.resourceClass),
+		);
+
+		return { filteredData, isFiltered };
+	}, [filters, getIssues()]);
+
+	const handleFilters = (issueClass: string) => {
+		if (filters.has(issueClass)) {
+			const updated = new Set(filters);
+			updated.delete(issueClass);
+			setFilters(updated);
+		} else {
+			setFilters((state) => new Set([...state, issueClass]));
+		}
+	};
 	return (
 		<>
 			<main className={`issues-list ${showScreen ? 'actived' : ''}`}>
 				<section className="left">
 					<IssueResources
 						isLoading={isLoading}
-						issues={getIssues()?.issues ?? []}
+						issues={
+							handleIssuesFilter.isFiltered
+								? handleIssuesFilter.filteredData
+								: getIssues()?.issues ?? []
+						}
 						refresh={() => refresh(!control)}
 					/>
 				</section>
@@ -54,15 +77,13 @@ const IssuesPanel: React.FC = () => {
 					/>
 
 					<button
-						onClick={(e) => {
-							alert('Generating report');
-						}}
+						onClick={(e) => alert('Generating report')}
 						className="btn btn-primary w-full mt-4 mb-4">
 						GENERATE REPORT
 					</button>
 
 					<IssueReport
-						handleFilter={(e, issueClass) => e.preventDefault()}
+						handleFilter={handleFilters}
 						isLoading={isLoading}
 						issuesClasses={getIssues()?.issueClass ?? {}}
 					/>

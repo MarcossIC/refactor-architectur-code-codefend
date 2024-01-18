@@ -1,76 +1,52 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { ChartIcon, Show, SimpleSection } from '../../../../../components';
-import { MemberV2, roleMap } from '../../../../../../data';
+import { MemberV2, MetricsService, roleMap } from '../../../../../../data';
 
 type MemberKey = keyof typeof roleMap;
-
 
 interface SocialEngineeringMembersProps {
 	isLoading: boolean;
 	members: MemberV2[];
-	setSocialFilters: Dispatch<
-		SetStateAction<{ department: string[]; attackVectors: string[] }>
-	>;
+	handleDepartmentFilter: (role: string) => void;
 }
 
-const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = (
-	{members, setSocialFilters},
-) => {
-
-	const renderMembersByRole = () => {
-    const membersByRole = members.reduce((acc: Record<string, number>, member) => {
-      const role = member.member_role as MemberKey;
-      acc[role] = (acc[role] || 0) + 1;
-      return acc;
-    }, {} as Record<MemberKey, number>);
-
-    return membersByRole;
-  };
-	
-	const handleDepartmentFilter = (e: any, memberId: string) => {
-		const member = members.find((m) => m.id === memberId);
-		console.log({ member });
-		if (!member) return;
-	
-		setSocialFilters((prevState: any) => ({
-			...prevState,
-			department: [...prevState.department, member],
-		}));
-	}; 
+const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = ({
+	members,
+	handleDepartmentFilter,
+}) => {
+	const computedRoles = MetricsService.computeMemberRolesCount(members!);
 
 	return (
 		<>
 			<div className="card filtered">
 				<SimpleSection header="Members by departments" icon={<ChartIcon />}>
 					<div className="content filters">
-						{Object.entries(renderMembersByRole()).map(([member, value]) => (
-							<div className="filter" key={member}>
+						{Object.keys(computedRoles).map((role) => (
+							<div className="filter" key={role}>
 								<div className="check">
 									<input
-										id={member}
 										type="checkbox"
-										onChange={(e) => handleDepartmentFilter(e, member)}
+										onChange={(e) => handleDepartmentFilter(role)}
 										className=""
 									/>
-									<label htmlFor={member}>
-										{roleMap[member as MemberKey] ?? 'Unknown roles'}
+									<label>
+										{roleMap[role as keyof typeof roleMap] ??
+											'Unknown role'}
 									</label>
 								</div>
 								<div className="value">
-									<Show
-										when={members.length === 0}
-										fallback={
-											<img
-												src="/codefend/people-active-icon.svg"
-												alt="bug-icon"
-											/>
-										}>
-										<img
-											src="/codefend/people-inactive-icon.svg"
-											alt="bug-icon"
-										/>
-									</Show>
-									<span>{members.length} members</span> 
+									<img
+										src="/codefend/people-active-icon.svg"
+										alt="bug-icon"
+									/>
+									<span>
+										{
+											computedRoles[
+												role as keyof typeof computedRoles
+											]
+										}{' '}
+										members
+									</span>
 								</div>
 							</div>
 						))}

@@ -68,16 +68,12 @@ const isUserChat = (id: any, user: User | null) => {
 };
 
 /** compute social roles */
-const computedRoles = (socials: MemberV2[]) => {
-	if (!socials) return {};
-	return socials.reduce((acc: any, social: MemberV2) => {
-		if (acc[social.member_role]) {
-			acc[social.member_role]++;
-		} else {
-			acc[social.member_role] = 1;
-		}
-
-		return acc;
+const computeMemberRolesCount = (members: MemberV2[] = []): any => {
+	if (!members) return [];
+	return members.reduce((rolesCount: any, member: MemberV2) => {
+		const { member_role } = member;
+		rolesCount[member_role] = (rolesCount[member_role] || 0) + 1;
+		return rolesCount;
 	}, {});
 };
 
@@ -174,7 +170,7 @@ export const getCompanyMetric = (resources: Webresources[], type: string) => {
 
 export const MetricsService = {
 	isUserChat,
-	computedRoles,
+	computeMemberRolesCount,
 	computeSourceCodeMetrics,
 	computeInternalNetworkOSAndCount,
 	renderPercentage,

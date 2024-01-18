@@ -1,9 +1,5 @@
-import { useEffect, useState } from 'react';
-import {
-	Member,
-	MetricsService,
-	useSocial,
-} from '../../../../../data';
+import { useEffect, useMemo, useState } from 'react';
+import { Member, MetricsService, useSocial } from '../../../../../data';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
 import SocialEngineeringMembers from './components/SocialEngineeringMembers';
@@ -18,8 +14,8 @@ const SocialEngineeringView = () => {
 	});
 
 	const [socialFilters, setSocialFilters] = useState({
-		department: [] as string[],
-		attackVectors: [] as string[],
+		department: new Set<string>(),
+		attackVectors: new Set<string>(),
 	});
 
 	useEffect(() => {
@@ -30,44 +26,40 @@ const SocialEngineeringView = () => {
 		}, 50);
 	}, []);
 
-	const socialInfoData = () => {
-		const socialData = social.loading ? [] : social.data;
-		return socialData ?? [];
-	};
-
-	const handleFilter = () => {
-		const filterArray = Object.entries(socialFilters.department);
-		if (filterArray.length === 0)
-			return { filteredData: [], isFiltered: false };
-		const selectedFilters = filterArray.reduce(
-			(acc: string[], [key, value]) => {
-				if (value) acc.push(key.toLowerCase());
-				return acc;
-			},
-			[],
-		);
-
-		const socialDataList: Member[] | undefined = socialInfoData() ?? [];
-
-		if (!socialDataList) {
-			return { filteredData: [], isFiltered: false };
+	const handleDepartmentFIlter = (role: string) => {
+		if (socialFilters.department.has(role)) {
+			const updated = new Set(socialFilters.department);
+			updated.delete(role);
+			setSocialFilters((state: any) => ({ ...state, department: updated }));
+		} else {
+			setSocialFilters((state: any) => ({
+				...state,
+				department: new Set([...state.department, role]),
+			}));
 		}
-
-		const filteredData = socialDataList.filter((datum: any) =>
-			selectedFilters.includes(datum.member_role.toLowerCase()),
-		);
-
-		return { filteredData, isFiltered: selectedFilters.length !== 0 };
 	};
 
-	const selectedFilters = handleFilter().filteredData.reduce(
+	const handleFilter = useMemo(() => {
+		const isFiltered =
+			socialFilters.department.size !== 0 ||
+			socialFilters.attackVectors.size !== 0;
+		if (!isFiltered) return { isFiltered };
+		if (!members) return { isFiltered: false };
+
+		const filteredData = members.filter((member) =>
+			socialFilters.department.has(member.member_role),
+		);
+
+		return { filteredData, isFiltered };
+	}, [members, socialFilters]);
+
+	/*const selectedFilters = handleFilter().filteredData.reduce(
 		(acc: string[], [key, value]: any) => {
 			if (value) acc.push(key.toLowerCase());
 			return acc;
 		},
 		[],
-	);
-	const { computedRoles } = MetricsService;
+	);*/
 
 	return (
 		<>
@@ -76,14 +68,18 @@ const SocialEngineeringView = () => {
 					<SocialEngineering
 						refetch={refetch}
 						isLoading={loading}
-						socials={members ?? []}
+						socials={
+							handleFilter.isFiltered
+								? handleFilter.filteredData!
+								: members ?? []
+						}
 					/>
 				</section>
 				<section className="right">
 					<SocialEngineeringMembers
 						isLoading={social.loading}
 						members={members ?? []}
-						setSocialFilters={setSocialFilters}
+						handleDepartmentFilter={handleDepartmentFIlter}
 					/>
 					<SocialAttackVectors />
 				</section>

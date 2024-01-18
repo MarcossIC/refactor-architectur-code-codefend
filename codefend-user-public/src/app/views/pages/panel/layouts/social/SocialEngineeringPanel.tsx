@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import {
-	Member,
-	MemberV2,
-	MetricsService,
-	useSocial,
-} from '../../../../../data';
+import { Member, MetricsService, useSocial } from '../../../../../data';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
 import SocialEngineeringMembers, {
@@ -16,8 +11,8 @@ const SocialEngineeringView = () => {
 	const [showScreen, setShowScreen] = useState(false);
 
 	const [socialFilters, setSocialFilters] = useState({
-		department: [] as string[],
-		attackVectors: [] as string[],
+		department: new Set<string>(),
+		attackVectors: new Set<string>(),
 	});
 
 	useEffect(() => {
@@ -28,27 +23,40 @@ const SocialEngineeringView = () => {
 		}, 50);
 	}, []);
 
-	const socialInfoData = () => {
-		const socialData = loading ? [] : members;
-		return socialData ?? [];
+	const handleDepartmentFIlter = (role: string) => {
+		if (socialFilters.department.has(role)) {
+			const updated = new Set(socialFilters.department);
+			updated.delete(role);
+			setSocialFilters((state: any) => ({ ...state, department: updated }));
+		} else {
+			setSocialFilters((state: any) => ({
+				...state,
+				department: new Set([...state.department, role]),
+			}));
+		}
 	};
 
-	const handleFilter = () => {
-		const selectedFilters = socialFilters.department.map((id) => id.toLowerCase());
-	
-		const socialDataList: MemberV2[] | undefined = socialInfoData();
-	
-		if (!socialDataList) {
-			return { filteredData: [] as MemberV2[], isFiltered: false };
-		}
-	
-		const filteredData = socialDataList.filter((datum: MemberV2) =>
-			selectedFilters.includes(datum.member_role.toLowerCase()),
+	const handleFilter = useMemo(() => {
+		const isFiltered =
+			socialFilters.department.size !== 0 ||
+			socialFilters.attackVectors.size !== 0;
+		if (!isFiltered) return { isFiltered };
+		if (!members) return { isFiltered: false };
+
+		const filteredData = members.filter((member) =>
+			socialFilters.department.has(member.member_role),
 		);
-	
-		return { filteredData, isFiltered: selectedFilters.length !== 0 };
-	};
-	
+
+		return { filteredData, isFiltered };
+	}, [members, socialFilters]);
+
+	/*const selectedFilters = handleFilter().filteredData.reduce(
+		(acc: string[], [key, value]: any) => {
+			if (value) acc.push(key.toLowerCase());
+			return acc;
+		},
+		[],
+	);*/
 
 	return (
 		<>
@@ -58,9 +66,9 @@ const SocialEngineeringView = () => {
 						refetch={refetch}
 						isLoading={loading}
 						socials={
-							handleFilter().isFiltered
-								? handleFilter().filteredData
-								: socialInfoData() ?? []
+							handleFilter.isFiltered
+								? handleFilter.filteredData!
+								: members ?? []
 						}
 					/>
 				</section>
@@ -68,7 +76,7 @@ const SocialEngineeringView = () => {
 					<SocialEngineeringMembers
 						isLoading={loading}
 						members={members ?? []}
-						setSocialFilters={setSocialFilters}
+						handleDepartmentFilter={handleDepartmentFIlter}
 					/>
 					<SocialAttackVectors />
 				</section>
@@ -78,3 +86,4 @@ const SocialEngineeringView = () => {
 };
 
 export default SocialEngineeringView;
+

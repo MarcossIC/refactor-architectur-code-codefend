@@ -87,7 +87,7 @@ const SocialEngineering: React.FC<SocialProps> = (props) => {
 								<div className="email">{social.member_email}</div>
 								<div className="phone">{social.member_phone}</div>
 								<div className="role">
-									{social.member_role}
+									{roleMap[social.member_role as keyof typeof roleMap]}
 								</div>
 							</div>
 						))}

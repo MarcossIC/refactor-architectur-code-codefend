@@ -18,7 +18,7 @@ const DashboardSearchbar = () => {
 	};
 
 	const handleSubmit = () => {
-		if (!searchValue) return;
+		if (!searchValue.trim()) return;
 		if (!searchClass) {
 			toast.warn('You must select a class to search');
 			return;

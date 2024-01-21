@@ -8,7 +8,12 @@ import {
 	PrimaryButton,
 } from '../';
 import { toast } from 'react-toastify';
-import { useAuthState, User, WebApplicationService } from '../../../data';
+import {
+	generateID,
+	useAuthState,
+	User,
+	WebApplicationService,
+} from '../../../data';
 
 interface AddDomainProps {
 	onDone: () => void;
@@ -17,7 +22,7 @@ interface AddDomainProps {
 
 const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 	const [domainName, setDomainName] = useState('');
-	const [subdomainDetection, setSubdomainDetection] = useState<boolean>(true);
+	const [subdomainDetection, setSubdomainDetection] = useState<boolean>(false);
 	const [isAddingDomain, setIsAddingDomain] = useState<boolean>(false);
 
 	const { getUserdata } = useAuthState();
@@ -27,7 +32,6 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
 		setIsAddingDomain(true);
 		console.log({ domainName });
 		if (!domainName) return;
@@ -57,7 +61,7 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 			.finally(() => setIsAddingDomain(false));
 		return;
 	};
-
+	const checkID = generateID();
 	return (
 		<div className="modal admin-modal text-format">
 			<form>
@@ -76,14 +80,17 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 					/>
 				</div>
 
-				<div className="form-input-checkbox ">
+				<div className="flex gap-x-2 justify-center items-center">
 					<input
 						type="checkbox"
-						name="resourceDomainNetwork"
-						className="codefend-checkbox"
+						id="subdomain-detection-check"
+						onChange={(e) => setSubdomainDetection(!subdomainDetection)}
+						defaultChecked={subdomainDetection}
+						required
 					/>
-
-					<label className="modal_info">
+					<label
+						className="modal_info"
+						htmlFor="subdomain-detection-check">
 						Automatic subdomain detection
 					</label>
 				</div>

@@ -1,8 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { ChartIcon, Show, SimpleSection } from '../../../../../components';
 import { MemberV2, MetricsService, roleMap } from '../../../../../../data';
-
-type MemberKey = keyof typeof roleMap;
 
 interface SocialEngineeringMembersProps {
 	isLoading: boolean;

@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Member, MetricsService, useSocial } from '../../../../../data';
+import { useSocial } from '../../../../../data';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
-import SocialEngineeringMembers, {
-	Filter,
-} from './components/SocialEngineeringMembers';
+import SocialEngineeringMembers from './components/SocialEngineeringMembers';
 
 const SocialEngineeringView = () => {
 	const { members, refetch, loading } = useSocial();

@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { relaunch } from '@tauri-apps/api/process';
 import { checkUpdate, installUpdate } from '@tauri-apps/api/updater';
 import { listen } from '@tauri-apps/api/event';
-import { invoke } from '@tauri-apps/api/tauri';
 
 import './app/views/styles/index.scss';
 import './app/views/styles/card.scss';
-import './app/views/styles/buttons.scss';
 import './app/views/styles/forms.scss';
 import './app/views/styles/modal.scss';
 

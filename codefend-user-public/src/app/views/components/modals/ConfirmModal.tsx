@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { ButtonLoader, Show } from '..';
+import { ButtonLoader, PrimaryButton, SecondaryButton, Show } from '..';
 
 interface ConfirmModalProps {
 	close: () => void;
@@ -37,23 +37,18 @@ const ConfirmModal = (props: ConfirmModalProps) => {
 			</div>
 			<form>
 				<div className="form-buttons">
-					<button
-						type="button"
-						onClick={handleClose}
-						disabled={isConfirm}
-						className="log-inputs btn btn-secondary  btn-cancel codefend_secondary_ac">
-						{props.cancelText}
-					</button>
-					<button
-						type="button"
-						disabled={isConfirm}
-						onClick={handleSubmit}
-						className="log-inputs btn btn-primary btn-add codefend_main_ac">
-						<Show when={isConfirm}>
-							<ButtonLoader />
-						</Show>
-						{props.confirmText}
-					</button>
+					<SecondaryButton
+						text={props.cancelText}
+						click={handleClose}
+						isDisabled={isConfirm}
+						className="btn-cancel codefend_secondary_ac"
+					/>
+					<PrimaryButton
+						text={props.confirmText}
+						click={handleSubmit}
+						isDisabled={isConfirm}
+						className="btn-add codefend_main_ac"
+					/>
 				</div>
 			</form>
 		</div>

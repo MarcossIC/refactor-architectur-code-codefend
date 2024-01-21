@@ -24,27 +24,6 @@ button.btn {
 		outline: none;
 	}
 
-	&.btn-primary {
-		background-color: var(--btn-color-main);
-
-		&:hover {
-			background-color: #cb2222;
-		}
-	}
-
-	&.btn-secondary {
-		background-color: var(--btn-color-alt);
-
-		&:hover {
-			background-color: #1a1a1a;
-		}
-	}
-
-	&.btn-tertiary {
-		background-color: var(--color-border2);
-		color: var(--bg-black);
-	}
-
 	&.no-border-height {
 		height: auto;
 		border-radius: 0px;
@@ -59,4 +38,9 @@ button.btn {
 			box-shadow: 0 0 8px rgba(0, 0, 0, 0.2666666667);
 		}
 	}
+}
+
+.signin-btn {
+	display: flex;
+	column-gap: 0.5rem;
 }

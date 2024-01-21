@@ -20,7 +20,7 @@ export const useUserAdmin = () => {
 	const getRole = () => authState.userData?.accessRole ?? '';
 	const isAuth = () => authState.isAuth;
 	const getAccessToken = () => authState.accessToken;
-	const isAdmin = () => getRole() !== 'user';
+	const isAdmin = () => getRole() === 'admin';
 
 	return { isAuth, isAdmin, getAccessToken };
 };

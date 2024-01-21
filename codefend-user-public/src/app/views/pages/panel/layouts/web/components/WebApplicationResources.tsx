@@ -7,7 +7,6 @@ import {
 	EmptyCard,
 	PageLoader,
 	TrashIcon,
-	StatIcon,
 	ModalTitleWrapper,
 	ConfirmModal,
 	Show,

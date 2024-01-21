@@ -5,7 +5,12 @@ import {
 	useAuthState,
 	useScanLocal,
 } from '../../../../../data';
-import { EmptyScreenView, PageLoaderWhite, Show } from '../../../../components';
+import {
+	EmptyScreenView,
+	PageLoaderWhite,
+	PrimaryButton,
+	Show,
+} from '../../../../components';
 import React, { useEffect, useState } from 'react';
 import { Endpoints } from './components/Endpoints';
 
@@ -42,14 +47,12 @@ export const EnpPanel: React.FC<Props> = (props) => {
 					/>
 				</section>
 				<section className="right">
-					<button
-						onClick={(e) => scanLocal()}
-						className="btn btn-primary w-full">
-						<Show when={scanLoading}>
-							<PageLoaderWhite />
-						</Show>
-						REQUEST SCAN
-					</button>
+					<PrimaryButton
+						text="REQUEST SCAN"
+						isDisabled={scanLoading}
+						click={(e: React.FormEvent) => scanLocal()}
+						className="w-full"
+					/>
 				</section>
 			</main>
 		</>

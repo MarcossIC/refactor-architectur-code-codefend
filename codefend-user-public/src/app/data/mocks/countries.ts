@@ -3922,7 +3922,7 @@ const defaultCountries = [
 ];
 
 //Se hace un Set (Lista sin duplicados)
-const topCountriesOnListSet = [
+const topCountriesOnList = [
 	'Saudi Arabia',
 	'Qatar',
 	'United Arab Emirates',
@@ -3930,7 +3930,6 @@ const topCountriesOnListSet = [
 	'Kuwait',
 	'Israel',
 	'India',
-	'United States of America',
 	'United Kingdom of Great Britain and Northern Ireland',
 ];
 
@@ -3941,5 +3940,10 @@ const mapCountry = (country: any) => ({
 });
 
 const preceesArray = () =>
-	[...topCountriesOnListSet, ...defaultCountries].map(mapCountry);
+	[
+		...topCountriesOnList,
+		...defaultCountries.filter(
+			(conuntry: any) => !topCountriesOnList.includes(conuntry.name),
+		),
+	].map(mapCountry);
 export const countries = new Set(preceesArray());

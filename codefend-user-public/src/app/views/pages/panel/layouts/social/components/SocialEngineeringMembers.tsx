@@ -1,5 +1,10 @@
-import React from 'react';
-import { ChartIcon, Show, SimpleSection } from '../../../../../components';
+import React, { Dispatch, SetStateAction } from 'react';
+import {
+	ChartIcon,
+	PeopleGroup,
+	Show,
+	SimpleSection,
+} from '../../../../../components';
 import { MemberV2, MetricsService, roleMap } from '../../../../../../data';
 
 interface SocialEngineeringMembersProps {
@@ -33,10 +38,9 @@ const SocialEngineeringMembers: React.FC<SocialEngineeringMembersProps> = ({
 									</label>
 								</div>
 								<div className="value">
-									<img
-										src="/codefend/people-active-icon.svg"
-										alt="bug-icon"
-									/>
+									<span className="text-blue-400">
+										<PeopleGroup />
+									</span>
 									<span>
 										{
 											computedRoles[

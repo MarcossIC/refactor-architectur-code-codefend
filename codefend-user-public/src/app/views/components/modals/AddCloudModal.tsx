@@ -1,7 +1,7 @@
 import { useAuthState } from '../../../data';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { ButtonLoader, GlobeWebIcon, SecondaryButton } from '..';
+import { ButtonLoader, GlobeWebIcon, PrimaryButton, SecondaryButton } from '..';
 import { CloudService } from '../../../data';
 
 interface Props {
@@ -108,18 +108,17 @@ export const AddCloudModal: React.FC<Props> = (props) => {
 					</div>
 					<div className="form-buttons">
 						<SecondaryButton
-							text={'Cancel'}
+							text="Cancel"
 							click={(e: React.FormEvent) => props.close?.()}
 							isDisabled={isAddingMobile}
+							className="btn-cancel codefend_secondary_ac"
 						/>
-						<button
-							type="submit"
-							disabled={isAddingMobile}
-							onClick={handleSubmit}
-							className="log-inputs codefend_main_ac btn btn-primary btn-add">
-							{isAddingMobile && <ButtonLoader />}
-							Add cloud
-						</button>
+						<PrimaryButton
+							text="Add cloud"
+							click={handleSubmit}
+							isDisabled={isAddingMobile}
+							className="btn-add codefend_main_ac"
+						/>
 					</div>
 				</form>
 			</div>

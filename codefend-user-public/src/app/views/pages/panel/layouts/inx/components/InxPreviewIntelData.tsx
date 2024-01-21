@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useIntersectionObserver } from 'usehooks-ts';
+import { PrimaryButton } from '../../../../../components';
 
 interface Props {
 	intelKey: string;
@@ -29,11 +30,11 @@ export const InxPreviewIntelData: React.FC<Props> = ({
 					<span className="flex-grow ml-3">{intel.bucket_data}</span>
 					<span className="text-[#666] text-xs">{intel.date}</span>
 				</div>
-				<button
-					onClick={() => readFile(intel)}
-					className="btn btn-primary no-border-height h-full items-center justify-center text-sm w-[5.3rem] no-padding ">
-					full data
-				</button>
+				<PrimaryButton
+					text="Full data"
+					click={(e: React.FormEvent) => readFile(intel)}
+					className="no-border-height h-full items-center justify-center text-sm w-[5.3rem] no-padding"
+				/>
 			</div>
 
 			<div className="w-full internal-tables disable-border no-border border-bottom py-2">

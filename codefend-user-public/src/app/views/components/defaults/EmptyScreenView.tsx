@@ -1,4 +1,5 @@
 import React from 'react';
+import { PrimaryButton } from '..';
 
 interface EmptyScreenProps {
 	title?: string;
@@ -22,14 +23,12 @@ const EmptyScreenView = ({
 						<span className="second-text">{info}</span>
 					</div>
 					<div className="button">
-						<button
-							className="btn btn-primary"
-							type="button"
-							onClick={(e) => {
+						<PrimaryButton
+							text={buttonText ?? ''}
+							click={(e) => {
 								event?.();
-							}}>
-							{buttonText}
-						</button>
+							}}
+						/>
 					</div>
 				</div>
 			</div>

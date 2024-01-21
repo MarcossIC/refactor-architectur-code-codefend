@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { generateIDArray } from '../../../../data';
+import { generateIDArray } from '../../../data';
 import { Show } from '..';
 import './table.module.scss';
 

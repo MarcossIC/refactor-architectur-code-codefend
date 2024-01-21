@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Issues, useIssues } from '../../../../../../data';
 import {
+	PrimaryButton,
 	VulnerabilitiesStatus,
 	VulnerabilityRisk,
 } from '../../../../../components';
@@ -75,13 +76,11 @@ const IssuesPanel: React.FC = () => {
 					<VulnerabilitiesStatus
 						vulnerabilityByShare={getIssues()?.issueCondition ?? {}}
 					/>
-
-					<button
-						onClick={(e) => alert('Generating report')}
-						className="btn btn-primary w-full mt-4 mb-4">
-						GENERATE REPORT
-					</button>
-
+					<PrimaryButton
+						text="GENERATE REPORT"
+						click={(e) => alert('Generating report')}
+						className="w-full mt-4 mb-4"
+					/>
 					<IssueReport
 						handleFilter={handleFilters}
 						isLoading={isLoading}

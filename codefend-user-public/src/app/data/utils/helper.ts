@@ -31,6 +31,10 @@ export const clearAuth = () => {
 	window.localStorage.removeItem('user');
 };
 
+export const RUNNING_DESKTOP = (): boolean => {
+	return window.__TAURI__ !== undefined;
+};
+
 /** Date formatter */
 export const formatDate = (stringDate: string): string => {
 	const date = new Date(stringDate);

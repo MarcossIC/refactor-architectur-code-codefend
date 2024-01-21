@@ -1,6 +1,6 @@
 import React from 'react';
 import { ModalWrapper } from '.';
-import { ErrorIcon, SecondaryButton } from '..';
+import { ErrorIcon, PrimaryButton, SecondaryButton } from '..';
 
 const ErrorConection: React.FC<{ closeModal: () => void }> = (props) => {
 	return (
@@ -40,10 +40,13 @@ const ErrorConection: React.FC<{ closeModal: () => void }> = (props) => {
 								props.closeModal();
 								window.location.reload();
 							}}
+							className="btn-cancel codefend_secondary_ac"
 						/>
-						<button className="log-inputs btn btn-primary btn-add codefend_main_ac">
-							email offline@codefend.com
-						</button>
+						<PrimaryButton
+							text="email offline@codefend.com"
+							click={() => {}}
+							className="btn-add codefend_main_ac"
+						/>
 					</div>
 				</div>
 			</ModalWrapper>

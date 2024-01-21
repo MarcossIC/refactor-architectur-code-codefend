@@ -4,6 +4,7 @@ import {
 	ButtonLoader,
 	GlobeWebIcon,
 	PencilIcon,
+	PrimaryButton,
 	SecondaryButton,
 	Show,
 } from '..';
@@ -63,20 +64,17 @@ export const AddTicketModal: React.FC<AddTicketModalProps> = (props) => {
 
 					<div className="form-buttons">
 						<SecondaryButton
-							click={props.close}
 							text="Cancel"
+							click={(e: React.FormEvent) => props.close?.()}
 							isDisabled={isAddingTicket}
+							className="btn-cancel codefend_secondary_ac"
 						/>
-						<button
-							type="submit"
-							disabled={isAddingTicket}
-							onClick={handleSubmit}
-							className="log-inputs codefend_main_ac btn btn-primary btn-add">
-							<Show when={isAddingTicket}>
-								<ButtonLoader />
-							</Show>
-							Add ticket
-						</button>
+						<PrimaryButton
+							text="Add ticket"
+							click={handleSubmit}
+							isDisabled={isAddingTicket}
+							className="btn-add codefend_main_ac"
+						/>
 					</div>
 				</form>
 			</div>

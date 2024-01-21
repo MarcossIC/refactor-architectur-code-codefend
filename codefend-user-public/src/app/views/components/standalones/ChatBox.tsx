@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { MessageIcon, SendIcon } from '..';
+import { MessageIcon, PrimaryButton, SendIcon } from '..';
 import { useChatbox, ChatBoxType } from '../../../data';
 
 interface Props {
@@ -53,12 +53,12 @@ export const ChatBox: React.FC<Props> = (props) => {
 					</div>
 					<span>Add new entry</span>
 				</div>
-				<button
-					disabled={isAdding || !message}
-					onClick={handleSubmit}
-					className="btn btn-primary no-border-height w-14 h-full items-center justify-center">
-					<SendIcon />
-				</button>
+				<PrimaryButton
+					text={<SendIcon />}
+					isDisabled={isAdding || !message}
+					click={handleSubmit}
+					className="no-border-height w-14 h-full items-center justify-center"
+				/>
 			</div>
 
 			<div className="flex h-36 py-8 gap-x-9 px-6">

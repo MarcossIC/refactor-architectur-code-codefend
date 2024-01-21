@@ -3,7 +3,10 @@ import { invoke } from '@tauri-apps/api/tauri';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useLan } from '../../../../../data';
-import { PageLoaderWhite } from '../../../../../views/components';
+import {
+	PageLoaderWhite,
+	PrimaryButton,
+} from '../../../../../views/components';
 import '../../../../styles/flag.scss';
 import '../../../../styles/table.scss';
 import { LanNetworkData } from './components/LanNetworkData';
@@ -69,13 +72,11 @@ const LanPage: React.FC = () => {
 						isLoading={loading}
 						internalNetwork={internalNetworkDataInfo()}
 					/>
-					<button
-						onClick={() => {
-							scanLocal();
-						}}
-						className="btn btn-primary full-w mt-4">
-						{scanLoading ? <PageLoaderWhite /> : 'REQUEST SCAN'}
-					</button>
+					<PrimaryButton
+						text={scanLoading ? <PageLoaderWhite /> : 'REQUEST SCAN'}
+						click={(e: any) => scanLocal()}
+						className="full-w mt-4"
+					/>
 				</section>
 			</main>
 		</>

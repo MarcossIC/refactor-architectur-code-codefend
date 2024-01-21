@@ -4,6 +4,7 @@ import {
 	PageLoader,
 	AppCard,
 	Show,
+	PrimaryButton,
 } from '../../../../../components';
 import {
 	CloudApp,
@@ -65,11 +66,10 @@ export const CloudApplication = ({
 				<>
 					<section className="left">
 						<div className="add-button">
-							<button
-								onClick={(e: React.FormEvent) => openModal()}
-								className="btn btn-primary">
-								ADD CLOUD
-							</button>
+							<PrimaryButton
+								text="ADD CLOUD"
+								click={(e: React.FormEvent) => openModal()}
+							/>
 						</div>
 
 						<div className="list">

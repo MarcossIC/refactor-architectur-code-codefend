@@ -1,6 +1,7 @@
 import {
 	PageLoader,
 	PreviousMessage,
+	PrimaryButton,
 	Show,
 	SimpleSection,
 } from '../../../../../../views/components';
@@ -37,13 +38,12 @@ const SnPreviousSearches: React.FC<{ isLoading?: boolean }> = (props) => {
 						</>
 					</SimpleSection>
 				</div>
-				<button
-					onClick={(e) => {
-						alert('Processing your order');
-					}}
-					className="btn btn-primary full-w mt-4">
-					REQUEST PROFESSIONAL ASSISTANCE
-				</button>
+
+				<PrimaryButton
+					text="REQUEST PROFESSIONAL ASSISTANCE"
+					className="full-w mt-4"
+					click={() => alert('Processing your order')}
+				/>
 			</div>
 		</>
 	);

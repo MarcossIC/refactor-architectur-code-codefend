@@ -6,7 +6,12 @@ import React, {
 	useState,
 } from 'react';
 import { MobileSelectedDetails } from '../..';
-import { AppCard, EmptyScreenView, Show } from '../../../../../components';
+import {
+	AppCard,
+	EmptyScreenView,
+	PrimaryButton,
+	Show,
+} from '../../../../../components';
 import {
 	MobileApp,
 	generateIDArray,
@@ -66,9 +71,7 @@ export const MobileApplication: React.FC<MobileApplicationProps> = ({
 				<>
 					<section className="left">
 						<div className="add-button">
-							<button onClick={openModal} className="btn btn-primary">
-								ADD MOBILE APP
-							</button>
+							<PrimaryButton text="ADD MOBILE APP" click={openModal} />
 						</div>
 
 						<div className="list">

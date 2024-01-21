@@ -75,7 +75,7 @@ export const AppRouter: React.FC = () => {
 	return (
 		<>
 			<ToastContainer
-				position="bottom-center"
+				position="top-right"
 				autoClose={5000}
 				hideProgressBar={false}
 				newestOnTop={false}

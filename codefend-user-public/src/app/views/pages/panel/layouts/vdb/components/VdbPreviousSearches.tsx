@@ -1,4 +1,5 @@
 import React from 'react';
+import { PrimaryButton } from '../../../../../components';
 
 export const VdbPreviousSearches: React.FC = () => {
 	return (
@@ -29,13 +30,12 @@ export const VdbPreviousSearches: React.FC = () => {
 					</div>
 				</div>
 			</div>
-			<button
-				onClick={(e) => {
-					alert('Processing your order');
-				}}
-				className="btn btn-primary full-w mt-4">
-				REQUEST PROFESSIONAL ASSISTANCE
-			</button>
+
+			<PrimaryButton
+				text="REQUEST PROFESSIONAL ASSISTANCE"
+				click={(e: any) => alert('Processing your order')}
+				className="full-w mt-4"
+			/>
 		</div>
 	);
 };

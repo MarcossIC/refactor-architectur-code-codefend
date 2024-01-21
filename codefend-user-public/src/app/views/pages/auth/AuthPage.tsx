@@ -4,7 +4,7 @@ import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import './auth.scss';
 import { AuthServices } from '../../../data/services';
 
-const Logo = lazy(() => import('../../components/standalones/Logo'));
+const Logo = lazy(() => import('../../components/defaults/Logo'));
 
 const AuthPage: React.FC = () => {
 	const location = useLocation();

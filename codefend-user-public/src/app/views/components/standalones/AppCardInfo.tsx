@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { AppCard } from './AppCard';
 import { CloudApp, MobileApp } from '../../../data';
+import { PrimaryButton } from '..';
 
 interface AppCardInfoProps {
 	type?: string;
@@ -44,14 +45,12 @@ export const AppCardInfo: React.FC<AppCardInfoProps> = ({
 					}
 				/>
 			</div>
-
-			<button
-				onClick={(e) => {
+			<PrimaryButton
+				text={buttonText}
+				click={(e) => {
 					alert('Procesing your order');
 				}}
-				className="btn btn-primary">
-				{buttonText}
-			</button>
+			/>
 		</div>
 	);
 };

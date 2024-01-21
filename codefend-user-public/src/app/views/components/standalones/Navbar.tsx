@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../data/redux/slices/auth.slice';
 import { User, clearAuth, useAppSelector, useAuthState } from '../../../data';
-import { LogoutIcon, Show } from '..';
+import { LogoutIcon, PrimaryButton, SecondaryButton, Show } from '..';
 import '../../styles/navbar.scss';
 
-const Logo = lazy(() => import('./Logo'));
+const Logo = lazy(() => import('../defaults/Logo'));
 
 const NavbarLogoutConfirm: React.FC<{
 	closed: (updatedState: boolean) => void;
@@ -29,17 +29,16 @@ const NavbarLogoutConfirm: React.FC<{
 				</div>
 
 				<div className="logout-modal-buttons">
-					<button
-						onClick={() => closed(false)}
-						className="btn btn-secondary logout-modal-buttons-btn">
-						Cancel
-					</button>
-					<button
-						className="btn btn-primary logout-modal-buttons-btn"
-						aria-label="Log out"
-						onClick={handleLogout}>
-						Logout
-					</button>
+					<SecondaryButton
+						text="Cancel"
+						click={() => closed(false)}
+						className="logout-modal-buttons-btn"
+					/>
+					<PrimaryButton
+						text="Logout"
+						click={handleLogout}
+						className="logout-modal-buttons-btn"
+					/>
 				</div>
 
 				<div className="helper-box text-format"></div>

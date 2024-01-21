@@ -2,7 +2,13 @@ import { useAuthState } from '../../../data';
 import { SocialAplicationService } from '../../../data/services/social.service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { ButtonLoader, GlobeWebIcon, SecondaryButton, Show } from '..';
+import {
+	ButtonLoader,
+	GlobeWebIcon,
+	PrimaryButton,
+	SecondaryButton,
+	Show,
+} from '..';
 
 interface SocialData {
 	fName: string;
@@ -217,20 +223,17 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 					</div>
 					<div className="form-buttons">
 						<SecondaryButton
-							isDisabled={isAddingMember}
 							text="Cancel"
-							click={() => props.close()}
+							click={(e: React.FormEvent) => props.close?.()}
+							isDisabled={isAddingMember}
+							className="btn-cancel codefend_secondary_ac"
 						/>
-						<button
-							type="submit"
-							disabled={isAddingMember}
-							onClick={handleSubmit}
-							className="log-inputs codefend_main_ac btn btn-primary btn-add">
-							<Show when={isAddingMember}>
-								<ButtonLoader />
-							</Show>
-							Add repository
-						</button>
+						<PrimaryButton
+							text="Add member"
+							click={handleSubmit}
+							isDisabled={isAddingMember}
+							className="btn-add codefend_main_ac"
+						/>
 					</div>
 				</form>
 			</div>

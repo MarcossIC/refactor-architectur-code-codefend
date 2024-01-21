@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import {
 	PageLoader,
 	PreviousMessage,
+	PrimaryButton,
 	Show,
 	SimpleSection,
 } from '../../../../../components';
@@ -68,13 +69,13 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 						</>
 					</SimpleSection>
 				</div>
-				<button
-					onClick={(e) => {
+				<PrimaryButton
+					text="REQUEST PROFESSIONAL ASSISTANCE"
+					click={(e) => {
 						alert('Processing your order');
 					}}
-					className="btn btn-primary full-w mt-4">
-					REQUEST PROFESSIONAL ASSISTANCE
-				</button>
+					className="full-w mt-4"
+				/>
 			</div>
 		</>
 	);

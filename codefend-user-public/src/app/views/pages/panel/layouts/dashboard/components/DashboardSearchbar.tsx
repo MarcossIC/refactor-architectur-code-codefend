@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchBar, SearchIcon } from '../../../../../components';
+import { toast } from 'react-toastify';
 
 const DashboardSearchbar = () => {
 	const navigate = useNavigate();
@@ -16,14 +17,21 @@ const DashboardSearchbar = () => {
 			setSearchClass(e.target.value),
 	};
 
+	const handleSubmit = () => {
+		if (!searchValue) return;
+		if (!searchClass) {
+			toast.warn('You must select a class to search');
+			return;
+		}
+		navigate('/sns?search=' + searchValue + '&class=' + searchClass);
+	};
+
 	return (
 		<SearchBar
 			placeHolder="Sns"
 			isActiveSelect
 			selectOptions={selectBarOptions}
-			handleSubmit={() =>
-				navigate('/sns?search=' + searchValue + '&class=' + searchClass)
-			}
+			handleSubmit={handleSubmit}
 			handleChange={(e: any) => setSearchValue(e.target.value)}
 			inputValue={searchValue}
 			searchIcon={<SearchIcon isButton />}

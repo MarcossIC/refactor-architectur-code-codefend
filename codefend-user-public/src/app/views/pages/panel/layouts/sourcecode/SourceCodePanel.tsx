@@ -3,9 +3,9 @@ import { useModal, useSourceCode } from '../../../../../data';
 import { SourceCodeResources } from './components/SourceCodeResources';
 import { SourceCodeChart } from './components/SourceCodeChart';
 import { SourceCodeCollab } from './components/SourceCodeCollab';
-interface Props {}
+import { PrimaryButton } from '../../../../components';
 
-const SourceCodePanel: React.FC<Props> = (props) => {
+const SourceCodePanel: React.FC = () => {
 	const { getSource, isLoading, addSourceCode, deletedResource } =
 		useSourceCode();
 	const { showModal, showModalStr, setShowModal, setShowModalStr } =
@@ -40,13 +40,12 @@ const SourceCodePanel: React.FC<Props> = (props) => {
 						isLoading={isLoading}
 						sourceCode={getSource() ?? []}
 					/>
-					<button
-						onClick={(e) => {
-							alert('Procesing your order');
-						}}
-						className="btn btn-primary mt-4 w-full">
-						REQUEST SCAN
-					</button>
+
+					<PrimaryButton
+						text="REQUEST SCAN"
+						className="full-w mt-4"
+						click={() => alert('Processing your order')}
+					/>
 					<br />
 					<SourceCodeCollab />
 				</section>

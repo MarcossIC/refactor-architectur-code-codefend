@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../../../../data/hooks/useAuthState';
-import { ButtonLoader } from '../../../components';
+import { ButtonLoader, PrimaryButton } from '../../../components';
 
 const SignInLayout: React.FC = () => {
 	const { signInUser } = useAuthState();
@@ -65,13 +65,13 @@ const SignInLayout: React.FC = () => {
 			</div>
 
 			<div className="extra-group ">
-				<button
+				<PrimaryButton
+					text="Proceed"
+					isDisabled={signinForm.isLoading}
+					click={() => {}}
 					type="submit"
-					disabled={signinForm.isLoading}
-					className="btn btn-primary signin-btn">
-					{signinForm.isLoading ? <ButtonLoader /> : <></>}
-					proceed
-				</button>
+					className="signin-btn"
+				/>
 
 				<div className="extra-group link-center link-underline">
 					<Link to="/auth/signup" className="link codefend-text-red">

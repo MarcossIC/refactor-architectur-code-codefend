@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
-import { ButtonLoader } from '../../../components';
+import { ButtonLoader, PrimaryButton } from '../../../components';
 import { useAppSelector } from '../../../../data/redux/';
 import { useAuthState, RegisterFinishParams } from '../../../../data';
 
@@ -29,8 +29,6 @@ const FinishSignUpLayout = () => {
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-
 		if (userState.password !== userState.confirmPassword) {
 			return toast.error(
 				'Password does not match, Kindly check and try again !!!',
@@ -136,20 +134,18 @@ const FinishSignUpLayout = () => {
 
 							<div className="mt-6">
 								<span className="text-sm text-alt3">
-									I have read and accept the{' '}
-									<u>Privacy Policy</u> and{' '}
+									I have read and accept the <u>Privacy Policy</u> and{' '}
 									<u>Terms of Use.</u>
 								</span>
 							</div>
 							<div className="mt-6">
-								<button
-									onClick={handleSubmit}
-									disabled={loading}
+								<PrimaryButton
+									text="Proceed"
 									type="submit"
-									className="btn btn-primary flex items-center gap-x-2">
-									{loading && <ButtonLoader />}
-									proceed
-								</button>
+									isDisabled={loading}
+									click={handleSubmit}
+									className="flex items-center gap-x-2"
+								/>
 							</div>
 						</form>
 					</div>

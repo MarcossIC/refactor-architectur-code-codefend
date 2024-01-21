@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { Loader } from './views/components';
 import { AppRouter } from './Router';
 
-// million-ignore
 export const App = () => {
 	return (
 		<Provider store={store}>

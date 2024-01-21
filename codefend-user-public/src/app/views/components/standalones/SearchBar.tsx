@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Fragment, useCallback, useMemo } from 'react';
-import { Show } from '.';
+import { PrimaryButton, Show } from '..';
 import { generateIDArray } from '../../../data';
 
 interface SearchBarSelect {
@@ -81,11 +81,12 @@ export const SearchBar: React.FC<SearchBarProps> = (props) => {
 							))}
 						</select>
 					</Show>
-					<button
+					<PrimaryButton
+						text={props.searchIcon}
+						click={props.handleSubmit}
 						type="submit"
-						className={`btn btn-primary search-button no-border-height`}>
-						{props.searchIcon}
-					</button>
+						className="search-button no-border-height"
+					/>
 				</form>
 			</div>
 		</div>

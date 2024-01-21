@@ -11,7 +11,7 @@
 	font-weight: 400;
 	src:
 		local('Roboto-Regular'),
-		url('/public/fonts/Roboto-Regular.ttf') format('truetype');
+		url('/fonts/Roboto-Regular.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'Roboto';
@@ -19,7 +19,7 @@
 	font-weight: 700;
 	src:
 		local('Roboto-Bold'),
-		url('/public/fonts/Roboto-Bold.ttf') format('truetype');
+		url('/fonts/Roboto-Bold.ttf') format('truetype');
 }
 @font-face {
 	font-family: Questrial;
@@ -27,12 +27,12 @@
 	font-weight: 400;
 	src:
 		local('Questrial-Regular'),
-		url('/public/fonts/Questrial-Regular.ttf') format('truetype');
+		url('/fonts/Questrial-Regular.ttf') format('truetype');
 }
 
 /* scrollbar */
 ::-webkit-scrollbar {
-	width: 10px !important;
+	width: 10px;
 }
 
 ::-webkit-scrollbar-track {

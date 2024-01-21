@@ -53,14 +53,6 @@ const SocialEngineeringView = () => {
 		return { filteredData, isFiltered };
 	}, [members, socialFilters]);
 
-	/*const selectedFilters = handleFilter().filteredData.reduce(
-		(acc: string[], [key, value]: any) => {
-			if (value) acc.push(key.toLowerCase());
-			return acc;
-		},
-		[],
-	);*/
-
 	return (
 		<>
 			<main className={`social ${showScreen ? 'actived' : ''}`}>

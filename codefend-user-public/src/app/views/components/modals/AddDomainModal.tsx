@@ -6,6 +6,7 @@ import {
 	SecondaryButton,
 	Show,
 	PrimaryButton,
+	ModalButtons,
 } from '../';
 import { toast } from 'react-toastify';
 import {
@@ -61,10 +62,9 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 			.finally(() => setIsAddingDomain(false));
 		return;
 	};
-	const checkID = generateID();
 	return (
 		<div className="modal admin-modal text-format">
-			<form>
+			<form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
 				<div className="form-input-text">
 					<span className="form-icon">
 						<div className="codefend-text-red">
@@ -98,20 +98,11 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 					</label>
 				</div>
 
-				<div className="form-buttons">
-					<SecondaryButton
-						text="Cancel"
-						click={(e: React.FormEvent) => props.close?.()}
-						isDisabled={isAddingDomain}
-						className="btn-cancel codefend_secondary_ac"
-					/>
-					<PrimaryButton
-						text="Add web resource"
-						click={handleSubmit}
-						isDisabled={isAddingDomain}
-						className="btn-add codefend_main_ac"
-					/>
-				</div>
+				<ModalButtons
+					close={props.close!}
+					isDisabled={isAddingDomain}
+					confirmText="Add web resource"
+				/>
 			</form>
 		</div>
 	);

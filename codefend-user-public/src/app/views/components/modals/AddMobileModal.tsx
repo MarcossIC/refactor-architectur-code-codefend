@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import {
 	ButtonLoader,
 	GlobeWebIcon,
+	ModalButtons,
 	PrimaryButton,
 	SecondaryButton,
 	Show,
@@ -94,23 +95,11 @@ const AddMobileModal: React.FC<Props> = (props) => {
 							placeholder="ios download link"
 						/>
 					</div>
-					<div
-						className="form-buttons"
-						onClick={(e: React.FormEvent) => e.stopPropagation()}>
-						<SecondaryButton
-							text="Cancel"
-							click={(e: React.FormEvent) => props.close?.()}
-							isDisabled={isAddingMobile}
-							className="btn-cancel codefend_secondary_ac"
-						/>
-						<PrimaryButton
-							text="Add mobile app"
-							isDisabled={isAddingMobile}
-							click={() => {}}
-							type="submit"
-							className="btn-add codefend_main_ac"
-						/>
-					</div>
+					<ModalButtons
+						close={props.close}
+						isDisabled={isAddingMobile}
+						confirmText="Add mobile app"
+					/>
 				</form>
 			</div>
 		</>

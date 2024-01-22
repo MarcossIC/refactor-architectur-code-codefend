@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import {
 	ButtonLoader,
 	GlobeWebIcon,
+	ModalButtons,
 	PencilIcon,
 	PrimaryButton,
 	SecondaryButton,
@@ -30,7 +31,9 @@ export const AddTicketModal: React.FC<AddTicketModalProps> = (props) => {
 	return (
 		<>
 			<div className="modal text-format">
-				<form className="w-full flex flex-col gap-y-3">
+				<form
+					className="w-full flex flex-col gap-y-3"
+					onSubmit={handleSubmit}>
 					<div className="form-input texy">
 						<span className="form-icon">
 							<div className="codefend-text-red">
@@ -62,20 +65,11 @@ export const AddTicketModal: React.FC<AddTicketModalProps> = (props) => {
 							required></textarea>
 					</div>
 
-					<div className="form-buttons">
-						<SecondaryButton
-							text="Cancel"
-							click={(e: React.FormEvent) => props.close?.()}
-							isDisabled={isAddingTicket}
-							className="btn-cancel codefend_secondary_ac"
-						/>
-						<PrimaryButton
-							text="Add ticket"
-							click={handleSubmit}
-							isDisabled={isAddingTicket}
-							className="btn-add codefend_main_ac"
-						/>
-					</div>
+					<ModalButtons
+						close={props.close!}
+						isDisabled={isAddingTicket}
+						confirmText="Add ticket"
+					/>
 				</form>
 			</div>
 		</>

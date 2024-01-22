@@ -74,7 +74,7 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 					click={(e) => {
 						alert('Processing your order');
 					}}
-					className="full-w mt-4"
+					className="w-full mt-4"
 				/>
 			</div>
 		</>

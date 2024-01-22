@@ -41,7 +41,7 @@ const SnPreviousSearches: React.FC<{ isLoading?: boolean }> = (props) => {
 
 				<PrimaryButton
 					text="REQUEST PROFESSIONAL ASSISTANCE"
-					className="full-w mt-4"
+					className="w-full mt-4"
 					click={() => alert('Processing your order')}
 				/>
 			</div>

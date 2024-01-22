@@ -13,3 +13,4 @@ export * from './ProvidedTestingCredentials';
 export * from './VulnerabilitiesStatus';
 export * from './VulnerabilityRisk';
 export * from './SearchBar';
+export * from './RiskScore';

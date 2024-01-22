@@ -26,16 +26,20 @@ const initializeSearch = async (term: string, companyID: string) => {
 };
 
 const search = async (params: any, companyID: string) => {
-	const { data } = (await fetchPOST({
-		params: {
-			model: 'offensive/inx',
-			ac: 'search',
-			company_id: companyID,
-			...params,
-		},
-	}).catch((error: any) => handleFetchError(error))) as any;
-
-	return data;
+	try {
+		const { data } = await fetchPOST({
+			params: {
+				model: 'offensive/inx',
+				ac: 'search',
+				company_id: companyID,
+				...params,
+			},
+	})
+			console.log({ InxPreviousSearches: data })
+			return data
+	} catch (error) {
+		 handleFetchError(error) as any;
+	}
 };
 
 const preview = async (params: any, companyID: string) => {

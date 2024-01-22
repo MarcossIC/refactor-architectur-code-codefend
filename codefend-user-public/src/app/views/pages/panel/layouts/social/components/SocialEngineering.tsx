@@ -1,21 +1,17 @@
 import {
 	EmptyCard,
 	ModalTitleWrapper,
-	ModalWrapper,
 	PageLoader,
 	PeopleGroup,
 	Show,
 } from '../../../../../../views/components';
 
 import {
-	Member,
 	MemberV2,
-	SuperMember,
 	roleMap,
 	useModal,
 } from '../../../../../../data';
 import AddSocialModal from '../../../../../components/modals/AddSocialModal';
-import { useMemo } from 'react';
 
 interface SocialProps {
 	refetch: () => void;

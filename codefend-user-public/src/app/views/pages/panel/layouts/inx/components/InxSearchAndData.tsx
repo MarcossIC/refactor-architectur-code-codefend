@@ -25,6 +25,8 @@ interface InxSearchAndDataProps {
 export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 	const { highlightWithUrl } = useHighlightLinesWithUrl();
 	const { getUserdata } = useAuthState();
+	const companyID = getUserdata()?.companyID as string;
+
 	const { getData, setSearchData, refetchInitial } = useInitialSearch();
 	const { intelData, refetchIntelData, setIntelData } = useIntelSearch();
 	const { intelPreview, refetchPreview } = useIntelPreview();
@@ -43,7 +45,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 
 	const procSearch = (e?: React.FormEvent) => {
 		if (e) e.preventDefault();
-		refetchInitial(getUserdata()?.companyID!)?.then(() => {
+		refetchInitial(companyID)?.then(() => {
 			return procIntelSearch();
 		});
 	};
@@ -52,7 +54,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 		return refetchIntelData(
 			getData().intelID,
 			getData().offSet,
-			getUserdata()?.companyID!,
+			companyID,
 		).then((res: any) => {
 			console.log({ resInIntelSearch: res });
 			props.refetch();
@@ -74,7 +76,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 	};
 
 	const processPreview = (params: any) => {
-		return refetchPreview(params, getUserdata()?.companyID!)?.then(() => {
+		return refetchPreview(params, companyID)?.then(() => {
 			const initial = intelData;
 			setIntelData([]);
 			setIntelData(initial);
@@ -87,7 +89,7 @@ export const InxSearchAndData: React.FC<InxSearchAndDataProps> = (props) => {
 	};
 
 	const procReadFile = (intel: any) => {
-		readFile(intel, getUserdata()?.companyID!);
+		readFile(intel, companyID);
 	};
 
 	const intelKeys = () =>

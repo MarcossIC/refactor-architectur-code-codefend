@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 
-import {
-	GlobeWebIcon,
-	ButtonLoader,
-	SecondaryButton,
-	Show,
-	PrimaryButton,
-} from '../';
 import { toast } from 'react-toastify';
 import {
-	generateID,
-	useAuthState,
+	GlobeWebIcon,
+	PrimaryButton,
+	SecondaryButton,
+} from '../';
+import {
 	User,
 	WebApplicationService,
+	generateID,
+	useAuthState,
 } from '../../../data';
 
 interface AddDomainProps {
@@ -27,11 +25,17 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 
 	const { getUserdata } = useAuthState();
 
-	const handleChange = (e: React.ChangeEvent) => {
-		setSubdomainDetection(!subdomainDetection);
-	};
+	const handleChange = (e: React.FormEvent) => {
+		e.stopPropagation()
+		e.preventDefault()
+    console.log("Checkbox clicked!");
+    setSubdomainDetection(!subdomainDetection);
+    console.log("New subdomainDetection value:", !subdomainDetection);
+};
+
 
 	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
 		setIsAddingDomain(true);
 		console.log({ domainName });
 		if (!domainName) return;
@@ -64,7 +68,7 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 	const checkID = generateID();
 	return (
 		<div className="modal admin-modal text-format">
-			<form>
+			<form onSubmit={handleSubmit}>
 				<div className="form-input-text">
 					<span className="form-icon">
 						<div className="codefend-text-red">
@@ -83,9 +87,8 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 				<div className="flex gap-x-2 justify-center items-center">
 					<input
 						type="checkbox"
-						id="subdomain-detection-check"
-						onChange={(e) => setSubdomainDetection(!subdomainDetection)}
-						defaultChecked={subdomainDetection}
+						onChange={handleChange}
+						checked={subdomainDetection}
 						required
 					/>
 					<label
@@ -104,7 +107,7 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 					/>
 					<PrimaryButton
 						text="Add web resource"
-						click={handleSubmit}
+						type='submit'
 						isDisabled={isAddingDomain}
 						className="btn-add codefend_main_ac"
 					/>

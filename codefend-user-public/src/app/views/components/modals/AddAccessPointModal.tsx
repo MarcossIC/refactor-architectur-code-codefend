@@ -52,8 +52,6 @@ export const AcessPointModal: React.FC<{
 		vendorName,
 		username,
 		password,
-		internalAddress,
-		externalAddress,
 		isAddingInternalNetwork,
 	} = networkData;
 
@@ -134,6 +132,7 @@ export const AcessPointModal: React.FC<{
 							onChange={handleChange}
 							className="log-inputs modal_info"
 							value={networkData.vendorName}
+							name="vendorName"
 							required>
 							<option value="" disabled>
 								os / vendor

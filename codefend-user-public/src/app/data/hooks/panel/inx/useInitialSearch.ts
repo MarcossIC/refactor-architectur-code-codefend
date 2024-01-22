@@ -44,6 +44,7 @@ export const useInitialSearch = () => {
 					count: res.response.count ?? 0,
 					isLoading: false,
 				}));
+				return res.response.id;
 			})
 			.catch((error) =>
 				setSearchData((state: SearchResult) => ({

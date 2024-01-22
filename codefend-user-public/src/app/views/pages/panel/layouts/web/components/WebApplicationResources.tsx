@@ -18,7 +18,6 @@ import {
 	useDeleteWebResource,
 	useModal,
 } from '../../../../../../data';
-import '../../../../../components/Table/table.scss';
 
 interface WebResourcesProps {
 	refresh: () => void;
@@ -97,7 +96,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				/>
 			</ModalTitleWrapper>
 
-			<div className="card web-resources">
+			<div className="card table">
 				<div className="header">
 					<div className="title">
 						<div className="icon">
@@ -128,99 +127,97 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 					</div>
 				</div>
 
-				<div className="table">
-					<div className="columns-name">
-						<div className="id">id</div>
-						<div className="domain-name">domain</div>
-						<div className="server-ip">main server</div>
-						<div className="location">location</div>
-						<div className="province">province, city</div>
-						<div className="id">actions</div>
-					</div>
-					<Show when={!props.isLoading} fallback={<PageLoader />}>
-						<div className="rows">
-							{getResources()
-								.reverse()
-								.map((mainNetwork: Webresources, index: number) => (
-									<Fragment key={resourceKeys[index]}>
-										<div className="item left-marked">
-											<div className="id">{mainNetwork.id}</div>
-											<div className="domain-name">
-												{mainNetwork.resourceDomain}
+				<div className="columns-name">
+					<div className="id">id</div>
+					<div className="domain-name">domain</div>
+					<div className="server-ip">main server</div>
+					<div className="location">location</div>
+					<div className="province">province, city</div>
+					<div className="id">actions</div>
+				</div>
+				<Show when={!props.isLoading} fallback={<PageLoader />}>
+					<div
+						className="rows"
+						style={{ '--row-size': 77 + 'dvh' } as any}>
+						{getResources()
+							.reverse()
+							.map((mainNetwork: Webresources, index: number) => (
+								<Fragment key={resourceKeys[index]}>
+									<div className="item left-marked">
+										<div className="id">{mainNetwork.id}</div>
+										<div className="domain-name">
+											{mainNetwork.resourceDomain}
+										</div>
+										<div className="server-ip">
+											{mainNetwork.mainServer}
+										</div>
+										<div className="location">
+											<span
+												className={`flag flag-${mainNetwork.serverCountryCode.toLowerCase()}`}></span>
+											<p className="">{mainNetwork.serverCountry}</p>
+										</div>
+										<div className="province">
+											{mainNetwork.serverCountryProvince},{' '}
+											{mainNetwork.serverCountryCity}
+										</div>
+
+										<div
+											className="trash"
+											onClick={() => {
+												setSelectedId(mainNetwork.id);
+												setShowModal(!showModal);
+												setShowModalStr('delete_resource');
+											}}>
+											<TrashIcon />
+										</div>
+									</div>
+
+									{mainNetwork.childs.map((subNetwork: Resouce) => (
+										<div key={subNetwork.id} className="item">
+											<div className="id">{subNetwork.id}</div>
+											<div className="domain-name lined">
+												<span className="sub-domain-icon-v"></span>
+												<span className="sub-domain-icon-h"></span>
+												<span className="sub-resource-domain">
+													{subNetwork.resourceDomain}
+												</span>
 											</div>
+
 											<div className="server-ip">
-												{mainNetwork.mainServer}
+												{subNetwork.mainServer}
 											</div>
 											<div className="location">
 												<span
-													className={`flag flag-${mainNetwork.serverCountryCode.toLowerCase()}`}></span>
+													className={`flag flag-${subNetwork.serverCountryCode.toLowerCase()}`}></span>
 												<p className="">
-													{mainNetwork.serverCountry}
+													{subNetwork.serverCountry}
 												</p>
 											</div>
-											<div className="province">
-												{mainNetwork.serverCountryProvince},{' '}
-												{mainNetwork.serverCountryCity}
-											</div>
 
-											<div
-												className="trash"
-												onClick={() => {
-													setSelectedId(mainNetwork.id);
-													setShowModal(!showModal);
-													setShowModalStr('delete_resource');
-												}}>
-												<TrashIcon />
+											<div className="province">
+												<span className="province-container">
+													{subNetwork.serverCountryProvince},{' '}
+													{subNetwork.serverCountryCity}
+												</span>
+											</div>
+											<div className="trash">
+												<TrashIcon
+													action={() => {
+														setSelectedId(subNetwork.id);
+														setShowModal(!showModal);
+														setShowModalStr('delete_resource');
+													}}
+												/>
 											</div>
 										</div>
-
-										{mainNetwork.childs.map((subNetwork: Resouce) => (
-											<div key={subNetwork.id} className="item">
-												<div className="id">{subNetwork.id}</div>
-												<div className="domain-name lined">
-													<span className="sub-domain-icon-v"></span>
-													<span className="sub-domain-icon-h"></span>
-													<span className="sub-resource-domain">
-														{subNetwork.resourceDomain}
-													</span>
-												</div>
-
-												<div className="server-ip">
-													{subNetwork.mainServer}
-												</div>
-												<div className="location">
-													<span
-														className={`flag flag-${subNetwork.serverCountryCode.toLowerCase()}`}></span>
-													<p className="">
-														{subNetwork.serverCountry}
-													</p>
-												</div>
-
-												<div className="province">
-													<span className="province-container">
-														{subNetwork.serverCountryProvince},{' '}
-														{subNetwork.serverCountryCity}
-													</span>
-												</div>
-												<div className="trash">
-													<TrashIcon
-														action={() => {
-															setSelectedId(subNetwork.id);
-															setShowModal(!showModal);
-															setShowModalStr('delete_resource');
-														}}
-													/>
-												</div>
-											</div>
-										))}
-									</Fragment>
-								))}
-						</div>
-					</Show>
-					<Show when={!props.isLoading && getResources().length === 0}>
-						<EmptyCard />
-					</Show>
-				</div>
+									))}
+								</Fragment>
+							))}
+					</div>
+				</Show>
+				<Show when={!props.isLoading && getResources().length === 0}>
+					<EmptyCard />
+				</Show>
 			</div>
 		</>
 	);

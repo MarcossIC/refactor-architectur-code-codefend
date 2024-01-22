@@ -66,6 +66,8 @@ const Navbar: React.FC = () => {
 		<>
 			<nav className="navbar">
 				<Show when={logoutModal}>
+					{/*
+					 */}
 					<div
 						onClick={() => {
 							setLogoutModal(false);

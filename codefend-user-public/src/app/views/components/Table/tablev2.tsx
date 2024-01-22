@@ -44,7 +44,7 @@ export const TableV2: React.FC<TableProps> = ({
 	showEmpty,
 	isSmall = false,
 }) => {
-	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
+	const [sortDirection, setSortDirection] = useState<Sort>(Sort.desc);
 	const [dataSort, setDataSort] = useState<string>(columns[0].name);
 	const [selectedField, setSelectedField] = useState<string>('');
 

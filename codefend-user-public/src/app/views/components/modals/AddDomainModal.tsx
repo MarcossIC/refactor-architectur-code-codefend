@@ -80,12 +80,15 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 					/>
 				</div>
 
-				<div className="flex gap-x-2 justify-center items-center">
+				<div
+					className=" form-input-checkbox"
+					onClick={(e: React.FormEvent) => e.stopPropagation()}>
 					<input
 						type="checkbox"
 						id="subdomain-detection-check"
 						onChange={(e) => setSubdomainDetection(!subdomainDetection)}
 						defaultChecked={subdomainDetection}
+						className="codefend-checkbox"
 						required
 					/>
 					<label

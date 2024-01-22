@@ -127,6 +127,14 @@ export const useAddTicket = () => {
 			toast.error('User information was not found');
 			return;
 		}
+		if (!title.trim()) {
+			toast.error('Invalid ticket title');
+			return;
+		}
+		if (!shortDescription.trim()) {
+			toast.error('Invalid short description');
+			return;
+		}
 		const params = {
 			condicion: 'open',
 			cs_header: title,

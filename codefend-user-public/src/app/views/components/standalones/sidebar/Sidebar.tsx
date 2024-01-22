@@ -34,6 +34,23 @@ const Sidebar: React.FC = () => {
 	const { isAuth, isAdmin, getAccessToken } = useUserAdmin();
 	return (
 		<aside className="sidebar">
+			<Show when={isAuth() && isAdmin() && getAccessToken() !== null}>
+				<>
+					<Link
+						title="Admin Panel"
+						to="/admin/panel"
+						className={isActivePath('/admin/panel')}>
+						<AdminUser />
+					</Link>
+
+					<Link
+						to="/admin/company"
+						className={isActivePath('/admin/panel')}>
+						<AdminCompany />
+					</Link>
+				</>
+			</Show>
+
 			<Link
 				title="Dashboard"
 				to="/dashboard"
@@ -87,23 +104,6 @@ const Sidebar: React.FC = () => {
 				className={isActivePath('/support')}>
 				<MessageIcon />
 			</Link>
-
-			<Show when={isAuth() && isAdmin() && getAccessToken() !== null}>
-				<>
-					<Link
-						title="Admin Panel"
-						to="/admin/panel"
-						className={isActivePath('/admin/panel')}>
-						<AdminUser />
-					</Link>
-
-					<Link
-						to="/admin/company"
-						className={isActivePath('/admin/panel')}>
-						<AdminCompany />
-					</Link>
-				</>
-			</Show>
 
 			<Link to="/preferences" className={isActivePath('/preferences')}>
 				<PreferenceIcon />

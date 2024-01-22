@@ -13,16 +13,22 @@ export const AddCloudModal: React.FC<Props> = (props) => {
 	const [appName, setAppName] = useState('');
 	const [provider, setProvider] = useState('');
 	const [description, setDescription] = useState('');
-	const [isAddingMobile, setIsAddingMobile] = useState(false);
+	const [isAddingCloud, setAddingCloud] = useState(false);
 	const { getUserdata } = useAuthState();
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		setIsAddingMobile(true);
+		setAddingCloud(true);
 
-		if (!appName || appName.length == 0 || appName.length > 150) {
+		if (!provider.trim()) {
+			toast.error('Select cloud provider');
+			setAddingCloud(false);
+			return;
+		}
+
+		if (!appName.trim() || appName.length == 0 || appName.length > 150) {
 			toast.error('Invalid app name');
-			setIsAddingMobile(false);
+			setAddingCloud(false);
 			return;
 		}
 
@@ -42,7 +48,7 @@ export const AddCloudModal: React.FC<Props> = (props) => {
 				toast.success('Successfully Added Cloud...');
 			})
 			.finally(() => {
-				setIsAddingMobile(false);
+				setAddingCloud(false);
 			});
 	};
 
@@ -110,13 +116,13 @@ export const AddCloudModal: React.FC<Props> = (props) => {
 						<SecondaryButton
 							text="Cancel"
 							click={(e: React.FormEvent) => props.close?.()}
-							isDisabled={isAddingMobile}
+							isDisabled={isAddingCloud}
 							className="btn-cancel codefend_secondary_ac"
 						/>
 						<PrimaryButton
 							text="Add cloud"
 							click={handleSubmit}
-							isDisabled={isAddingMobile}
+							isDisabled={isAddingCloud}
 							className="btn-add codefend_main_ac"
 						/>
 					</div>

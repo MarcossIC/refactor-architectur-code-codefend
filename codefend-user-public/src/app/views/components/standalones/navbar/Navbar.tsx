@@ -1,12 +1,17 @@
 import React, { lazy, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../../../data/redux/slices/auth.slice';
-import { User, clearAuth, useAppSelector, useAuthState } from '../../../data';
-import { LogoutIcon, PrimaryButton, SecondaryButton, Show } from '..';
-import '../../styles/navbar.scss';
+import { logout } from '../../../../data/redux/slices/auth.slice';
+import {
+	User,
+	clearAuth,
+	useAppSelector,
+	useAuthState,
+} from '../../../../data';
+import { LogoutIcon, PrimaryButton, SecondaryButton, Show } from '../..';
+import './navbar.scss';
 
-const Logo = lazy(() => import('../defaults/Logo'));
+const Logo = lazy(() => import('../../defaults/Logo'));
 
 const NavbarLogoutConfirm: React.FC<{
 	closed: (updatedState: boolean) => void;

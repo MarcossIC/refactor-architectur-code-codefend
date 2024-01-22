@@ -16,11 +16,11 @@ import {
 	DataIcon,
 	AdminUser,
 	AdminCompany,
-} from '../icons';
+	Show,
+} from '../../';
 
-import '../../styles/sidebar.scss';
-import { RUNNING_DESKTOP, useUserAdmin } from '../../../data';
-import { Show } from '..';
+import { RUNNING_DESKTOP, useUserAdmin } from '../../../../data';
+import './sidebar.scss';
 
 const isActivePath = (verifyPath: string) => {
 	const location = useLocation();

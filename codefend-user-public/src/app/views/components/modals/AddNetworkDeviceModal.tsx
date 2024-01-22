@@ -51,11 +51,11 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 
-		if (!mainDomainId || mainDomainId == 0) {
+		if (!mainDomainId || mainDomainId === 0) {
 			return toast.error('Invalid main resource');
 		}
 
-		if (!domainName || domainName.length == 0) {
+		if (!domainName.trim() || domainName.length == 0) {
 			return toast.error('Invalid host name');
 		}
 

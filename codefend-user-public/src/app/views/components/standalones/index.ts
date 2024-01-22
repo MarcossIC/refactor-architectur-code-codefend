@@ -1,6 +1,6 @@
 export { default as Logo } from '../defaults/Logo';
-export { default as Navbar } from './Navbar';
-export { default as Sidebar } from './Sidebar';
+export { default as Navbar } from './navbar/Navbar';
+export { default as Sidebar } from './sidebar/Sidebar';
 export * from '../defaults/Loader';
 export * from './MessageCard';
 export * from './AppCard';

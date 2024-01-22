@@ -65,7 +65,7 @@ export const AcessPointModal: React.FC<{
 			isAddingInternalNetwork: true,
 		}));
 
-		if (!domainName || domainName.length == 0) {
+		if (!domainName.trim() || domainName.length == 0) {
 			toast.error('Invalid host name');
 			return setNetworkData((prevData) => ({
 				...prevData,
@@ -73,7 +73,7 @@ export const AcessPointModal: React.FC<{
 			}));
 		}
 
-		if (!vendorName) {
+		if (!vendorName.trim()) {
 			toast.error('Invalid vendor name');
 			return setNetworkData((prevData) => ({
 				...prevData,
@@ -81,7 +81,7 @@ export const AcessPointModal: React.FC<{
 			}));
 		}
 
-		if (!username || username.length == 0) {
+		if (!username.trim() || username.length == 0) {
 			toast.error('Invalid username');
 			return setNetworkData((prevData) => ({
 				...prevData,
@@ -89,7 +89,7 @@ export const AcessPointModal: React.FC<{
 			}));
 		}
 
-		if (!password || password.length == 0) {
+		if (!password.trim() || password.length == 0) {
 			toast.error('Invalid password');
 			return setNetworkData((prevData) => ({
 				...prevData,

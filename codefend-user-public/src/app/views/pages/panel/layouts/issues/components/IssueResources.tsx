@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import {
 	Issues,
 	generateIDArray,
@@ -9,13 +9,15 @@ import {
 	BugIcon,
 	ConfirmModal,
 	EmptyCard,
-	GlobeWebIcon,
 	ModalTitleWrapper,
 	PageLoader,
+	RiskScore,
 	Show,
+	TableV2,
 	TrashIcon,
 } from '../../../../../components';
 import { useNavigate } from 'react-router';
+import '../../../../../components/Table/table.scss';
 
 interface Props {
 	isLoading: boolean;
@@ -34,25 +36,26 @@ export const IssueResources: React.FC<Props> = (props) => {
 		[props.issues],
 	);
 
-	const isValidRiskScore = useCallback((riskScore: string) => {
-		return riskScore && !isNaN(parseInt(riskScore));
-	}, []);
-
-	const generateVulnerabilityArray = useCallback(
-		(riskScore: string) =>
-			isValidRiskScore(riskScore)
-				? generateIDArray(parseInt(riskScore))
-				: [],
-		[isValidRiskScore],
-	);
-
-	const generateLimitedArray = useCallback(
-		(riskScore: string) =>
-			isValidRiskScore(riskScore)
-				? [...generateIDArray(Math.max(0, 5 - parseInt(riskScore)))]
-				: [...generateIDArray(5)],
-		[isValidRiskScore],
-	);
+	const dataTable = props.issues.map((issue: Issues) => ({
+		published: { value: issue.createdAt, style: 'date' },
+		author: { value: issue.researcherUsername, style: 'username' },
+		type: { value: issue.resourceClass, style: 'vul-class' },
+		risk: { value: issue.riskLevel, style: 'vul-risk' },
+		score: {
+			value: <RiskScore riskScore={issue.riskScore} />,
+			style: 'vul-score',
+		},
+		issueTitle: { value: issue.name, style: 'vul-title' },
+		status: { value: issue.condition, style: 'vul-condition' },
+	}));
+	const actionTable = {
+		icon: <TrashIcon />,
+		style: 'trash',
+		action: (id: string) => {
+			setSelectedId(id);
+			setShowModal(!showModal);
+		},
+	};
 
 	return (
 		<>
@@ -73,7 +76,7 @@ export const IssueResources: React.FC<Props> = (props) => {
 					}}
 				/>
 			</ModalTitleWrapper>
-			<div className="card table">
+			<div className="card">
 				<div className="header">
 					<div className="title">
 						<div className="icon">
@@ -92,91 +95,77 @@ export const IssueResources: React.FC<Props> = (props) => {
 					</div>
 				</div>
 
-				<div className="columns-name">
-					<div className="date">published</div>
-					<div className="username">author</div>
-					<div className="vul-class">class</div>
-					<div className="vul-risk">risk</div>
-					<div className="vul-score">score</div>
-					<div className="vul-title">issue title</div>
-					<div className="vul-condition">status</div>
-					<div className="id">actions</div>
-				</div>
+				<div className="table flex-grow max-h-[40dvh]">
+					<div className="columns-name">
+						<div className="date">published</div>
+						<div className="username">author</div>
+						<div className="vul-class">class</div>
+						<div className="vul-risk">risk</div>
+						<div className="vul-score">score</div>
+						<div className="vul-title">issue title</div>
+						<div className="vul-condition flex">status</div>
+						<div className="id flex justify-center">actions</div>
+					</div>
 
-				<div className="rows">
-					<Show when={!props.isLoading} fallback={<PageLoader />}>
-						<>
-							{props.issues.map((issue: Issues, i: number) => (
-								<Fragment key={issuesKeys[i]}>
-									<div
-										className="item"
-										onClick={(e: React.FormEvent) => {
-											navigate(`/issues/update/${issue.id}`);
-											e.preventDefault();
-											e.stopPropagation();
-										}}>
-										<div className="date" title={issue.createdAt}>
-											{issue.createdAt}
-										</div>
-
+					<div className="rows max-h-[30dvh] overflow-auto">
+						<Show when={!props.isLoading} fallback={<PageLoader />}>
+							<>
+								{props.issues.map((issue: Issues, i: number) => (
+									<Fragment key={issuesKeys[i]}>
 										<div
-											className="username"
-											title={issue.researcherUsername}>
-											{issue.researcherUsername}
-										</div>
-										<div
-											className="vul-class"
-											title={issue.resourceClass}>
-											{issue.resourceClass}
-										</div>
+											className="item"
+											onClick={(e: React.FormEvent) => {
+												navigate(`/issues/update/${issue.id}`);
+												e.preventDefault();
+												e.stopPropagation();
+											}}>
+											<div className="date" title={issue.createdAt}>
+												{issue.createdAt}
+											</div>
 
-										<div className="vul-risk" title={issue.riskLevel}>
-											{issue.riskLevel}
-										</div>
-										<div className="vul-score flex no-border-bottom">
-											<span className="mt-2" title={issue.riskScore}>
-												{issue.riskScore}
-											</span>
+											<div
+												className="username"
+												title={issue.researcherUsername}>
+												{issue.researcherUsername}
+											</div>
+											<div
+												className="vul-class"
+												title={issue.resourceClass}>
+												{issue.resourceClass}
+											</div>
 
-											<span className="mr-1"></span>
-											{generateVulnerabilityArray(
-												issue.riskScore,
-											).map((scoreKey: string) => (
-												<span
-													key={scoreKey}
-													className="w-2 h-2 ml-0.5 mt-2 red-border rounded-full codefend-bg-red"></span>
-											))}
-											{generateLimitedArray(issue.riskScore).map(
-												(scoreKey: string) => (
-													<span
-														key={scoreKey}
-														className="w-2 h-2 ml-0.5 mt-2 codefend-border-red rounded-full"></span>
-												),
-											)}
+											<div
+												className="vul-risk"
+												title={issue.riskLevel}>
+												{issue.riskLevel}
+											</div>
+											<div className="vul-score flex no-border-bottom">
+												<RiskScore riskScore={issue.riskScore} />
+											</div>
+											<div className="vul-title" title={issue.name}>
+												{issue.name}
+											</div>
+											<div
+												className="vul-condition"
+												title={issue.condition}>
+												{issue.condition}
+											</div>
+											<div className="trash">
+												<TrashIcon
+													action={(e: React.FormEvent) => {
+														e.preventDefault();
+														e.stopPropagation();
+														setSelectedId(issue.id);
+														setShowModal(!showModal);
+													}}
+												/>
+											</div>
 										</div>
-										<div className="vul-title" title={issue.name}>
-											{issue.name}
-										</div>
-										<div
-											className="vul-condition"
-											title={issue.condition}>
-											{issue.condition}
-										</div>
-										<div className="trash">
-											<TrashIcon
-												action={(e: React.FormEvent) => {
-													e.preventDefault();
-													e.stopPropagation();
-													setSelectedId(issue.id);
-													setShowModal(!showModal);
-												}}
-											/>
-										</div>
-									</div>
-								</Fragment>
-							))}
-						</>
-					</Show>
+									</Fragment>
+								))}
+							</>
+						</Show>
+					</div>
 				</div>
 			</div>
 			<Show when={!props.isLoading && props.issues.length === 0}>

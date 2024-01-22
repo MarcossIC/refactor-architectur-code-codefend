@@ -35,7 +35,8 @@ const DashboardCollaborators: React.FC<{
 				icon={<PeopleGroup />}>
 				<TableV2
 					rowsData={dataTable}
-					showRows={!isLoading && dataTable.length !== 0}
+					showRows={!isLoading}
+					showEmpty={!isLoading && dataTable.length === 0}
 					columns={collaboratorsColumns}
 					sizeY={20}
 				/>

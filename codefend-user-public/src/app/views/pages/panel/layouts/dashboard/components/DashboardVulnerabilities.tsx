@@ -53,7 +53,8 @@ const DashboardVulnerabilities: React.FC<{
 					<TableV2
 						rowsData={dataTable.reverse()}
 						columns={topVulnerabilitiesColumn}
-						showRows={!isLoading && topVulnerabilities.length !== 0}
+						showRows={!isLoading}
+						showEmpty={!isLoading && topVulnerabilities.length === 0}
 						sizeY={35}
 					/>
 				</SimpleSection>

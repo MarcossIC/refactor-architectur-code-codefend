@@ -15,7 +15,6 @@ interface Props {
 }
 
 const AddMobileModal: React.FC<Props> = (props) => {
-	const [appName, setAppName] = useState('');
 	const [androidAddress, setAndroidAddress] = useState('');
 	const [iosAddress, setIosAddress] = useState('');
 	const [isAddingMobile, setIsAddingMobile] = useState(false);
@@ -25,20 +24,14 @@ const AddMobileModal: React.FC<Props> = (props) => {
 		(e: React.FormEvent) => {
 			e.preventDefault();
 			setIsAddingMobile(true);
-			if (androidAddress.length > 165) {
+			if (!androidAddress.trim() || androidAddress.length > 165) {
 				toast.error('Invalid android address');
 				setIsAddingMobile(false);
 				return;
 			}
 
-			if (iosAddress.length > 165) {
+			if (!iosAddress.trim() || iosAddress.length > 165) {
 				toast.error('Invalid ios address');
-				setIsAddingMobile(false);
-				return;
-			}
-
-			if (!androidAddress && !iosAddress) {
-				toast.error('Kindly fill in field(s)');
 				setIsAddingMobile(false);
 				return;
 			}
@@ -69,7 +62,7 @@ const AddMobileModal: React.FC<Props> = (props) => {
 	return (
 		<>
 			<div className="modal flex items-center justify-center p-3 text-format">
-				<form className="flex flex-col gap-y-3">
+				<form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
 					<div className="form-input text">
 						<span className="form-icon">
 							<div className="codefend-text-red">
@@ -101,7 +94,9 @@ const AddMobileModal: React.FC<Props> = (props) => {
 							placeholder="ios download link"
 						/>
 					</div>
-					<div className="form-buttons">
+					<div
+						className="form-buttons"
+						onClick={(e: React.FormEvent) => e.stopPropagation()}>
 						<SecondaryButton
 							text="Cancel"
 							click={(e: React.FormEvent) => props.close?.()}
@@ -110,8 +105,9 @@ const AddMobileModal: React.FC<Props> = (props) => {
 						/>
 						<PrimaryButton
 							text="Add mobile app"
-							click={handleSubmit}
 							isDisabled={isAddingMobile}
+							click={() => {}}
+							type="submit"
 							className="btn-add codefend_main_ac"
 						/>
 					</div>

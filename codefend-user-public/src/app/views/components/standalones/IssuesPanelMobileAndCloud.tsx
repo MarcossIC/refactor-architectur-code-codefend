@@ -31,11 +31,6 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 		},
 		issueTitle: { value: issue.name, style: 'vul-title' },
 	}));
-	const actionTable = {
-		icon: <TrashIcon />,
-		style: 'trash',
-		action: () => {},
-	};
 	return (
 		<SimpleSection
 			header="Resource related vulnerabilities & records"
@@ -43,7 +38,8 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 			<TableV2
 				rowsData={dataTable}
 				columns={cloudAndMobileColumns}
-				showRows={!props.isLoading && formatIssues.length !== 0}
+				showRows={!props.isLoading}
+				showEmpty={!props.isLoading && formatIssues.length === 0}
 				sizeY={35}
 			/>
 		</SimpleSection>

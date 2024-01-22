@@ -5,12 +5,15 @@ import {
 	PageLoader,
 	PeopleGroup,
 	Show,
+	TableItem,
+	TableV2,
 } from '../../../../../../views/components';
 
 import {
 	Member,
 	MemberV2,
 	SuperMember,
+	collaboratorsColumns,
 	roleMap,
 	useModal,
 } from '../../../../../../data';
@@ -27,13 +30,25 @@ const SocialEngineering: React.FC<SocialProps> = (props) => {
 	const { showModal, setShowModal, setShowModalStr, showModalStr } =
 		useModal();
 
-	type DepartmentMappingKey = keyof typeof roleMap;
-
-	const mapRole = (role: DepartmentMappingKey) =>
-		roleMap[role] || 'Unknown Role';
-
 	const safelyPreviousSearches = () =>
 		Array.isArray(props.socials) ? props.socials.slice().reverse() : [];
+
+	const dataTable = safelyPreviousSearches().map(
+		(member: MemberV2) =>
+			({
+				ID: { value: member.id, style: 'id' },
+				fullName: {
+					value: member.member_fname + ' ' + member.member_lname,
+					style: 'full-name',
+				},
+				email: { value: member.member_email, style: 'email' },
+				phone: { value: member.member_phone, style: 'phone' },
+				role: {
+					value: roleMap[member.member_role as keyof typeof roleMap],
+					style: 'role',
+				},
+			}) as Record<string, TableItem>,
+	);
 
 	return (
 		<>
@@ -68,35 +83,14 @@ const SocialEngineering: React.FC<SocialProps> = (props) => {
 						</div>
 					</div>
 				</div>
-
-				<div className="columns-name">
-					<div className="id">id</div>
-					<div className="full-name">full name</div>
-					<div className="email">email</div>
-					<div className="phone">phone</div>
-					<div className="role">role</div>
-				</div>
-				<Show when={!props.isLoading} fallback={<PageLoader />}>
-					<div className="rows">
-						{safelyPreviousSearches().map((social: MemberV2) => (
-							<div key={social.id} className="item">
-								<div className="id">{social.id}</div>
-								<div className="full-name">
-									{social.member_fname} {social.member_lname}
-								</div>
-								<div className="email">{social.member_email}</div>
-								<div className="phone">{social.member_phone}</div>
-								<div className="role">
-									{roleMap[social.member_role as keyof typeof roleMap]}
-								</div>
-							</div>
-						))}
-					</div>
-				</Show>
+				<TableV2
+					columns={collaboratorsColumns}
+					rowsData={dataTable}
+					showRows={!props.isLoading}
+					showEmpty={!props.isLoading && dataTable.length === 0}
+					sizeY={90}
+				/>
 			</div>
-			<Show when={!props.isLoading && props.socials.length === 0}>
-				<EmptyCard />
-			</Show>
 		</>
 	);
 };

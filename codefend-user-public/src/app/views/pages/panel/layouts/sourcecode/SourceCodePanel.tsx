@@ -4,6 +4,7 @@ import { SourceCodeResources } from './components/SourceCodeResources';
 import { SourceCodeChart } from './components/SourceCodeChart';
 import { SourceCodeCollab } from './components/SourceCodeCollab';
 import { PrimaryButton } from '../../../../components';
+import './sourcecode.scss';
 
 const SourceCodePanel: React.FC = () => {
 	const { getSource, isLoading, addSourceCode, deletedResource } =

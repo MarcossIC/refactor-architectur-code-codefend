@@ -7,7 +7,7 @@ export const SourceCodeCollab: React.FC = () => {
 			<div className="card only-info">
 				<SimpleSection
 					header="Add out to your repository"
-					icon={<SearchIcon isButton />}>
+					icon={<SearchIcon />}>
 					<div className="content">
 						<div className="info">
 							<p>

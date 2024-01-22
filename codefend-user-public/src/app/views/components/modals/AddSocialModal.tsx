@@ -42,7 +42,7 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 		e.preventDefault();
 		setSocialData((prevData) => ({ ...prevData, isAddingMember: true }));
 
-		if (!fName || fName.length == 0 || fName.length > 40) {
+		if (!fName.trim() || fName.length > 40) {
 			toast.error('Invalid name');
 			return setSocialData((prevData) => ({
 				...prevData,
@@ -50,7 +50,7 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 			}));
 		}
 
-		if (!lName || lName.length == 0 || lName.length > 40) {
+		if (!lName.trim() || lName.length > 40) {
 			toast.error('Invalid name');
 			return setSocialData((prevData) => ({
 				...prevData,
@@ -59,7 +59,7 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 		}
 
 		let regexMail = /^[\w.-]+@([\w-]+\.)+[\w-]{2,10}$/;
-		if (!mail || mail.length === 0 || !regexMail.test(mail)) {
+		if (!mail.trim() || mail.length === 0 || !regexMail.test(mail)) {
 			toast.error('Invalid email');
 			setSocialData((prevData) => ({
 				...prevData,

@@ -12,8 +12,10 @@ interface TableProps {
 	rowsData: Record<string, TableItem>[];
 	columns: ColumnTable[];
 	showRows: boolean;
+	showEmpty: boolean;
 	tableAction?: TableAction;
 	sizeY: number;
+	isSmall?: boolean;
 }
 
 export interface ColumnTable {
@@ -39,6 +41,8 @@ export const TableV2: React.FC<TableProps> = ({
 	showRows,
 	tableAction,
 	sizeY = 100,
+	showEmpty,
+	isSmall = false,
 }) => {
 	const [sortDirection, setSortDirection] = useState<Sort>(Sort.asc);
 	const [dataSort, setDataSort] = useState<string>(columns[0].name);
@@ -78,18 +82,18 @@ export const TableV2: React.FC<TableProps> = ({
 				: columns;
 		return result ?? [];
 	}, [columns]);
-	console.log({ columnForRows });
+
 	const handleSelected = (e: any, ID: string) => {
 		e.preventDefault();
+		e.stopPropagation();
+
 		if (ID === selectedField) setSelectedField('');
 		else setSelectedField(ID);
-
-		e.stopPropagation();
 	};
 
 	return (
 		<>
-			<div className="table">
+			<div className={`table ${isSmall && 'small'}`}>
 				<div className="columns-name">
 					{columns.map((column: ColumnTable, i: number) => (
 						<div
@@ -151,11 +155,13 @@ export const TableV2: React.FC<TableProps> = ({
 										<Show when={tableAction !== undefined}>
 											<div
 												className={tableAction?.style}
-												onClick={() =>
+												onClick={(e: React.FormEvent) => {
+													e.preventDefault();
+													e.stopPropagation();
 													tableAction?.action(
 														row['ID'].value as string,
-													)
-												}>
+													);
+												}}>
 												{tableAction?.icon}
 											</div>
 										</Show>
@@ -165,7 +171,7 @@ export const TableV2: React.FC<TableProps> = ({
 						)}
 					</div>
 				</Show>
-				<Show when={!showRows}>
+				<Show when={showEmpty}>
 					<EmptyCard />
 				</Show>
 			</div>

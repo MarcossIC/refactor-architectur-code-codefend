@@ -60,7 +60,6 @@ export const SourceCodeResources: React.FC<SourceCodeProps> = (props) => {
 		},
 	};
 
-	console.log({ dataTable });
 	return (
 		<>
 			<ModalTitleWrapper
@@ -114,6 +113,7 @@ export const SourceCodeResources: React.FC<SourceCodeProps> = (props) => {
 					tableAction={tableAction}
 					columns={sourceCodeColumns}
 					showRows={!props.isLoading}
+					showEmpty={!props.isLoading && dataTable.length === 0}
 					sizeY={90}
 				/>
 			</div>

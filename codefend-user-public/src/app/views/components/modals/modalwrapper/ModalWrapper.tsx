@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import './modal.scss';
 
-// million-ignore
 interface ModalWrapper {
 	children: JSX.Element;
 	isErrorBox?: boolean;

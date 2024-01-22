@@ -28,23 +28,21 @@ export const RiskScore: React.FC<Props> = ({ riskScore }) => {
 
 	return (
 		<>
-			<div className="div">
-				<span className="mt-2" title={riskScore}>
-					{riskScore}
-				</span>
+			<span className="mt-2" title={riskScore}>
+				{riskScore}
+			</span>
 
-				<span className="mr-1"></span>
-				{generateVulnerabilityArray(riskScore).map((scoreKey: string) => (
-					<span
-						key={scoreKey}
-						className="w-2 h-2 ml-0.5 mt-2 red-border rounded-full codefend-bg-red"></span>
-				))}
-				{generateLimitedArray(riskScore).map((scoreKey: string) => (
-					<span
-						key={scoreKey}
-						className="w-2 h-2 ml-0.5 mt-2 codefend-border-red rounded-full"></span>
-				))}
-			</div>
+			<span className="mr-1"></span>
+			{generateVulnerabilityArray(riskScore).map((scoreKey: string) => (
+				<span
+					key={scoreKey}
+					className="w-2 h-2 ml-0.5 mt-2 red-border rounded-full codefend-bg-red"></span>
+			))}
+			{generateLimitedArray(riskScore).map((scoreKey: string) => (
+				<span
+					key={scoreKey}
+					className="w-2 h-2 ml-0.5 mt-2 codefend-border-red rounded-full"></span>
+			))}
 		</>
 	);
 };

@@ -18,6 +18,7 @@ import {
 	useDeleteWebResource,
 	useModal,
 } from '../../../../../../data';
+import '../../../../../components/Table/table.scss';
 
 interface WebResourcesProps {
 	refresh: () => void;

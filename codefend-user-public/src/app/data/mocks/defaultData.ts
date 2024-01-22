@@ -140,12 +140,17 @@ export const languageTypes = new Set([
 	'swift',
 	'kotlin',
 	'dart',
+	'flutter',
+	'astro',
 	'perl',
 	'scala',
 	'r',
 	'erlang',
 	'Clojure',
 	'f#',
+	'react',
+	'angular',
+	'wordpress',
 ]);
 
 export const defaultMobileCloudCredentials = [
@@ -354,5 +359,66 @@ export const sourceCodeColumns: ColumnTable[] = [
 		name: 'action',
 		value: 'actions',
 		style: 'id',
+	},
+];
+
+export const issueColumns: ColumnTable[] = [
+	{
+		name: 'published',
+		value: 'published',
+		style: 'date',
+	},
+	{
+		name: 'author',
+		value: 'author',
+		style: 'username',
+	},
+	{
+		name: 'type',
+		value: 'class',
+		style: 'vul-class',
+	},
+	{
+		name: 'risk',
+		value: 'risk',
+		style: 'vul-risk',
+	},
+	{
+		name: 'score',
+		value: 'score',
+		style: 'vul-score',
+	},
+	{
+		name: 'issueTitle',
+		value: 'issue title',
+		style: 'vul-title',
+	},
+	{
+		name: 'status',
+		value: 'status',
+		style: 'vul-condition',
+	},
+	{
+		name: 'action',
+		value: 'actions',
+		style: 'id',
+	},
+];
+
+export const sourceCodeChartColumns = [
+	{
+		name: 'code',
+		value: 'code',
+		style: 'os',
+	},
+	{
+		name: 'count',
+		value: 'count',
+		style: 'count',
+	},
+	{
+		name: 'percent',
+		value: 'percent',
+		style: 'percent',
 	},
 ];

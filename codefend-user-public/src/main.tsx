@@ -7,7 +7,6 @@ import { listen } from '@tauri-apps/api/event';
 import './app/views/styles/index.scss';
 import './app/views/styles/card.scss';
 import './app/views/styles/forms.scss';
-import './app/views/styles/modal.scss';
 
 import { App } from './app/App';
 import { RUNNING_DESKTOP } from './app/data';

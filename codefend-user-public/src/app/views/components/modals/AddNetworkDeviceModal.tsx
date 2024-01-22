@@ -37,7 +37,6 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 	const companyID = getUserdata()?.companyID;
 
 	const navigate = useNavigate();
-	const { setShowModal, showModal } = useModal();
 
 	const {
 		mainDomainId,
@@ -51,11 +50,11 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 
-		if (!mainDomainId || mainDomainId == 0) {
+		if (!mainDomainId || mainDomainId === 0) {
 			return toast.error('Invalid main resource');
 		}
 
-		if (!domainName || domainName.length == 0) {
+		if (!domainName.trim() || domainName.length == 0) {
 			return toast.error('Invalid host name');
 		}
 
@@ -87,7 +86,7 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 
 	return (
 		<>
-			<div className="modal flex items-center justify-center p-3 text-format">
+			<div className="modal text-format">
 				<form className="flex flex-col gap-y-3">
 					<div className="form-input">
 						<span className="form-icon">
@@ -100,6 +99,7 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 							onChange={handleOnChange}
 							className="log-inputs modal_info"
 							value={formData.domainName}
+							name="domainName"
 							required>
 							<option value="" disabled>
 								main resource
@@ -125,6 +125,7 @@ export const AddNetworkDeviceModal: React.FC<NetworkDeviceModalProps> = (
 							className="log-inputs modal_info"
 							id="os-network-select"
 							value={formData.vendorName}
+							name="vendorName"
 							required>
 							<option value="" disabled>
 								os / vendor

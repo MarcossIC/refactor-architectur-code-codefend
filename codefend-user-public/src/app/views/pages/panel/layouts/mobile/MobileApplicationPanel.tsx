@@ -11,7 +11,7 @@ import AddMobileModal from '../../../../components/modals/AddMobileModal';
 const MobileApplicationPanel: React.FC = () => {
 	const { showModal, setShowModal } = useModal();
 	const [showScreen, setShowScreen] = useState<boolean>(false);
-	const [refresh, setRefresh] = useState(false);
+	const [control, refresh] = useState<boolean>(false);
 	const { getMobileInfo, refetch, isLoading } = useMobile();
 
 	useEffect(() => {
@@ -19,7 +19,7 @@ const MobileApplicationPanel: React.FC = () => {
 		setShowModal(false);
 		const timeoutId = setTimeout(() => setShowScreen(true), 50);
 		return () => clearTimeout(timeoutId);
-	}, [refresh]);
+	}, [control]);
 
 	return (
 		<>
@@ -28,7 +28,7 @@ const MobileApplicationPanel: React.FC = () => {
 				headerTitle="Add mobile app"
 				close={() => setShowModal(false)}>
 				<AddMobileModal
-					onDone={() => setRefresh(!refresh)}
+					onDone={() => refresh(!control)}
 					close={() => setShowModal(false)}
 				/>
 			</ModalTitleWrapper>
@@ -37,7 +37,7 @@ const MobileApplicationPanel: React.FC = () => {
 				<Show when={!isLoading}>
 					<MobileApplication
 						openModal={() => setShowModal(true)}
-						refresh={() => setRefresh(!refresh)}
+						refresh={() => refresh(!control)}
 						mobileInfo={getMobileInfo()}
 						isLoading={isLoading}
 					/>

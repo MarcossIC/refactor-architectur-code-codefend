@@ -141,9 +141,9 @@ main {
 	margin-block-start: var(--navbar-height);
 	margin-inline: auto;
 
-	padding-block-end: 10px;
-	padding-inline-start: calc(var(--sidebar-width) + 10px);
-	padding-inline-end: 10px;
+	padding-block-end: 0.938rem;
+	padding-inline-start: calc(var(--sidebar-width) + 0.938rem);
+	padding-inline-end: 0.938rem;
 
 	height: 100dvh;
 

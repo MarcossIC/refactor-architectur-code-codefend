@@ -7,18 +7,17 @@ import { listen } from '@tauri-apps/api/event';
 import './app/views/styles/index.scss';
 import './app/views/styles/card.scss';
 import './app/views/styles/forms.scss';
-import './app/views/styles/modal.scss';
 
 import { App } from './app/App';
+import { RUNNING_DESKTOP } from './app/data';
 
 // Tauri
-const RUNNING_IN_TAURI = window.__TAURI__ !== undefined;
 const startInstall = () => {
 	installUpdate().then(relaunch);
 };
 
 const checkTauriUpdates = async () => {
-	if (RUNNING_IN_TAURI) {
+	if (RUNNING_DESKTOP()) {
 		try {
 			listen('tauri://update-available', (res) =>
 				console.log('New version available: ', res),

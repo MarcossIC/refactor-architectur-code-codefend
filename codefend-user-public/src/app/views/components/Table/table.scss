@@ -2,6 +2,8 @@
 	width: 100%;
 	display: table;
 	flex-grow: 1;
+	color: var(--font-color);
+	border-collapse: collapse;
 
 	&.small {
 		.columns-name {
@@ -23,6 +25,16 @@
 
 		div {
 			flex: 1;
+			cursor: pointer;
+			font-weight: 600;
+			font-size: 14.5px;
+			letter-spacing: 0.4px;
+			word-spacing: 1px;
+
+			.sort {
+				padding-inline-start: 5px;
+				font-size: 15px;
+			}
 		}
 		.action {
 			text-align: center;
@@ -31,7 +43,8 @@
 
 	.rows {
 		overflow-y: auto;
-		max-height: calc(100dvh - 149px);
+		//max-height: calc(100dvh - 149px);
+		max-height: var(--row-size);
 	}
 
 	.item {
@@ -142,19 +155,15 @@
 		flex: inherit !important;
 	}
 	.vul-score {
-		width: 100px;
+		width: 85px;
 		flex: inherit !important;
 
-		&.flex {
-			display: flex;
+		.risk-score {
+			margin-block-start: 0.5rem;
+		}
 
-			.risk-score {
-				margin-block-start: 0.5rem;
-			}
-
-			.space {
-				margin-inline-end: 0.25rem;
-			}
+		.space {
+			margin-inline-end: 0.25rem;
 		}
 		.risk-score-helper {
 			width: 0.5rem;
@@ -168,7 +177,7 @@
 		min-width: 100px;
 	}
 	.vul-condition {
-		justify-content: flex-start;
+		justify-content: center;
 		max-width: 100px;
 	}
 	.trash {
@@ -193,10 +202,6 @@
 		flex: inherit !important;
 	}
 	.percent {
-		min-width: 80px;
-		flex: inherit !important;
-	}
-	.boolean {
 		min-width: 80px;
 		flex: inherit !important;
 	}

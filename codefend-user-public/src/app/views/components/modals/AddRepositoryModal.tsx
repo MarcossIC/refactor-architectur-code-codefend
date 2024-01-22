@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { ButtonLoader, GlobeWebIcon, PrimaryButton, SecondaryButton, Show } from '..';
+import {
+	ButtonLoader,
+	GlobeWebIcon,
+	PrimaryButton,
+	SecondaryButton,
+	Show,
+} from '..';
 import { toast } from 'react-toastify';
 
 interface AddRepositoryModalProps {
@@ -33,7 +39,7 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 		const { repositoryName, repositoryUrl, sourceCode, visibility } =
 			sourceCodeForm;
 		if (
-			!repositoryName ||
+			!repositoryName.trim() ||
 			repositoryName.length == 0 ||
 			repositoryName.length > 150
 		) {
@@ -43,7 +49,7 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 		}
 
 		if (
-			!repositoryUrl ||
+			!repositoryUrl.trim() ||
 			repositoryUrl.length == 0 ||
 			repositoryUrl.length > 150
 		) {
@@ -52,8 +58,17 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 			return;
 		}
 
-		if (!sourceCode || sourceCode.length == 0 || sourceCode.length > 30) {
+		if (
+			!sourceCode.trim() ||
+			sourceCode.length == 0 ||
+			sourceCode.length > 30
+		) {
 			toast.error('Invalid language');
+			setSourceCode((current) => ({ ...current, isLoading: false }));
+			return;
+		}
+		if (!visibility.trim()) {
+			toast.error('Select visibility');
 			setSourceCode((current) => ({ ...current, isLoading: false }));
 			return;
 		}
@@ -154,7 +169,6 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 					</div>
 
 					<div className="form-buttons">
-					
 						<SecondaryButton
 							text="Cancel"
 							click={(e: React.FormEvent) => props.close?.()}

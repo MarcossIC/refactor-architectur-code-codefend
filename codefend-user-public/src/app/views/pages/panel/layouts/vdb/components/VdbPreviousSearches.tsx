@@ -34,7 +34,7 @@ export const VdbPreviousSearches: React.FC = () => {
 			<PrimaryButton
 				text="REQUEST PROFESSIONAL ASSISTANCE"
 				click={(e: any) => alert('Processing your order')}
-				className="full-w mt-4"
+				className="w-full mt-4"
 			/>
 		</div>
 	);

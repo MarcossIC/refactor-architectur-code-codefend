@@ -7,8 +7,16 @@ import {
 	isEmptyData,
 	languageTypes,
 	useDoughnutChart,
+	sourceCodeChartColumns,
 } from '../../../../../../data';
-import { ChartIcon, EmptyCard, PageLoader } from '../../../../../components';
+import {
+	ChartIcon,
+	EmptyCard,
+	PageLoader,
+	Show,
+	SimpleSection,
+	TableV2,
+} from '../../../../../components';
 import { Doughnut } from 'react-chartjs-2';
 
 interface Props {
@@ -32,79 +40,53 @@ export const SourceCodeChart: React.FC<Props> = (props) => {
 
 	const { renderPercentage } = MetricsService;
 
+	const dataTable = Object.keys(otherMetrics).map((network: any) => ({
+		code: {
+			value: languageTypes.has(network.toLowerCase()) ? network : 'Unknown',
+			style: 'os',
+		},
+		count: {
+			value: otherMetrics[network as keyof typeof otherMetrics],
+			style: 'count',
+		},
+		percent: {
+			value: renderPercentage(
+				String(otherMetrics[network as keyof typeof otherMetrics]),
+				String(total),
+			),
+			style: 'percent',
+		},
+	}));
+
 	return (
-		<>
-			<div className="card risk-chart">
-				{!props.isLoading ? (
-					<>
-						<div className="header">
-							<div className="title">
-								<div className="icon">
-									<ChartIcon />
-								</div>
-								<span>source code by programming language</span>
-							</div>
-						</div>
-						{dataEmptyState ? (
+		<div className="card risk-chart">
+			<Show when={!props.isLoading} fallback={<PageLoader />}>
+				<SimpleSection
+					header="source code by programming language"
+					icon={<ChartIcon />}>
+					<Show
+						when={!dataEmptyState}
+						fallback={
 							<div className="content">
 								<EmptyCard />
 							</div>
-						) : (
-							<div className="content">
-								<div className="chart">
-									<Doughnut data={chartData} options={chartOptions} />
-								</div>
-								<div className="table small">
-									<div className="columns-name">
-										<div className="os">code</div>
-										<div className="count">count</div>
-										<div className="percent">percent</div>
-									</div>
-
-									<div className="row">
-										{Object.keys(otherMetrics).map(
-											(network: any, index: number) => (
-												<Fragment key={sourceKeys[index]}>
-													<div className="item">
-														<div className="os">
-															{languageTypes.has(
-																network.toLowerCase(),
-															)
-																? network
-																: 'Unknown'}
-														</div>
-														<div className="count">
-															{
-																otherMetrics[
-																	network as keyof typeof otherMetrics
-																]
-															}
-														</div>
-														<div className="percent">
-															{renderPercentage(
-																String(
-																	otherMetrics[
-																		network as keyof typeof otherMetrics
-																	],
-																),
-																String(total),
-															)}
-														</div>
-													</div>
-												</Fragment>
-											),
-										)}
-									</div>
-								</div>
+						}>
+						<div className="content">
+							<div className="chart">
+								<Doughnut data={chartData} options={chartOptions} />
 							</div>
-						)}
-					</>
-				) : (
-					<>
-						<PageLoader />
-					</>
-				)}
-			</div>
-		</>
+							<TableV2
+								columns={sourceCodeChartColumns}
+								rowsData={dataTable}
+								showRows={dataTable.length !== 0}
+								showEmpty={dataTable.length === 0}
+								sizeY={25}
+								isSmall
+							/>
+						</div>
+					</Show>
+				</SimpleSection>
+			</Show>
+		</div>
 	);
 };

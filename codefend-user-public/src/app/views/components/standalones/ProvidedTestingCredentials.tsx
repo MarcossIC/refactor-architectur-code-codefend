@@ -5,7 +5,6 @@ import { CloudQuickAction } from './CloudQuickAction';
 
 import { TestingCredentialCard } from './TestingCredentialCard';
 import { generateIDArray } from '../../../data';
-import '../../styles/table.scss';
 
 interface ProvidedTestingCredentialsProps {
 	refetch?: () => void;

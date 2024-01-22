@@ -3,8 +3,10 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { Loader, Show } from '../../components';
 import { AuthServices } from '../../../data';
 
-const Navbar = lazy(() => import('../../components/standalones/Navbar'));
-const Sidebar = lazy(() => import('../../components/standalones/Sidebar'));
+const Navbar = lazy(() => import('../../components/standalones/navbar/Navbar'));
+const Sidebar = lazy(
+	() => import('../../components/standalones/sidebar/Sidebar'),
+);
 const ErrorConection = lazy(
 	() => import('../../components/modals/ErrorConection'),
 );

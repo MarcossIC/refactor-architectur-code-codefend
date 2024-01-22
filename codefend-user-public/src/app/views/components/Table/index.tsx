@@ -46,22 +46,11 @@ export const Table: React.FC<TableProps> = ({ data, columns }) => {
 		}
 	};
 
-	const handleFieldChange = (selected: string) => {
-		setSelectedField(selected);
-	};
-
-	const filteredRows = useMemo(() => {
-		return rows.filter((row: any) =>
-			String(row[selectedField]).toLowerCase().includes('filtro'),
-		); // Reemplaza 'filtro' con el valor del filtro deseado
-	}, [rows, selectedField]);
-
 	const rowsColKey = useMemo(() => generateIDArray(columns.length), [columns]);
 
 	const getRowValue = (row: any, column: string) => {
 		if (column.startsWith('phone')) return row['phone'];
 		if (column === 'issue title') return row['issueTitle'];
-		if (column === 'role') return row['companyRole'];
 		if (column === 'role') return row['companyRole'];
 
 		return row[column];

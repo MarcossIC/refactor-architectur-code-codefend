@@ -3,11 +3,13 @@ import {
 	BugIcon,
 	EmptyCard,
 	PageLoader,
+	RiskScore,
 	Show,
 	SimpleSection,
 	Table,
 } from '../../../../../components';
 import { Issues, topVulnerabilitiesColumn } from '../../../../../../data';
+import { TableItem, TableV2 } from '../../../../../components/Table/tablev2';
 
 interface TopVulnerability {
 	published: string;
@@ -19,47 +21,43 @@ interface TopVulnerability {
 	status: string;
 }
 
-const TopVulnerabilityTable = ({
-	topVulnerabilities,
-}: {
-	topVulnerabilities: Issues[];
-}) => {
-	const dataTable = topVulnerabilities.map(
-		(issue: Issues) =>
-			({
-				published: issue.createdAt,
-				author: '@' + issue.researcherUsername,
-				issueTitle: issue.name,
-				risk: issue.riskLevel,
-				type: issue.resourceClass,
-				score: issue.riskScore,
-				status: issue.condition,
-			}) as TopVulnerability,
-	);
-	return <Table data={dataTable} columns={topVulnerabilitiesColumn} />;
-};
-
 const DashboardVulnerabilities: React.FC<{
 	topVulnerabilities: Issues[];
 	isLoading: boolean;
 }> = ({ topVulnerabilities, isLoading }) => {
+	const dataTable = topVulnerabilities.map(
+		(issue: Issues) =>
+			({
+				published: { value: issue.createdAt, style: 'date' },
+				author: {
+					value: '@' + issue.researcherUsername,
+					style: 'username',
+				},
+				issueTitle: { value: issue.name, style: 'vul-title' },
+				risk: { value: issue.riskLevel, style: 'vul-risk' },
+				type: { value: issue.resourceClass, style: 'vul-class' },
+				score: {
+					value: <RiskScore riskScore={issue.riskScore} />,
+					style: 'vul-score flex no-border-bottom',
+				},
+				status: { value: issue.condition, style: 'vul-condition' },
+			}) as Record<string, TableItem>,
+	);
+
 	return (
 		<div className="card">
 			<div>
 				<SimpleSection
 					header="Top priority vulnerabilities"
 					icon={<BugIcon />}>
-					<Show when={!isLoading} fallback={<PageLoader />}>
-						<div className="table-wrapper">
-							<TopVulnerabilityTable
-								topVulnerabilities={topVulnerabilities}
-							/>
-						</div>
-					</Show>
+					<TableV2
+						rowsData={dataTable.reverse()}
+						columns={topVulnerabilitiesColumn}
+						showRows={!isLoading}
+						showEmpty={!isLoading && topVulnerabilities.length === 0}
+						sizeY={35}
+					/>
 				</SimpleSection>
-				<Show when={!isLoading && topVulnerabilities.length === 0}>
-					<EmptyCard />
-				</Show>
 			</div>
 		</div>
 	);

@@ -1,5 +1,7 @@
 // default data for UI purpose
 
+import { ColumnTable } from '../../views/components/Table/tablev2';
+
 export const defaultCollaborators = [
 	{ id: 'J---aiyznGQ', name: 'Keyboard Cat' },
 	{ id: 'z_AbfPXTKms', name: 'Maru' },
@@ -138,12 +140,17 @@ export const languageTypes = new Set([
 	'swift',
 	'kotlin',
 	'dart',
+	'flutter',
+	'astro',
 	'perl',
 	'scala',
 	'r',
 	'erlang',
 	'Clojure',
 	'f#',
+	'react',
+	'angular',
+	'wordpress',
 ]);
 
 export const defaultMobileCloudCredentials = [
@@ -205,12 +212,213 @@ export const companySizesList = [
 	{ label: '2000', value: '2000' },
 ];
 
-export const topVulnerabilitiesColumn = [
-	'published',
-	'author',
-	'class',
-	'risk',
-	'score',
-	'issue title',
-	'status',
+export const topVulnerabilitiesColumn: ColumnTable[] = [
+	{
+		name: 'published',
+		value: 'published',
+		style: 'date',
+	},
+	{
+		name: 'author',
+		value: 'author',
+		style: 'username',
+	},
+	{
+		name: 'type',
+		value: 'class',
+		style: 'vul-class',
+	},
+	{
+		name: 'risk',
+		value: 'risk',
+		style: 'vul-risk',
+	},
+	{
+		name: 'score',
+		value: 'score',
+		style: 'vul-score',
+	},
+	{
+		name: 'issueTitle',
+		value: 'issue title',
+		style: 'vul-title',
+	},
+	{
+		name: 'status',
+		value: 'status',
+		style: 'vul-condition flex',
+	},
+];
+
+export const collaboratorsColumns: ColumnTable[] = [
+	{
+		name: 'ID',
+		value: 'id',
+		style: 'id',
+	},
+	{
+		name: 'fullName',
+		value: 'full name',
+		style: 'full-name',
+	},
+	{
+		name: 'email',
+		value: 'email',
+		style: 'email',
+	},
+	{
+		name: 'phone',
+		value: 'phone',
+		style: 'phone',
+	},
+	{
+		name: 'role',
+		value: 'role',
+		style: 'role',
+	},
+];
+
+export const vulnerabilityRiskColumns: ColumnTable[] = [
+	{
+		name: 'risk',
+		value: 'risk',
+		style: 'risk',
+	},
+	{
+		name: 'count',
+		value: 'count',
+		style: 'count',
+	},
+	{
+		name: 'percent',
+		value: 'percent',
+		style: 'percent',
+	},
+];
+
+export const cloudAndMobileColumns: ColumnTable[] = [
+	{
+		name: 'published',
+		value: 'published',
+		style: 'date',
+	},
+	{
+		name: 'author',
+		value: 'author',
+		style: 'username',
+	},
+	{
+		name: 'type',
+		value: 'class',
+		style: 'vul-class',
+	},
+	{
+		name: 'risk',
+		value: 'risk',
+		style: 'vul-risk',
+	},
+	{
+		name: 'score',
+		value: 'score',
+		style: 'vul-score',
+	},
+	{
+		name: 'issueTitle',
+		value: 'issue title',
+		style: 'vul-title',
+	},
+];
+
+export const sourceCodeColumns: ColumnTable[] = [
+	{
+		name: 'ID',
+		value: 'id',
+		style: 'id',
+	},
+	{
+		name: 'name',
+		value: 'name',
+		style: 'full-name',
+	},
+	{
+		name: 'url',
+		value: 'address',
+		style: 'url',
+	},
+	{
+		name: 'visibility',
+		value: 'visibility',
+		style: 'boolean',
+	},
+	{
+		name: 'sourceCode',
+		value: 'source code',
+		style: 'source-code',
+	},
+	{
+		name: 'action',
+		value: 'actions',
+		style: 'id',
+	},
+];
+
+export const issueColumns: ColumnTable[] = [
+	{
+		name: 'published',
+		value: 'published',
+		style: 'date',
+	},
+	{
+		name: 'author',
+		value: 'author',
+		style: 'username',
+	},
+	{
+		name: 'type',
+		value: 'class',
+		style: 'vul-class',
+	},
+	{
+		name: 'risk',
+		value: 'risk',
+		style: 'vul-risk',
+	},
+	{
+		name: 'score',
+		value: 'score',
+		style: 'vul-score',
+	},
+	{
+		name: 'issueTitle',
+		value: 'issue title',
+		style: 'vul-title',
+	},
+	{
+		name: 'status',
+		value: 'status',
+		style: 'vul-condition',
+	},
+	{
+		name: 'action',
+		value: 'actions',
+		style: 'id',
+	},
+];
+
+export const sourceCodeChartColumns = [
+	{
+		name: 'code',
+		value: 'code',
+		style: 'os',
+	},
+	{
+		name: 'count',
+		value: 'count',
+		style: 'count',
+	},
+	{
+		name: 'percent',
+		value: 'percent',
+		style: 'percent',
+	},
 ];

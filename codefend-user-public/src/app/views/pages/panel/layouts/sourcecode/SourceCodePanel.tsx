@@ -4,6 +4,7 @@ import { SourceCodeResources } from './components/SourceCodeResources';
 import { SourceCodeChart } from './components/SourceCodeChart';
 import { SourceCodeCollab } from './components/SourceCodeCollab';
 import { PrimaryButton } from '../../../../components';
+import './sourcecode.scss';
 
 const SourceCodePanel: React.FC = () => {
 	const { getSource, isLoading, addSourceCode, deletedResource } =
@@ -43,7 +44,7 @@ const SourceCodePanel: React.FC = () => {
 
 					<PrimaryButton
 						text="REQUEST SCAN"
-						className="full-w mt-4"
+						className="w-full mt-4"
 						click={() => alert('Processing your order')}
 					/>
 					<br />

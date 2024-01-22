@@ -8,7 +8,6 @@ import {
 	PrimaryButton,
 } from '../../../../../views/components';
 import '../../../../styles/flag.scss';
-import '../../../../styles/table.scss';
 import { LanNetworkData } from './components/LanNetworkData';
 import { LanNetworksChart } from './components/LanNetworksChart';
 
@@ -75,7 +74,7 @@ const LanPage: React.FC = () => {
 					<PrimaryButton
 						text={scanLoading ? <PageLoaderWhite /> : 'REQUEST SCAN'}
 						click={(e: any) => scanLocal()}
-						className="full-w mt-4"
+						className="w-full mt-4"
 					/>
 				</section>
 			</main>

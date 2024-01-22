@@ -15,7 +15,6 @@ export const MessageCard: React.FC<Props> = (props) => {
 		props.selectedID,
 		getUserdata(),
 	);
-	console.log({ isAuthUserChat });
 	const title = `${isAuthUserChat ? 'You' : 'The operator'} ${
 		props.username ? `@${props.username}` : ''
 	} wrote on ${props.createdAt}`;

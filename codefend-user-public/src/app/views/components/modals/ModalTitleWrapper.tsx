@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 import { ModalWrapper, Show, StatIcon } from '..';
 
 interface ModalTitleWrapperProps {

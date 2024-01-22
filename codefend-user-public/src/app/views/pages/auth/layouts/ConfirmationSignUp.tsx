@@ -1,4 +1,4 @@
-import { PrimaryButton, SecondaryButton } from 'app/views/components';
+import { PrimaryButton, SecondaryButton } from '../../../components';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 

@@ -96,7 +96,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				/>
 			</ModalTitleWrapper>
 
-			<div className="card web-resources table">
+			<div className="card table">
 				<div className="header">
 					<div className="title">
 						<div className="icon">
@@ -136,7 +136,9 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 					<div className="id">actions</div>
 				</div>
 				<Show when={!props.isLoading} fallback={<PageLoader />}>
-					<div className="rows">
+					<div
+						className="rows"
+						style={{ '--row-size': 77 + 'dvh' } as any}>
 						{getResources()
 							.reverse()
 							.map((mainNetwork: Webresources, index: number) => (

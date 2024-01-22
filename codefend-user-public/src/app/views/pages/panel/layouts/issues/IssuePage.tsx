@@ -3,7 +3,6 @@ import React, { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { useScript } from 'usehooks-ts';
 import './issues.scss';
-import '../../../../styles/table.scss';
 
 const IssuePage: React.FC<{}> = () => {
 	const status = useScript('/src/editor-lib/visual/mce/tinymce.min.js', {

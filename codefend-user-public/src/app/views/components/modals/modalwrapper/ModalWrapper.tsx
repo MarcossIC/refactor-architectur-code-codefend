@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import './modal.scss';
 
-// million-ignore
 interface ModalWrapper {
 	children: JSX.Element;
 	isErrorBox?: boolean;
@@ -12,6 +12,18 @@ const ModalWrapper: React.FC<ModalWrapper> = ({
 	children,
 	action,
 }) => {
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key.toLowerCase() === 'escape') {
+				e.preventDefault();
+				e.stopPropagation();
+				action && action();
+			}
+		};
+
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	}, []);
 	return (
 		<div
 			onClick={(e) => {

@@ -1,8 +1,10 @@
 main.dashboard {
 	overflow: hidden;
 
-	.table-wrapper {
-		overflow: auto;
-		height: 100%;
+	.colaborators {
+		> .colaborators-container {
+			max-height: 100dvh;
+			overflow: hidden;
+		}
 	}
 }

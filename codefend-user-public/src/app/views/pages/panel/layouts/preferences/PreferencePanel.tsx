@@ -5,7 +5,6 @@ import SettingCollaboratorAndTeam from './components/SettingCollaboratorAndTeam'
 import SettingCompanyInformation from './components/SettingCompanyInformation';
 import SettingOrderAndBilling from './components/SettingOrderAndBilling';
 import '../../../../styles/flag.scss';
-import '../../../../styles/table.scss';
 import SettingPersonalDetails from './components/SettingPersonaDetails';
 
 const PreferencePanel = () => {

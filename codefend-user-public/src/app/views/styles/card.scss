@@ -332,15 +332,6 @@ section {
 		}
 	}
 
-	&.colaborators {
-		height: 100%;
-
-		> .colaborators-container {
-			height: 100%;
-			overflow: hidden;
-		}
-	}
-
 	&.messages {
 		width: 100%;
 		overflow: hidden;
@@ -380,12 +371,6 @@ section {
 
 	+ .card {
 		margin-block-start: 10px;
-	}
-
-	&.web-resources {
-		width: 100%;
-		display: table;
-		flex-grow: 1;
 	}
 }
 

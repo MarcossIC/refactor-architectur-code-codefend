@@ -16,9 +16,11 @@ import {
 	DataIcon,
 	AdminUser,
 	AdminCompany,
-} from '../icons';
+	Show,
+} from '../../';
 
-import '../../styles/sidebar.scss';
+import { RUNNING_DESKTOP, useUserAdmin } from '../../../../data';
+import './sidebar.scss';
 
 const isActivePath = (verifyPath: string) => {
 	const location = useLocation();
@@ -28,26 +30,27 @@ const isActivePath = (verifyPath: string) => {
 	return currentPath.startsWith(verifyPath) ? 'active' : '';
 };
 
-const AdminSidebar: React.FC = () => {
-	return (
-		<>
-			<Link
-				title="Admin Panel"
-				to="/admin/panel"
-				className={isActivePath('/admin/panel')}>
-				<AdminUser />
-			</Link>
-
-			<Link to="/admin/company" className={isActivePath('/admin/panel')}>
-				<AdminCompany />
-			</Link>
-		</>
-	);
-};
-
 const Sidebar: React.FC = () => {
+	const { isAuth, isAdmin, getAccessToken } = useUserAdmin();
 	return (
 		<aside className="sidebar">
+			<Show when={isAuth() && isAdmin() && getAccessToken() !== null}>
+				<>
+					<Link
+						title="Admin Panel"
+						to="/admin/panel"
+						className={isActivePath('/admin/panel')}>
+						<AdminUser />
+					</Link>
+
+					<Link
+						to="/admin/company"
+						className={isActivePath('/admin/panel')}>
+						<AdminCompany />
+					</Link>
+				</>
+			</Show>
+
 			<Link
 				title="Dashboard"
 				to="/dashboard"
@@ -71,9 +74,11 @@ const Sidebar: React.FC = () => {
 				<LanIcon />
 			</Link>
 
-			<Link title="Enp" to="/enp" className={isActivePath('/enp')}>
-				<EnpIcon />
-			</Link>
+			<Show when={RUNNING_DESKTOP()}>
+				<Link title="Enp" to="/enp" className={isActivePath('/enp')}>
+					<EnpIcon />
+				</Link>
+			</Show>
 
 			<Link
 				title="Source Code"
@@ -99,8 +104,6 @@ const Sidebar: React.FC = () => {
 				className={isActivePath('/support')}>
 				<MessageIcon />
 			</Link>
-
-			{false && true && <AdminSidebar />}
 
 			<Link to="/preferences" className={isActivePath('/preferences')}>
 				<PreferenceIcon />

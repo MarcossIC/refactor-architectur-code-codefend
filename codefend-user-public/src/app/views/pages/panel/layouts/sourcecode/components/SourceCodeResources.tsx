@@ -1,14 +1,19 @@
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
-import { SourceCode, generateIDArray, useModal } from '../../../../../../data';
+import {
+	SourceCode,
+	generateIDArray,
+	sourceCodeColumns,
+	useModal,
+} from '../../../../../../data';
 import {
 	ConfirmModal,
-	EmptyCard,
 	ModalTitleWrapper,
-	PageLoader,
 	SourceCodeIcon,
-	TrashIcon
+	TrashIcon,
+	TableV2,
+	ActionSection,
+	TableItem,
 } from '../../../../../components';
-import '../../../../../styles/table.scss';
 import { AddRepositoryModal } from '../../../../../components/modals/AddRepositoryModal';
 
 interface SourceCodeProps {
@@ -33,6 +38,27 @@ export const SourceCodeResources: React.FC<SourceCodeProps> = (props) => {
 	const sourceKeys = useMemo(() => {
 		return props.isLoading ? [] : generateIDArray(props.sourceCode.length);
 	}, [props.sourceCode]);
+
+	const dataTable = props.sourceCode.map(
+		(repository) =>
+			({
+				ID: { value: repository.id, style: 'id' },
+				name: { value: repository.name, style: 'full-name' },
+				url: { value: repository.accessLink, style: 'url' },
+				visibility: { value: repository.isPublic, style: 'boolean' },
+				sourceCode: { value: repository.sourceCode, style: 'source-code' },
+			}) as Record<string, TableItem>,
+	);
+
+	const tableAction = {
+		icon: <TrashIcon />,
+		style: 'id cursor-pointer p-3 flex',
+		action: (id: string) => {
+			setSelectedSourceCodeIdToDelete(id);
+			setShowModal(!showModal);
+			setShowModalStr('delete_resource');
+		},
+	};
 
 	return (
 		<>
@@ -64,15 +90,14 @@ export const SourceCodeResources: React.FC<SourceCodeProps> = (props) => {
 					close={() => setShowModal(!showModal)}
 				/>
 			</ModalTitleWrapper>
-			<div className="card table">
+			<div className="card">
 				<div className="header">
 					<div className="title">
 						<div className="icon">
 							<SourceCodeIcon />
 						</div>
-						<span>Source Code</span>
+						<span>Source code</span>
 					</div>
-
 					<div className="actions">
 						<div
 							onClick={() => {
@@ -83,52 +108,14 @@ export const SourceCodeResources: React.FC<SourceCodeProps> = (props) => {
 						</div>
 					</div>
 				</div>
-				<div className="columns-name">
-					<div className="id">id</div>
-					<div className="full-name">name</div>
-					<div className="url">address</div>
-					<div className="boolean">visibility</div>
-					<div className="source-code">source code</div>
-					<div className="id">actions</div>
-				</div>
-
-				{!props.isLoading ? (
-					<div className="rows">
-						{props.sourceCode.map((repository: any, index: number) => (
-							<Fragment key={sourceKeys[index]}>
-								<div className="item">
-									<div className="id">{repository.id}</div>
-									<div className="full-name">{repository.name}</div>
-									<div className="url">{repository.accessLink}</div>
-									<div className="boolean">{repository.isPublic}</div>
-									<div className="source-code">
-										{repository.sourceCode}
-									</div>
-									<div
-										className=" id cursor-pointer p-3 flex"
-										onClick={() => {
-											setSelectedSourceCodeIdToDelete(repository.id);
-											setShowModal(!showModal);
-											setShowModalStr('delete_resource');
-										}}>
-										<TrashIcon />
-									</div>
-								</div>
-							</Fragment>
-						))}
-					</div>
-				) : (
-					<>
-						<PageLoader />
-					</>
-				)}
-				{!props.isLoading && props.sourceCode.length === 0 ? (
-					<>
-						<EmptyCard />
-					</>
-				) : (
-					<></>
-				)}
+				<TableV2
+					rowsData={dataTable}
+					tableAction={tableAction}
+					columns={sourceCodeColumns}
+					showRows={!props.isLoading}
+					showEmpty={!props.isLoading && dataTable.length === 0}
+					sizeY={90}
+				/>
 			</div>
 		</>
 	);

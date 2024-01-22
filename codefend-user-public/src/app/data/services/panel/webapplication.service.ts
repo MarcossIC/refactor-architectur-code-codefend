@@ -1,5 +1,4 @@
-import { Webresources } from '..';
-import { fetchPOST, handleFetchError } from './fetchAPI';
+import { fetchPOST, handleFetchError } from '../';
 
 const get = async (companyID: string | number) => {
 	const { data } = (await fetchPOST({

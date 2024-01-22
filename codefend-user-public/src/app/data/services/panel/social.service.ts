@@ -1,4 +1,4 @@
-import { fetchGET, fetchPOST } from '.';
+import { fetchGET, fetchPOST } from '..';
 
 const getAll = async (companyID: string) => {
 	try {

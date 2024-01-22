@@ -1,11 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import {
-	ButtonLoader,
-	ModalButtons,
-	PrimaryButton,
-	SecondaryButton,
-	Show,
-} from '..';
+import { ModalButtons } from '..';
 
 interface ConfirmModalProps {
 	close: () => void;

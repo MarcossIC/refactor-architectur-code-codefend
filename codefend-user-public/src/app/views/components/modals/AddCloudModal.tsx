@@ -1,13 +1,7 @@
 import { useAuthState } from '../../../data';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import {
-	ButtonLoader,
-	GlobeWebIcon,
-	ModalButtons,
-	PrimaryButton,
-	SecondaryButton,
-} from '..';
+import { GlobeWebIcon, ModalButtons } from '..';
 import { CloudService } from '../../../data';
 
 interface Props {

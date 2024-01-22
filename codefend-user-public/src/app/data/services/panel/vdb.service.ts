@@ -1,4 +1,4 @@
-import { fetchPOST, handleFetchError } from '.';
+import { fetchPOST, handleFetchError } from '../';
 
 const initializeVdbData = async (keyword: string, companyID: string) => {
 	const { data } = (await fetchPOST({

@@ -1,5 +1,4 @@
-import { fetchPOST, handleFetchError } from '.';
-
+import { fetchPOST, handleFetchError } from '../';
 const getPreviousSearches = async (companyID: string) => {
 	const { data } = (await fetchPOST({
 		params: {

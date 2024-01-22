@@ -1,14 +1,6 @@
 import { useAddTicket } from '../../../data';
 import React, { useRef } from 'react';
-import {
-	ButtonLoader,
-	GlobeWebIcon,
-	ModalButtons,
-	PencilIcon,
-	PrimaryButton,
-	SecondaryButton,
-	Show,
-} from '..';
+import { GlobeWebIcon, ModalButtons, PencilIcon } from '..';
 
 interface AddTicketModalProps {
 	close: () => void;

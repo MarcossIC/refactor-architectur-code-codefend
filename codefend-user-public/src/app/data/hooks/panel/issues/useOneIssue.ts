@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { FetchPattern, OneIssue, mapOneIssue, useAuthState } from '../../../';
-import { IssueService } from '../../../services/issues.service';
+import { IssueService } from '../../../services/panel/issues.service';
 import { toast } from 'react-toastify';
 
 export const useOneIssue = () => {

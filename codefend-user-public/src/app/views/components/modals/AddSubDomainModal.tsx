@@ -1,11 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import {
-	ButtonLoader,
 	GlobeWebIcon,
 	ModalButtons,
-	PrimaryButton,
-	SecondaryButton,
-	Show,
 } from '../';
 import { toast } from 'react-toastify';
 import {

@@ -1,13 +1,9 @@
 import React, { useCallback, useState } from 'react';
-import { MobileService, useAuthState, useModal } from '../../../data';
+import { MobileService, useAuthState } from '../../../data';
 import { toast } from 'react-toastify';
 import {
-	ButtonLoader,
 	GlobeWebIcon,
 	ModalButtons,
-	PrimaryButton,
-	SecondaryButton,
-	Show,
 } from '..';
 
 interface Props {

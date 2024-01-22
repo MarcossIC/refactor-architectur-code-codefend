@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { IssueService, useAuthState } from '..';
-import { CustomerSupportService } from '../services/support.service';
+import { CustomerSupportService } from '../services/panel/support.service';
 
 export const useChatbox = () => {
 	const [message, setMessage] = useState('');

@@ -1,5 +1,5 @@
 import { useAuthState } from '../../../';
-import { IssueService } from '../../../services/issues.service';
+import { IssueService } from '../../../services/panel/issues.service';
 import { toast } from 'react-toastify';
 
 export const useDeleteIssue = () => {

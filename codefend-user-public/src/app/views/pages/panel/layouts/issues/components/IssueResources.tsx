@@ -2,6 +2,7 @@ import React, { Fragment, useMemo, useState } from 'react';
 import {
 	Issues,
 	generateIDArray,
+	issueColumns,
 	useDeleteIssue,
 	useModal,
 } from '../../../../../../data';
@@ -37,6 +38,7 @@ export const IssueResources: React.FC<Props> = (props) => {
 	);
 
 	const dataTable = props.issues.map((issue: Issues) => ({
+		ID: { value: issue.id, style: '' },
 		published: { value: issue.createdAt, style: 'date' },
 		author: { value: issue.researcherUsername, style: 'username' },
 		type: { value: issue.resourceClass, style: 'vul-class' },
@@ -96,82 +98,16 @@ export const IssueResources: React.FC<Props> = (props) => {
 					</div>
 				</div>
 
-				<div className="table flex-grow max-h-[40dvh]">
-					<div className="columns-name">
-						<div className="date">published</div>
-						<div className="username">author</div>
-						<div className="vul-class">class</div>
-						<div className="vul-risk">risk</div>
-						<div className="vul-score">score</div>
-						<div className="vul-title">issue title</div>
-						<div className="vul-condition flex">status</div>
-						<div className="id flex justify-center">actions</div>
-					</div>
-
-					<div className="rows max-h-[30dvh] overflow-auto">
-						<Show when={!props.isLoading} fallback={<PageLoader />}>
-							<>
-								{props.issues.map((issue: Issues, i: number) => (
-									<Fragment key={issuesKeys[i]}>
-										<div
-											className="item"
-											onClick={(e: React.FormEvent) => {
-												navigate(`/issues/update/${issue.id}`);
-												e.preventDefault();
-												e.stopPropagation();
-											}}>
-											<div className="date" title={issue.createdAt}>
-												{issue.createdAt}
-											</div>
-
-											<div
-												className="username"
-												title={issue.researcherUsername}>
-												{issue.researcherUsername}
-											</div>
-											<div
-												className="vul-class"
-												title={issue.resourceClass}>
-												{issue.resourceClass}
-											</div>
-
-											<div
-												className="vul-risk"
-												title={issue.riskLevel}>
-												{issue.riskLevel}
-											</div>
-											<div className="vul-score flex no-border-bottom">
-												<RiskScore riskScore={issue.riskScore} />
-											</div>
-											<div className="vul-title" title={issue.name}>
-												{issue.name}
-											</div>
-											<div
-												className="vul-condition"
-												title={issue.condition}>
-												{issue.condition}
-											</div>
-											<div className="trash">
-												<TrashIcon
-													action={(e: React.FormEvent) => {
-														e.preventDefault();
-														e.stopPropagation();
-														setSelectedId(issue.id);
-														setShowModal(!showModal);
-													}}
-												/>
-											</div>
-										</div>
-									</Fragment>
-								))}
-							</>
-						</Show>
-					</div>
-				</div>
+				<TableV2
+					rowsData={dataTable}
+					columns={issueColumns}
+					showRows={!props.isLoading}
+					showEmpty={!props.isLoading && dataTable.length === 0}
+					sizeY={75}
+					tableAction={actionTable}
+					selectItem={(id: any) => navigate(`/issues/update/${id}`)}
+				/>
 			</div>
-			<Show when={!props.isLoading && props.issues.length === 0}>
-				<EmptyCard />
-			</Show>
 		</>
 	);
 };

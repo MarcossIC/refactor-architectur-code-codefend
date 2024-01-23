@@ -33,6 +33,7 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		e.stopPropagation();
 		setSocialData((prevData) => ({ ...prevData, isAddingMember: true }));
 
 		if (!fName.trim() || fName.length > 40) {

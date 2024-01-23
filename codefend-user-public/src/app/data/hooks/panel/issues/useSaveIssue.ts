@@ -34,22 +34,25 @@ export const useSaveIssue = () => {
 			const _editorContent = getTinyEditorContent('issue');
 			if (
 				!validateNewIssue(
-					!_editorContent,
+					!_editorContent.trim(),
 					'Invalid content, please add content using the editor',
 				)
-			)
+			) {
 				return;
-			if (!validateNewIssue(!newIssue.score, 'Invalid score')) return;
+			}
+			if (!validateNewIssue(!newIssue.score.trim(), 'Invalid score')) {
+				return;
+			}
 
 			if (
 				!validateNewIssue(
-					!newIssue.issueName ||
-						newIssue.issueName.length == 0 ||
-						newIssue.issueName.length > 100,
+					!newIssue.issueName.trim() || newIssue.issueName.length > 100,
 					'Invalid name',
 				)
-			)
+			) {
 				return;
+			}
+
 			if (
 				!validateNewIssue(
 					![
@@ -63,8 +66,9 @@ export const useSaveIssue = () => {
 					].includes(newIssue.issueClass),
 					'Invalid issue type',
 				)
-			)
+			) {
 				return;
+			}
 
 			dispatch((state: SaveIssue) => ({
 				...state,
@@ -90,7 +94,7 @@ export const useSaveIssue = () => {
 					});
 					toast.success('Successfully Added Issue...');
 
-					return { newIssue };
+					return { id: response.new_issue.id };
 				})
 				.catch((error: Error) => {
 					toast.error(error.message);

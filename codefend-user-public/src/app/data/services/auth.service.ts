@@ -6,28 +6,14 @@ import { decodePayload } from './decodedToken';
 import { fetchPOST, handleFetchError } from './fetchAPI';
 
 const register = async (registerParams: any) => {
-	try {
-		const { data, status } = (await fetchPOST({
-			params: {
-				model: 'users/new',
-				lead_fname: registerParams.name,
-				lead_lname: registerParams.lastName,
-				lead_role: registerParams.companyRole,
-				lead_email: registerParams.email,
-				lead_phone: registerParams.phone,
-				company_name: registerParams.companyName,
-				company_web: registerParams.companyWeb,
-				company_size: registerParams.companySize,
-				company_area: registerParams.companyCountry,
-				phase: registerParams.phase,
-			},
-		}).catch((error: any) => handleFetchError(error))) as any;
+	const { data, status } = (await fetchPOST({
+		params: {
+			model: 'users/new',
+			...registerParams,
+		},
+	}).catch((error: any) => handleFetchError(error))) as any;
 
-		return { success: status, data };
-	} catch (error) {
-		console.error('Error during registration:');
-		return { success: false };
-	}
+	return { success: status, data };
 };
 
 const registerFinish = async (registerParams: any): Promise<any> => {

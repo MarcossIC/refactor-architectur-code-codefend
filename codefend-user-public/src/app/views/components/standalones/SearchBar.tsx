@@ -47,7 +47,10 @@ export const SearchBar: React.FC<SearchBarProps> = (props) => {
 		<div className="search-bar">
 			<div className="search-bar-wrapper">
 				<form
-					onSubmit={props.handleSubmit}
+					onSubmit={(e: React.FormEvent) => {
+						e.preventDefault();
+						props.handleSubmit();
+					}}
 					className="search-bar-wrapper-form">
 					<input
 						type="text"
@@ -83,7 +86,7 @@ export const SearchBar: React.FC<SearchBarProps> = (props) => {
 					</Show>
 					<PrimaryButton
 						text={props.searchIcon}
-						click={props.handleSubmit}
+						click={() => {}}
 						type="submit"
 						className="search-button no-border-height"
 					/>

@@ -21,24 +21,22 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
 		setIsAddingDomain(true);
-		console.log({ domainName });
-		if (!domainName) return;
-
-		if (!domainName || domainName.length === 0 || domainName.length > 100) {
+		if (
+			!domainName.trim() ||
+			domainName.length === 0 ||
+			domainName.length > 100
+		) {
 			toast.error('Invalid domain');
 			setIsAddingDomain(false);
 			return;
 		}
-		const user = getUserdata() as User;
-		const companyID = user?.companyID as string;
+		const companyID = getUserdata()?.companyID as string;
 
 		WebApplicationService.addResource(domainName, companyID)
 			.then(({ response }) => {
-				if (response !== 'success') {
-					throw new Error('An error has occurred on the server');
-				}
-
 				setDomainName('');
 				props.onDone();
 				toast.success('Successfully Added Domain..');

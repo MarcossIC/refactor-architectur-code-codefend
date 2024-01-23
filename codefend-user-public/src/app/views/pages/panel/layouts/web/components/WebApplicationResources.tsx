@@ -35,7 +35,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 	const getResources = () => {
 		const resources = props.isLoading ? [] : props.webResources;
 
-		return resources ?? [];
+		return resources !== undefined ? resources.reverse() : [];
 	};
 
 	const resourceKeys = useMemo(
@@ -43,9 +43,6 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 		[getResources()],
 	);
 
-	const show = useCallback(() => {
-		setShowModal(true);
-	}, []);
 	const close = useCallback(() => {
 		setShowModal(false);
 	}, []);
@@ -139,10 +136,9 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 					<div
 						className="rows"
 						style={{ '--row-size': 77 + 'dvh' } as any}>
-						{getResources()
-							.reverse()
-							.map((mainNetwork: Webresources, index: number) => (
-								<Fragment key={resourceKeys[index]}>
+						{getResources().map(
+							(mainNetwork: Webresources, i: number) => (
+								<Fragment key={resourceKeys[i]}>
 									<div className="item left-marked">
 										<div className="id">{mainNetwork.id}</div>
 										<div className="domain-name">
@@ -162,7 +158,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 										</div>
 
 										<div
-											className="trash"
+											className="cursor-pointer p-3 ps-5 flex"
 											onClick={() => {
 												setSelectedId(mainNetwork.id);
 												setShowModal(!showModal);
@@ -200,7 +196,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 													{subNetwork.serverCountryCity}
 												</span>
 											</div>
-											<div className="trash">
+											<div className="cursor-pointer p-3 ps-5 flex">
 												<TrashIcon
 													action={() => {
 														setSelectedId(subNetwork.id);
@@ -212,7 +208,8 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 										</div>
 									))}
 								</Fragment>
-							))}
+							),
+						)}
 					</div>
 				</Show>
 				<Show when={!props.isLoading && getResources().length === 0}>

@@ -422,3 +422,64 @@ export const sourceCodeChartColumns = [
 		style: 'percent',
 	},
 ];
+
+export const vdbColumns = [
+	{
+		name: 'id',
+		value: 'id',
+		style: 'id',
+	},
+	{
+		name: 'published',
+		value: 'published',
+		style: 'date',
+	},
+	{
+		name: 'cve',
+		value: 'cve',
+		style: 'cve',
+	},
+	{
+		name: 'title',
+		value: 'title',
+		style: 'vul-title',
+	},
+	{
+		name: 'score',
+		value: 'score',
+		style: 'vul-score',
+	},
+	{
+		name: 'risk',
+		value: 'risk',
+		style: 'vul-risk',
+	},
+];
+
+export const supportTicket: ColumnTable[] = [
+	{
+		name: 'author',
+		value: 'author',
+		style: 'username',
+	},
+	{
+		name: 'title',
+		value: 'title',
+		style: 'vul-title',
+	},
+	{
+		name: 'published',
+		value: 'published',
+		style: 'date',
+	},
+	{
+		name: 'status',
+		value: 'status',
+		style: 'vul-condition',
+	},
+	{
+		name: 'action',
+		value: 'actions',
+		style: 'id',
+	},
+];

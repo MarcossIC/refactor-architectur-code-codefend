@@ -4,10 +4,7 @@ import { PanelPage } from './views/pages/panel/PanelPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FinishSignUpLayout from './views/pages/auth/layouts/FinishsignUp';
-import IssuesPanel from './views/pages/panel/layouts/issues/layouts/IssuesPanel';
-import IssuesCreation from './views/pages/panel/layouts/issues/layouts/IssuesCreation';
 import { Loader } from './views/components';
-import IssueUpdate from './views/pages/panel/layouts/issues/layouts/IssuesUpdate';
 
 const AuthPage = lazy(() => import('./views/pages/auth/AuthPage'));
 const SignInLayout = lazy(() => import('./views/pages/auth/layouts/Signin'));
@@ -69,8 +66,16 @@ const AdminCompany = lazy(
 const IssuePage = lazy(
 	() => import('./views/pages/panel/layouts/issues/IssuePage'),
 );
+const IssuesCreation = lazy(
+	() => import('./views/pages/panel/layouts/issues/layouts/IssuesCreation'),
+);
+const IssuesPanel = lazy(
+	() => import('./views/pages/panel/layouts/issues/layouts/IssuesPanel'),
+);
+const IssuesUpdate = lazy(
+	() => import('./views/pages/panel/layouts/issues/layouts/IssuesUpdate'),
+);
 
-// million-ignore
 export const AppRouter: React.FC = () => {
 	return (
 		<>
@@ -110,7 +115,7 @@ export const AppRouter: React.FC = () => {
 						<Route path="issues/*" element={<IssuePage />}>
 							<Route index element={<IssuesPanel />} />
 							<Route path="create" element={<IssuesCreation />} />
-							<Route path="update/:id" element={<IssueUpdate />} />
+							<Route path="update/:id" element={<IssuesUpdate />} />
 						</Route>
 					</Route>
 					{/* Private Routes + only admin access */}

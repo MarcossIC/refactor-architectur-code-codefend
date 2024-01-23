@@ -17,6 +17,9 @@ import {
 	TicketUnique,
 	User,
 	UserAPI,
+	VdbProps,
+	VdbRequestSearch,
+	VdbResponseSearch,
 	WebapplicationProps,
 	Webresources,
 	cleanReview,
@@ -360,5 +363,21 @@ export const mapIntelData = (source: any) => {
 	return {
 		...source,
 		preview: '',
+	};
+};
+
+export const mapVdbRequestSearch = (source: any): VdbRequestSearch => {
+	return {
+		...source,
+		apiKey: source.apikey,
+		userID: source.userid,
+	};
+};
+
+export const mapVdbSearch = (source: any): VdbProps => {
+	return {
+		response: source.response,
+		request: mapVdbRequestSearch(source.request),
+		results: source.results,
 	};
 };

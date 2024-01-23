@@ -1,10 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { MobileService, useAuthState } from '../../../data';
 import { toast } from 'react-toastify';
-import {
-	GlobeWebIcon,
-	ModalButtons,
-} from '..';
+import { GlobeWebIcon, ModalButtons } from '..';
 
 interface Props {
 	onDone: () => void;
@@ -20,6 +17,7 @@ const AddMobileModal: React.FC<Props> = (props) => {
 	const handleSubmit = useCallback(
 		(e: React.FormEvent) => {
 			e.preventDefault();
+			e.stopPropagation();
 			setIsAddingMobile(true);
 			if (!androidAddress.trim() || androidAddress.length > 165) {
 				toast.error('Invalid android address');

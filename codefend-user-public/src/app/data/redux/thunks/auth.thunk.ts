@@ -34,7 +34,6 @@ export const registerThunk = createAsyncThunk<
 	async (registroParams: RegisterParams, { rejectWithValue }) => {
 		try {
 			const response = await AuthServices.register(registroParams);
-			// Realiza una conversión explícita del tipo AxiosResponse al tipo RegisterResponse
 			const registerResponse: RegResponse = response.data;
 			return registerResponse;
 		} catch (error) {

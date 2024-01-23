@@ -5,7 +5,6 @@ import { setAuth } from '..';
 const persistenceMiddleware: any =
 	(store: any) => (next: any) => (action: any) => {
 		next(action);
-		console.log({ action });
 		const { userData, accessToken } = store.getState().authState;
 		setAuth(accessToken, userData);
 	};

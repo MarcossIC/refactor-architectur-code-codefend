@@ -124,10 +124,14 @@
 	.url {
 		min-width: 220px;
 	}
-	.server-ip,
+
 	.ip,
 	.os {
 		width: 130px;
+		flex: inherit !important;
+	}
+	.server-ip {
+		width: 150px;
 		flex: inherit !important;
 	}
 	.location {
@@ -225,8 +229,8 @@
 		flex: inherit !important;
 	}
 	.province {
-		min-width: 15.62rem;
-		max-width: 15.62rem;
+		min-width: 16.62rem;
+		max-width: 16.62rem;
 		flex: inherit !important;
 		text-transform: lowercase;
 		text-overflow: ellipsis;

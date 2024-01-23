@@ -16,6 +16,8 @@ const ConfirmModal = (props: ConfirmModalProps) => {
 
 	const handleSubmit = useCallback(
 		(e: any) => {
+			e.preventDefault();
+			e.stopPropagation();
 			setConfirm(true);
 			props.action();
 		},

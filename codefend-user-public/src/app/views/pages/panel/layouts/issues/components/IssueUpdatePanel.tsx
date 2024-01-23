@@ -25,21 +25,24 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 	completeIssue,
 	isLoading,
 }) => {
-	const safelyIssue = (): CompleteIssue => {
-		const result = completeIssue.issue ? completeIssue.issue : null;
-		return result ?? ({} as CompleteIssue);
+	const safelyIssue = (): any => {
+		const result =
+			completeIssue.issue !== undefined && completeIssue.issue !== null
+				? completeIssue.issue
+				: { id: '', riskScore: '0', content: '', cs: [], name: '' };
+		return result;
 	};
 
 	const navigate = useNavigate();
 	const { updatedIssue, dispatch, update } = useUpdateIssue();
-	const [issueNameUpdate, setIssueNameUpdate] = useState(
-		safelyIssue().name ?? '',
-	);
+	const [issueNameUpdate, setIssueNameUpdate] = useState(safelyIssue().name);
 	const [isEditable, setEditable] = useState(false);
 
 	const isEmpty = () => {
 		return safelyIssue() && 'riskScore' in safelyIssue();
 	};
+
+	console.log({ safely: safelyIssue() });
 
 	const handleIssueUpdate = useCallback(() => {
 		update()
@@ -61,9 +64,11 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 	useEffect(() => {
 		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
 		if (!iframe) return;
+
 		const contentWindow = iframe.contentWindow;
 		contentWindow!.addEventListener('keydown', handleKeyDown);
 		setEditable(!isEditable);
+
 		return () => {
 			contentWindow!.removeEventListener('keydown', handleKeyDown);
 		};
@@ -93,7 +98,7 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 							<div className="name flex-1">{updatedIssue.issueName}</div>
 						}>
 						<input
-							type="string"
+							type="text"
 							className="flex-1"
 							value={updatedIssue.issueName}
 							onChange={(e) =>
@@ -143,7 +148,7 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 				<div className="">
 					<AppEditor
 						isEditable={isEditable}
-						initialValue={safelyIssue() ?? ''}
+						initialValue={safelyIssue().content ?? ''}
 						isIssueCreation={updatedIssue.isAddingIssue}
 					/>
 				</div>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import IssueCreationPanel from '../components/IssueCreationPanel';
 import { IssueChatDisplay } from '../components/IssueChatDisplay';
 
@@ -19,11 +19,7 @@ const IssuesCreation: React.FC<{}> = () => {
 		<>
 			<main className={`issue-detail w-full ${showScreen ? 'actived' : ''}`}>
 				<section className="issue">
-					<IssueCreationPanel
-						isLoading={false}
-						issues={[]}
-						onDone={() => {}}
-					/>
+					<IssueCreationPanel isLoading={false} issues={[]} />
 				</section>
 				<section className="h-full flex-grow">
 					<IssueChatDisplay

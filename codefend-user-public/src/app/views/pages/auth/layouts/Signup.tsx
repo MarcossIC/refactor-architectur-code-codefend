@@ -53,7 +53,11 @@ const SignUpLayout: React.FC = () => {
 			phase: '1',
 		};
 		signUpUser(requestParams)
-			.then((isSuccess) => isSuccess ?? navigate('/auth/confirmation'))
+			.then((isSuccess) => {
+				if (isSuccess) {
+					navigate('/auth/confirmation');
+				}
+			})
 			.finally(() =>
 				setSignupForm((prevData: any) => ({
 					...prevData,

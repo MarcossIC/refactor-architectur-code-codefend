@@ -14,6 +14,7 @@ export const AddTicketModal: React.FC<AddTicketModalProps> = (props) => {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+		e.stopPropagation();
 
 		addTicket()?.then(() => {
 			props.onDone();

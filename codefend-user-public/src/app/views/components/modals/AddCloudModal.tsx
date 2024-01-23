@@ -18,6 +18,7 @@ export const AddCloudModal: React.FC<Props> = (props) => {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		e.stopPropagation();
 		setAddingCloud(true);
 
 		if (!provider.trim()) {

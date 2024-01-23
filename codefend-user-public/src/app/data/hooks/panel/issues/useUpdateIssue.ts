@@ -29,51 +29,49 @@ export const useUpdateIssue = () => {
 		isAddingIssue: false,
 	});
 
-	const fetchSave = useCallback(
-		(companyID: string) => {
-			const _editorContent = getTinyEditorContent('issue');
-			if (
-				!validateNewIssue(
-					!_editorContent,
-					'Invalid content, please add content using the editor',
-				)
+	const fetchSave = (companyID: string) => {
+		const _editorContent = getTinyEditorContent('issue');
+		if (
+			!validateNewIssue(
+				!_editorContent.trim(),
+				'Invalid content, please add content using the editor',
 			)
-				return;
+		) {
+			return;
+		}
 
-			dispatch((state: UpdateIssue) => ({
-				...state,
-				isAddingIssue: true,
-			}));
-			const params = {
-				id: updatedIssue.id,
-				main_desc: _editorContent,
-				name: updatedIssue.issueName,
-				risk_score: updatedIssue.score,
-			};
+		dispatch((state: UpdateIssue) => ({
+			...state,
+			isAddingIssue: true,
+		}));
+		const params = {
+			id: updatedIssue.id,
+			main_desc: _editorContent,
+			name: updatedIssue.issueName,
+			risk_score: updatedIssue.score,
+		};
 
-			return IssueService.modify(params, companyID)
-				.then((response: any) => {
-					console.log({ response });
-					if (response.response === 'error' || response.isAnError)
-						throw new Error(
-							response.message ?? 'An unexpected error has occurred',
-						);
+		return IssueService.modify(params, companyID)
+			.then((response: any) => {
+				console.log({ response });
+				if (response.response === 'error' || response.isAnError)
+					throw new Error(
+						response.message ?? 'An unexpected error has occurred',
+					);
 
-					toast.success('Successfully Added Issue...');
-					return { updatedIssue };
-				})
-				.catch((error: Error) => {
-					toast.error(error.message);
-				})
-				.finally(() =>
-					dispatch((state: UpdateIssue) => ({
-						...state,
-						isAddingIssue: false,
-					})),
-				);
-		},
-		[updatedIssue],
-	);
+				toast.success('Successfully Added Issue...');
+				return { updatedIssue };
+			})
+			.catch((error: Error) => {
+				toast.error(error.message);
+			})
+			.finally(() =>
+				dispatch((state: UpdateIssue) => ({
+					...state,
+					isAddingIssue: false,
+				})),
+			);
+	};
 
 	const update = async () => {
 		const companyID = getUserdata()?.companyID;

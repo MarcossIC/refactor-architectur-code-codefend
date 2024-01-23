@@ -13,7 +13,6 @@ import { Issues, SaveIssue, useSaveIssue } from '../../../../../../data';
 interface IssueCreationPanelProps {
 	issues: Issues[];
 	isLoading: boolean;
-	onDone: () => void;
 }
 
 const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
@@ -24,8 +23,9 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 	const handleIssueUpdate = () => {
 		if (!isEditable) return;
 		save().then((response: any) => {
-			if (props.onDone) props.onDone();
-			//navigate(`/issues`);
+			if (response !== undefined && response.id !== undefined) {
+				navigate(`/issues/update/${response.id}`);
+			}
 		});
 	};
 
@@ -76,12 +76,12 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 					<div
 						className={`edit edit_btn  ${isEditable ? 'on' : 'off'}`}
 						onClick={() => setEditable(!isEditable)}>
-						<PencilIcon isButton/>
+						<PencilIcon isButton />
 					</div>
 					<div
 						className={`save edit_btn ${isEditable ? 'on' : 'off'}`}
 						onClick={() => handleIssueUpdate()}>
-						<SaveIcon isButton/>
+						<SaveIcon isButton />
 					</div>
 				</div>
 			</div>
@@ -130,7 +130,7 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 
 			<div className="">
 				<AppEditor
-					initialValue={props.issues ?? ''}
+					initialValue={''}
 					isEditable={isEditable}
 					isIssueCreation
 				/>

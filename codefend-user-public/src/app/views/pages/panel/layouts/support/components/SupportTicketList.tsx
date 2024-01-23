@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useMemo, useState } from 'react';
 import {
 	SupportProps,
 	generateIDArray,
+	supportTicket,
 	useModal,
 	useTicketDelete,
 } from '../../../../../../data';
@@ -14,6 +15,7 @@ import {
 	Show,
 	TrashIcon,
 	AddTicketModal,
+	TableV2,
 } from '../../../../../components';
 import SelectedTicket from '../supportProvider';
 
@@ -48,6 +50,13 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 			props.refresh();
 		});
 	};
+	const dataTable = props.tickets.reverse().map((ticket: SupportProps) => ({
+		author: { value: '@' + ticket.userUsername, style: 'username' },
+		published: { value: ticket.createdAt, style: 'date' },
+		title: { value: ticket.csHeader, style: 'vul-title' },
+		status: { value: ticket.condition, style: 'vul-condition' },
+		action: { value: 'actions', style: 'id' },
+	}));
 
 	return (
 		<>
@@ -76,7 +85,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 					action={() => handleDelete()}
 				/>
 			</ModalTitleWrapper>
-			<div className="card table">
+			<div className="card">
 				<div className="header">
 					<div className="title">
 						<div className="icon">
@@ -94,56 +103,23 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 						</div>
 					</div>
 				</div>
-
-				<div className="columns-name">
-					<div className="username">author</div>
-					<div className="date">published</div>
-					<div className="vul-title">title</div>
-					<div className="status">status</div>
-					<div className="id">actions</div>
-				</div>
-				<Show when={!props.isLoading} fallback={<PageLoader />}>
-					<div className="rows">
-						{props.tickets
-							.reverse()
-							.map((ticket: SupportProps, i: number) => (
-								<Fragment key={supportKeys[i]}>
-									<div
-										onClick={() => handleTicketSelection(ticket)}
-										className={`item ${
-											isSelected(ticket.id) && 'left-marked'
-										}`}>
-										<div className="username">
-											@{ticket.userUsername}
-										</div>
-										<div className="date">{ticket.createdAt}</div>
-										<div className="vul-title">{ticket.csHeader}</div>
-										<div
-											className={`status ${
-												ticket.condition === 'open' &&
-												'codefend-text-red'
-											}`}>
-											{ticket.condition}
-										</div>
-
-										<div
-											className="trash"
-											onClick={() => {
-												setSelectedTicketIdToDelete(ticket.id);
-												setShowModal(!showModal);
-												setShowModalStr('delete_resource');
-											}}>
-											<TrashIcon />
-										</div>
-									</div>
-								</Fragment>
-							))}
-					</div>
-				</Show>
+				<TableV2
+					columns={supportTicket}
+					rowsData={dataTable}
+					showRows={!props.isLoading}
+					showEmpty={!props.isLoading && dataTable.length === 0}
+					sizeY={75}
+					tableAction={{
+						icon: <TrashIcon />,
+						style: 'id',
+						action: (id: string) => {
+							setSelectedTicketIdToDelete(id);
+							setShowModal(!showModal);
+							setShowModalStr('delete_resource');
+						},
+					}}
+				/>
 			</div>
-			<Show when={!props.isLoading && props.tickets.length === 0}>
-				<EmptyCard />
-			</Show>
 		</>
 	);
 };

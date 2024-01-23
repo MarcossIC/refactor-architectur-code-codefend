@@ -1,4 +1,5 @@
 export const setTinyEditorContent = (id, value) => {
+	console.log({ value });
 	if (!(id && value)) return;
 	tinyMCE.get(id).setContent(value);
 };
@@ -30,21 +31,22 @@ const addTinyMce = (initialValue) => {
 			{
 				title: 'Issue A',
 				description: 'simple issue, code, no media',
-				url: '/editor-lib/visual/mce/models/01.html',
+				url: '/visual/mce/models/01.html',
 			},
 			{
 				title: 'Issue B',
 				description: 'simple issue, code, no media',
-				url: '/editor-lib/visual/mce/models/02.html',
+				url: '/visual/mce/models/02.html',
 			},
 		],
 	};
 
 	tinyMCE.init(options);
 
-	setTimeout(() => {
+	let timeId = setTimeout(() => {
 		setTinyEditorContent('issue', initialValue);
-	}, 300);
+	}, 325);
+	return timeId;
 };
 
 export const getTinyEditorContent = (id) => {

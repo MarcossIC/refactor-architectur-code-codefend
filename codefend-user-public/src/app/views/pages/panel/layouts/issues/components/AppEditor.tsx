@@ -3,10 +3,11 @@ import addTinyMce, {
 	getTinyEditorContent,
 	setMode,
 } from '../../../../../../../editor-lib/';
+import { CompleteIssue, Issues } from '../../../../../../data';
 
 interface AppEditorProps {
 	onUpdateIssue?: any;
-	initialValue: any;
+	initialValue: string;
 	isEditable: boolean;
 	isIssueCreation?: any;
 }
@@ -30,10 +31,12 @@ export const AppEditor: React.FC<AppEditorProps> = ({
 
 	useEffect(() => {
 		const checkTinyMCE = () => {
-			const defaultValue = Boolean(initialValue)
-				? initialValue.content
-				: emptyUpdateIssueText;
-			addTinyMce(defaultValue);
+			const defaultValue = !initialValue.trim()
+				? emptyUpdateIssueText
+				: initialValue;
+
+			const timeoutid = addTinyMce(defaultValue);
+			clearTimeout(timeoutid);
 		};
 
 		checkTinyMCE();

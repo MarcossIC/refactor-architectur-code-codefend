@@ -29,7 +29,7 @@ const AuthPage: React.FC = () => {
 							</span>
 							<span
 								className={
-									location.pathname.startsWith('/auth/signup')
+									location.pathname.startsWith('/auth/signup') || location.pathname === "/auth/confirmation"
 										? 'active'
 										: ''
 								}>

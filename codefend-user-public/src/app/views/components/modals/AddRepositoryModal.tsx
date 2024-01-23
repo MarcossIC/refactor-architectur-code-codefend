@@ -29,6 +29,7 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		e.stopPropagation();
 		setSourceCode((current) => ({ ...current, isLoading: true }));
 		const { repositoryName, repositoryUrl, sourceCode, visibility } =
 			sourceCodeForm;

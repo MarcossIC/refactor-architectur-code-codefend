@@ -322,7 +322,91 @@ export interface PreviusSearch extends ResourceID, Monitoring {
 	userUA: string;
 	condition: string;
 }
+
+export interface VdbResponseSearch {
+	version: string;
+	format: string;
+	status: string;
+	monblock: string;
+	items: number;
+	consumption: number;
+	remaining: number;
+	querylimit: number;
+	querylimitmax: number;
+	timestamp: string;
+	rtt: number;
+	etag: string;
+}
+
+export interface VdbRequestSearch {
+	timestamp: string;
+	apiKey: string;
+	userID: string;
+	details: number;
+	sort: string;
+	cti: number;
+	type: string;
+	value: string;
+}
+
+export interface TimeStamp {
+	create: string;
+	change: string;
+}
+export interface ResultsVdbSearch {
+	entry: {
+		id: string;
+		title: string;
+		timestamp: TimeStamp;
+	};
+	vulnerability: {
+		risk: {
+			value: string;
+			name: string;
+		};
+	};
+	advisory: {
+		date: string;
+	};
+	source: {
+		cve: {
+			id: string;
+		};
+	};
+}
+
+export interface VdbProps {
+	response: VdbResponseSearch;
+	request: VdbRequestSearch;
+	results?: ResultsVdbSearch[];
+}
 /* 
+  "result": [
+        {
+            "entry": {
+                "id": "248418",
+                "title": "Mozilla Firefox up to 120 Protocol denial of service",
+                "timestamp": {
+                    "create": "1703000860",
+                    "change": "1705099665"
+                }
+            },
+            "vulnerability": {
+                "risk": {
+                    "value": "1",
+                    "name": "low"
+                }
+            },
+            "advisory": {
+                "date": "1702940400"
+            },
+            "source": {
+                "cve": {
+                    "id": "CVE-2023-6871"
+                }
+            }
+        },
+
 
 "session": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyaWQiOiIxMDkiLCJleHAiOjE3MDU2MjUyNTd9.HivlkCsh5vAtxgWis5yA7B0rxmF14utrN13OaemyRlw",
     "user": {

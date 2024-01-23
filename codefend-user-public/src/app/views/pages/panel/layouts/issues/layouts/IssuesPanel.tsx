@@ -7,8 +7,6 @@ import {
 } from '../../../../../components';
 import { IssueReport } from '../components/IssueReport';
 import { IssueResources } from '../components/IssueResources';
-import { useLocation } from 'react-router';
-import { useUpdateEffect } from 'usehooks-ts';
 
 const IssuesPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);

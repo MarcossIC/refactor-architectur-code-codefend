@@ -50,6 +50,7 @@ export const AcessPointModal: React.FC<{
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+		e.stopPropagation();
 
 		setNetworkData((prevData) => ({
 			...prevData,

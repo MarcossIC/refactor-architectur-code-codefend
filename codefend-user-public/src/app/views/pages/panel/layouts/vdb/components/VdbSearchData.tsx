@@ -1,5 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { generateIDArray, useInitialVdb } from '../../../../../../data';
+import {
+	ResultsVdbSearch,
+	VdbProps,
+	generateIDArray,
+	useInitialVdb,
+	vdbColumns,
+} from '../../../../../../data';
 import {
 	BugIcon,
 	ScanSearchIcon,
@@ -7,6 +13,7 @@ import {
 	SearchBar,
 	Show,
 	Table,
+	TableV2,
 } from '../../../../../components';
 
 export const VdbSearchData: React.FC = () => {
@@ -17,18 +24,22 @@ export const VdbSearchData: React.FC = () => {
 
 	const [selectedNow, setSelectedNow] = useState(false);
 
-	const safelyVdbData = () => (Array.isArray(getVdb()) ? getVdb() ?? [] : []);
-
-	useEffect(() => {
-		refetch();
-	}, []);
+	const safelyVdbData = (): ResultsVdbSearch[] =>
+		Array.isArray(getVdb().results) ? getVdb().results ?? [] : [];
 
 	const vdbKeys = useMemo(
 		() => generateIDArray(safelyVdbData().length),
 		[safelyVdbData()],
 	);
 
-	const columns = new Set(['creacion', 'id', 'cve', 'title', 'score', 'risk']);
+	const dataTable = safelyVdbData().map((data: ResultsVdbSearch) => ({
+		publisshed: { value: data.advisory.date, style: 'date' },
+		ID: { value: data.entry.id, style: 'id' },
+		cve: { value: data.source.cve.id, style: 'cve' },
+		title: { value: data.entry.title, style: 'title' },
+		score: { value: data.vulnerability.risk.value, style: 'vul-score' },
+		risk: { value: data.vulnerability.risk.name, style: 'vul-risk' },
+	}));
 	return (
 		<>
 			<div className="search-bar-container">
@@ -44,6 +55,13 @@ export const VdbSearchData: React.FC = () => {
 				<Show when={!isLoading} fallback={<PageLoader />}>
 					<>
 						<div className="mx-3">
+							<TableV2
+								rowsData={dataTable}
+								columns={vdbColumns}
+								showRows={!isLoading}
+								showEmpty={Boolean(safelyVdbData().length)}
+								sizeY={50}
+							/>
 							<div className="header">
 								<div className="title">
 									<div className="icon">
@@ -58,7 +76,7 @@ export const VdbSearchData: React.FC = () => {
 										setSelectedNow(true);
 									}}
 									className="hidden md:inline bg-transparent ml-10">
-									<option value="" selected disabled>
+									<option value="" disabled>
 										Sort by
 									</option>
 									<option value="creacion">published</option>
@@ -68,19 +86,16 @@ export const VdbSearchData: React.FC = () => {
 								</select>
 								<div className="actions"></div>
 							</div>
-							<Table
-								data={safelyVdbData()}
-								columns={Array.from(columns)}></Table>
 						</div>
 					</>
 				</Show>
 			</Show>
 			<Show when={!isLoading} fallback={<PageLoader />}>
 				<div className="content">
-					{safelyVdbData().map((vuln: any, i: number) => (
+					{safelyVdbData().map((vuln: ResultsVdbSearch, i: number) => (
 						<div className="search-result" key={vdbKeys[i]}>
 							<div className="header">
-								<div className="title">{vuln.title}</div>
+								<div className="title">{vuln.entry.title}</div>
 							</div>
 						</div>
 					))}

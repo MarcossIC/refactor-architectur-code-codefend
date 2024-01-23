@@ -63,6 +63,7 @@ const FinishSignUpLayout = () => {
 
 		signUpFinish(requestParams)
 			.then((response: any) => {
+				console.log(response)
 				if (response?.data?.error && response.data.error != 0) {
 					return toast.error(response.data.info);
 				}

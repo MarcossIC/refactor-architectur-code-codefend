@@ -25,10 +25,6 @@ const registerFinish = async (registerParams: any): Promise<any> => {
 		},
 	}).catch((error: any) => handleFetchError(error))) as any;
 
-	const response = data.response as string;
-	if (response === 'success') {
-	}
-
 	return { data, status };
 };
 

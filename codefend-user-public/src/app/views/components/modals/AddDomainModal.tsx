@@ -16,13 +16,10 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 
 	const { getUserdata } = useAuthState();
 
-	const handleChange = (e: React.ChangeEvent) => {
-		setSubdomainDetection(!subdomainDetection);
-	};
-
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
+
 		setIsAddingDomain(true);
 		if (
 			!domainName.trim() ||

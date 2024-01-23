@@ -60,6 +60,7 @@
 			height: 100%;
 			display: flex;
 			align-items: center;
+			justify-content: unset;
 		}
 
 		&.left-marked {
@@ -177,13 +178,15 @@
 	}
 	.vul-title {
 		min-width: 100px;
+		max-width: 380px;
 	}
 	.vul-condition {
 		justify-content: center;
 		max-width: 100px;
+		
 	}
 	.trash {
-		justify-content: flex-start;
+		justify-content: center;
 		max-width: 50px;
 		svg,
 		path {

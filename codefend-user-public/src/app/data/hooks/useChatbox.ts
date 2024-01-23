@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { IssueService, useAuthState } from '..';
 import { CustomerSupportService } from '../services/panel/support.service';
 
@@ -6,6 +7,8 @@ export const useChatbox = () => {
 	const [message, setMessage] = useState('');
 	const [isAdding, setIsAdding] = useState(false);
 	const { getUserdata } = useAuthState();
+	const companyID = getUserdata()?.companyID as string;
+	const userID = getUserdata()?.id as string;
 
 	const handleIssueSubmit = (selectedID: string, onDone: () => void) => {
 		setIsAdding(true);
@@ -30,12 +33,17 @@ export const useChatbox = () => {
 			cs_body: message,
 			dad_id: selectedID,
 		};
-		const companyID = getUserdata()?.companyID as string;
-		const userID = getUserdata()?.id as string;
+
 		CustomerSupportService.add(params, companyID, userID)
 			.then((response: any) => {
+				console.log(companyID);
+				console.log(response);
 				setMessage('');
 				onDone();
+			})
+			.catch((error: any) => {
+				console.log(error.response)
+				toast.error(error.response)
 			})
 			.finally(() => {
 				setIsAdding(false);

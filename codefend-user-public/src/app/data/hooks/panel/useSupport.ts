@@ -45,7 +45,7 @@ export const useAllTicket = () => {
 	};
 	const getTikets = (): SupportProps[] => {
 		const ticket = isLoading ? ([] as SupportProps[]) : data;
-		return ticket ?? [];
+		return ticket?.reverse() ?? [];
 	};
 
 	return {
@@ -86,7 +86,6 @@ export const useOneTicket = () => {
 			return;
 		}
 		fetchOne(companyID, ticketID);
-		if (error) console.log({ error });
 	};
 	const getOneTicket = (): TicketUnique => {
 		return isLoading ? ({} as TicketUnique) : data ?? ({} as TicketUnique);

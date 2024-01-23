@@ -4,7 +4,7 @@ import '../buttons.scss';
 import './primaryButton.scss';
 
 interface PrimaryButtonProps {
-	click: (e: React.FormEvent<HTMLButtonElement>) => void;
+	click?: (e: React.FormEvent<HTMLButtonElement>) => void;
 	isDisabled?: boolean;
 	text: string | JSX.Element;
 	className?: string;

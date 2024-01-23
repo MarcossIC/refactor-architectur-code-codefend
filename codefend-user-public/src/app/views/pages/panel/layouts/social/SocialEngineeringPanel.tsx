@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Member, MetricsService, useSocial } from '../../../../../data';
+import { useSocial } from '../../../../../data';
 import SocialAttackVectors from './components/SocialAttackVectors';
 import SocialEngineering from './components/SocialEngineering';
 import SocialEngineeringMembers from './components/SocialEngineeringMembers';
@@ -7,11 +7,6 @@ import SocialEngineeringMembers from './components/SocialEngineeringMembers';
 const SocialEngineeringView = () => {
 	const { members, refetch, loading } = useSocial();
 	const [showScreen, setShowScreen] = useState(false);
-
-	const [social, setSocial] = useState({
-		loading: true,
-		data: null,
-	});
 
 	const [socialFilters, setSocialFilters] = useState({
 		department: new Set<string>(),
@@ -69,7 +64,7 @@ const SocialEngineeringView = () => {
 				</section>
 				<section className="right">
 					<SocialEngineeringMembers
-						isLoading={social.loading}
+						isLoading={loading}
 						members={members ?? []}
 						handleDepartmentFilter={handleDepartmentFIlter}
 					/>
@@ -81,3 +76,4 @@ const SocialEngineeringView = () => {
 };
 
 export default SocialEngineeringView;
+

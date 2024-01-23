@@ -1,7 +1,6 @@
 import {
 	EmptyCard,
 	ModalTitleWrapper,
-	ModalWrapper,
 	PageLoader,
 	PeopleGroup,
 	Show,
@@ -10,7 +9,6 @@ import {
 } from '../../../../../../views/components';
 
 import {
-	Member,
 	MemberV2,
 	SuperMember,
 	collaboratorsColumns,
@@ -18,7 +16,6 @@ import {
 	useModal,
 } from '../../../../../../data';
 import AddSocialModal from '../../../../../components/modals/AddSocialModal';
-import { useMemo } from 'react';
 
 interface SocialProps {
 	refetch: () => void;

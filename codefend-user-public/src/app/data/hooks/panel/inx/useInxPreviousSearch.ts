@@ -1,22 +1,49 @@
 import { useState } from 'react';
-import {
-	useAuthState,
-	InxServices,
-	mapPreviusSearch,
-	FetchPattern,
-	PreviusSearch,
-} from '../../../';
 import { toast } from 'react-toastify';
+import {
+	FetchPattern,
+	InxServices,
+	PreviusSearch,
+	mapPreviusSearch,
+	useAuthState
+} from '../../../';
+
+export interface PreviousSearch {
+  id: string;
+  company_id: string;
+  user_id: string;
+  username: string;
+  model: string;
+  informacion: string;
+  address_ra: string;
+  address_hci: string;
+  address_hxff: string;
+  user_pais: string;
+  user_pais_code: string;
+  user_pais_provincia: string;
+  user_pais_ciudad: string;
+  user_ua: string;
+  condicion: string;
+  eliminado: string;
+  creacion: string;
+}
+
+interface ApiResponse {
+  response: string;
+  previous_searches: PreviousSearch[];
+}
 
 export const useInxPreviousSearch = () => {
+	const { getUserdata } = useAuthState();
+	const companyId = getUserdata()?.companyID;
+
 	const [{ data, error, isLoading }, dispatch] = useState<
-		FetchPattern<PreviusSearch[]>
+		FetchPattern<PreviousSearch[]>
 	>({
 		data: null,
 		error: null,
 		isLoading: true,
 	});
-	const { getUserdata } = useAuthState();
 
 	const fetchInitialSearch = async (companyID: string) => {
 		dispatch((state) => ({ ...state, isLoading: true }));
@@ -41,17 +68,16 @@ export const useInxPreviousSearch = () => {
 	};
 
 	const refetch = () => {
-		const companyID = getUserdata()?.companyID as string;
-		if (!companyID) {
+		if (!companyId) {
 			toast.error('User information was not found');
 			return;
 		}
-		fetchInitialSearch(companyID);
+		fetchInitialSearch(companyId);
 	};
 
-	const getData = (): PreviusSearch[] => {
+	const getData = (): PreviousSearch[] => {
 		const _data = !isLoading ? data : [];
-		return _data ?? ([] as PreviusSearch[]);
+		return _data ?? ([] as PreviousSearch[]);
 	};
 
 	return { previousSearches: getData(), isLoading, refetch };

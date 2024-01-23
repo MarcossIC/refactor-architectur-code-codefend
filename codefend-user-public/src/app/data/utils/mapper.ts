@@ -333,7 +333,10 @@ export const mapSupportProps = (source: any): SupportProps => {
 export const mapTicketUnique = (source: any): TicketUnique => {
 	return {
 		...mapSupportProps(source.unico),
-		childs: source.unico.childs.map((child: any) => mapSupportProps(child)),
+		childs:
+			source.unico.childs !== null
+				? source.unico.childs.map((child: any) => mapSupportProps(child))
+				: [],
 	};
 };
 

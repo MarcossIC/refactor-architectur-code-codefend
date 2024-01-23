@@ -9,19 +9,12 @@ import SelectedTicket from './supportProvider';
 const SupportPanel: React.FC = () => {
 	const [showScreen, setShowScreen] = useState(false);
 	const [control, refresh] = useState(false);
-	const [selectedTicket, setSelectedTicket] = useState<SupportProps | null>(
-		null,
-	);
+	const [selectedTicket, setSelectedTicket] = useState<string>('');
 	const { getTikets, isLoading, refetch } = useAllTicket();
 
 	useEffect(() => {
-		if (
-			selectedTicket === null &&
-			!isLoading &&
-			Boolean(getTikets().length)
-		) {
-			const _data = getTikets();
-			setSelectedTicket(_data[0]!);
+		if (!isLoading && Boolean(getTikets().length)) {
+			setSelectedTicket(getTikets()[0].id);
 		}
 	}, [getTikets(), isLoading]);
 
@@ -36,8 +29,8 @@ const SupportPanel: React.FC = () => {
 			<main className={`support ${showScreen ? 'actived' : ''}`}>
 				<section className="left">
 					<SupportTicketList
-						setSelectedTicket={(ticket: SupportProps) =>
-							setSelectedTicket(ticket)
+						setSelectedTicket={(ticketID: string) =>
+							setSelectedTicket(ticketID)
 						}
 						isLoading={isLoading}
 						tickets={getTikets() ?? []}

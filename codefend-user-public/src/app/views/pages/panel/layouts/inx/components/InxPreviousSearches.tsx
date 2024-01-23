@@ -6,11 +6,11 @@ import {
 	Show,
 	SimpleSection,
 } from '../../../../../components';
-import { PreviusSearch, generateIDArray } from '../../../../../../data';
+import { PreviousSearch, generateIDArray } from '../../../../../../data';
 
 interface InxPreviousSearchesProps {
 	isLoading: boolean;
-	previousSearches: PreviusSearch[];
+	previousSearches: PreviousSearch[];
 }
 
 export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
@@ -46,7 +46,7 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 								<Show when={!props.isLoading} fallback={<PageLoader />}>
 									<>
 										{safelyPreviousSearches().map(
-											(searchData: PreviusSearch, i: number) => (
+											(searchData: PreviousSearch, i: number) => (
 												<div
 													className="flex px-3 py-1 text-format text-gray-400"
 													key={previusKeys[i]}>
@@ -55,9 +55,7 @@ export const InxPreviousSearches: React.FC<InxPreviousSearchesProps> = (
 															{searchData.username}
 														</p>
 														<p className="text-base w-2/4">
-															{searchData.info.split(
-																'queries:',
-															)[1] ?? '--'}
+															{searchData.informacion}
 														</p>
 													</section>
 												</div>

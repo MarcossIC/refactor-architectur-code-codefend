@@ -7,8 +7,6 @@ import {
 } from '../../../../../components';
 import { MemberV2, MetricsService, roleMap } from '../../../../../../data';
 
-type MemberKey = keyof typeof roleMap;
-
 interface SocialEngineeringMembersProps {
 	isLoading: boolean;
 	members: MemberV2[];

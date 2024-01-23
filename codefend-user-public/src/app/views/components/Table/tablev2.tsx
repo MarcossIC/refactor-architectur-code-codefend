@@ -16,6 +16,8 @@ interface TableProps {
 	tableAction?: TableAction;
 	sizeY: number;
 	isSmall?: boolean;
+	selectItem?: (item: any) => void;
+	sort?: Sort;
 }
 
 export interface ColumnTable {
@@ -43,8 +45,10 @@ export const TableV2: React.FC<TableProps> = ({
 	sizeY = 100,
 	showEmpty,
 	isSmall = false,
+	selectItem,
+	sort = Sort.desc,
 }) => {
-	const [sortDirection, setSortDirection] = useState<Sort>(Sort.desc);
+	const [sortDirection, setSortDirection] = useState<Sort>(sort);
 	const [dataSort, setDataSort] = useState<string>(columns[0].name);
 	const [selectedField, setSelectedField] = useState<string>('');
 
@@ -62,7 +66,7 @@ export const TableV2: React.FC<TableProps> = ({
 	}, [rowsData, dataSort, sortDirection]);
 
 	const columnsID = useMemo(() => generateIDArray(columns.length), [columns]);
-	const rowsID = useMemo(() => generateIDArray(rows.length), [rows]);
+	const rowsID = useMemo(() => generateIDArray(rows.length), [rows.length]);
 
 	const handleSort = (columnName: string) => {
 		if (columnName === dataSort) {
@@ -83,12 +87,14 @@ export const TableV2: React.FC<TableProps> = ({
 		return result ?? [];
 	}, [columns]);
 
-	const handleSelected = (e: any, ID: string) => {
+	const handleSelected = (e: any, key: string, ID: string) => {
 		e.preventDefault();
-		e.stopPropagation();
+		if (selectItem !== undefined) {
+			selectItem(ID);
+		}
 
-		if (ID === selectedField) setSelectedField('');
-		else setSelectedField(ID);
+		if (key === selectedField) setSelectedField('');
+		else setSelectedField(key);
 	};
 
 	return (
@@ -134,9 +140,13 @@ export const TableV2: React.FC<TableProps> = ({
 												? 'left-marked'
 												: ''
 										}`}
-										onClick={(e: any) =>
-											handleSelected(e, rowsID[rowIndex])
-										}>
+										onClick={(e: any) => {
+											handleSelected(
+												e,
+												rowsID[rowIndex],
+												row['ID'].value as string,
+											);
+										}}>
 										{columnForRows.map(
 											(column: ColumnTable, i: number) => (
 												<div
@@ -145,10 +155,13 @@ export const TableV2: React.FC<TableProps> = ({
 														row[column.name as keyof typeof row]
 															.style
 													}>
-													{
-														row[column.name as keyof typeof row]
-															.value
-													}
+													<div>
+														{
+															row[
+																column.name as keyof typeof row
+															].value
+														}
+													</div>
 												</div>
 											),
 										)}

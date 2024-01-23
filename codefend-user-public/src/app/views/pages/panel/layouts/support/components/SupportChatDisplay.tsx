@@ -19,17 +19,17 @@ interface SupportChatDisplayProps {}
 
 export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = () => {
 	const { getOneTicket, isLoading, refetch } = useOneTicket();
-	const selectedTicket = useContext(SelectedTicket);
+	const selectedTicketID = useContext(SelectedTicket);
 
 	useEffect(() => {
-		if (selectedTicket) {
-			refetch(selectedTicket.id);
+		if (selectedTicketID.trim().length !== 0) {
+			refetch(selectedTicketID);
 		}
-	}, [selectedTicket]);
+	}, [selectedTicketID]);
 
 	const ticketSelected = () =>
-		'csHeader' in selectedTicket!
-			? selectedTicket
+		getOneTicket() !== undefined
+			? getOneTicket()
 			: ({ csHeader: '' } as SupportProps);
 
 	const childTicket = (): SupportProps[] => getOneTicket()?.childs ?? [];
@@ -53,7 +53,7 @@ export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = () => {
 									}`}>
 									<MessageCard
 										selectedID={ticketSelected().csHeader ?? ''}
-										body={ticketSelected()?.csBody! ?? {}}
+										body={ticketSelected()?.csBody ?? ''}
 										username={ticketSelected()?.userUsername! ?? ''}
 										createdAt={ticketSelected()?.createdAt! ?? ''}
 									/>

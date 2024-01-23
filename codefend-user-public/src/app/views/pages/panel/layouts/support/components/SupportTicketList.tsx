@@ -8,16 +8,16 @@ import {
 } from '../../../../../../data';
 import {
 	ConfirmModal,
-	EmptyCard,
 	MessageIcon,
 	ModalTitleWrapper,
-	PageLoader,
-	Show,
 	TrashIcon,
 	AddTicketModal,
 	TableV2,
+	Sort,
 } from '../../../../../components';
+
 import SelectedTicket from '../supportProvider';
+import { toast } from 'react-toastify';
 
 interface SupportTicketListProps {
 	setSelectedTicket: (state: any) => void;
@@ -30,27 +30,23 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 	const { showModal, showModalStr, setShowModal, setShowModalStr } =
 		useModal();
 	const [selectedID, setSelectedTicketIdToDelete] = useState<string>('');
-	const selectedTicket = useContext(SelectedTicket);
+	const selectedTicketID = useContext(SelectedTicket);
 	const { deletTicket } = useTicketDelete();
-	const handleTicketSelection = (ticket: any) => {
-		if (isSelected(ticket.id)) return;
-		props.setSelectedTicket(ticket);
-	};
-	const isSelected = (id: string) => {
-		return selectedTicket?.id === id;
-	};
 
-	const supportKeys = useMemo(() => {
-		return props.tickets ? generateIDArray(props.tickets.length) : [];
-	}, [props.tickets]);
-
-	const handleDelete = () => {
+	const handleDelete = (
+		e: React.MouseEvent<HTMLDivElement, MouseEvent> | undefined,
+	) => {
+		if (e) {
+			e.preventDefault();
+		}
 		deletTicket(selectedID)?.then(() => {
+			toast.success('Successfully deleted');
 			setShowModal(!showModal);
 			props.refresh();
 		});
 	};
-	const dataTable = props.tickets.reverse().map((ticket: SupportProps) => ({
+	const dataTable = props.tickets.map((ticket: SupportProps) => ({
+		ID: { value: ticket.id, style: '' },
 		author: { value: '@' + ticket.userUsername, style: 'username' },
 		published: { value: ticket.createdAt, style: 'date' },
 		title: { value: ticket.csHeader, style: 'vul-title' },
@@ -82,7 +78,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 					cancelText="Cancel"
 					confirmText="Delete"
 					close={() => setShowModal(!showModal)}
-					action={() => handleDelete()}
+					action={(e) => handleDelete(e)}
 				/>
 			</ModalTitleWrapper>
 			<div className="card">
@@ -118,6 +114,8 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 							setShowModalStr('delete_resource');
 						},
 					}}
+					selectItem={(id: String) => props.setSelectedTicket(id)}
+					sort={Sort.asc}
 				/>
 			</div>
 		</>

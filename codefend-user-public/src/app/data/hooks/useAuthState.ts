@@ -12,8 +12,6 @@ import {
 	registerFinishThunk,
 } from '../redux/thunks/auth.thunk';
 
-
-
 export const useUserAdmin = () => {
 	const authState = useAppSelector(
 		(state: any) => state.authState as AuthState,
@@ -31,10 +29,8 @@ export const useAuthState = () => {
 	const authState = useAppSelector(
 		(state: any) => state.authState as AuthState,
 	);
-
-	const dispatch = useAppDispatch();
-
 	const getUserdata = () => authState.userData;
+	const dispatch = useAppDispatch();
 
 	const getAccessToken = () =>
 		authState.accessToken ? authState.accessToken : '';
@@ -64,7 +60,7 @@ export const useAuthState = () => {
 			.then((response: any) => {
 				const { meta } = response;
 				if (meta.rejectedWithValue) throw Error(response.payload);
-				toast.success(`Signup successful`);
+				toast.success(`Signup phase one successful`);
 				return true;
 			})
 			.catch((error: Error) => {
@@ -82,10 +78,13 @@ export const useAuthState = () => {
 		return dispatch(registerFinishThunk(params))
 			.then((response: any) => {
 				const { meta, payload } = response;
-				console.log(response)
-				if( payload.response === 'success') // <-- aca esta la bronca, quizas puedas agregar el navigate directamente aqui!
-				if (meta.rejectedWithValue && !payload) throw Error(payload);
-				toast.error(`An error occurred during register step`, payload);
+
+				if (payload.response === 'success') {
+					if (meta.rejectedWithValue && !payload) {
+						throw Error(payload);
+					}
+				}
+				toast.success(`Signup successful`);
 				return true;
 			})
 			.catch((error: Error) => {

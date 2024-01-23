@@ -23,11 +23,11 @@ const AdminCompanyLayout: React.FC<Props> = (props) => {
 					</div>
 					<AdminCompanyPanel />
 				</section>
-				<section className="w-4/12 pl-2">
+				 <section className="w-4/12 pl-2">
 					<div className="mt-16 pb-9 title title-format h-16">
 						<AdminCompanyDetails />
 					</div>
-				</section>
+				</section>   
 			</main>
 		</>
 	);

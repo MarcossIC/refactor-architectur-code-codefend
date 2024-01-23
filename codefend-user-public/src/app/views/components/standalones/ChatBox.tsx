@@ -55,7 +55,7 @@ export const ChatBox: React.FC<Props> = (props) => {
 				</div>
 				<PrimaryButton
 					text={<SendIcon />}
-					isDisabled={isAdding || !message}
+					isDisabled={isAdding && !message}
 					click={handleSubmit}
 					className="no-border-height w-14 h-full items-center justify-center"
 				/>

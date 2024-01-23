@@ -56,7 +56,7 @@ export const WebApplicationResources: React.FC<WebResourcesProps> = (props) => {
 				isActive={showModal && showModalStr === 'add_domain'}
 				close={close}
 				headerTitle="Add web resource">
-				<AddDomainModal
+				<AddDomainModal 
 					onDone={() => {
 						setShowModal(!showModal);
 						props.refresh();

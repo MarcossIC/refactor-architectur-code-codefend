@@ -36,7 +36,7 @@ const AddDomainModal: React.FC<AddDomainProps> = (props) => {
 			setIsAddingDomain(false);
 			return;
 		}
-		const user = getUserdata() as User;
+		const user = getUserdata() ;
 		const companyID = user?.companyID as string;
 
 		WebApplicationService.addResource(domainName, companyID)

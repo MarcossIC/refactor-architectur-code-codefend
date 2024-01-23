@@ -6,7 +6,7 @@ import {
 	mapCloudApp,
 	useAuthState,
 } from '../..';
-import { CloudService } from '../../services/cloud.service';
+import { CloudService } from '../../services/panel/cloud.service';
 import { toast } from 'react-toastify';
 
 export const useSelectedCloud = () => {

@@ -1,4 +1,4 @@
-import { fetchPOST, handleFetchError } from './fetchAPI';
+import { fetchPOST, handleFetchError } from '../';
 
 const getAll = async (companyID: string) => {
 	const { data } = (await fetchPOST({

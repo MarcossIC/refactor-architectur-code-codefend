@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useAuthState } from '../../../';
-import { IssueService } from '../../../services/issues.service';
+import { IssueService } from '../../../services/panel/issues.service';
 import { getTinyEditorContent } from '../../../../../editor-lib';
 import { toast } from 'react-toastify';
 

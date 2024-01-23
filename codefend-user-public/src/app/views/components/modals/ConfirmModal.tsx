@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { ButtonLoader, PrimaryButton, SecondaryButton, Show } from '..';
+import { ModalButtons } from '..';
 
 interface ConfirmModalProps {
 	close: () => void;
@@ -21,12 +21,9 @@ const ConfirmModal = (props: ConfirmModalProps) => {
 		},
 		[props.action],
 	);
-	const handleClose = useCallback(
-		(e: any) => {
-			props.close();
-		},
-		[props.close],
-	);
+	const handleClose = useCallback(() => {
+		props.close();
+	}, [props.close]);
 
 	return (
 		<div className="modal flex flex-col">
@@ -35,21 +32,12 @@ const ConfirmModal = (props: ConfirmModalProps) => {
 					{props.header}
 				</h4>
 			</div>
-			<form>
-				<div className="form-buttons">
-					<SecondaryButton
-						text={props.cancelText}
-						click={handleClose}
-						isDisabled={isConfirm}
-						className="btn-cancel codefend_secondary_ac"
-					/>
-					<PrimaryButton
-						text={props.confirmText}
-						click={handleSubmit}
-						isDisabled={isConfirm}
-						className="btn-add codefend_main_ac"
-					/>
-				</div>
+			<form onSubmit={handleSubmit}>
+				<ModalButtons
+					close={handleClose}
+					isDisabled={isConfirm}
+					confirmText={props.confirmText}
+				/>
 			</form>
 		</div>
 	);

@@ -1,10 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import {
-	ButtonLoader,
 	GlobeWebIcon,
-	PrimaryButton,
-	SecondaryButton,
-	Show,
+	ModalButtons,
 } from '../';
 import { toast } from 'react-toastify';
 import {
@@ -71,7 +68,7 @@ const AddSubDomainModal: React.FC<SubdomainModalProps> = (props) => {
 
 	return (
 		<div className="modal subdomain-modal">
-			<form>
+			<form className="w-full flex flex-col gap-y-3" onSubmit={handleSubmit}>
 				<div className="form-input">
 					<span className="form-icon">
 						<div className="codefend-text-red">
@@ -124,20 +121,11 @@ const AddSubDomainModal: React.FC<SubdomainModalProps> = (props) => {
 					/>
 				</div>
 
-				<div className="form-buttons">
-					<SecondaryButton
-						text="Cancel"
-						click={(e: React.FormEvent) => props.close?.()}
-						isDisabled={isAddingSubDomain}
-						className="btn-cancel codefend_secondary_ac"
-					/>
-					<PrimaryButton
-						text="Add web resource"
-						click={handleSubmit}
-						isDisabled={isAddingSubDomain}
-						className="btn-add codefend_main_ac"
-					/>
-				</div>
+				<ModalButtons
+					close={props.close!}
+					isDisabled={isAddingSubDomain}
+					confirmText="Add web resource"
+				/>
 			</form>
 		</div>
 	);

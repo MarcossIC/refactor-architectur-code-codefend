@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-	ButtonLoader,
-	GlobeWebIcon,
-	PrimaryButton,
-	SecondaryButton,
-	Show,
-} from '..';
+import { GlobeWebIcon, ModalButtons } from '..';
 import { toast } from 'react-toastify';
 
 interface AddRepositoryModalProps {
@@ -85,7 +79,7 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 	return (
 		<>
 			<div className="modal text-format">
-				<form className="flex flex-col gap-y-3">
+				<form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
 					<div className="form-input text">
 						<span className="form-icon">
 							<div className="codefend-text-red">
@@ -168,20 +162,11 @@ export const AddRepositoryModal: React.FC<AddRepositoryModalProps> = (
 						</select>
 					</div>
 
-					<div className="form-buttons">
-						<SecondaryButton
-							text="Cancel"
-							click={(e: React.FormEvent) => props.close?.()}
-							isDisabled={sourceCodeForm.isLoading}
-							className="btn-cancel codefend_secondary_ac"
-						/>
-						<PrimaryButton
-							text="Add repository"
-							click={handleSubmit}
-							isDisabled={sourceCodeForm.isLoading}
-							className="btn-add codefend_main_ac"
-						/>
-					</div>
+					<ModalButtons
+						close={props.close!}
+						isDisabled={sourceCodeForm.isLoading}
+						confirmText="Add repository"
+					/>
 				</form>
 			</div>
 		</>

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { WebApplicationService } from '../../services/webapplication.service';
+import { WebApplicationService } from '../../services/panel/webapplication.service';
 import {
 	User,
 	WebapplicationProps,

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAuthState } from '../useAuthState';
-import { DashboardService } from '../../services/dashboard.service';
+import { DashboardService } from '../../services/panel/dashboard.service';
 import { mapGetCompanyToCompanyData } from '../../utils/mapper';
 import { DashboardProps, User } from '../..';
 import { toast } from 'react-toastify';

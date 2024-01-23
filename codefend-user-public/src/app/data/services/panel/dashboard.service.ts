@@ -1,5 +1,4 @@
-import { useAppDispatch } from '..';
-import { fetchPOST, handleFetchError } from './fetchAPI';
+import { fetchPOST, handleFetchError } from '../';
 
 const getCompanyInfo = async (companyId: string | number) => {
 	const { data } = (await fetchPOST({

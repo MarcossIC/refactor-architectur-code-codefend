@@ -26,7 +26,7 @@ const ModalWrapper: React.FC<ModalWrapper> = ({
 	}, []);
 	return (
 		<div
-			onClick={(e) => {
+			onDoubleClick={(e) => {
 				e.preventDefault();
 				e.stopPropagation();
 				action && action();

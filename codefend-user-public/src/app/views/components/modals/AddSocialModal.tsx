@@ -1,14 +1,7 @@
-import { useAuthState } from '../../../data';
-import { SocialAplicationService } from '../../../data/services/social.service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import {
-	ButtonLoader,
-	GlobeWebIcon,
-	PrimaryButton,
-	SecondaryButton,
-	Show,
-} from '..';
+import { useAuthState, SocialAplicationService } from '../../../data';
+import { GlobeWebIcon, ModalButtons } from '..';
 
 interface SocialData {
 	fName: string;
@@ -111,7 +104,7 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 	return (
 		<>
 			<div className="modal text-format">
-				<form className="flex flex-col gap-y-3">
+				<form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
 					<div className="form-input">
 						<span className="form-icon">
 							<div className="codefend-text-red">
@@ -221,20 +214,11 @@ export const MobileAppModal: React.FC<Props> = (props) => {
 							<option value="plan">strategy & planning</option>
 						</select>
 					</div>
-					<div className="form-buttons">
-						<SecondaryButton
-							text="Cancel"
-							click={(e: React.FormEvent) => props.close?.()}
-							isDisabled={isAddingMember}
-							className="btn-cancel codefend_secondary_ac"
-						/>
-						<PrimaryButton
-							text="Add member"
-							click={handleSubmit}
-							isDisabled={isAddingMember}
-							className="btn-add codefend_main_ac"
-						/>
-					</div>
+					<ModalButtons
+						close={props.close!}
+						isDisabled={isAddingMember}
+						confirmText="Add member"
+					/>
 				</form>
 			</div>
 		</>

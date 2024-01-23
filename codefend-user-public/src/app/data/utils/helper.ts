@@ -11,6 +11,18 @@ export const setToken = (token: string) =>
 export const persistUser = (userData: User) =>
 	window.localStorage.setItem('user', JSON.stringify(userData));
 
+/** GET base api url in localStorage */
+export const getCustomBaseAPi = () =>
+	window.localStorage.getItem('baseApi') ?? '';
+
+/** SET baseApi in localStorage */
+export const setCustomBaseAPi = (baseApi: string) =>
+	window.localStorage.setItem('baseApi', baseApi);
+
+/** delete custom base APi */
+export const deleteCustomBaseAPi = () =>
+	window.localStorage.removeItem('baseApi');
+
 /** persist user data in localStorage */
 export const getUser = (): User | null => {
 	const userData = window.localStorage.getItem('user');

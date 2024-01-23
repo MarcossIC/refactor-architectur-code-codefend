@@ -2,16 +2,22 @@ import React, { lazy, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../../data/redux/slices/auth.slice';
-import { User, clearAuth, useAuthState } from '../../../../data';
-import { ConfirmModal, LogoutIcon, ModalWrapper, Show } from '../..';
+import { User, clearAuth, useAuthState, useModal } from '../../../../data';
+import {
+	ConfirmModal,
+	LogoutIcon,
+	ModalWrapper,
+	NetworkIcon,
+	Show,
+} from '../..';
 import './navbar.scss';
+import { NetworkSetingModal } from '../../modals/NetworkSetingModal';
 
 const Logo = lazy(() => import('../../defaults/Logo'));
 
 const Navbar: React.FC = () => {
-	const { getUserdata } = useAuthState();
-	const userData = getUserdata() as User;
-	const [logoutModal, setLogoutModal] = useState<boolean>(false);
+	const { showModal, showModalStr, setShowModal, setShowModalStr } =
+		useModal();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -24,8 +30,8 @@ const Navbar: React.FC = () => {
 	return (
 		<>
 			<nav className="navbar">
-				<Show when={logoutModal}>
-					<ModalWrapper action={() => setLogoutModal(false)}>
+				<Show when={showModal && showModalStr === 'logout'}>
+					<ModalWrapper action={() => setShowModal(!showModal)}>
 						<div
 							className="modal-wrapper-title internal-tables disable-border"
 							onClick={(e) => {
@@ -36,9 +42,27 @@ const Navbar: React.FC = () => {
 								header="ARE YOU SURE YOU WANT TO LOGOUT?"
 								cancelText="Cancel"
 								confirmText="Logout"
-								close={() => setLogoutModal(false)}
+								close={() => setShowModal(!showModal)}
 								action={() => handleLogout()}
 							/>
+						</div>
+					</ModalWrapper>
+				</Show>
+				<Show when={showModal && showModalStr === 'network_setting'}>
+					<ModalWrapper action={() => setShowModal(!showModal)}>
+						<div
+							className="modal-wrapper-title internal-tables disable-border"
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+							}}>
+							<div className="w-full mt-4">
+								<div className="w-full px-8 disable-border">
+									<NetworkSetingModal
+										close={() => setShowModal(!showModal)}
+									/>
+								</div>
+							</div>
 						</div>
 					</ModalWrapper>
 				</Show>
@@ -50,10 +74,23 @@ const Navbar: React.FC = () => {
 					</Link>
 				</div>
 
-				<div title="Logout" className="navbar-logount">
+				<div title="Logout" className="gap-x-6 flex items-center">
+					<div
+						title="Network Setting"
+						onClick={() => {
+							setShowModal(!showModal);
+							setShowModalStr('network_setting');
+						}}>
+						<NetworkIcon width={1.35} height={1.35} />
+					</div>
+
 					<span
 						className="navbar-logout-icon"
-						onClick={(e: React.FormEvent) => setLogoutModal(true)}>
+						onClick={(e: React.FormEvent) => {
+							e.preventDefault();
+							setShowModalStr('logout');
+							setShowModal(!showModal);
+						}}>
 						<LogoutIcon />
 					</span>
 				</div>

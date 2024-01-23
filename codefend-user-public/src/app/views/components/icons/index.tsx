@@ -442,7 +442,6 @@ export const AdminUser = () => (
 		strokeWidth={0}
 		height="1em"
 		width="1em"
-		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 448 512"
 		color="currentColor"
 		fill="currentColor"
@@ -456,7 +455,6 @@ export const AdminCompany = () => (
 		strokeWidth={0}
 		height="1em"
 		width="1em"
-		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 384 512"
 		color="currentColor"
 		fill="currentColor"
@@ -470,7 +468,6 @@ export const ScanSearchIcon = ({ isButton }: { isButton?: boolean }) => (
 		strokeWidth={0}
 		height="1.3em"
 		width="1.3em"
-		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 1024 1024"
 		color="currentColor"
 		fill="currentColor"
@@ -481,5 +478,70 @@ export const ScanSearchIcon = ({ isButton }: { isButton?: boolean }) => (
 		<path
 			style={{ cursor: !isButton ? 'default' : 'pointer' }}
 			d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 0 0 0-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>
+	</svg>
+);
+
+export const EditIcon = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		viewBox="0 0 24 24"
+		color="currentColor"
+		fill="currentColor"
+		style={{
+			overflow: 'visible',
+			cursor: 'pointer',
+		}}>
+		<path
+			style={{ cursor: 'pointer' }}
+			d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path>
+	</svg>
+);
+
+export const NetworkIcon = ({
+	width,
+	height,
+}: {
+	width: number;
+	height: number;
+}) => (
+	<svg
+		strokeWidth={2}
+		height="1em"
+		width="1em"
+		viewBox="0 0 24 24"
+		stroke="currentColor"
+		fill="none"
+		color="currentColor"
+		strokeLinecap={'round'}
+		strokeLinejoin={'round'}
+		style={{
+			overflow: 'visible',
+			cursor: 'pointer',
+			width: width + 'rem',
+			height: height + 'rem',
+		}}>
+		<path
+			style={{ cursor: 'pointer' }}
+			stroke="none"
+			d="M0 0h24v24H0z"
+			fill="none"></path>
+		<path
+			style={{ cursor: 'pointer' }}
+			d="M12 9m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"></path>
+		<path
+			style={{ cursor: 'pointer' }}
+			d="M12 3c1.333 .333 2 2.333 2 6s-.667 5.667 -2 6"></path>
+		<path
+			style={{ cursor: 'pointer' }}
+			d="M12 3c-1.333 .333 -2 2.333 -2 6s.667 5.667 2 6"></path>
+		<path style={{ cursor: 'pointer' }} d="M6 9h12"></path>
+		<path style={{ cursor: 'pointer' }} d="M3 19h7"></path>
+		<path style={{ cursor: 'pointer' }} d="M14 19h7"></path>
+		<path
+			style={{ cursor: 'pointer' }}
+			d="M12 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+		<path d="M12 15v2"></path>
 	</svg>
 );

@@ -7,8 +7,8 @@ interface CompanyData {
 	name: string;
 	web?: string;
 	country?: string;
-	city?:string;
-	size?:string;
+	city?: string;
+	size?: string;
 	address?: string;
 	canRead: boolean;
 	canWrite: boolean;
@@ -34,16 +34,17 @@ const createEmptyUser = (): UserData => ({
 	read_array: [],
 });
 
-
 const AdminCompanyDetails: React.FC = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
 	const [usersToShow, setUsersToShow] = useState<UserData[]>([]);
 	const [filterUsers, setFilterUsers] = useState<UserData[]>([]);
 	const [companyUsers, setCompanyUsers] = useState<any[]>([]);
-	const [selectedUser, setSelectedUser] = useState<UserData>(createEmptyUser());
+	const [selectedUser, setSelectedUser] =
+		useState<UserData>(createEmptyUser());
 	const [companyStore, setCompanyStore] = useState<CompanyData | null>(null);
 
-	useEffect(() => {
+	
+	 useEffect(() => {
 		if (companyStore!.id) {
 			ApiHandlers.getPanelUsers().then((res: any) => {
 				const usersMapped = res.data.map((user: any) => ({
@@ -58,7 +59,8 @@ const AdminCompanyDetails: React.FC = () => {
 				setUsersToShow(usersMapped);
 			});
 		}
-	}, [companyStore]);
+		console.log(companyStore)
+	}, [companyStore]); 
 
 	const handleInputChange = (value: any) => {
 		const maxResults = 3;
@@ -137,10 +139,13 @@ const AdminCompanyDetails: React.FC = () => {
 												<input
 													type="text"
 													onKeyUp={(e) => {
-														if (e.target instanceof HTMLInputElement) {
+														if (
+															e.target instanceof
+															HTMLInputElement
+														) {
 															handleInputChange(e.target.value);
 														}
-													}}													
+													}}
 													className="block w-full py-3 bg-white px-11 log-inputs dark:text-gray-300"
 													placeholder="User name"></input>
 											</Show>
@@ -245,22 +250,34 @@ const AdminCompanyDetails: React.FC = () => {
 							</p>
 						</div>
 						<div className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base pt-3 pb-3">{`name: ${companyStore!.name}`}</p>
+							<p className="text-base pt-3 pb-3">{`name: ${
+								companyStore!.name
+							}`}</p>
 						</div>
 						<div className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base pt-3 pb-3">{`website: ${companyStore!.web}`}</p>
+							<p className="text-base pt-3 pb-3">{`website: ${
+								companyStore!.web
+							}`}</p>
 						</div>
 						<div className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base pt-3 pb-3">{`country: ${companyStore!.country}`}</p>
+							<p className="text-base pt-3 pb-3">{`country: ${
+								companyStore!.country
+							}`}</p>
 						</div>
 						<div className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base pt-3 pb-3">{`city: ${companyStore!.city}`}</p>
+							<p className="text-base pt-3 pb-3">{`city: ${
+								companyStore!.city
+							}`}</p>
 						</div>
 						<div className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base pt-3 pb-3">{`address: ${companyStore!.address}`}</p>
+							<p className="text-base pt-3 pb-3">{`address: ${
+								companyStore!.address
+							}`}</p>
 						</div>
 						<div className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base pt-3 pb-3">{`size: ${companyStore!.size}`}</p>
+							<p className="text-base pt-3 pb-3">{`size: ${
+								companyStore!.size
+							}`}</p>
 						</div>
 					</div>
 					<div className="w-full internal-tables mt-4 max-h-80 overflow-y-scroll">

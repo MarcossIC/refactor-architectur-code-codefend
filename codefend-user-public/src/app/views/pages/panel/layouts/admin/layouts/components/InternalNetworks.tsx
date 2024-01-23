@@ -1,57 +1,51 @@
-import {  useModal } from '../../../../../../../data';
+import { Show } from '../../../../../../components/';
+import { User, useModal } from '../../../../../../../data';
 import { ApiHandlers } from '../../../../../../../data/services/api.service';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import CompanyIndexView from './CompanyIndexView';
+
+interface AppState {
+  companyStore: any | null;
+  showModal: boolean;
+  usersToShow: any[]; 
+  filterUsers: any[]; 
+  companyUsers: any[]; 
+  selectedUser: any | null;
+}
+
+const initialAppState: AppState = {
+	companyStore: null,
+	showModal: false,
+	usersToShow: [],
+	filterUsers: [] ,
+	companyUsers: [],
+	selectedUser: null,
+};
 
 export const AdminCompanyPanel: React.FC<any> = () => {
-	const [state, setState] = useState({
-		companies: [],
-		showModal: false,
-		companyName: '',
-		companyURL: '',
-		companyCountry: '',
-		companyAddress: '',
-		companyCity: '',
-		companySize: '',
-		scanLoading: false,
-	});
+	const [
+		{ companyStore, companyUsers, filterUsers, selectedUser, usersToShow },
+		setAppState,
+	] = useState(initialAppState);
 
-	const { companies } = state;
-	const [ companyStore, setCompanyStore ] = useState();
 	const { setShowModal, showModal } = useModal();
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const res = await ApiHandlers.getPanelCompanies();
-				setState((prevState: any) => ({
-					...prevState,
-					companies: res,
-				}));
-			} catch (error) {
-				console.error('Error fetching companies:', error);
-			}
-		};
-
-		fetchData();
-	}, []);
-
-	const handleInputChange = (e: any) => {
-		setState({
-			...state,
-			companyName: e.target.value,
-		});
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setAppState((prevUserState) => ({
+			...prevUserState,
+			[name]: value,
+		}));
 	};
 
 	const handleCreateCompany = (e: any) => {
 		e.preventDefault();
 
 		const requestBody = {
-			companyName: state.companyName,
-			companyWeb: state.companyURL,
-			companyAddress: state.companyAddress,
-			companySize: state.companySize,
-			companyCountry: state.companyCountry,
-			companyCity: state.companyCity,
+			userId: selectedUser!.id,
+      companyId: companyStore!.id,
+      canWrite: selectedUser!.canWrite,
+      canRead: selectedUser!.canRead,
 		};
 
 		return ApiHandlers.createCompanyHandler(requestBody);
@@ -59,7 +53,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 	return (
 		<>
-			{state.showModal && (
+			<Show when={showModal}>
 				<div
 					onClick={() => {
 						setShowModal(!showModal);
@@ -85,7 +79,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 											<input
 												type="text"
-												onChange={handleInputChange}
+												onChange={handleChange}
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company name"></input>
 										</div>
@@ -95,7 +89,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 											<input
 												type="text"
-												onChange={handleInputChange}
+												onChange={handleChange}
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company URL"></input>
 										</div>
@@ -104,7 +98,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 											<input
 												type="text"
-												onChange={handleInputChange}
+												onChange={handleChange}
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company size"></input>
 										</div>
@@ -113,7 +107,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 											<input
 												type="text"
-												onChange={handleInputChange}
+												onChange={handleChange}
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company Country"></input>
 										</div>
@@ -122,7 +116,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 											<input
 												type="text"
-												onChange={handleInputChange}
+												onChange={handleChange}
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company City"></input>
 										</div>
@@ -131,7 +125,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 											<input
 												type="text"
-												onChange={handleInputChange}
+												onChange={handleChange}
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company Adress"></input>
 										</div>
@@ -157,7 +151,7 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 						</div>
 					</div>
 				</div>
-			)}
+			</Show>
 
 			<div className="w-full internal-tables">
 				<div className="p-3 pl-8 internal-tables-active flex">
@@ -173,34 +167,31 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 					</p>
 				</div>
 
-				<div className="flex p-3 pl-8 text-format">
-					<p className="text-base w-1/12">id</p>
-					<p className="text-base w-4/12">company name</p>
-					<p className="text-base w-3/12">country</p>
-					<p className="text-base w-4/12">web</p>
-				</div>
+				{/* <div className="flex p-3 pl-8 text-format">
+          <p className="text-base w-1/12">id</p>
+          <p className="text-base w-4/12">company name</p>
+          <p className="text-base w-3/12">country</p>
+          <p className="text-base w-4/12">web</p>
+        </div> */}
 			</div>
-			<div className="w-full internal-tables internal-tables-scroll">
-				<div>
-					{companies.map((company: any) => (
-						<div
-							key={company.id} // Asegúrate de proporcionar una clave única para cada elemento
-							onClick={() => {
-								setCompanyStore(company);
-							}}
-							className="flex pl-8 text-format cursor-pointer">
-							<p className="text-base w-1/12 pt-3 pb-3">{company.id}</p>
-							<p className="w-4/12 text-base pt-3 pb-3">
-								{company.name}
-							</p>
-							<p className="text-base w-3/12 pt-3 pb-3">
-								{company.country}
-							</p>
-							<p className="text-base w-4/12 pt-3 pb-3">{company.web}</p>
-						</div>
-					))}
-				</div>
-			</div>
+			{/* <div className="w-full internal-tables internal-tables-scroll">
+        <For each={companies()}>
+          {(company) => (
+            <div
+              onClick={() => {
+                setCompanyStore(company);
+              }}
+              className="flex pl-8 text-format cursor-pointer"
+            >
+              <p className="text-base w-1/12 pt-3 pb-3">{company.id}</p>
+              <p className="w-4/12 text-base pt-3 pb-3">{company.name}</p>
+              <p className="text-base w-3/12 pt-3 pb-3">{company.country}</p>
+              <p className="text-base w-4/12 pt-3 pb-3">{company.web}</p>
+            </div>
+          )}
+        </For>
+      </div> */}
+			<CompanyIndexView />
 		</>
 	);
 };

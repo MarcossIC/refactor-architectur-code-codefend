@@ -145,10 +145,12 @@ export const TableV2: React.FC<TableProps> = ({
 														row[column.name as keyof typeof row]
 															.style
 													}>
+													<div>
 													{
 														row[column.name as keyof typeof row]
 															.value
 													}
+													</div>
 												</div>
 											),
 										)}

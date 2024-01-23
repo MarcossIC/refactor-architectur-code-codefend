@@ -10,7 +10,6 @@ interface Props {
 
 export const MessageCard: React.FC<Props> = (props) => {
 	const { getUserdata } = useAuthState();
-	console.log();
 	const isAuthUserChat = MetricsService.isUserChat(
 		props.selectedID,
 		getUserdata(),

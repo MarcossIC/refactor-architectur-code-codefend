@@ -81,7 +81,7 @@ export const useAuthState = () => {
 			.then((response: any) => {
 				const { meta } = response;
 				if (meta.rejectedWithValue) throw Error(response.payload);
-				toast.success(`An error occurred during register step`);
+				toast.error(`An error occurred during register step`, response.payload);
 				return true;
 			})
 			.catch((error: Error) => {

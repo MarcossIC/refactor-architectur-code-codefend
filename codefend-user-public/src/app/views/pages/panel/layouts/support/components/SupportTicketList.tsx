@@ -118,6 +118,6 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 					sort={Sort.asc}
 				/>
 			</div>
-		</>
+	</>
 	);
 };

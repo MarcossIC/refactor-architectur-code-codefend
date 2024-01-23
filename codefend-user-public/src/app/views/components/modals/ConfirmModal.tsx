@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { PrimaryButton, SecondaryButton } from '..';
 
+
 interface ConfirmModalProps {
 	close: () => void;
-	action: (e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+	action: (e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void 
 	header: string;
 	confirmText: string;
 	cancelText: string;
@@ -14,10 +15,8 @@ const ConfirmModal = (props: ConfirmModalProps) => {
 	const [isConfirm, setConfirm] = useState<boolean>(false);
 
 	const handleSubmit = useCallback(
-		(e: any) => {
+		(e: React.MouseEvent | React.FormEvent<HTMLButtonElement>) => {
 			e.preventDefault();
-			e.stopPropagation();
-
 			setConfirm(true);
 			props.action();
 		},

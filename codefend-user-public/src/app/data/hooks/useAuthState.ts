@@ -12,6 +12,8 @@ import {
 	registerFinishThunk,
 } from '../redux/thunks/auth.thunk';
 
+
+
 export const useUserAdmin = () => {
 	const authState = useAppSelector(
 		(state: any) => state.authState as AuthState,
@@ -79,9 +81,11 @@ export const useAuthState = () => {
 	const signUpFinish = async (params: any): Promise<boolean> => {
 		return dispatch(registerFinishThunk(params))
 			.then((response: any) => {
-				const { meta } = response;
-				if (meta.rejectedWithValue) throw Error(response.payload);
-				toast.success(`An error occurred during register step`);
+				const { meta, payload } = response;
+				console.log(response)
+				if( payload.response === 'success') // <-- aca esta la bronca, quizas puedas agregar el navigate directamente aqui!
+				if (meta.rejectedWithValue && !payload) throw Error(payload);
+				toast.error(`An error occurred during register step`, payload);
 				return true;
 			})
 			.catch((error: Error) => {

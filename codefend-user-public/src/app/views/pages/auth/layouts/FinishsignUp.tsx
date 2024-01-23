@@ -10,6 +10,7 @@ import { useAuthState, RegisterFinishParams } from '../../../../data';
 const FinishSignUpLayout = () => {
 	const loading = useAppSelector((state: any) => state.authState.loading);
 	const { signUpFinish } = useAuthState();
+	
 	const [userState, setUserState] = useState({
 		email: '',
 		password: '',
@@ -29,6 +30,7 @@ const FinishSignUpLayout = () => {
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault()
 		if (userState.password !== userState.confirmPassword) {
 			return toast.error(
 				'Password does not match, Kindly check and try again !!!',
@@ -61,11 +63,12 @@ const FinishSignUpLayout = () => {
 
 		signUpFinish(requestParams)
 			.then((response: any) => {
+				console.log(response)
 				if (response?.data?.error && response.data.error != 0) {
 					return toast.error(response.data.info);
 				}
 
-				if (response.status != 200) {
+				if (response.status != 401) {
 					return toast.error('An error has occurred...');
 				}
 
@@ -102,35 +105,41 @@ const FinishSignUpLayout = () => {
 							</span>
 						</div>
 						<form onSubmit={handleSubmit}>
-							<div className="mt-2">
-								<input
-									type="email"
-									onChange={handleChange}
-									className="w-full"
-									placeholder="Select Username"
-									required
-								/>
-							</div>
+						<div className="mt-2">
+            <input
+              type="email"
+              name="email"
+              value={userState.email}
+              onChange={handleChange}
+              className="w-full"
+              placeholder="Select Username"
+              required
+            />
+          </div>
 
-							<div className="mt-2">
-								<input
-									type="password"
-									onChange={handleChange}
-									className="w-full"
-									placeholder="Select Password"
-									required
-								/>
-							</div>
+          <div className="mt-2">
+            <input
+              type="password"
+              name="password"
+              value={userState.password}
+              onChange={handleChange}
+              className="w-full"
+              placeholder="Select Password"
+              required
+            />
+          </div>
 
-							<div className="mt-2">
-								<input
-									type="password"
-									onChange={handleChange}
-									className="w-full"
-									placeholder="Select Confirm Password"
-									required
-								/>
-							</div>
+          <div className="mt-2">
+            <input
+              type="password"
+              name="confirmPassword"
+              value={userState.confirmPassword}
+              onChange={handleChange}
+              className="w-full"
+              placeholder="Select Confirm Password"
+              required
+            />
+          </div>
 
 							<div className="mt-6">
 								<span className="text-sm text-alt3">

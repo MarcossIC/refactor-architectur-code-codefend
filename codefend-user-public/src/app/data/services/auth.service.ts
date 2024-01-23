@@ -21,15 +21,9 @@ const registerFinish = async (registerParams: any): Promise<any> => {
 		params: {
 			model: 'users/new',
 			phase: 2,
-			username: registerParams.email,
-			password: registerParams.password,
-			lead_reference_number: registerParams.ref,
+			...registerParams
 		},
 	}).catch((error: any) => handleFetchError(error))) as any;
-
-	const response = data.response as string;
-	if (response === 'success') {
-	}
 
 	return { data, status };
 };

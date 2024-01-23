@@ -6,6 +6,7 @@ import {
 	useTicketDelete,
 } from '../../../../../../data';
 import {
+	AddTicketModal,
 	ConfirmModal,
 	EmptyCard,
 	MessageIcon,
@@ -13,9 +14,9 @@ import {
 	PageLoader,
 	Show,
 	TrashIcon,
-	AddTicketModal,
 } from '../../../../../components';
 import SelectedTicket from '../supportProvider';
+import { toast } from 'react-toastify';
 
 interface SupportTicketListProps {
 	setSelectedTicket: (state: any) => void;
@@ -42,8 +43,12 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 		return props.tickets ? generateIDArray(props.tickets.length) : [];
 	}, [props.tickets]);
 
-	const handleDelete = () => {
+	const handleDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent> | undefined) => {
+		if (e) {
+			e.preventDefault();
+		}
 		deletTicket(selectedID)?.then(() => {
+			toast.success('Successfully deleted')
 			setShowModal(!showModal);
 			props.refresh();
 		});
@@ -73,7 +78,7 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 					cancelText="Cancel"
 					confirmText="Delete"
 					close={() => setShowModal(!showModal)}
-					action={() => handleDelete()}
+					action={(e) => handleDelete(e)}
 				/>
 			</ModalTitleWrapper>
 			<div className="card table">

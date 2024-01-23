@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import {
 	GlobeWebIcon,
 	ModalButtons,
 } from '../';
-import { toast } from 'react-toastify';
 import {
 	User,
 	WebApplicationService,

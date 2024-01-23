@@ -8,6 +8,7 @@ interface Props {
 	selectedID: string;
 }
 
+
 export const ChatBox: React.FC<Props> = (props) => {
 	const {
 		message,
@@ -20,6 +21,7 @@ export const ChatBox: React.FC<Props> = (props) => {
 	const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const handleSubmit = (e: React.FormEvent) => {
+		e.stopPropagation();
 		e.preventDefault();
 		if (props.type === ChatBoxType.ISSUE) {
 			handleIssueSubmit(props.selectedID, props.onDone);

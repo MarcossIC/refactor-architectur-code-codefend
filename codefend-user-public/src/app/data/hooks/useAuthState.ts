@@ -11,8 +11,7 @@ import {
 	registerThunk,
 	registerFinishThunk,
 } from '../redux/thunks/auth.thunk';
-
-
+import { useNavigate } from 'react-router';
 
 export const useUserAdmin = () => {
 	const authState = useAppSelector(
@@ -31,7 +30,7 @@ export const useAuthState = () => {
 	const authState = useAppSelector(
 		(state: any) => state.authState as AuthState,
 	);
-
+	const navigate = useNavigate()
 	const dispatch = useAppDispatch();
 
 	const getUserdata = () => authState.userData;
@@ -82,10 +81,10 @@ export const useAuthState = () => {
 		return dispatch(registerFinishThunk(params))
 			.then((response: any) => {
 				const { meta, payload } = response;
-				console.log(response)
-				if( payload.response === 'success') // <-- aca esta la bronca, quizas puedas agregar el navigate directamente aqui!
-				if (meta.rejectedWithValue && !payload) throw Error(payload);
-				toast.error(`An error occurred during register step`, payload);
+				console.log(response);
+				if (payload.response === 'success') {
+					navigate('/dashboard')
+				}
 				return true;
 			})
 			.catch((error: Error) => {

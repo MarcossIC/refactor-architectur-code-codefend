@@ -42,8 +42,8 @@ export const useChatbox = () => {
 				onDone();
 			})
 			.catch((error: any) => {
-				console.log(error.response)
-				toast.error(error.response)
+				console.log(error.response);
+				toast.error(error.response);
 			})
 			.finally(() => {
 				setIsAdding(false);

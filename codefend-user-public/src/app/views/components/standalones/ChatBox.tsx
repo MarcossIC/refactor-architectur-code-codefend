@@ -8,7 +8,6 @@ interface Props {
 	selectedID: string;
 }
 
-
 export const ChatBox: React.FC<Props> = (props) => {
 	const {
 		message,
@@ -57,8 +56,9 @@ export const ChatBox: React.FC<Props> = (props) => {
 				</div>
 				<PrimaryButton
 					text={<SendIcon />}
-					isDisabled={isAdding && !message}
+					isDisabled={isAdding || !message.trim()}
 					click={handleSubmit}
+					disabledLoader
 					className="no-border-height w-14 h-full items-center justify-center"
 				/>
 			</div>

@@ -13,6 +13,7 @@ import {
 	Show,
 	SimpleSection,
 } from '../../../../../components';
+import { useLocation } from 'react-router';
 
 interface Props {
 	isLoading: boolean;
@@ -27,7 +28,7 @@ export const IssueChatDisplay: React.FC<Props> = ({
 	const getIssue = useCallback((): IssueMessage[] => {
 		return selectedIssue?.cs ?? [];
 	}, [selectedIssue]);
-
+	const location = useLocation();
 	const messageKeys = useMemo(
 		(): string[] =>
 			Boolean(getIssue().length)
@@ -37,7 +38,11 @@ export const IssueChatDisplay: React.FC<Props> = ({
 	);
 
 	return (
-		<div className="card messages">
+		<div
+			className={`card messages ${
+				location.pathname.startsWith('/issues/create') &&
+				'opacity-70 z-10 pointer-events-none animate-pulse"'
+			}`}>
 			<SimpleSection header="Customer support" icon={<MessageIcon />}>
 				<>
 					<div className="content">

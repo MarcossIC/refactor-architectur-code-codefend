@@ -375,7 +375,6 @@ export const ErrorIcon = () => (
 		strokeWidth={0}
 		height="1em"
 		width="1em"
-		xmlns="http://www.w3.org/2000/svg"
 		className="codefend-text-red"
 		fill="currentColor"
 		viewBox="0 0 16 16"
@@ -393,7 +392,6 @@ export const VdbIcon = () => (
 		strokeWidth={0}
 		height="1em"
 		width="1em"
-		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 1024 1024"
 		color="currentColor"
 		fill="currentColor"
@@ -549,5 +547,39 @@ export const NetworkIcon = ({
 			style={{ cursor: 'pointer' }}
 			d="M12 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
 		<path d="M12 15v2"></path>
+	</svg>
+);
+
+export const CompanyIcon = () => (
+	<svg
+		strokeWidth={0}
+		height="1em"
+		width="1em"
+		viewBox="0 0 640 512"
+		color="currentColor"
+		fill="currentColor"
+		style={{
+			overflow: 'visible',
+		}}>
+		<path d="M48 0C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h96v-80c0-26.5 21.5-48 48-48s48 21.5 48 48v80h89.9c-6.3-10.2-9.9-22.2-9.9-35.1 0-46.9 25.8-87.8 64-109.2V48c0-26.5-21.5-48-48-48H48zm16 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-32zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16zm304 176a80 80 0 1 0-160 0 80 80 0 1 0 160 0zM352 477.1c0 19.3 15.6 34.9 34.9 34.9h218.2c19.3 0 34.9-15.6 34.9-34.9 0-51.4-41.7-93.1-93.1-93.1H445.1c-51.4 0-93.1 41.7-93.1 93.1z"></path>
+	</svg>
+);
+
+export const RigthArrowIcon = () => (
+	<svg
+		strokeWidth={2}
+		height="1em"
+		width="1em"
+		viewBox="0 0 24 24"
+		stroke="currentColor"
+		fill="none"
+		strokeLinecap={'round'}
+		strokeLinejoin={'round'}
+		color="currentColor"
+		style={{
+			overflow: 'visible',
+		}}>
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M4 9h8v-3.586a1 1 0 0 1 1.707 -.707l6.586 6.586a1 1 0 0 1 0 1.414l-6.586 6.586a1 1 0 0 1 -1.707 -.707v-3.586h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1z"></path>
 	</svg>
 );

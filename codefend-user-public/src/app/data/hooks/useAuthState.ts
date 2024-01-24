@@ -11,6 +11,7 @@ import {
 	registerThunk,
 	registerFinishThunk,
 } from '../redux/thunks/auth.thunk';
+import { useNavigate } from 'react-router';
 
 export const useUserAdmin = () => {
 	const authState = useAppSelector(
@@ -29,6 +30,7 @@ export const useAuthState = () => {
 	const authState = useAppSelector(
 		(state: any) => state.authState as AuthState,
 	);
+	const navigate = useNavigate();
 	const getUserdata = () => authState.userData;
 	const dispatch = useAppDispatch();
 
@@ -78,13 +80,10 @@ export const useAuthState = () => {
 		return dispatch(registerFinishThunk(params))
 			.then((response: any) => {
 				const { meta, payload } = response;
-
+				console.log(response);
 				if (payload.response === 'success') {
-					if (meta.rejectedWithValue && !payload) {
-						throw Error(payload);
-					}
+					//navigate('/dashboard')
 				}
-				toast.success(`Signup successful`);
 				return true;
 			})
 			.catch((error: Error) => {

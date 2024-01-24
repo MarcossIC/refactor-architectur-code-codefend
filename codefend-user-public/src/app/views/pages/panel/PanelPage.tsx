@@ -39,13 +39,9 @@ export const PanelPage: React.FC = () => {
 					/>
 				</Show>
 
-				<Suspense>
-					<Navbar />
-				</Suspense>
-				<Suspense>
-					<Sidebar />
-				</Suspense>
 				<Suspense fallback={<Loader />}>
+					<Navbar />
+					<Sidebar />
 					<Outlet />
 				</Suspense>
 			</>

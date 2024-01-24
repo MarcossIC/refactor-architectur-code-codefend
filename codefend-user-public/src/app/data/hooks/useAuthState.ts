@@ -83,7 +83,7 @@ export const useAuthState = () => {
 				const { meta, payload } = response;
 				console.log(response);
 				if (payload.response === 'success') {
-					navigate('/dashboard')
+					navigate('/auth/signin');
 				}
 				return true;
 			})

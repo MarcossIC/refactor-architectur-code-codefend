@@ -1,7 +1,7 @@
-import { Show } from '../../../../../../components/';
-import { User, useModal } from '../../../../../../../data';
+import { ChangeEvent, useState } from 'react';
+import { useModal } from '../../../../../../../data';
 import { ApiHandlers } from '../../../../../../../data/services/api.service';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { Show } from '../../../../../../components/';
 import CompanyIndexView from './CompanyIndexView';
 
 interface AppState {

@@ -3,18 +3,13 @@ import React, { useEffect, useState } from 'react';
 import CompanyCard from './CompanyCard';
 import "./CompanyIndexView.scss";
 import { SearchIcon } from '../../../../../../components';
+import { useCompanyContext } from '../CompanyContext';
 
-const initialCompanyState = {
-	companies: defaultCompanyCardData,
-	searchQuery: '',
-	companyStore: [] as any,
-};
 
 const CompanyIndexView: React.FC = () => {
-	const [{ companies, companyStore, searchQuery }, setCompanyState] =
-		useState(initialCompanyState);
-
-		console.log(companies)
+	const {actions,  state} = useCompanyContext()
+	const { searchQuery, companies} = state
+	const {handleChange, handleClick, isSelectedCompany} = actions
 
 	const companiesToRender = () => {
 		if (searchQuery.trim() === '' || searchQuery.trim().length < 2)
@@ -31,13 +26,6 @@ const CompanyIndexView: React.FC = () => {
 		companiesToRender()
 	})
 
-	const isSelectedCompany = (company: any) => {
-		if (!company || !company?.id) return false;
-
-		const selected = companyStore?.id === company?.id;
-		return selected;
-	};
-
 	return (
 		<>
 			<div className="CompanyIndexView">
@@ -46,12 +34,13 @@ const CompanyIndexView: React.FC = () => {
 						<input
 							type="text"
 							value={searchQuery}
-							onChange={(e) =>
+							/* onChange={(e) =>
 								setCompanyState((prevState) => ({
 									...prevState,
 									searchQuery: e.target.value,
 								}))
-							}
+							} */
+							onChange={handleChange}
 							placeholder="Search Company"
 							className="text w-full"
 							required
@@ -64,7 +53,7 @@ const CompanyIndexView: React.FC = () => {
 				<div className="companies">
 					{companiesToRender().map((company: any) => (
 						<div
-							onClick={() => {
+							/* onClick={() => {
 								setCompanyState((prevState) => {
 									if (isSelectedCompany(company)) {
 										return { ...prevState, companyStore: null };
@@ -72,7 +61,8 @@ const CompanyIndexView: React.FC = () => {
 										return { ...prevState, companyStore: company };
 									}
 								});
-							}}
+							}} */
+							onClick={() => handleClick(company)}
 							key={company.id}
 							className={`company ${
 								isSelectedCompany(company) ? 'selected' : ''

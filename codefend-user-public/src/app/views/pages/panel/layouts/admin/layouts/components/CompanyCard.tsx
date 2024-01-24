@@ -39,7 +39,7 @@ const CompanyCard: React.FC<Company> = (props) => {
 					<a
 						href="/dashboard"
 						className={`pointer-events-auto link underline z-100 ${
-							props.isSelected ? 'invisible' : 'visible'
+							props.isSelected ? 'visible' : 'invisible'
 						}`}
 						onClick={(e) => {
 							e.preventDefault();

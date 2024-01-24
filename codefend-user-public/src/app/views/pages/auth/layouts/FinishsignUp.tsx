@@ -68,7 +68,7 @@ const FinishSignUpLayout = () => {
 					return toast.error(response.data.info);
 				}
 
-				if (response.status != 401) {
+			/* 	if (response.status != 401) {
 					return toast.error('An error has occurred...');
 				}
 
@@ -78,11 +78,11 @@ const FinishSignUpLayout = () => {
 
 				if (!response.data.user) {
 					return toast.error('Invalid user response...');
-				}
+				} */
 
 				toast.success('Successfully Added User...');
 
-				return navigate('/dashboard');
+				return navigate('/auth/signin');
 			})
 			.finally(() => {
 				setUserState((prevState) => ({

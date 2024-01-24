@@ -1,6 +1,7 @@
 import { ApiHandlers } from '../../../../../../../data';
 import { Show } from '../../../../../../../views/components';
 import React, { useEffect, useState } from 'react';
+import { useCompanyContext } from '../CompanyContext';
 
 interface CompanyData {
 	id: string;
@@ -41,10 +42,11 @@ const AdminCompanyDetails: React.FC = () => {
 	const [companyUsers, setCompanyUsers] = useState<any[]>([]);
 	const [selectedUser, setSelectedUser] =
 		useState<UserData>(createEmptyUser());
-	const [companyStore, setCompanyStore] = useState<CompanyData | null>(null);
-
-	
-	 useEffect(() => {
+	//const [companyStore, setCompanyStore] = useState<CompanyData | null>(null);
+	const {state} = useCompanyContext()
+	const {companyStore} = state
+	console.log(companyStore)
+	 /* useEffect(() => {
 		if (companyStore!.id) {
 			ApiHandlers.getPanelUsers().then((res: any) => {
 				const usersMapped = res.data.map((user: any) => ({
@@ -55,12 +57,12 @@ const AdminCompanyDetails: React.FC = () => {
 					write_array: user.write_array,
 					read_array: user.read_array,
 				}));
-
+				console.log(usersMapped)
 				setUsersToShow(usersMapped);
 			});
 		}
 		console.log(companyStore)
-	}, [companyStore]); 
+	}, [companyStore]);  */
 
 	const handleInputChange = (value: any) => {
 		const maxResults = 3;
@@ -229,7 +231,7 @@ const AdminCompanyDetails: React.FC = () => {
 				</div>
 			</Show>
 			<Show
-				when={companyStore!.canRead}
+				when={Boolean(companyStore!)}
 				fallback={
 					<div className="w-full internal-tables mt-4">
 						<div className="p-3 pl-8 internal-tables-active">
@@ -300,7 +302,7 @@ const AdminCompanyDetails: React.FC = () => {
 							<p className="text-base w-2/12">permissions</p>
 						</div>
 					</div>
-					<Show when={usersToShow[0].canRead}>
+					<Show when={usersToShow.length > 0 && usersToShow[0].canRead}>
 						<>
 							{usersToShow
 								.filter((user: any) =>

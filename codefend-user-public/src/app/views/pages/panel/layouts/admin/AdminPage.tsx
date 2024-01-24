@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react';
 import { AuthServices, useUserAdmin } from '../../../../../data';
-import { EmptyScreenView, Loader } from '../../../../components';
+import { Loader, Navbar, Sidebar } from '../../../../components';
 import { Navigate, Outlet } from 'react-router';
+import { CompanyContextProvider } from './layouts/CompanyContext';
 
 const AdminPage: React.FC = () => {
-	const { isAuth, isAdmin, getAccessToken } = useUserAdmin();
+	const { isAdmin, getAccessToken } = useUserAdmin();
 	const isNotAuthenticated = AuthServices.verifyAuth();
 	if (isNotAuthenticated) {
 		AuthServices.logout2();
@@ -15,11 +16,13 @@ const AdminPage: React.FC = () => {
 	return (
 		<>
 			{userHaveAccess ? (
-				<>
+				<CompanyContextProvider>
 					<Suspense fallback={<Loader />}>
+						<Navbar />
+						<Sidebar />
 						<Outlet />
 					</Suspense>
-				</>
+				</CompanyContextProvider>
 			) : (
 				<>
 					<Navigate to={'/'} />

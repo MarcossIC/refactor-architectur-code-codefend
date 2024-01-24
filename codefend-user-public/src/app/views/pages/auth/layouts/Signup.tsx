@@ -38,8 +38,8 @@ const SignUpLayout: React.FC = () => {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		setSignupForm((current: any) => ({ ...current, isLoading: true }));
-
+		setLoading(true);
+    console.log(isLoading)
 		const requestParams: RegisterParams = {
 			lead_fname: signupForm.name,
 			lead_lname: signupForm.surname,
@@ -59,10 +59,7 @@ const SignUpLayout: React.FC = () => {
 				}
 			})
 			.finally(() =>
-				setSignupForm((prevData: any) => ({
-					...prevData,
-					isLoading: false,
-				})),
+				setLoading(false)
 			);
 	};
 

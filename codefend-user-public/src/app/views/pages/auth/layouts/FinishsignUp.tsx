@@ -3,14 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
-import { PrimaryButton } from '../../../components';
+import { ButtonLoader, PrimaryButton } from '../../../components';
 import { useAppSelector } from '../../../../data/redux/';
 import { useAuthState, RegisterFinishParams } from '../../../../data';
 
 const FinishSignUpLayout = () => {
 	const loading = useAppSelector((state: any) => state.authState.loading);
 	const { signUpFinish } = useAuthState();
-
+	
 	const [userState, setUserState] = useState({
 		email: '',
 		password: '',
@@ -30,20 +30,27 @@ const FinishSignUpLayout = () => {
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
+		e.preventDefault()
 		if (userState.password !== userState.confirmPassword) {
-			toast.error('Password does not match, Kindly check and try again !!!');
-			return;
+			return toast.error(
+				'Password does not match, Kindly check and try again !!!',
+			);
 		}
-		if (!userState.email.trim() || userState.email.length > 50) {
-			toast.error('Invalid username');
-			return;
+		if (
+			!userState.email ||
+			userState.email.length < 0 ||
+			userState.email.length > 50
+		) {
+			return toast.error('Invalid username');
 		}
 
-		if (!userState.password.trim() || userState.password.length > 50) {
+		if (
+			!userState.password ||
+			userState.password.length < 0 ||
+			userState.password.length > 50
+		) {
 			console.log({ pass: userState.password });
-			toast.error('Invalid password');
-			return;
+			return toast.error('Invalid password');
 		}
 
 		const requestParams: RegisterFinishParams = {
@@ -56,26 +63,10 @@ const FinishSignUpLayout = () => {
 
 		signUpFinish(requestParams)
 			.then((response: any) => {
-				console.log(response);
-				if (response?.data?.error && response.data.error != 0) {
-					return toast.error(response.data.info);
-				}
-
-				/* 	if (response.status != 401) {
-					return toast.error('An error has occurred...');
-				}
-
-				if (!response.data.session) {
-					return toast.error('Invalid token response...');
-				}
-
-				if (!response.data.user) {
-					return toast.error('Invalid user response...');
-				} */
-
+				
 				toast.success('Successfully Added User...');
 
-				return navigate('/auth/signin');
+				return navigate('/dashboard');
 			})
 			.finally(() => {
 				setUserState((prevState) => ({
@@ -98,41 +89,41 @@ const FinishSignUpLayout = () => {
 							</span>
 						</div>
 						<form onSubmit={handleSubmit}>
-							<div className="input-group">
-								<input
-									type="email"
-									name="email"
-									value={userState.email}
-									onChange={handleChange}
-									className="w-full"
-									placeholder="Select Username"
-									required
-								/>
-							</div>
+						<div className="mt-2">
+            <input
+              type="email"
+              name="email"
+              value={userState.email}
+              onChange={handleChange}
+              className="w-full"
+              placeholder="Select Username"
+              required
+            />
+          </div>
 
-							<div className="input-group">
-								<input
-									type="password"
-									name="password"
-									value={userState.password}
-									onChange={handleChange}
-									className="w-full"
-									placeholder="Select Password"
-									required
-								/>
-							</div>
+          <div className="mt-2">
+            <input
+              type="password"
+              name="password"
+              value={userState.password}
+              onChange={handleChange}
+              className="w-full"
+              placeholder="Select Password"
+              required
+            />
+          </div>
 
-							<div className="input-group">
-								<input
-									type="password"
-									name="confirmPassword"
-									value={userState.confirmPassword}
-									onChange={handleChange}
-									className="w-full"
-									placeholder="Select Confirm Password"
-									required
-								/>
-							</div>
+          <div className="mt-2">
+            <input
+              type="password"
+              name="confirmPassword"
+              value={userState.confirmPassword}
+              onChange={handleChange}
+              className="w-full"
+              placeholder="Select Confirm Password"
+              required
+            />
+          </div>
 
 							<div className="mt-6">
 								<span className="text-sm text-alt3">
@@ -140,17 +131,12 @@ const FinishSignUpLayout = () => {
 									<u>Terms of Use.</u>
 								</span>
 							</div>
-							<div
-								className="mt-6"
-								onClick={(e: React.FormEvent) => {
-									e.preventDefault();
-									e.stopPropagation();
-								}}>
+							<div className="mt-6">
 								<PrimaryButton
 									text="Proceed"
 									type="submit"
 									isDisabled={loading}
-									click={() => {}}
+									click={handleSubmit}
 									className="flex items-center gap-x-2"
 								/>
 							</div>

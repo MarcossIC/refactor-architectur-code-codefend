@@ -44,16 +44,15 @@ const Sidebar: React.FC = () => {
 			<Show when={isAuth() && isAdmin() && getAccessToken() !== null}>
 				<>
 					<Link
+						to="/admin/company"
+						className={isActivePath('/admin/company')}>
+						<AdminCompany />
+					</Link>
+					<Link
 						title="Admin Panel"
 						to="/admin/panel"
 						className={isActivePath('/admin/panel')}>
 						<AdminUser />
-					</Link>
-
-					<Link
-						to="/admin/company"
-						className={isActivePath('/admin/panel')}>
-						<AdminCompany />
 					</Link>
 				</>
 			</Show>

@@ -22,9 +22,7 @@ export const NetworkSetingModal: React.FC<Props> = ({ close }) => {
 	return (
 		<>
 			<div className="p-3 flex">
-				<p className="text-small text-left font-bold title-format">
-					Network Setting
-				</p>
+				<p className="text-left text-base title-format">Network Setting</p>
 			</div>
 			<form
 				onSubmit={(e: React.FormEvent) => {
@@ -62,7 +60,7 @@ export const NetworkSetingModal: React.FC<Props> = ({ close }) => {
 								className={`${
 									!canEdit ? 'text-[#afafaf]' : 'text-[#ff3939]'
 								} w-8 h-8 cursor-pointer`}>
-								<EditIcon />
+								<EditIcon width={2} height={2} />
 							</span>
 						</div>
 					</div>

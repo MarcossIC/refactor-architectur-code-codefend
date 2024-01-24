@@ -1,5 +1,12 @@
 import React, { useMemo } from 'react';
-import { BugIcon, RiskScore, SimpleSection, TrashIcon, TableV2 } from '..';
+import {
+	BugIcon,
+	RiskScore,
+	SimpleSection,
+	TrashIcon,
+	TableV2,
+	Sort,
+} from '..';
 import { useNavigate } from 'react-router';
 import { Issues, cloudAndMobileColumns } from '../../../data';
 
@@ -40,7 +47,8 @@ export const IssuesPanelMobileAndCloud: React.FC<Props> = (props) => {
 				columns={cloudAndMobileColumns}
 				showRows={!props.isLoading}
 				showEmpty={!props.isLoading && formatIssues.length === 0}
-				sizeY={35}
+				sizeY={30}
+				sort={Sort.desc}
 			/>
 		</SimpleSection>
 	);

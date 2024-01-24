@@ -481,11 +481,17 @@ export const ScanSearchIcon = ({ isButton }: { isButton?: boolean }) => (
 	</svg>
 );
 
-export const EditIcon = () => (
+export const EditIcon = ({
+	width,
+	height,
+}: {
+	width: number;
+	height: number;
+}) => (
 	<svg
 		strokeWidth={0}
-		height="1em"
-		width="1em"
+		height={height + 'rem'}
+		width={width + 'rem'}
 		viewBox="0 0 24 24"
 		color="currentColor"
 		fill="currentColor"

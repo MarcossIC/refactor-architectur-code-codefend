@@ -6,6 +6,7 @@ import {
 	RiskScore,
 	Show,
 	SimpleSection,
+	Sort,
 	Table,
 } from '../../../../../components';
 import { Issues, topVulnerabilitiesColumn } from '../../../../../../data';
@@ -56,6 +57,7 @@ const DashboardVulnerabilities: React.FC<{
 						showRows={!isLoading}
 						showEmpty={!isLoading && topVulnerabilities.length === 0}
 						sizeY={35}
+						sort={Sort.asc}
 					/>
 				</SimpleSection>
 			</div>

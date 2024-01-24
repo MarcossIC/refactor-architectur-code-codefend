@@ -38,12 +38,6 @@ const IssueUpdatePanel: React.FC<IssueUpdatePanelProps> = ({
 	const [issueNameUpdate, setIssueNameUpdate] = useState(safelyIssue().name);
 	const [isEditable, setEditable] = useState(false);
 
-	const isEmpty = () => {
-		return safelyIssue() && 'riskScore' in safelyIssue();
-	};
-
-	console.log({ safely: safelyIssue() });
-
 	const handleIssueUpdate = useCallback(() => {
 		update()
 			.then((response: any) => {

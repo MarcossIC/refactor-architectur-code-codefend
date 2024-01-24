@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { MessageIcon, PrimaryButton, SendIcon } from '..';
 import { useChatbox, ChatBoxType } from '../../../data';
 import { toast } from 'react-toastify';
-import SelectedTicket from '../../pages/panel/layouts/support/supportProvider';
 
 interface Props {
 	type: ChatBoxType;
@@ -18,7 +17,6 @@ export const ChatBox: React.FC<Props> = (props) => {
 		handleIssueSubmit,
 		handleSupportSubmit,
 	} = useChatbox();
-	const selectedID = useContext(SelectedTicket);
 	const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const handleSubmit = (e: React.FormEvent | KeyboardEvent) => {
@@ -31,13 +29,13 @@ export const ChatBox: React.FC<Props> = (props) => {
 		}
 		if (props.type === ChatBoxType.ISSUE) {
 			handleIssueSubmit(
-				selectedID,
+				props.selectedID,
 				props.onDone,
 				textAreaRef.current?.value!,
 			);
 		} else {
 			handleSupportSubmit(
-				selectedID,
+				props.selectedID,
 				props.onDone,
 				textAreaRef.current?.value!,
 			);

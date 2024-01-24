@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { MessageIcon, PrimaryButton, SendIcon } from '..';
 import { useChatbox, ChatBoxType } from '../../../data';
+import { toast } from 'react-toastify';
 
 interface Props {
 	type: ChatBoxType;
@@ -22,6 +23,10 @@ export const ChatBox: React.FC<Props> = (props) => {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.stopPropagation();
 		e.preventDefault();
+		if (!message.trim()) {
+			toast.error('You must write a message');
+			return;
+		}
 		if (props.type === ChatBoxType.ISSUE) {
 			handleIssueSubmit(props.selectedID, props.onDone);
 		} else {

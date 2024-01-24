@@ -34,10 +34,8 @@ export const useChatbox = () => {
 			dad_id: selectedID,
 		};
 
-		CustomerSupportService.add(params, companyID, userID)
+		CustomerSupportService.add(params, userID, companyID)
 			.then((response: any) => {
-				console.log(companyID);
-				console.log(response);
 				setMessage('');
 				onDone();
 			})

@@ -78,8 +78,8 @@ export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = () => {
 
 				<ChatBox
 					type={ChatBoxType.SUPPORT}
-					onDone={() => refetch(ticketSelected().id!)}
-					selectedID={ticketSelected().id!}
+					onDone={() => refetch(selectedTicketID)}
+					selectedID={selectedTicketID}
 				/>
 			</div>
 		</>

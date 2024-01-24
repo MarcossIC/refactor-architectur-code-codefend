@@ -9,7 +9,7 @@ interface AddTicketModalProps {
 
 export const AddTicketModal: React.FC<AddTicketModalProps> = (props) => {
 	const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-	const { title, isAddingTicket, setShortDescription, setTitle, addTicket } =
+	const { isAddingTicket, setShortDescription, setTitle, addTicket } =
 		useAddTicket();
 
 	const handleSubmit = (e: React.FormEvent) => {

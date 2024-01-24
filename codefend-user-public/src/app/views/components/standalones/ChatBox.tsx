@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { MessageIcon, PrimaryButton, SendIcon } from '..';
 import { useChatbox, ChatBoxType } from '../../../data';
 import { toast } from 'react-toastify';
+import SelectedTicket from '../../pages/panel/layouts/support/supportProvider';
 
 interface Props {
 	type: ChatBoxType;
@@ -17,38 +18,39 @@ export const ChatBox: React.FC<Props> = (props) => {
 		handleIssueSubmit,
 		handleSupportSubmit,
 	} = useChatbox();
-
+	const selectedID = useContext(SelectedTicket);
 	const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent | KeyboardEvent) => {
 		e.stopPropagation();
 		e.preventDefault();
-		if (!message.trim()) {
+
+		if (!textAreaRef.current?.value!.trim()) {
 			toast.error('You must write a message');
 			return;
 		}
 		if (props.type === ChatBoxType.ISSUE) {
-			handleIssueSubmit(props.selectedID, props.onDone);
+			handleIssueSubmit(
+				selectedID,
+				props.onDone,
+				textAreaRef.current?.value!,
+			);
 		} else {
-			handleSupportSubmit(props.selectedID, props.onDone);
+			handleSupportSubmit(
+				selectedID,
+				props.onDone,
+				textAreaRef.current?.value!,
+			);
 		}
 	};
 
-	useEffect(() => {
-		if (!textAreaRef.current) return;
+	const handleEnter = (e: any) => {
+		if (!Boolean(e.target.value.trim())) return;
 
-		const handleEnter = (e: any) => {
-			if (!Boolean(e.target.value.trim())) return;
-
-			if (e.key === 'Enter') {
-				handleSubmit(e);
-			}
-		};
-		textAreaRef.current.addEventListener('keypress', handleEnter);
-		return () => {
-			textAreaRef.current?.removeEventListener('keypress', handleEnter);
-		};
-	}, []);
+		if (e.key === 'Enter') {
+			handleSubmit(e);
+		}
+	};
 
 	return (
 		<div className="sender">
@@ -60,7 +62,7 @@ export const ChatBox: React.FC<Props> = (props) => {
 					<span>Add new entry</span>
 				</div>
 				<PrimaryButton
-					text={<SendIcon />}
+					text={<SendIcon isButton />}
 					isDisabled={isAdding || !message.trim()}
 					click={handleSubmit}
 					disabledLoader
@@ -74,6 +76,7 @@ export const ChatBox: React.FC<Props> = (props) => {
 				</div>
 				<div className="no-border-bottom flex-grow">
 					<textarea
+						onKeyDown={handleEnter}
 						ref={textAreaRef}
 						value={message}
 						onChange={(e) => setMessage(e.target.value)}

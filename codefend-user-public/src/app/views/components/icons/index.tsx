@@ -350,7 +350,7 @@ export const SaveIcon = ({ isButton }: { isButton?: boolean }) => (
 	</svg>
 );
 
-export const SendIcon: React.FC = ({ isButton }: { isButton?: boolean }) => (
+export const SendIcon = ({ isButton }: { isButton?: boolean }) => (
 	<svg
 		strokeWidth={2}
 		height="1em"
@@ -365,8 +365,12 @@ export const SendIcon: React.FC = ({ isButton }: { isButton?: boolean }) => (
 			overflow: 'visible',
 			cursor: !isButton ? 'default' : 'pointer',
 		}}>
-		<path d="M22 2 11 13"></path>
-		<path d="M22 2 15 22 11 13 2 9 22 2z"></path>
+		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
+			d="M22 2 11 13"></path>
+		<path
+			style={{ cursor: !isButton ? 'default' : 'pointer' }}
+			d="M22 2 15 22 11 13 2 9 22 2z"></path>
 	</svg>
 );
 

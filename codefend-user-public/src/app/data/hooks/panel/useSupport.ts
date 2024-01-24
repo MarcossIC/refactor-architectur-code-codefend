@@ -104,11 +104,7 @@ export const useAddTicket = () => {
 	const [isAddingTicket, setIsAddingTicket] = useState(false);
 	const { getUserdata } = useAuthState();
 
-	const fetcheDelete = async (
-		params: any,
-		userID: string,
-		companyID: string,
-	) => {
+	const fetchAdd = async (params: any, userID: string, companyID: string) => {
 		setIsAddingTicket(true);
 		return CustomerSupportService.add(params, userID, companyID)
 			.then(() => {
@@ -119,7 +115,7 @@ export const useAddTicket = () => {
 			});
 	};
 
-	const addTicket = () => {
+	const addTicket = (): any => {
 		const companyID = getUserdata()?.companyID;
 		const userID = getUserdata()?.id;
 		if (!companyID || !userID) {
@@ -139,7 +135,7 @@ export const useAddTicket = () => {
 			cs_header: title,
 			cs_body: shortDescription,
 		};
-		return fetcheDelete(params, userID, companyID);
+		return fetchAdd(params, userID, companyID);
 	};
 
 	return { title, isAddingTicket, setShortDescription, setTitle, addTicket };

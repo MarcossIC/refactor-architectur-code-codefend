@@ -10,11 +10,15 @@ export const useChatbox = () => {
 	const companyID = getUserdata()?.companyID as string;
 	const userID = getUserdata()?.id as string;
 
-	const handleIssueSubmit = (selectedID: string, onDone: () => void) => {
+	const handleIssueSubmit = (
+		selectedID: string,
+		onDone: () => void,
+		textAreaValue: string,
+	) => {
 		setIsAdding(true);
 
 		const requestParams = {
-			issue_cs_body: message,
+			issue_cs_body: !message.trim() ? textAreaValue : message,
 			issue_id: selectedID,
 		};
 		const companyID = getUserdata()?.companyID as string;
@@ -28,9 +32,13 @@ export const useChatbox = () => {
 			});
 	};
 
-	const handleSupportSubmit = (selectedID: string, onDone: () => void) => {
+	const handleSupportSubmit = (
+		selectedID: string,
+		onDone: () => void,
+		textAreaValue: string,
+	) => {
 		const params = {
-			cs_body: message,
+			cs_body: !message.trim() ? textAreaValue : message,
 			dad_id: selectedID,
 		};
 

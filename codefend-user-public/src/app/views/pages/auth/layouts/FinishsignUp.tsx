@@ -105,7 +105,7 @@ const FinishSignUpLayout = () => {
 							</span>
 						</div>
 						<form onSubmit={handleSubmit}>
-						<div className="mt-2">
+						<div className="input-group">
             <input
               type="email"
               name="email"
@@ -117,7 +117,7 @@ const FinishSignUpLayout = () => {
             />
           </div>
 
-          <div className="mt-2">
+          <div className="input-group">
             <input
               type="password"
               name="password"
@@ -129,7 +129,7 @@ const FinishSignUpLayout = () => {
             />
           </div>
 
-          <div className="mt-2">
+          <div className="input-group">
             <input
               type="password"
               name="confirmPassword"

@@ -1,23 +1,23 @@
-import { Show } from '../../../../../../components/';
-import { User, useModal } from '../../../../../../../data';
+import { ChangeEvent, useState } from 'react';
+import { useModal } from '../../../../../../../data';
 import { ApiHandlers } from '../../../../../../../data/services/api.service';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { Show } from '../../../../../../components/';
 import CompanyIndexView from './CompanyIndexView';
 
 interface AppState {
-  companyStore: any | null;
-  showModal: boolean;
-  usersToShow: any[]; 
-  filterUsers: any[]; 
-  companyUsers: any[]; 
-  selectedUser: any | null;
+	companyStore: any | null;
+	showModal: boolean;
+	usersToShow: any[];
+	filterUsers: any[];
+	companyUsers: any[];
+	selectedUser: any | null;
 }
 
 const initialAppState: AppState = {
 	companyStore: null,
 	showModal: false,
 	usersToShow: [],
-	filterUsers: [] ,
+	filterUsers: [],
 	companyUsers: [],
 	selectedUser: null,
 };
@@ -43,9 +43,9 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 
 		const requestBody = {
 			userId: selectedUser!.id,
-      companyId: companyStore!.id,
-      canWrite: selectedUser!.canWrite,
-      canRead: selectedUser!.canRead,
+			companyId: companyStore!.id,
+			canWrite: selectedUser!.canWrite,
+			canRead: selectedUser!.canRead,
 		};
 
 		return ApiHandlers.createCompanyHandler(requestBody);

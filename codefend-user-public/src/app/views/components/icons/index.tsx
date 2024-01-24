@@ -554,11 +554,17 @@ export const NetworkIcon = ({
 	</svg>
 );
 
-export const CompanyIcon = () => (
+export const CompanyIcon = ({
+	width = 1,
+	height = 1,
+}: {
+	width?: number;
+	height?: number;
+}) => (
 	<svg
 		strokeWidth={0}
-		height="1em"
-		width="1em"
+		height={width + 'rem'}
+		width={height + 'rem'}
 		viewBox="0 0 640 512"
 		color="currentColor"
 		fill="currentColor"
@@ -569,11 +575,17 @@ export const CompanyIcon = () => (
 	</svg>
 );
 
-export const RigthArrowIcon = () => (
+export const RigthArrowIcon = ({
+	width = 1,
+	height = 1,
+}: {
+	width?: number;
+	height?: number;
+}) => (
 	<svg
 		strokeWidth={2}
-		height="1em"
-		width="1em"
+		height={width + 'rem'}
+		width={height + 'rem'}
 		viewBox="0 0 24 24"
 		stroke="currentColor"
 		fill="none"

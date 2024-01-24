@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { companySizesList, countries } from '../../../../data/mocks';
-import { ButtonLoader } from '../../../components';
+import { ButtonLoader, PrimaryButton } from '../../../components';
 import { useAuthState } from '../../../../data/hooks/useAuthState';
 import { RegisterParams } from '../../../../data';
 
@@ -38,8 +38,8 @@ const SignUpLayout: React.FC = () => {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		setSignupForm((current: any) => ({ ...current, isLoading: true }));
-
+		setLoading(true);
+    console.log(isLoading)
 		const requestParams: RegisterParams = {
 			lead_fname: signupForm.name,
 			lead_lname: signupForm.surname,
@@ -59,10 +59,7 @@ const SignUpLayout: React.FC = () => {
 				}
 			})
 			.finally(() =>
-				setSignupForm((prevData: any) => ({
-					...prevData,
-					isLoading: false,
-				})),
+				setLoading(false)
 			);
 	};
 
@@ -229,13 +226,21 @@ const SignUpLayout: React.FC = () => {
 				</span>
 			</div>
 			<div className="extra-group">
-				<button
+				{/* <button
 					disabled={isLoading}
 					type="submit"
 					className="btn btn-primary signup-button">
 					{isLoading && <ButtonLoader />}
 					proceed
-				</button>
+				</button> */}
+
+				<PrimaryButton
+					text="Proceed"
+					isDisabled={isLoading}
+					click={() => {}}
+					type="submit"
+					className="signin-btn"
+				/>
 
 				<div className="extra-group text-center">
 					<Link

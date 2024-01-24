@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
-import { ButtonLoader, PrimaryButton } from '../../../components';
+import { PrimaryButton } from '../../../components';
 import { useAppSelector } from '../../../../data/redux/';
 import { useAuthState, RegisterFinishParams } from '../../../../data';
 
@@ -61,7 +61,7 @@ const FinishSignUpLayout = () => {
 					return toast.error(response.data.info);
 				}
 
-				if (response.status != 401) {
+				/* 	if (response.status != 401) {
 					return toast.error('An error has occurred...');
 				}
 
@@ -71,11 +71,11 @@ const FinishSignUpLayout = () => {
 
 				if (!response.data.user) {
 					return toast.error('Invalid user response...');
-				}
+				} */
 
 				toast.success('Successfully Added User...');
 
-				return navigate('/dashboard');
+				return navigate('/auth/signin');
 			})
 			.finally(() => {
 				setUserState((prevState) => ({
@@ -98,7 +98,7 @@ const FinishSignUpLayout = () => {
 							</span>
 						</div>
 						<form onSubmit={handleSubmit}>
-							<div className="mt-2">
+							<div className="input-group">
 								<input
 									type="email"
 									name="email"
@@ -110,7 +110,7 @@ const FinishSignUpLayout = () => {
 								/>
 							</div>
 
-							<div className="mt-2">
+							<div className="input-group">
 								<input
 									type="password"
 									name="password"
@@ -122,7 +122,7 @@ const FinishSignUpLayout = () => {
 								/>
 							</div>
 
-							<div className="mt-2">
+							<div className="input-group">
 								<input
 									type="password"
 									name="confirmPassword"

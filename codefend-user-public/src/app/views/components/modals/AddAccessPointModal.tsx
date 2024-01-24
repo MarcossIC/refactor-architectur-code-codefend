@@ -30,6 +30,8 @@ export const AcessPointModal: React.FC<{
 		isAddingInternalNetwork: false,
 	});
 
+	console.log(networkData	)
+
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
 		setNetworkData((prevData) => ({
@@ -149,6 +151,8 @@ export const AcessPointModal: React.FC<{
 							type="text"
 							onChange={handleChange}
 							placeholder="hostname"
+							value={networkData.domainName}
+							name='domainName'
 							required
 						/>
 					</div>
@@ -161,6 +165,8 @@ export const AcessPointModal: React.FC<{
 
 						<input
 							type="text"
+							value={networkData.internalAddress}
+							name='internalAddress'
 							onChange={handleChange}
 							placeholder="Internal IP Address"
 							required
@@ -175,6 +181,8 @@ export const AcessPointModal: React.FC<{
 
 						<input
 							type="text"
+							value={networkData.externalAddress}
+							name='externalAddress'
 							onChange={handleChange}
 							placeholder="External IP Address"
 							required
@@ -190,6 +198,8 @@ export const AcessPointModal: React.FC<{
 
 						<input
 							type="text"
+							value={networkData.username}
+							name='username'
 							onChange={handleChange}
 							placeholder="username"
 							required
@@ -204,6 +214,8 @@ export const AcessPointModal: React.FC<{
 
 						<input
 							type="password"
+							value={networkData.password}
+							name='password'
 							onChange={handleChange}
 							placeholder="password"
 							required

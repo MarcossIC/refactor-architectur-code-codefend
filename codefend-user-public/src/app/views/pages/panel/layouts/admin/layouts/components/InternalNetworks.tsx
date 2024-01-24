@@ -1,7 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import { useModal } from '../../../../../../../data';
 import { ApiHandlers } from '../../../../../../../data/services/api.service';
-import { Show } from '../../../../../../components/';
+import {
+	PrimaryButton,
+	SecondaryButton,
+	Show,
+} from '../../../../../../components/';
 import CompanyIndexView from './CompanyIndexView';
 
 interface AppState {
@@ -111,9 +115,9 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company Country"></input>
 										</div>
+
 										<div className="relative flex items-center mt-4">
 											<span className="absolute"></span>
-
 											<input
 												type="text"
 												onChange={handleChange}
@@ -129,21 +133,23 @@ export const AdminCompanyPanel: React.FC<any> = () => {
 												className="block w-full py-3 bg-white border px-11 log-inputs dark:text-gray-300"
 												placeholder="Company Adress"></input>
 										</div>
-										<div className="mt-6 internal-tables flex">
-											<button
-												onClick={() => {
+										<div
+											style={{ display: 'flex', paddingTop: '10px' }}
+											className="form-buttons">
+											<SecondaryButton
+												text={'cancel'}
+												click={() => {
 													setShowModal(!showModal);
 												}}
-												className="log-inputs w-2/6 px-4 mr-2 py-3 text-sm tracking-wide text-white transition-colors duration-300">
-												cancel
-											</button>
-											<button
-												onClick={(e) => {
+												className="btn-cancel codefend_secondary_ac"
+											/>
+											<PrimaryButton
+												text={'create'}
+												click={(e) => {
 													handleCreateCompany(e);
 												}}
-												className="log-inputs bg-codefend px-6 w-4/6 py-3 text-sm tracking-wide text-white transition-colors duration-300">
-												create
-											</button>
+												className="btn-add codefend_main_ac"
+											/>
 										</div>
 									</form>
 								</div>

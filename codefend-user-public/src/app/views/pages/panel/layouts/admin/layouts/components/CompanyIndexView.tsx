@@ -1,8 +1,8 @@
 import { defaultCompanyCardData } from '../../../../../../../data';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import CompanyCard from './CompanyCard';
 import './CompanyIndexView.scss';
-import { RigthArrowIcon, SearchIcon } from '../../../../../../components';
+import { RigthArrowIcon } from '../../../../../../components';
 import { useCompanyContext } from '../CompanyContext';
 
 const CompanyIndexView: React.FC = () => {
@@ -32,14 +32,9 @@ const CompanyIndexView: React.FC = () => {
 					<div className="company-search relative">
 						<input
 							type="text"
+							name='searchQuery'
 							value={searchQuery}
-							/* onChange={(e) =>
-								setCompanyState((prevState) => ({
-									...prevState,
-									searchQuery: e.target.value,
-								}))
-							} */
-							onChange={handleChange}
+							onChange={(e) => handleChange(e)}
 							placeholder="Search Company"
 							className="text w-full"
 							required

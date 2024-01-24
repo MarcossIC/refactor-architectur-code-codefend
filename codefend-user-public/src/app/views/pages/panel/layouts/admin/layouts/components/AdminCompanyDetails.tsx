@@ -1,5 +1,5 @@
 import { ApiHandlers } from '../../../../../../../data';
-import { Show } from '../../../../../../../views/components';
+import { PrimaryButton, SecondaryButton, Show } from '../../../../../../../views/components';
 import React, { useEffect, useState } from 'react';
 import { useCompanyContext } from '../CompanyContext';
 
@@ -42,10 +42,8 @@ const AdminCompanyDetails: React.FC = () => {
 	const [companyUsers, setCompanyUsers] = useState<any[]>([]);
 	const [selectedUser, setSelectedUser] =
 		useState<UserData>(createEmptyUser());
-	//const [companyStore, setCompanyStore] = useState<CompanyData | null>(null);
 	const {state} = useCompanyContext()
 	const {companyStore} = state
-	console.log(companyStore)
 	 /* useEffect(() => {
 		if (companyStore!.id) {
 			ApiHandlers.getPanelUsers().then((res: any) => {
@@ -208,7 +206,7 @@ const AdminCompanyDetails: React.FC = () => {
 											</div>
 										</Show>
 										<div className="mt-6 internal-tables flex">
-											<button
+											{/* <button
 												onClick={() => {
 													setShowModal(!showModal);
 												}}
@@ -221,7 +219,25 @@ const AdminCompanyDetails: React.FC = () => {
 												}}
 												className="log-inputs bg-codefend px-6 w-4/6 py-3 text-sm tracking-wide text-white transition-colors duration-300">
 												add
-											</button>
+											</button> */}
+											<div
+											style={{ display: 'flex', paddingTop: '10px' }}
+											className="form-buttons">
+											<SecondaryButton
+												text={'cancel'}
+												click={() => {
+													setShowModal(!showModal);
+												}}
+												className="btn-cancel codefend_secondary_ac"
+											/>
+											<PrimaryButton
+												text={'create'}
+												click={(e) => {
+													handleAddUser(e);
+												}}
+												className="btn-add codefend_main_ac"
+											/>
+										</div>
 										</div>
 									</form>
 								</div>
@@ -231,7 +247,7 @@ const AdminCompanyDetails: React.FC = () => {
 				</div>
 			</Show>
 			<Show
-				when={Boolean(companyStore!)}
+				when={Boolean(companyStore)}
 				fallback={
 					<div className="w-full internal-tables mt-4">
 						<div className="p-3 pl-8 internal-tables-active">

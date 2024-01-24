@@ -28,7 +28,7 @@ export const MessageCard: React.FC<Props> = (props) => {
 					<div className="rounded-full">
 						<img
 							src={`/codefend/user-icon${
-								isAuthUserChat ? '-gray' : ''
+								!isAuthUserChat ? '-gray' : ''
 							}.svg`}
 							className="w-10 h-10"
 							alt="user-picture"

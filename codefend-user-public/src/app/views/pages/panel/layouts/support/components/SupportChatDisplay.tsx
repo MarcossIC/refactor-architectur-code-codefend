@@ -52,7 +52,7 @@ export const SupportChatDisplay: React.FC<SupportChatDisplayProps> = () => {
 										childTicket().length > 3 && 'item'
 									}`}>
 									<MessageCard
-										selectedID={ticketSelected().csHeader ?? ''}
+										selectedID={ticketSelected().userID ?? ''}
 										body={ticketSelected()?.csBody ?? ''}
 										username={ticketSelected()?.userUsername! ?? ''}
 										createdAt={ticketSelected()?.createdAt! ?? ''}

@@ -50,7 +50,12 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 		author: { value: '@' + ticket.userUsername, style: 'username' },
 		published: { value: ticket.createdAt, style: 'date' },
 		title: { value: ticket.csHeader, style: 'vul-title' },
-		status: { value: ticket.condition, style: 'vul-condition' },
+		status: {
+			value: ticket.condition,
+			style: `vul-condition ${
+				ticket.condition === 'open' && 'codefend-text-red'
+			}`,
+		},
 		action: { value: 'actions', style: 'id' },
 	}));
 
@@ -118,6 +123,6 @@ export const SupportTicketList: React.FC<SupportTicketListProps> = (props) => {
 					sort={Sort.asc}
 				/>
 			</div>
-	</>
+		</>
 	);
 };

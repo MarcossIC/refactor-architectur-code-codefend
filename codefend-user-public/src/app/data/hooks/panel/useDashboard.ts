@@ -25,6 +25,7 @@ export const useDashboard = () => {
 
 	const refetch = () => {
 		const companyID = getUserdata()?.companyID as string;
+		console.log({ companyID });
 		if (!companyID) {
 			toast.error('User information was not found');
 			return;

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import {
 	LeftArrow,
 	PageLoaderOverlay,
@@ -28,26 +28,6 @@ const IssueCreationPanel: React.FC<IssueCreationPanelProps> = (props) => {
 			}
 		});
 	};
-
-	/*const handleKeyDown = useCallback(
-		(event: any) => {
-			if (event.ctrlKey && (event.key === 's' || event.keyCode === 83)) {
-				event.preventDefault();
-				handleIssueUpdate();
-			}
-		},
-		[handleIssueUpdate],
-	);
-	useEffect(() => {
-		const iframe = document.getElementById('issue_ifr') as HTMLIFrameElement;
-		if (!iframe) return;
-		const contentWindow = iframe.contentWindow;
-		contentWindow!.addEventListener('keydown', handleKeyDown);
-
-		return () => {
-			contentWindow!.removeEventListener('keydown', handleKeyDown);
-		};
-	}, []);*/
 
 	const handleChange = (
 		e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,

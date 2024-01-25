@@ -80,7 +80,6 @@ export const useAuthState = () => {
 		return dispatch(registerFinishThunk(params))
 			.then((response: any) => {
 				const { meta, payload } = response;
-				console.log(response);
 				if (payload.response === 'success') {
 					navigate('/auth/signin');
 				}

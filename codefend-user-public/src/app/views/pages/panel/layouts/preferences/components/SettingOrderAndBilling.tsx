@@ -1,5 +1,5 @@
 import { defaultOrderBilling, formatDate } from '../../../../../../data';
-import { EmptyCard, PageLoader, PreferenceIcon } from '../../../../../components';
+import { EmptyCard, PreferenceIcon } from '../../../../../components';
 
 import React, { useState } from 'react';
 

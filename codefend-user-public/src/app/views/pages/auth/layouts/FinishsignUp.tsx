@@ -3,14 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
-import { ButtonLoader, PrimaryButton } from '../../../components';
+import {  PrimaryButton } from '../../../components';
 import { useAppSelector } from '../../../../data/redux/';
 import { useAuthState, RegisterFinishParams } from '../../../../data';
 
 const FinishSignUpLayout = () => {
 	const loading = useAppSelector((state: any) => state.authState.loading);
 	const { signUpFinish } = useAuthState();
-	
+
 	const [userState, setUserState] = useState({
 		username: '',
 		password: '',
@@ -30,7 +30,7 @@ const FinishSignUpLayout = () => {
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
+		e.preventDefault();
 		if (userState.password !== userState.confirmPassword) {
 			return toast.error(
 				'Password does not match, Kindly check and try again !!!',
@@ -63,7 +63,6 @@ const FinishSignUpLayout = () => {
 
 		signUpFinish(requestParams)
 			.then((response: any) => {
-				
 				toast.success('Successfully Added User...');
 
 				return navigate('/dashboard');
@@ -89,38 +88,38 @@ const FinishSignUpLayout = () => {
 							</span>
 						</div>
 						<form onSubmit={handleSubmit}>
-						<div  style={{maxWidth:'30%'}} className="input-group">
-            <input
-              type="text"
-              name="username"
-              value={userState.username}
-              onChange={handleChange}
-              placeholder="Select Username"
-              required
-            />
-          </div>
+							<div style={{ maxWidth: '30%' }}>
+								<input
+									type="text"
+									name="username"
+									value={userState.username}
+									onChange={handleChange}
+									placeholder="Select Username"
+									required
+								/>
+							</div>
 
-          <div style={{maxWidth:'30%'}} className="input-group">
-            <input
-              type="password"
-              name="password"
-              value={userState.password}
-              onChange={handleChange}
-              placeholder="Select Password"
-              required
-            />
-          </div>
+							<div style={{ maxWidth: '30%' }} >
+								<input
+									type="password"
+									name="password"
+									value={userState.password}
+									onChange={handleChange}
+									placeholder="Select Password"
+									required
+								/>
+							</div>
 
-          <div style={{maxWidth:'30%'}} className="input-group">
-            <input
-              type="password"
-              name="confirmPassword"
-              value={userState.confirmPassword}
-              onChange={handleChange}
-              placeholder="Select Confirm Password"
-              required
-            />
-          </div>
+							<div style={{ maxWidth: '30%' }} className="input-group">
+								<input
+									type="password"
+									name="confirmPassword"
+									value={userState.confirmPassword}
+									onChange={handleChange}
+									placeholder="Select Confirm Password"
+									required
+								/>
+							</div>
 
 							<div className="mt-6">
 								<span className="text-sm text-alt3">
